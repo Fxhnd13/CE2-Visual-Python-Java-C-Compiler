@@ -9,6 +9,6 @@ package com.analisis.objetos.basicos.lugaresAsignacion;
  *
  * @author jose_
  */
-public class LugarVariable {
+public class LugarVariable implements Lugar{
     
 }

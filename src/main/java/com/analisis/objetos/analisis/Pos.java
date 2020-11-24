@@ -6,9 +6,39 @@
 package com.analisis.objetos.analisis;
 
 /**
- *
+ * Clase destinada al almacenamiento de los datos de la posicion, x (columna) y y(fila/linea)
  * @author jose_
  */
 public class Pos {
+    
+    private int y,x;
+
+    public Pos() {
+    }
+
+    /**
+     * @param y linea
+     * @param x columna
+     */
+    public Pos(int y, int x) {
+        this.y = y;
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
     
 }

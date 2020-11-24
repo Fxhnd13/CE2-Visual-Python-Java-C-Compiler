@@ -5,7 +5,8 @@
  */
 package com.compilador;
 
-import com.analisis.objetos.analisis.CTE;
+import com.GUI.Frontend.Interfaz;
+
 
 /**
  *
@@ -17,7 +18,8 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println(CTE.ENTERO);
+        Interfaz interfaz = new Interfaz();
+        interfaz.setVisible(true);
     }
     
 }

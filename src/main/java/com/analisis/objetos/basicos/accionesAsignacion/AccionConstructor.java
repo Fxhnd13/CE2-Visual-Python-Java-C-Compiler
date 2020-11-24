@@ -9,6 +9,6 @@ package com.analisis.objetos.basicos.accionesAsignacion;
  *
  * @author jose_
  */
-public class AccionConstructor {
+public class AccionConstructor implements Accion{
     
 }

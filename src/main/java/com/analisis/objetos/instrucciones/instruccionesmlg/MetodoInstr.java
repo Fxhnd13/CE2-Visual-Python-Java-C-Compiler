@@ -5,10 +5,70 @@
  */
 package com.analisis.objetos.instrucciones.instruccionesmlg;
 
+import com.analisis.objetos.analisis.Pos;
+import com.analisis.objetos.basicos.Dato;
+import java.util.List;
+
 /**
- *
+ * Clase destinada al almacenamiento de la informacion para una instruccion de declaracion de metodo
  * @author jose_
  */
-public class MetodoInstr {
+public class MetodoInstr implements Instruccion{
+    
+    private String tipoRetorno, id;
+    private List<Dato> parametros;
+    private List<Instruccion> instrucciones;
+    private Pos posicion;
+
+    public MetodoInstr() {
+    }
+
+    public MetodoInstr(String tipoRetorno, String id, List<Dato> parametros, List<Instruccion> instrucciones, Pos posicion) {
+        this.tipoRetorno = tipoRetorno;
+        this.id = id;
+        this.parametros = parametros;
+        this.instrucciones = instrucciones;
+        this.posicion = posicion;
+    }
+
+    public String getTipoRetorno() {
+        return tipoRetorno;
+    }
+
+    public void setTipoRetorno(String tipoRetorno) {
+        this.tipoRetorno = tipoRetorno;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<Dato> getParametros() {
+        return parametros;
+    }
+
+    public void setParametros(List<Dato> parametros) {
+        this.parametros = parametros;
+    }
+
+    public List<Instruccion> getInstrucciones() {
+        return instrucciones;
+    }
+
+    public void setInstrucciones(List<Instruccion> instrucciones) {
+        this.instrucciones = instrucciones;
+    }
+
+    public Pos getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(Pos posicion) {
+        this.posicion = posicion;
+    }
     
 }

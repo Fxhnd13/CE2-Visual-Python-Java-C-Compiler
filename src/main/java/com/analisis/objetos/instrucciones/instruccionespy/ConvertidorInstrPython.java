@@ -6,7 +6,7 @@
 package com.analisis.objetos.instrucciones.instruccionespy;
 
 /**
- *
+ * Clase destinada a transformar las instrucciones intermedias leidas de python a un AST
  * @author jose_
  */
 public class ConvertidorInstrPython {

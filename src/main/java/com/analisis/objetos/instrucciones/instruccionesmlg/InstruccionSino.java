@@ -9,6 +9,6 @@ package com.analisis.objetos.instrucciones.instruccionesmlg;
  *
  * @author jose_
  */
-public interface InstruccionSino {
+public interface InstruccionSino extends Instruccion{
     
 }

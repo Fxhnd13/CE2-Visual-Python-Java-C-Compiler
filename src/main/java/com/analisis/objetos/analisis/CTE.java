@@ -6,7 +6,7 @@
 package com.analisis.objetos.analisis;
 
 /**
- *
+ * Enum destinado al almacenamiento de todas las ctes utilizadas.
  * @author jose_
  */
 public enum CTE {

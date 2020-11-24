@@ -5,10 +5,29 @@
  */
 package com.analisis.objetos.instrucciones.instruccionesmlg;
 
+import com.analisis.objetos.analisis.Pos;
+
 /**
  *
  * @author jose_
  */
-public class LimpiarInstr {
+public class LimpiarInstr implements Instruccion{
+    
+    private Pos posicion;
+
+    public LimpiarInstr() {
+    }
+
+    public LimpiarInstr(Pos posicion) {
+        this.posicion = posicion;
+    }
+
+    public Pos getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(Pos posicion) {
+        this.posicion = posicion;
+    }
     
 }

@@ -6,7 +6,7 @@
 package com.analisis.objetos.estructuras;
 
 /**
- *
+ * Clase destinada al manejo de los simbolos para agregar, modificar, eliminar y acceder
  * @author jose_
  */
 public class TablaDeSimbolos {

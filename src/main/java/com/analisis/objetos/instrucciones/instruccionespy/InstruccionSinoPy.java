@@ -9,6 +9,6 @@ package com.analisis.objetos.instrucciones.instruccionespy;
  *
  * @author jose_
  */
-public interface InstruccionSinoPy {
+public interface InstruccionSinoPy extends InstruccionPy{
     
 }
