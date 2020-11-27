@@ -9,24 +9,26 @@ package com.analisis.objetos.analisis;
  * Clase destinada al almacenamiento de los datos de un error encontrado
  * @author jose_
  */
-public class Error {
+public class ErrorA {
     
-    private String tipo, descripcion;
+    private String tipo, cadena, descripcion;
     private Pos posicion;
     
     /**
      * Constructor de la clase
      * @param tipo tipo del error 
+     * @param cadena cadena con la que se genero el error
      * @param descripcion descripcion del mismo
      * @param posicion posicion dentro del documento en la que se encuentra
      */
-    public Error(String tipo, String descripcion, Pos posicion) {
+    public ErrorA(String tipo, String cadena, String descripcion, Pos posicion) {
         this.tipo = tipo;
+        this.cadena = cadena;
         this.descripcion = descripcion;
         this.posicion = posicion;
     }
 
-    public Error() {
+    public ErrorA() {
     }
 
     public String getTipo() {
@@ -51,6 +53,14 @@ public class Error {
 
     public void setPosicion(Pos posicion) {
         this.posicion = posicion;
+    }
+
+    public String getCadena() {
+        return cadena;
+    }
+
+    public void setCadena(String cadena) {
+        this.cadena = cadena;
     }
     
 }

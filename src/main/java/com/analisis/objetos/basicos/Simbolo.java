@@ -11,19 +11,28 @@ package com.analisis.objetos.basicos;
  */
 public class Simbolo {
     
-    private String id,tipo,size,direccion,ambito;
+    private String id,rol,tipo,size,direccion,ambito;
     private Object valor;
 
     public Simbolo() {
     }
 
-    public Simbolo(String id, String tipo, String size, String direccion, String ambito, Object valor) {
+    public Simbolo(String id, String rol, String tipo, String size, String direccion, String ambito, Object valor) {
         this.id = id;
+        this.rol = rol;
         this.tipo = tipo;
         this.size = size;
         this.direccion = direccion;
         this.ambito = ambito;
         this.valor = valor;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     public String getId() {

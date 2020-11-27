@@ -5,10 +5,14 @@
  */
 package com.analisis.objetos.nodos;
 
+import com.analisis.objetos.basicos.Dato;
+import com.analisis.objetos.estructuras.Coleccion;
+
 /**
  *
  * @author jose_
  */
 public interface NodoAritmetico {
     
+    public Dato analizarSemanticamente(Coleccion coleccion);
 }

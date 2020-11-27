@@ -25,6 +25,9 @@ public class Pos {
         this.x = x;
     }
 
+    /**
+     * @return la linea
+     */
     public int getY() {
         return y;
     }
@@ -33,6 +36,9 @@ public class Pos {
         this.y = y;
     }
 
+    /**
+     * @return la columna
+     */
     public int getX() {
         return x;
     }
