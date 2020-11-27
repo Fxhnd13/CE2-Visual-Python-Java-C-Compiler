@@ -6,7 +6,7 @@
 package com.analisis.objetos.basicos.lugaresAsignacion;
 
 /**
- *
+ * Clase que almacena la informacion de cuando se desea hacer una asignacion a una variable de tipo primitivo.
  * @author jose_
  */
 public class LugarVariable implements Lugar{

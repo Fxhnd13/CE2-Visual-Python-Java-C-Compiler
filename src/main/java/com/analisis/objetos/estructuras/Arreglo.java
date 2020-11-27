@@ -10,7 +10,7 @@ import com.analisis.objetos.nodos.NodoAritmetico;
 import java.util.List;
 
 /**
- *
+ * Clase destinada al almacenamiento de la informacion de un arreglo al ser declarado, mas no utilizado posteriormente
  * @author jose_
  */
 public class Arreglo {

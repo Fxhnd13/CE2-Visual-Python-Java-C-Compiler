@@ -6,7 +6,7 @@
 package com.analisis.objetos.basicos.accionesAsignacion;
 
 /**
- *
+ * Clase destinada a almacenar la informacion del constructor llamado
  * @author jose_
  */
 public class AccionConstructor implements Accion{

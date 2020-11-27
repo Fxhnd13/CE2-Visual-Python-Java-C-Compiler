@@ -5,10 +5,19 @@
  */
 package com.analisis.sintactico;
 
+import com.analisis.objetos.estructuras.ColeccionInstr;
+import java.util.ArrayList;
+
 /**
- *
+ * Clase destinada a la creacion del AST mediante el parser
  * @author jose_
  */
 public class GeneradorAst {
+    
+    public ColeccionInstr generarAst(String codigo){
+       ColeccionInstr instrucciones = new ColeccionInstr();
+       
+       return instrucciones;
+    }
     
 }

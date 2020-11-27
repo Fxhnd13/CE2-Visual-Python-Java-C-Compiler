@@ -6,7 +6,8 @@
 package com.analisis.objetos.basicos.accionesAsignacion;
 
 /**
- *
+ * Interfaz a implementar en las clases que pueden llevar a cabo una accion sobre una variable
+ * como un constructor, una expresion, ingresar un dato, o una llamada a un metodo.
  * @author jose_
  */
 public interface Accion {

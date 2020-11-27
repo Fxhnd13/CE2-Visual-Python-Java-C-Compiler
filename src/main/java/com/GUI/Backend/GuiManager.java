@@ -5,6 +5,11 @@
  */
 package com.GUI.Backend;
 
+import com.analisis.objetos.estructuras.Coleccion;
+import com.analisis.objetos.estructuras.ColeccionInstr;
+import com.analisis.semantico.General;
+import com.analisis.sintactico.GeneradorAst;
+import com.generadores.EstructurasIntermedias;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -176,6 +181,23 @@ public class GuiManager {
             }
         }else{
             JOptionPane.showMessageDialog(null, "No se encontró un archivo ejecutable compile e intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void generarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea) {
+        GeneradorAst generadorAst = new GeneradorAst();
+        ColeccionInstr instrucciones = generadorAst.generarAst(codigoFuente.getText());
+        
+        EstructurasIntermedias generador = new EstructurasIntermedias();
+        Coleccion coleccion = generador.generarEstructuras(instrucciones); //generamos la informacion que podamos necesitar
+        
+        General analizadorGeneral = new General();
+        analizadorGeneral.analizar(instrucciones, coleccion); //hacemos el analisis semantico con la informacion recolectada
+        
+        if(coleccion.getErrores().isEmpty()){
+            
+        }else{
+            
         }
     }
 }

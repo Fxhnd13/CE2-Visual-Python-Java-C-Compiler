@@ -10,7 +10,8 @@ import com.analisis.objetos.nodos.NodoAritmetico;
 import java.util.List;
 
 /**
- *
+ * Clase destinada al almacenamiento de la informacion cuando se desea asignar en un arreglo o cuando
+ * se desea acceder a una posicion del mismo
  * @author jose_
  */
 public class LugarArreglo implements Lugar{

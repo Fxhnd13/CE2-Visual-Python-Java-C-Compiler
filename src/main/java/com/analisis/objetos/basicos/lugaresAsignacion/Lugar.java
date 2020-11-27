@@ -6,7 +6,7 @@
 package com.analisis.objetos.basicos.lugaresAsignacion;
 
 /**
- *
+ * Interfaz destinada a implementarse en los lugares en los que se puede realizar una asignacion
  * @author jose_
  */
 public interface Lugar {

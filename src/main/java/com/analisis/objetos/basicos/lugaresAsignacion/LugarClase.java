@@ -6,7 +6,7 @@
 package com.analisis.objetos.basicos.lugaresAsignacion;
 
 /**
- *
+ * Clase destinada a la asignacion de una clase, exclusivamente al llamar un constructor o igualar a otra clase
  * @author jose_
  */
 public class LugarClase implements Lugar{

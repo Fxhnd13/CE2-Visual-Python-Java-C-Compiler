@@ -5,10 +5,19 @@
  */
 package com.generadores;
 
+import com.analisis.objetos.estructuras.Coleccion;
+import com.analisis.objetos.estructuras.ColeccionInstr;
+
 /**
  *
  * @author jose_
  */
 public class EstructurasIntermedias {
+    
+    public Coleccion generarEstructuras(ColeccionInstr instrucciones) {
+        Coleccion coleccion = new Coleccion();
+        
+        return coleccion;
+    }
     
 }

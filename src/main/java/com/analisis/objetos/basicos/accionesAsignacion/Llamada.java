@@ -6,7 +6,7 @@
 package com.analisis.objetos.basicos.accionesAsignacion;
 
 /**
- *
+ * Clase que almacena la informacion cuando se realiza una llamada a un metodo/funcion
  * @author jose_
  */
 public class Llamada {

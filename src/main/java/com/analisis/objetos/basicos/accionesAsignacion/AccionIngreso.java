@@ -6,7 +6,7 @@
 package com.analisis.objetos.basicos.accionesAsignacion;
 
 /**
- *
+ * Clase destinada a almacenar la informacion cuando se quiere asignar a una variable un valor ingresado por el usaurio
  * @author jose_
  */
 public class AccionIngreso implements Accion{

@@ -5,8 +5,11 @@
  */
 package com.analisis.objetos.nodos;
 
+import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Dato;
 import com.analisis.objetos.estructuras.Coleccion;
+import com.generadores.objetos.Cuarteto;
+import java.util.List;
 
 /**
  *
@@ -15,4 +18,9 @@ import com.analisis.objetos.estructuras.Coleccion;
 public interface NodoAritmetico {
     
     public Dato analizarSemanticamente(Coleccion coleccion);
+    public List<Cuarteto> generarCuartetos(Coleccion coleccion, String clase);
+    public String getTipo();
+    
+    public void setPosicion(Pos posicion);
+    public Pos getPosicion();
 }
