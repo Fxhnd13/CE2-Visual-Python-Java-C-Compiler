@@ -5,18 +5,35 @@
  */
 package com.GUI.Frontend;
 
+import com.GUI.Backend.Documento;
+import com.GUI.Backend.GuiManager;
+import com.GUI.Mensajes;
+import javax.swing.JOptionPane;
+import javax.swing.text.BadLocationException;
+
 /**
  *
  * @author jose_
  */
 public class Interfaz extends javax.swing.JFrame {
 
+    private GuiManager manager = new GuiManager(new Documento(null,false,""));
+    private Mensajes mensajes = new Mensajes();
+    
     /**
      * Creates new form Interfaz
      */
     public Interfaz() {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
+        
+        manager.habilitarFuncionalidades(codigoFuente);
+        NumeroLinea numero = new NumeroLinea(codigoFuente);
+        scrollCodigoFuente.setRowHeaderView(numero);
+        NumeroLinea numero2 = new NumeroLinea(codigo3D);
+        scrollCodigo3D.setRowHeaderView(numero2);
+        NumeroLinea numero3 = new NumeroLinea(codigoAssembler);
+        scrollCodigoAssembler.setRowHeaderView(numero3);
     }
 
     /**
@@ -31,21 +48,19 @@ public class Interfaz extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
+        scrollCodigoFuente = new javax.swing.JScrollPane();
+        codigoFuente = new javax.swing.JTextArea();
+        posicionEditor = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        erroresTextArea = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        scrollCodigo3D = new javax.swing.JScrollPane();
+        codigo3D = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
+        scrollCodigoAssembler = new javax.swing.JScrollPane();
+        codigoAssembler = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -67,12 +82,17 @@ public class Interfaz extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Editor"));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setTabSize(4);
-        jScrollPane1.setViewportView(jTextArea1);
+        codigoFuente.setColumns(20);
+        codigoFuente.setRows(5);
+        codigoFuente.setTabSize(4);
+        codigoFuente.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                codigoFuenteCaretUpdate(evt);
+            }
+        });
+        scrollCodigoFuente.setViewportView(codigoFuente);
 
-        jLabel1.setText("Posicion carrete: <linea, columna>");
+        posicionEditor.setText("Posicion carrete: <linea, columna>");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -82,27 +102,32 @@ public class Interfaz extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(posicionEditor)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(scrollCodigoFuente))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addComponent(posicionEditor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                .addComponent(scrollCodigoFuente, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Seccion errores"));
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        erroresTextArea.setColumns(20);
+        erroresTextArea.setRows(5);
+        jScrollPane2.setViewportView(erroresTextArea);
 
         jButton1.setText("Limpiar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -150,11 +175,9 @@ public class Interfaz extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Codigo Entrada", jPanel3);
 
-        jLabel2.setText("Posicion carrete: <linea, columna>");
-
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane3.setViewportView(jTextArea3);
+        codigo3D.setColumns(20);
+        codigo3D.setRows(5);
+        scrollCodigo3D.setViewportView(codigo3D);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -162,30 +185,22 @@ public class Interfaz extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE))
+                .addComponent(scrollCodigo3D, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+                .addComponent(scrollCodigo3D, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Codigo 3 direcciones", jPanel4);
 
-        jLabel3.setText("Posicion carrete: <linea, columna>");
-
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        jScrollPane4.setViewportView(jTextArea4);
+        codigoAssembler.setColumns(20);
+        codigoAssembler.setRows(5);
+        scrollCodigoAssembler.setViewportView(codigoAssembler);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -193,20 +208,14 @@ public class Interfaz extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE))
+                .addComponent(scrollCodigoAssembler, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+                .addComponent(scrollCodigoAssembler, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -215,18 +224,43 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu1.setText("Archivo");
 
         jMenuItem4.setText("Nuevo");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem1.setText("Abrir");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Guardar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuItem3.setText("Guardar como...");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuItem5.setText("Cerrar");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
@@ -236,9 +270,19 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu3.setText("3 Direcciones");
 
         jMenuItem6.setText("Generar");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem6);
 
         jMenuItem7.setText("Ejecutar");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem7);
 
         jMenu2.add(jMenu3);
@@ -246,9 +290,19 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu4.setText("Assembler");
 
         jMenuItem8.setText("Generar");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem8);
 
         jMenuItem9.setText("Ejecutar");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem9);
 
         jMenu2.add(jMenu4);
@@ -277,6 +331,97 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        if(manager.getDocumentoActivo().isModificado()){
+            int resultado = JOptionPane.showInternalConfirmDialog(null, "Se han detectado cambios, ¿desea guardarlos?");
+            switch(resultado){
+                case JOptionPane.OK_OPTION:{
+                    manager.guardar(codigoFuente.getText());
+                    manager.setDocumentoActivo(new Documento(null, false, ""));
+                    codigoFuente.setText("");
+                    break;
+                }
+                case JOptionPane.NO_OPTION:{
+                    manager.setDocumentoActivo(new Documento(null, false, ""));
+                    codigoFuente.setText("");
+                    break;
+                }
+                case JOptionPane.CANCEL_OPTION:{
+                    break;
+                }
+            }
+        }else{
+            manager.setDocumentoActivo(new Documento(null, false, ""));
+            codigoFuente.setText("");
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        if(manager.getDocumentoActivo().isModificado()){
+            int resultado = JOptionPane.showInternalConfirmDialog(null, "Se han detectado cambios, ¿desea guardarlos?");
+            switch(resultado){
+                case JOptionPane.OK_OPTION:{
+                    manager.guardar(codigoFuente.getText());
+                    manager.abrir(codigoFuente);
+                    break;
+                }
+                case JOptionPane.NO_OPTION:{
+                    manager.abrir(codigoFuente);
+                    break;
+                }
+                case JOptionPane.CANCEL_OPTION:{
+                    break;
+                }
+            }
+        }else{
+            manager.abrir(codigoFuente);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        manager.guardar(codigoFuente.getText());
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        manager.guardarComo(codigoFuente.getText());
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        mensajes.error("Aun sin implementar.");
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        mensajes.error("Aun sin implementar.");
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        mensajes.error("Aun sin implementar.");
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        mensajes.error("Aun sin implementar.");
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        erroresTextArea.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void codigoFuenteCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_codigoFuenteCaretUpdate
+        int pos = evt.getDot();
+        int row = 0, col=0;
+        try {
+            row = codigoFuente.getLineOfOffset(pos) + 1;
+            col = pos - codigoFuente.getLineStartOffset(row - 1) + 1;
+        } catch (BadLocationException ex) {
+            ex.printStackTrace();
+        }
+        posicionEditor.setText("Línea: " + row + "  |  Columna: " + col);
+    }//GEN-LAST:event_codigoFuenteCaretUpdate
+    
     /**
      * @param args the command line arguments
      */
@@ -313,10 +458,11 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea codigo3D;
+    private javax.swing.JTextArea codigoAssembler;
+    private javax.swing.JTextArea codigoFuente;
+    private javax.swing.JTextArea erroresTextArea;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -331,20 +477,16 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextArea jTextArea4;
+    private javax.swing.JLabel posicionEditor;
+    private javax.swing.JScrollPane scrollCodigo3D;
+    private javax.swing.JScrollPane scrollCodigoAssembler;
+    private javax.swing.JScrollPane scrollCodigoFuente;
     // End of variables declaration//GEN-END:variables
 }
