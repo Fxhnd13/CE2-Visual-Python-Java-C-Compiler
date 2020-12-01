@@ -1,0 +1,1 @@
+java -jar C:\Users\jose_\Documents\NetBeansProjects\Compilador\src\test\lib\java-cup-11b.jar -parser Parser Parser.cup

@@ -15,12 +15,14 @@ import com.analisis.objetos.basicos.lugaresAsignacion.LugarArreglo;
 import com.analisis.objetos.estructuras.Arreglo;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.semantico.AnalizadorLlamadaMetodo;
+import com.generadores.objetos.Cuarteto;
+import java.util.List;
 
 /**
  * Clase destinada a almacenar la informacion de un nodo hoja, identificador/entero/flotante/caracter/cadena/funcion
  * @author jose_
  */
-public class Hoja {
+public class Hoja implements NodoAritmetico{
     
     private Dato valor;
     private String tipoRetorno;
@@ -34,31 +36,8 @@ public class Hoja {
         this.tipoRetorno = tipoRetorno;
         this.posicion = posicion;
     }
-
-    public Dato getValor() {
-        return valor;
-    }
-
-    public void setValor(Dato valor) {
-        this.valor = valor;
-    }
-
-    public String getTipoRetorno() {
-        return tipoRetorno;
-    }
-
-    public void setTipoRetorno(String tipo) {
-        this.tipoRetorno = tipo;
-    }
-
-    public Pos getPosicion() {
-        return posicion;
-    }
-
-    public void setPosicion(Pos posicion) {
-        this.posicion = posicion;
-    }
     
+    @Override
     public Dato analizarSemanticamente(Coleccion coleccion){
         switch(valor.getTipo()){
             case CONST.ENTERO: tipoRetorno = CONST.ENTERO; break;
@@ -110,8 +89,11 @@ public class Hoja {
         }
         return null;
     } //para el primer analisis
-    
-    public void generarCuartetos(Coleccion coleccion){} //para generar codigo
+
+    @Override
+    public List<Cuarteto> generarCuartetos(Coleccion coleccion, String clase) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     private Dato analizarArreglo(Coleccion coleccion) {
         LugarArreglo lugarArreglo = (LugarArreglo) valor.getValor(); //posicion del arreglo
@@ -139,6 +121,37 @@ public class Hoja {
             coleccion.getErrores().add(new ErrorA("Semantico",(String)valor.getValor(),"No existe una variable con el identificador utilizado",this.posicion));
         }
         return null;
+    }
+
+    public Dato getValor() {
+        return valor;
+    }
+
+    public void setValor(Dato valor) {
+        this.valor = valor;
+    }
+
+    public String getTipoRetorno() {
+        return tipoRetorno;
+    }
+
+    public void setTipoRetorno(String tipo) {
+        this.tipoRetorno = tipo;
+    }
+
+    @Override
+    public void setPosicion(Pos posicion) {
+        this.posicion = posicion;
+    }
+
+    @Override
+    public Pos getPosicion() {
+        return this.posicion;
+    }
+
+    @Override
+    public String getTipo() {
+        return this.tipoRetorno;
     }
     
 }

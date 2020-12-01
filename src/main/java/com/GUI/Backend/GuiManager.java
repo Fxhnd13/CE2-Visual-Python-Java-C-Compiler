@@ -188,16 +188,16 @@ public class GuiManager {
         GeneradorAst generadorAst = new GeneradorAst();
         ColeccionInstr instrucciones = generadorAst.generarAst(codigoFuente.getText());
         
-        EstructurasIntermedias generador = new EstructurasIntermedias();
-        Coleccion coleccion = generador.generarEstructuras(instrucciones); //generamos la informacion que podamos necesitar
-        
-        General analizadorGeneral = new General();
-        analizadorGeneral.analizar(instrucciones, coleccion); //hacemos el analisis semantico con la informacion recolectada
-        
-        if(coleccion.getErrores().isEmpty()){
-            
-        }else{
-            
-        }
+//        EstructurasIntermedias generador = new EstructurasIntermedias();
+//        Coleccion coleccion = generador.generarEstructuras(instrucciones); //generamos la informacion que podamos necesitar
+//        
+//        General analizadorGeneral = new General();
+//        analizadorGeneral.analizar(instrucciones, coleccion); //hacemos el analisis semantico con la informacion recolectada
+//        
+//        if(coleccion.getErrores().isEmpty()){
+//            
+//        }else{
+//            
+//        }
     }
 }

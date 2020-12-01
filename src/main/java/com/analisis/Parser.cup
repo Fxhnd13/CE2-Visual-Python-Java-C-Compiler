@@ -1,0 +1,196 @@
+package com.analisis;
+
+import com.analisis.objetos.analisis.ErrorManager;
+import com.analisis.objetos.analisis.Pos;
+import java_cup.runtime.Symbol;
+
+action code{: :}
+parser code{:
+
+    private ErrorManager errores;
+
+    public Parser(Lexer lex) { 
+        super(lex);   
+        errores = new ErrorManager();
+    }
+
+    public void setAccion(String tipo, String mensaje, String accion){
+        System.out.println(tipo+"         "+mensaje);
+    }
+
+    public void unrecovered_syntax_error(Symbol cur_token){
+        if(cur_token.toString().equals("#0")){
+            errores.agregarError("Sintactico","Fin del archivo", "No se pudo recuperar y seguir analizando, no se encontraron mas tokens.",new Pos(cur_token.left,cur_token.right));
+        }else{
+            errores.agregarError("Sintactico", (String)cur_token.value, "No se pudo recuperar y seguir analizando.",new Pos(cur_token.left,cur_token.right));
+        }
+        System.out.println("No se pudo recuperar y seguir analizando, no se encontraron mas tokens.");
+    }
+
+    public void syntax_error(Symbol s){
+        String message = s.toString();
+        StringBuilder m = new StringBuilder("Error: ");
+        String cadena =  (String) s.value;
+        int linea = s.left;
+        int columna = s.right;
+        switch(s.toString()){
+        }
+        errores.agregarError("Sintactico",cadena,"No se esperaba un token tipo <"+sym.terminalNames[s.sym]+">", new Pos(linea,columna));
+        System.out.println("No se esperaba un token tipo <"+sym.terminalNames[s.sym]+"> en ("+linea+","+columna+")");
+    }
+
+:}
+
+//declaracion de terminales
+
+terminal String NEWLINE, ENTERO, FLOTANTE, CARACTER,DEF, ID, PAR_A, PAR_C, DOS_PUNTOS, IDENT, DEDENT, PUNTOCOMA;
+terminal String CADENA, COMA, ELSEIF, INTINPUT, CHARINPUT, FLOATINPUT, ELSE, IF, WHILE, RANGE, IN, FOR, MAS, MENOS;
+terminal String POR, DIV, MOD, DISTINTO, COMPARADOR, IGUAL, MENOR, MENORIGUAL, MAYOR, MAYORIGUAL, AND, NOT, OR;
+terminal String RETURN, PRINT;
+
+terminal String LLAVE_C, LLAVE_A, PR_ENTERO, PR_FLOTANTE, PR_CARACTER, COR_A, COR_C, PRINTF, SCANF, FIN_LINEA, AMPERSON;
+terminal String HASHTAG, PUNTO, AS, DO, TO, AUMENTO, DISMINUCION, PY, VB, COMODIN_ENTERO, COMODIN_CARACTER, COMODIN_FLOTANTE;
+terminal String DIM, END, SUB, SEPARADOR_VB, SEPARADOR_PY, SEPARADOR_JAVA, CASE, LOOP, NEXT, STEP, THEN, VOID, ELIF, PASS;
+terminal String JAVA, MAIN, BREAK, CLASS, THIS, MENSAJE, CONST, ESPERAR_TECLA, PUBLIC, SELECT, SWITCH, LIMPIAR_PANTALLA;
+terminal String DEFAULT, MENSAJELN, INCLUDE, FUNCTION, SEPARADOR_PROGRAMA;
+
+//declaracion de no terminales
+non terminal python, espaciosPy, dclMetodosPy, dclMetodoPy, sentenciasPy, sentenciaPy, bloquePy;
+non terminal listadoSentenciasPy, pc, sentenciaSimplePy, ingresoDatosPy, escribirPy, listadoMensajePy, mensajePy;
+non terminal asignacionVarPy, listadoVarPy, listadoExpresionesArPy, sentenciaIf, elseIfPy, elsePy, sentenciaWhile;
+non terminal comaPy, sentenciaFor, rangePy, condicionPy, expresionArPy, llamadaMetodoPy, listadoParametrosEnviadosPy;
+non terminal expresionBoolPy, listadoId;
+
+//declaracion de precedencia
+precedence left OR;
+precedence left AND;
+precedence left NOT;
+precedence left IGUAL;
+precedence left COMPARADOR, MENOR, MAYOR, MENORIGUAL, MAYORIGUAL, DISTINTO;
+precedence left MAS, MENOS;
+precedence left POR, DIV, MOD;
+
+//Reglas gramaticales para el parser de python, las demás no cambiaran tanto
+start with dclMetodosPy;
+
+//producciones de python
+dclMetodosPy::=                         dclMetodosPy dclMetodoPy
+                                        |dclMetodoPy
+                                        ;
+
+dclMetodoPy::=                          DEF ID PAR_A listadoId PAR_C DOS_PUNTOS bloquePy
+                                        ;
+
+listadoId::=                            listadoId COMA ID
+                                        |ID
+                                        ;
+
+sentenciasPy::=                         sentenciasPy sentenciaPy
+                                        |sentenciaPy
+                                        ;
+
+sentenciaPy::=                          sentenciaIf
+                                        |sentenciaFor
+                                        |sentenciaWhile
+                                        |listadoSentenciasPy
+                                        ;
+
+bloquePy::=                             NEWLINE IDENT sentenciasPy DEDENT
+                                        ;
+
+listadoSentenciasPy::=                  listadoSentenciasPy PUNTOCOMA sentenciaSimplePy
+                                        |sentenciaSimplePy
+                                        |RETURN expresionArPy
+                                        ;
+
+sentenciaSimplePy::=                    asignacionVarPy
+                                        |escribirPy
+                                        |ingresoDatosPy
+                                        |llamadaMetodoPy
+                                        ;
+
+ingresoDatosPy::=                       INTINPUT PAR_A CADENA PAR_C
+                                        |CHARINPUT PAR_A CADENA PAR_C
+                                        |FLOATINPUT PAR_A CADENA PAR_C
+                                        ;
+
+escribirPy::=                           PRINT PAR_A listadoMensajePy PAR_C
+                                        ;
+
+listadoMensajePy::=                     listadoMensajePy COMA mensajePy
+                                        |mensajePy
+                                        ;
+
+mensajePy::=                            CADENA
+                                        |expresionArPy
+                                        ;
+
+listadoExpresionesArPy::=               listadoExpresionesArPy expresionArPy
+                                        |expresionArPy
+                                        ;
+
+sentenciaIf::=                          IF condicionPy DOS_PUNTOS bloquePy elseIfPy elsePy
+                                        ;
+
+elseIfPy::=                             elseIfPy ELSEIF condicionPy DOS_PUNTOS bloquePy
+                                        |
+                                        ;
+
+elsePy::=                               ELSE DOS_PUNTOS bloquePy
+                                        ;
+
+sentenciaWhile::=                       WHILE condicionPy bloquePy
+                                        ;
+
+comaPy::=                               COMA
+                                        |
+                                        ;
+
+sentenciaFor::=                         FOR ID comaPy IN rangePy DOS_PUNTOS bloquePy
+                                        ;
+
+rangePy::=                              RANGE PAR_A expresionArPy PAR_C
+                                        |RANGE PAR_A expresionArPy COMA expresionArPy PAR_C
+                                        |RANGE PAR_A expresionArPy COMA expresionArPy COMA expresionArPy PAR_C
+                                        ;
+
+condicionPy::=                          PAR_A expresionBoolPy PAR_C
+                                        |expresionBoolPy
+                                        ;
+
+expresionArPy::=                        expresionArPy MAS expresionArPy
+                                        |expresionArPy MENOS expresionArPy
+                                        |expresionArPy DIV expresionArPy
+                                        |expresionArPy POR expresionArPy
+                                        |expresionArPy MOD expresionArPy
+                                        |PAR_A expresionArPy PAR_C
+                                        |llamadaMetodoPy
+                                        |CARACTER
+                                        |FLOTANTE
+                                        |ENTERO
+                                        ;
+
+llamadaMetodoPy::=                      ID PAR_A listadoParametrosEnviadosPy PAR_C
+                                        ;
+
+asignacionVarPy::=                      listadoVarPy IGUAL listadoExpresionesArPy
+                                        ;
+
+listadoVarPy::=                         listadoVarPy COMA ID
+                                        |ID
+                                        ;
+
+listadoParametrosEnviadosPy::=          listadoParametrosEnviadosPy COMA expresionArPy
+                                        |expresionArPy
+                                        ;
+
+expresionBoolPy::=                      expresionArPy DISTINTO expresionArPy
+                                        |expresionArPy COMPARADOR expresionArPy
+                                        |expresionArPy MENOR expresionArPy
+                                        |expresionArPy MENORIGUAL expresionArPy
+                                        |expresionArPy MAYOR expresionArPy
+                                        |expresionArPy MAYORIGUAL expresionArPy
+                                        |expresionBoolPy AND expresionBoolPy
+                                        |expresionBoolPy OR expresionBoolPy
+                                        |NOT expresionBoolPy
+                                        ;
