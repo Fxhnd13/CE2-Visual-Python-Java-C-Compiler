@@ -16,6 +16,8 @@ public class CONST {
     public static final String ENTERO = "ENTERO";
     public static final String FLOTANTE = "FLOTANTE";
     public static final String CARACTER = "CARACTER";
+    public static final String BOOLEAN = "BOOLEAN";
+    public static final String INDEFINIDO = "INDEFINIDO";
     public static final String COMODIN_ENTERO = "COMODIN_ENTERO";
     public static final String COMODIN_FLOTANTE = "COMODIN_FLOTANTE";
     public static final String COMODIN_CARACTER = "COMODIN_CARACTER";

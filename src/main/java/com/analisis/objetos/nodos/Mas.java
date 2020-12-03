@@ -8,6 +8,7 @@ package com.analisis.objetos.nodos;
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Dato;
 import com.analisis.objetos.estructuras.Coleccion;
+import com.analisis.objetos.estructuras.TablaDeTipos;
 import com.generadores.objetos.Cuarteto;
 import java.util.List;
 
@@ -32,7 +33,10 @@ public class Mas implements NodoAritmetico {
 
     @Override
     public Dato analizarSemanticamente(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Dato izquierdo = this.izquierdo.analizarSemanticamente(coleccion);
+        Dato derecho = this.derecho.analizarSemanticamente(coleccion);
+        TablaDeTipos tablaDeTipos = new TablaDeTipos(this.posicion);
+        return tablaDeTipos.verificarTiposDeOperacionAritmetica(3, izquierdo, derecho, coleccion);
     }
 
     @Override

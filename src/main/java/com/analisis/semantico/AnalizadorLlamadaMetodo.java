@@ -5,7 +5,10 @@
  */
 package com.analisis.semantico;
 
-import com.analisis.objetos.basicos.accionesAsignacion.Llamada;
+import com.analisis.objetos.basicos.Llamadas.Llamada;
+import com.analisis.objetos.basicos.Llamadas.LlamadaJava;
+import com.analisis.objetos.basicos.Llamadas.LlamadaPython;
+import com.analisis.objetos.basicos.Llamadas.LlamadaVisual;
 import com.analisis.objetos.estructuras.Coleccion;
 
 /**
@@ -14,15 +17,39 @@ import com.analisis.objetos.estructuras.Coleccion;
  */
 public class AnalizadorLlamadaMetodo {
 
-    public String analizarLLamadaMetodoJavaConReturn(Llamada llamada, Coleccion coleccion) {
+    public String analizarLLamada(Llamada llamada, Coleccion coleccion) {
+        if(llamada instanceof LlamadaJava){
+            return analizarLlamadaMetodoJavaConReturn((LlamadaJava)llamada, coleccion);
+        }else if(llamada instanceof LlamadaPython){
+            return analizarLlamadaMetodoPython((LlamadaPython)llamada, coleccion);
+        }else if(llamada instanceof LlamadaVisual){
+            return analizarLlamadaMetodoVisualConReturn((LlamadaVisual)llamada, coleccion);
+        }else{
+            String tipoRetorno = null;
+            switch(coleccion.getTipadoActual()){
+                case 0: {
+                    break;
+                }
+                case 1: {
+                    break;
+                }
+                case 2: {
+                    break;
+                }
+            }
+            return tipoRetorno;
+        }
+    }
+    
+    public String analizarLlamadaMetodoJavaConReturn(LlamadaJava llamada, Coleccion coleccion) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String analizarLlamadaMetodoPython(Llamada llamada, Coleccion coleccion) {
+    public String analizarLlamadaMetodoPython(LlamadaPython llamada, Coleccion coleccion) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String analizarLlamadaMetodoVisual(Llamada llamada, Coleccion coleccion) {
+    public String analizarLlamadaMetodoVisualConReturn(LlamadaVisual llamada, Coleccion coleccion) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

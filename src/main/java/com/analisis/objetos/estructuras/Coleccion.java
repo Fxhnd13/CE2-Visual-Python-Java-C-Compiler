@@ -6,6 +6,7 @@
 package com.analisis.objetos.estructuras;
 
 import com.analisis.objetos.analisis.ErrorA;
+import com.analisis.objetos.analisis.ErrorManager;
 import com.analisis.objetos.basicos.Simbolo;
 import java.util.List;
 
@@ -19,12 +20,12 @@ public class Coleccion {
     private String clase = null;
     private TablaDeSimbolos metodosPy, metodosVb, clasesJv, simbolos;
     private List<String> nombresMetodos;
-    private List<ErrorA> errores;
+    private ErrorManager errores;
 
     public Coleccion() {
     }
 
-    public Coleccion(int tipado, TablaDeSimbolos simbolos, TablaDeSimbolos metodosPy, TablaDeSimbolos metodosVb, TablaDeSimbolos clasesJv, List<String> nombresMetodos, List<ErrorA> errores) {
+    public Coleccion(int tipado, TablaDeSimbolos simbolos, TablaDeSimbolos metodosPy, TablaDeSimbolos metodosVb, TablaDeSimbolos clasesJv, List<String> nombresMetodos, ErrorManager errores) {
         this.metodosPy = metodosPy;
         this.metodosVb = metodosVb;
         this.clasesJv = clasesJv;
@@ -64,11 +65,11 @@ public class Coleccion {
         this.nombresMetodos = nombresMetodos;
     }
 
-    public List<ErrorA> getErrores() {
+    public ErrorManager getErrores() {
         return errores;
     }
 
-    public void setErrores(List<ErrorA> errores) {
+    public void setErrores(ErrorManager errores) {
         this.errores = errores;
     }
 

@@ -46,7 +46,7 @@ parser code{:
 terminal String NEWLINE, ENTERO, FLOTANTE, CARACTER,DEF, ID, PAR_A, PAR_C, DOS_PUNTOS, IDENT, DEDENT, PUNTOCOMA;
 terminal String CADENA, COMA, ELSEIF, INTINPUT, CHARINPUT, FLOATINPUT, ELSE, IF, WHILE, RANGE, IN, FOR, MAS, MENOS;
 terminal String POR, DIV, MOD, DISTINTO, COMPARADOR, IGUAL, MENOR, MENORIGUAL, MAYOR, MAYORIGUAL, AND, NOT, OR;
-terminal String RETURN, PRINT;
+terminal String RETURN, PRINT, BYVAL;
 
 terminal String LLAVE_C, LLAVE_A, PR_ENTERO, PR_FLOTANTE, PR_CARACTER, COR_A, COR_C, PRINTF, SCANF, FIN_LINEA, AMPERSON;
 terminal String HASHTAG, PUNTO, AS, DO, TO, AUMENTO, DISMINUCION, PY, VB, COMODIN_ENTERO, COMODIN_CARACTER, COMODIN_FLOTANTE;
@@ -55,11 +55,39 @@ terminal String JAVA, MAIN, BREAK, CLASS, THIS, MENSAJE, CONST, ESPERAR_TECLA, P
 terminal String DEFAULT, MENSAJELN, INCLUDE, FUNCTION, SEPARADOR_PROGRAMA;
 
 //declaracion de no terminales
-non terminal python, espaciosPy, dclMetodosPy, dclMetodoPy, sentenciasPy, sentenciaPy, bloquePy;
-non terminal listadoSentenciasPy, pc, sentenciaSimplePy, ingresoDatosPy, escribirPy, listadoMensajePy, mensajePy;
-non terminal asignacionVarPy, listadoVarPy, listadoExpresionesArPy, sentenciaIf, elseIfPy, elsePy, sentenciaWhile;
-non terminal comaPy, sentenciaFor, rangePy, condicionPy, expresionArPy, llamadaMetodoPy, listadoParametrosEnviadosPy;
-non terminal expresionBoolPy, listadoId;
+
+non terminal codigo, visual, metodosVb, dclMetodosVb, dclMetodoVb, funcionVb, procedimientoVb, bloqueVb, sentenciasVb;
+non terminal sentenciaVb, sentenciaSimplePy, sentenciaIfVb, sinoVb, sentenciaForVb, tipoForVb, aumentoForVb, idNextVb;
+non terminal sentenciaWhileVb, sentenciaDoWhileVb, sentenciaSwitchVb, caseVb, contenidoSwitchVb, valorCaseVb;
+non terminal sentenciaDeclaracionVb, declaracionVariableVb, masDeclaracionVariableVb, sentenciaAsignacionVb;
+non terminal accionAsignacionVb, sentenciaIngresoDatosVb, sentenciaEscribirVb, mensajesVb, mensajeVb, sentenciaReturnVb;
+non terminal dclParametrosVb, listadoParametrosVb, parametroVb, expresionArVb, condicionVb, expresionBoolVb;
+non terminal llamadaMetodoVb, listadoParametrosEnviadosVb, espaciosVb;
+
+non terminal java, clasesJv, dclClasesJv, dclClaseJv, contenidoClaseJv, sentenciasDeClaseJv, sentenciaDeClaseJv;
+non terminal dclMetodoJv, dclParametrosJv, listadoParametrosJv, bloqueJv, sentenciasJv, sentenciaJv;
+non terminal sentenciaSimpleJv, sentenciaIfJv, sinoJv, sentenciaForJv, modificadorForJv, sentenciaWhileJv;
+non terminal sentenciaSwitchJv, contenidoSwitchJv, valorSwitchJv, bloqueSwichJv, sentenciaDoWhileJv;
+non terminal sentenciaDeclaracionJv, listadoAsignacionesJv, asignacionJv, sentenciaAsignacionJv, accionAsignacionJv;
+non terminal sentenciaIngresoDatosJv, sentenciaEscribirJv, sentenciaReturnJv, sentenciaBreakJv, expresionArJv;
+non terminal expresionBoolJv, llamadaMetodoJv, listadoParametrosEnviadosJv;
+
+non terminal python, metodosPy, dclMetodosPy, dclMetodoPy, dclParametrosPy, listadoId, sentenciasPy, sentenciaPy;
+non terminal bloquePy, sentenciaSimplePy, ingresoDatosPy, escribirPy, mensajePy, mensajePy, listadoExpresionesArPy;
+non terminal sentenciaIfPy, elseIfPy, elsePy, sentenciaWhilePy, sentenciaForPy, rangePy, condicionPy, expresionArPy;
+non terminal llamadaMetodoPy, asignacionVarPy, listadoParametrosEnviadosPy, expresionBoolPy;
+
+non terminal principal, secLibrerias, dclLibrerias, dclLibreria, libreria, libreriaC, valorTexto, secConstantes;
+non terminal dclConstantes, dclConstante, secVariables, dclVariables, sentenciaDeclaracion, arreglo, listDimensiones;
+non terminal listadoDeclaraciones, asignacionValor, listadoDeclaracionesClases, asignacionConstructor;
+non terminal accionConstructor, codigoMain, bloque, sentencias, sentencia, sentenciaSimple, sentenciaAsignacion;
+non terminal lugarAsignacion, sentenciaEscribir, expresionCadena, listadoExpresiones, expresionCadenaEntrada;
+non terminal valorCadena, valorTexto, comodin, sentenciaIngresoDatos, sentenciaLimpiarPantalla, sentenciaEsperarTecla;
+non terminal sentenciaBreak, sentenciaIf, sino, sentenciaFor, modificadorFor, sentenciaWhile, sentenciaDoWhile; 
+non terminal sentenciaSwitch, contenidoSwitch, valorSwitch, bloqueSwich, expresionAr, expresionBool, llamadaMetodo;
+non terminal listadoParametrosEnviados, parametrosEnviados;
+
+non terminal tiposDeDato, valorAtomico, tiposDeMetodo, publicOpcional;
 
 //declaracion de precedencia
 precedence left OR;
@@ -71,14 +99,359 @@ precedence left MAS, MENOS;
 precedence left POR, DIV, MOD;
 
 //Reglas gramaticales para el parser de python, las demás no cambiaran tanto
-start with dclMetodosPy;
+start with codigo;
+
+codigo::=                               visual java python principal;
+
+//producciones de visual vasic
+visual::=                               SEPARADOR_VB espaciosVb metodosVb;
+
+metodosVb::=                            dclMetodosVb
+                                        |
+                                        ;
+
+dclMetodosVb::=                         dclMetodosVb dclMetodoVb
+                                        |dclMetodoVb
+                                        ;
+
+dclMetodoVb::=                          funcionVb
+                                        |procedimientoVb
+                                        ;
+
+funcionVb::=                            FUNCTION ID dclParametrosVb AS tiposDeDato espaciosVb bloqueVb END FUNCTION espaciosVb;
+
+procedimientoVb::=                      SUB ID dclParametrosVb espaciosVb bloqueVb END SUB espaciosVb;
+
+bloqueVb::=                             sentenciasVb
+                                        |
+                                        ;
+
+sentenciasVb::=                         sentenciasVb sentenciaVb
+                                        |sentenciaVb
+                                        ;
+
+sentenciaVb::=                          sentenciaIfVb FIN_LINEA
+                                        |sentenciaForVb FIN_LINEA
+                                        |sentenciaWhileVb FIN_LINEA
+                                        |sentenciaDoWhileVb FIN_LINEA
+                                        |sentenciaSwitchVb FIN_LINEA
+                                        |sentenciaSimpleVb FIN_LINEA
+                                        ;
+
+sentenciaSimplePy::=                    sentenciaDeclaracionVb 
+                                        |sentenciaAsignacionVb 
+                                        |sentenciaIngresoDatosVb 
+                                        |sentenciaEscribirVb 
+                                        |llamadaMetodoVb 
+                                        |sentenciaReturnVb 
+                                        ;
+
+sentenciaIfVb::=                        IF expresionBoolVb THEN sentenciaSimpleVb 
+                                        |IF expresionBoolVb THEN sentenciaSimpleVb ELSE sentenciaSimpleVb
+                                        |IF expresionBoolVb THEN espaciosVb bloqueVb sinoVb END IF
+                                        |IF expresionBoolVb espaciosVb bloqueVb sinoVb END IF
+                                        ;
+
+sinoVb::=                               ELSEIF condicionVb THEN espaciosVb bloqueVb sinoVb
+                                        |ELSEIF condicionVb espaciosVb bloqueVb sinoVb
+                                        |ELSE espaciosVb bloqueVb
+                                        ;
+
+sentenciaForVb::=                       FOR ID tipoForVb IGUAL expresionArVb TO expresionArVb aumentoForVb espaciosVb bloqueVb NEXT idNext;
+
+tipoForVb::=                            tiposDeDato
+                                        |
+                                        ;
+
+aumentoForVb::=                         STEP expresionArVb
+                                        |
+                                        ;
+
+idNextVb::=                             ID
+                                        |
+                                        ;
+
+sentenciaWhileVb::=                     WHILE condicionVb espaciosVb bloqueVb END WHILE;
+
+sentenciaDoWhileVb::=                   DO espaciosVb bloqueVb LOOP WHILE condicionVb;
+
+sentenciaSwitchVb::=                    SELECT caseVb expresionArVb espaciosVb contenidoSwitchVb END SELECT;
+
+caseVb::=                               CASE
+                                        |
+                                        ;
+
+contenidoSwitchVb::=                    contenidoSwitchVb valorCaseVb espaciosVb bloqueVb
+                                        |valorCaseVb espaciosVb bloqueVb
+                                        ;
+
+valorCaseVb::=                          CASE valorAtomico
+                                        |ELSE
+                                        ;
+
+sentenciaDeclaracionVb::=               declaracionVariableVb masDeclaracionVariableVb;
+
+declaracionVariableVb::=                DIM listadoId AS tiposDeDato IGUAL expresionArVb
+                                        |DIM listadoId AS tiposDeDato
+                                        ;
+
+masDeclaracionVariableVb::=             COMA listadoId AS tiposDeDato IGUAL expresionArVb masDeclaracionVariableVb
+                                        |COMA listadoId AS tiposDeDato masDeclaracionVariableVb
+                                        |
+                                        ;
+
+sentenciaAsignacionVb::=                ID IGUAL accionAsignacionVb;
+
+accionAsignacionVb::=                   sentenciaIngresoDatosVb
+                                        |expresionArVb
+                                        ;
+
+sentenciaIngresoDatosVb::=              INTINPUT PAR_A CADENA PAR_C
+                                        |CHARINPUT PAR_A CADENA PAR_C
+                                        |FLOATINPUT PAR_A CADENA PAR_C
+                                        |INTINPUT PAR_A PAR_C
+                                        |CHARINPUT PAR_A PAR_C
+                                        |FLOATINPUT PAR_A PAR_C
+                                        ;
+
+sentenciaEscribirVb::=                  MENSAJE PAR_A mensajesVb PAR_C
+                                        |MENSAJELN PAR_A mensajesVb PAR_C
+                                        ;
+
+mensajesVb::=                           mensajesVb AMPERSON mensajeVb
+                                        |mensajeVb
+                                        ;
+
+mensajeVb::=                            CADENA
+                                        |expresionArVb
+                                        ;
+
+sentenciaReturnVb::=                    RETURN expresionArVb;
+
+dclParametrosVb::=                      PAR_A listadoParametrosVb PAR_C
+                                        |PAR_A PAR_C
+                                        |
+                                        ;
+
+listadoParametrosVb::=                  listadoParametrosVb COMA parametroVb
+                                        |parametroVb
+                                        ;
+
+parametroVb::=                          BYVAL ID AS tiposDeDato
+                                        |ID AS tiposDeDato
+                                        ;
+
+expresionArVb::=                        expresionArVb MAS expresionArVb
+                                        |expresionArVb MENOS expresionArVb
+                                        |expresionArVb DIV expresionArVb
+                                        |expresionArVb POR expresionArVb
+                                        |expresionArVb MOD expresionArVb
+                                        |PAR_A expresionArVb PAR_C
+                                        |llamadaMetodoVb
+                                        |valorAtomico
+                                        ;
+
+condicionVb::=                          PAR_A expresionBoolVb PAR_C
+                                        |expresionBoolVb
+                                        ;
+
+expresionBoolVb::=                      expresionArVb DISTINTO expresionArVb
+                                        |expresionArVb COMPARADOR expresionArVb
+                                        |expresionArVb MENOR expresionArVb
+                                        |expresionArVb MENORIGUAL expresionArVb
+                                        |expresionArVb MAYOR expresionArVb
+                                        |expresionArVb MAYORIGUAL expresionArVb
+                                        |expresionBoolVb AND expresionBoolVb
+                                        |expresionBoolVb OR expresionBoolVb
+                                        |NOT expresionBoolVb
+                                        ;
+
+llamadaMetodoVb::=                      ID PAR_A listadoParametrosEnviadosVb PAR_C
+                                        |ID PAR_A PAR_C
+                                        ;
+
+listadoParametrosEnviadosVb::=          listadoParametrosEnviadosVb COMA expresionArVb
+                                        |expresionArVb
+                                        ;
+
+espaciosVb:=                            espaciosVb FIN_LINEA
+                                        |FIN_LINEA
+                                        ;
+
+//producciones de java 
+java::=                                 SEPARADOR_JAVA clasesJv;
+
+clasesJv::=                             dclClasesJv
+                                        |
+                                        ;
+
+dclClasesJv::=                          dclClasesJv dclClaseJv
+                                        |dclClaseJv
+                                        ;
+
+dclClaseJv::=                           publicOpcional CLASS ID LLAVE_A contenidoClaseJv LLAVE_C;
+
+contenidoClaseJv::=                     sentenciasDeClaseJv
+                                        |
+                                        ;
+
+sentenciasDeClaseJv::=                  sentenciasDeClaseJv sentenciaDeClaseJv
+                                        |sentenciaDeClaseJv
+                                        ;
+
+sentenciaDeClaseJv::=                   sentenciaDeclaracionJv
+                                        |dclMetodoJv
+                                        ;
+
+dclMetodoJv::=                          publicOpcional tiposDeMetodo ID PAR_A dclParametrosJv PAR_C LLAVE_A bloqueJv LLAVE_C;
+
+dclParametrosJv::=                      listadoParametrosJv
+                                        |
+                                        ;
+
+listadoParametrosJv::=                  listadoParametrosJv COMA tiposDeDato ID
+                                        |tiposDeDato ID
+                                        ;
+
+bloqueJv::=                             sentenciasJv
+                                        |
+                                        ;
+
+sentenciasJv::=                         sentenciasJv sentenciaJv
+                                        |sentenciaJv
+                                        ;
+
+sentenciaJv::=                          sentenciaIfJv
+                                        |sentenciaForJv
+                                        |sentenciaWhileJv
+                                        |sentenciaSwitchJv 
+                                        |sentenciaDoWhileJv FIN_LINEA
+                                        |sentenciaSimpleJv FIN_LINEA
+                                        ;
+
+sentenciaSimpleJv::=                    sentenciaDeclaracionJv
+                                        |sentenciaAsignacionJv
+                                        |sentenciaIngresoDatosJv
+                                        |sentenciaEscribirJv
+                                        |llamadaMetodoJv
+                                        |sentenciaReturnJv
+                                        ;
+
+sentenciaIfJv::=                        IF PAR_A expresionBoolJv PAR_C LLAVE_A bloqueJv LLAVE_C sinoJv;
+
+sinoJv::=                               ELSE IF PAR_A expresionBoolJv PAR_C LLAVE_A bloqueJv LLAVE_C sinoJv
+                                        |ELSE LLAVE_A bloqueJv LLAVE_C 
+                                        |
+                                        ;
+
+sentenciaForJv::=                       FOR PAR_A tiposDeDato ID IGUAL expresionArJv FIN_LINEA expresionBoolJv FIN_LINEA ID modificadorForJv PAR_C LLAVE_A bloqueJv LLAVE_C;
+
+modificadorForJv::=                     IGUAL expresionArJv
+                                        |AUMENTO
+                                        |DISMINUCION
+                                        ;
+
+sentenciaWhileJv::=                     WHILE PAR_A expresionBoolJv PAR_C LLAVE_A bloqueJv LLAVE_C;
+
+sentenciaSwitchJv::=                    SWITCH PAR_A expresionArJv PAR_C LLAVE_A contenidoSwitchJv LLAVE_C;
+
+contenidoSwitchJv::=                    contenidoSwitchJv valorSwitchJv DOS_PUNTOS bloqueSwichJv
+                                        |valorSwitchJv DOS_PUNTOS bloqueSwichJv
+                                        ;
+
+valorSwitchJv::=                        CASE ENTERO
+                                        |CASE FLOTANTE
+                                        |CASE CARACTER
+                                        |DEFAULT
+                                        ;
+
+bloqueSwichJv::=                        LLAVE_A bloqueJv LLAVE_C
+                                        |bloqueJv
+                                        ;
+
+sentenciaDoWhileJv::=                   DO LLAVE_A bloqueJv LLAVE_C WHILE PAR_A expresionBoolJv PAR_C;
+
+sentenciaDeclaracionJv::=               tiposDeDato listadoAsignacionesJv;
+
+listadoAsignacionesJv::=                listadoAsignacionesJv asignacionJv
+                                        |asignacionJv
+                                        ;
+
+asignacionJv::=                         ID IGUAL accionAsignacionJv
+                                        |ID
+                                        ;
+
+sentenciaAsignacionJv::=                ID IGUAL accionAsignacionJv; 
+                                        |THIS ID IGUAL accionAsignacionJv;
+                                        ;
+
+accionAsignacionJv::=                   expresionArJv
+                                        |sentenciaIngresoDatosJv
+                                        ;
+
+sentenciaIngresoDatosJv::=               INTINPUT PAR_A CADENA PAR_C
+                                        |INTINPUT PAR_A PAR_C
+                                        |CHARINPUT PAR_A CADENA PAR_C
+                                        |CHARINPUT PAR_A PAR_C
+                                        |FLOATINPUT PAR_A CADENA PAR_C
+                                        |FLOATINPUT PAR_A PAR_C
+                                        ;
+
+sentenciaEscribirJv::=                  MENSAJE PAR_A expresionMensajeJv PAR_C
+                                        |MENSAJELN PAR_A expresionMensajeJv PAR_C
+                                        ;
+
+sentenciaReturnJv::=                    RETURN expresionArJv;
+
+sentenciaBreakJv::=                     BREAK;
+
+expresionArJv::=                        expresionArJv MAS expresionArJv
+                                        |expresionArJv MENOS expresionArJv
+                                        |expresionArJv DIV expresionArJv
+                                        |expresionArJv POR expresionArJv
+                                        |expresionArJv MOD expresionArJv
+                                        |PAR_A expresionArJv PAR_C
+                                        |llamadaMetodoJv
+                                        |valorAtomico
+                                        |THIS ID
+                                        ;
+
+expresionBoolJv::=                      expresionArJv DISTINTO expresionArJv
+                                        |expresionArJv COMPARADOR expresionArJv
+                                        |expresionArJv MENOR expresionArJv
+                                        |expresionArJv MENORIGUAL expresionArJv
+                                        |expresionArJv MAYOR expresionArJv
+                                        |expresionArJv MAYORIGUAL expresionArJv
+                                        |expresionBoolJv AND expresionBoolJv
+                                        |expresionBoolJv OR expresionBoolJv
+                                        |NOT expresionBoolJv
+                                        ;
+
+llamadaMetodoJv::=                      ID PAR_A listadoParametrosEnviadosJv PAR_C
+                                        |ID PAR_A PAR_C
+                                        ;
+
+listadoParametrosEnviadosJv::=          listadoParametrosEnviadosJv COMA expresionArJv
+                                        |expresionArJv
+                                        ;
+
 
 //producciones de python
+python::=                               SEPARADOR_PY NEWLINE metodosPy;
+
+metodosPy::=                            dclMetodosPy
+                                        |
+                                        ;
+
 dclMetodosPy::=                         dclMetodosPy dclMetodoPy
                                         |dclMetodoPy
                                         ;
 
-dclMetodoPy::=                          DEF ID PAR_A listadoId PAR_C DOS_PUNTOS bloquePy
+dclMetodoPy::=                          DEF ID PAR_A dclParametrosPy PAR_C DOS_PUNTOS bloquePy
+                                        ;
+
+dclParametrosPy::=                      listadoId
+                                        |
                                         ;
 
 listadoId::=                            listadoId COMA ID
@@ -89,18 +462,14 @@ sentenciasPy::=                         sentenciasPy sentenciaPy
                                         |sentenciaPy
                                         ;
 
-sentenciaPy::=                          sentenciaIf
-                                        |sentenciaFor
-                                        |sentenciaWhile
-                                        |listadoSentenciasPy
+sentenciaPy::=                          sentenciaIfPy
+                                        |sentenciaForPy
+                                        |sentenciaWhilePy
+                                        |sentenciaSimplePy
                                         ;
 
 bloquePy::=                             NEWLINE IDENT sentenciasPy DEDENT
-                                        ;
-
-listadoSentenciasPy::=                  listadoSentenciasPy PUNTOCOMA sentenciaSimplePy
                                         |sentenciaSimplePy
-                                        |RETURN expresionArPy
                                         ;
 
 sentenciaSimplePy::=                    asignacionVarPy
@@ -112,12 +481,15 @@ sentenciaSimplePy::=                    asignacionVarPy
 ingresoDatosPy::=                       INTINPUT PAR_A CADENA PAR_C
                                         |CHARINPUT PAR_A CADENA PAR_C
                                         |FLOATINPUT PAR_A CADENA PAR_C
+                                        |INTINPUT PAR_A PAR_C
+                                        |CHARINPUT PAR_A PAR_C
+                                        |FLOATINPUT PAR_A PAR_C
                                         ;
 
-escribirPy::=                           PRINT PAR_A listadoMensajePy PAR_C
+escribirPy::=                           PRINT PAR_A mensajesPy PAR_C
                                         ;
 
-listadoMensajePy::=                     listadoMensajePy COMA mensajePy
+mensajePy::=                            mensajesPy COMA mensajePy
                                         |mensajePy
                                         ;
 
@@ -125,11 +497,11 @@ mensajePy::=                            CADENA
                                         |expresionArPy
                                         ;
 
-listadoExpresionesArPy::=               listadoExpresionesArPy expresionArPy
+listadoExpresionesArPy::=               listadoExpresionesArPy COMA expresionArPy
                                         |expresionArPy
                                         ;
 
-sentenciaIf::=                          IF condicionPy DOS_PUNTOS bloquePy elseIfPy elsePy
+sentenciaIfPy::=                        IF condicionPy DOS_PUNTOS bloquePy elseIfPy elsePy
                                         ;
 
 elseIfPy::=                             elseIfPy ELSEIF condicionPy DOS_PUNTOS bloquePy
@@ -139,14 +511,10 @@ elseIfPy::=                             elseIfPy ELSEIF condicionPy DOS_PUNTOS b
 elsePy::=                               ELSE DOS_PUNTOS bloquePy
                                         ;
 
-sentenciaWhile::=                       WHILE condicionPy bloquePy
+sentenciaWhilePy::=                     WHILE condicionPy bloquePy
                                         ;
 
-comaPy::=                               COMA
-                                        |
-                                        ;
-
-sentenciaFor::=                         FOR ID comaPy IN rangePy DOS_PUNTOS bloquePy
+sentenciaForPy::=                       FOR ID IN rangePy DOS_PUNTOS bloquePy
                                         ;
 
 rangePy::=                              RANGE PAR_A expresionArPy PAR_C
@@ -165,19 +533,14 @@ expresionArPy::=                        expresionArPy MAS expresionArPy
                                         |expresionArPy MOD expresionArPy
                                         |PAR_A expresionArPy PAR_C
                                         |llamadaMetodoPy
-                                        |CARACTER
-                                        |FLOTANTE
-                                        |ENTERO
+                                        |valorAtomico
                                         ;
 
 llamadaMetodoPy::=                      ID PAR_A listadoParametrosEnviadosPy PAR_C
+                                        |ID PAR_A PAR_C
                                         ;
 
-asignacionVarPy::=                      listadoVarPy IGUAL listadoExpresionesArPy
-                                        ;
-
-listadoVarPy::=                         listadoVarPy COMA ID
-                                        |ID
+asignacionVarPy::=                      listadoId IGUAL listadoExpresionesArPy
                                         ;
 
 listadoParametrosEnviadosPy::=          listadoParametrosEnviadosPy COMA expresionArPy
@@ -193,4 +556,240 @@ expresionBoolPy::=                      expresionArPy DISTINTO expresionArPy
                                         |expresionBoolPy AND expresionBoolPy
                                         |expresionBoolPy OR expresionBoolPy
                                         |NOT expresionBoolPy
+                                        ;
+
+//producciones principal
+principal::=                            SEPARADOR_PROGRAMA secLibrerias secConstantes secVariables codigoMain;
+
+secLibrerias::=                         dclLibrerias
+                                        |
+                                        ;
+
+dclLibrerias::=                         dclLibrerias dclLibreria
+                                        |dclLibreria
+                                        ;
+
+dclLibreria::=                          HASHTAG INCLUDE libreria;
+
+libreria::=                             JAVA valorTexto
+                                        |PY
+                                        |VB
+                                        |MENOR libreriaC MAYOR
+                                        ;
+
+libreriaC::=                            libreriaC PUNTO ID
+                                        |ID
+                                        ;
+
+valorTexto::=                           
+
+secConstantes::=                        dclConstantes
+                                        |
+                                        ;
+
+dclConstantes::=                        dclConstantes dclConstante
+                                        |dclConstante
+                                        ;
+
+dclConstante::=                         CONST tiposDeDato ID IGUAL expresionAr FIN_LINEA;
+
+secVariables::=                         dclVariables
+                                        |
+                                        ;
+
+dclVariables::=                         dclVariables sentenciaDeclaracion
+                                        |sentenciaDeclaracion
+                                        ;
+
+sentenciaDeclaracion::=                 tiposDeDato listadoDeclaraciones FIN_LINEA
+                                        |JAVA PUNTO ID listadoDeclaracionesClases FIN_LINEA
+                                        |tiposDeDato arreglo FIN_LINEA
+                                        ;
+
+arreglo::=                              ID listDimensiones;
+
+listDimensiones::=                      listDimensiones COR_A expresionAr COR_C
+                                        |COR_A expresionAr COR_C
+                                        ;
+
+listadoDeclaraciones::=                 listadoDeclaraciones COMA ID asignacionValor
+                                        |ID asignacionValor
+                                        ;
+ 
+asignacionValor::=                      IGUAL expresionAr
+                                        |
+                                        ;
+
+listadoDeclaracionesClases::=           listadoDeclaracionesClases COMA ID asignacionConstructor
+                                        |ID asignacionConstructor
+                                        ;
+
+asignacionConstructor::=                accionConstructor
+                                        |
+                                        ;
+
+accionConstructor::=                    PAR_A listadoParametrosEnviados PAR_C;
+
+codigoMain::=                           VOID MAIN PAR_A PAR_C LLAVE_A bloque LLAVE_C;
+
+bloque::=                               sentencias 
+                                        |
+                                        ;
+
+sentencias::=                           sentencias sentencia
+                                        |sentencia
+                                        ;
+
+sentencia::=                            sentenciaIf
+                                        |sentenciaFor
+                                        |sentenciaWhile
+                                        |sentenciaDoWhile
+                                        |sentenciaSwitch
+                                        |sentenciaSimple FIN_LINEA
+                                        ;
+
+sentenciaSimple::=                      sentenciaAsignacion
+                                        |sentenciaDeclaracion
+                                        |sentenciaEscribir
+                                        |sentenciaIngresoDatos
+                                        |sentenciaLimpiarPantalla
+                                        |sentenciaEsperarTecla
+                                        |llamadaMetodo
+                                        |sentenciaBreak
+                                        ;
+
+sentenciaAsignacion::=                  lugarAsignacion IGUAL expresionAr;
+
+lugarAsignacion::=                      ID
+                                        |arreglo
+                                        |JAVA PUNTO ID
+                                        ;
+
+sentenciaEscribir::=                    PRINTF PAR_A expresionCadena PAR_C
+                                        |PRINTF PAR_A expresionCadena COMA listadoExpresiones PAR_C
+                                        ;
+
+expresionCadena::=                      expresionCadena valorCadena
+                                        |valorCadena
+                                        ;
+
+listadoExpresiones::=                   listadoExpresiones COMA expresionAr
+                                        |expresionAr
+                                        ;
+
+expresionCadenaEntrada::=               valorTexto comodin
+                                        |comodin valorTexto
+                                        |valorTexto comodin valorTexto
+                                        |comodin
+                                        ;
+
+valorCadena::=                          valorTexto
+                                        |comodin
+                                        ;
+
+valorTexto::=                           CADENA
+                                        |CARACTER
+                                        ;
+
+comodin::=                              COMODIN_CARACTER
+                                        |COMODIN_ENTERO
+                                        |COMODIN_FLOTANTE
+                                        ;
+
+sentenciaIngresoDatos::=                SCANF PAR_A expresionCadenaEntrada COMA AMPERSON lugarAsignacion PAR_C;
+
+sentenciaLimpiarPantalla::=             LIMPIAR_PANTALLA;
+
+sentenciaEsperarTecla::=                ESPERAR_TECLA;
+
+sentenciaBreak::=                       BREAK;
+
+sentenciaIf::=                          IF PAR_A expresionBool PAR_C LLAVE_A bloque LLAVE_C sino;
+
+sino::=                                 ELSE IF PAR_A expresionBool PAR_C LLAVE_A bloque LLAVE_C sino
+                                        |ELSE LLAVE_A bloque LLAVE_C
+                                        |
+                                        ;
+
+sentenciaFor::=                         FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor PAR_C LLAVE_A bloque LLAVE_C; 
+
+modificadorFor::=                       IGUAL expresionAr
+                                        |AUMENTO
+                                        |DISMINUCION
+                                        ;
+
+sentenciaWhile::=                       WHILE PAR_A expresionBool PAR_C LLAVE_A bloque LLAVE_C;
+
+sentenciaDoWhile::=                     DO LLAVE_A bloque LLAVE_C WHILE PAR_A expresionBool PAR_C FIN_LINEA;
+
+sentenciaSwitch::=                      SWITCH PAR_A expresionAr PAR_C LLAVE_A contenidoSwitch LLAVE_C;
+
+contenidoSwitch::=                      contenidoSwitch valorSwitch DOS_PUNTOS bloqueSwitch 
+                                        |valorSwitch DOS_PUNTOS bloqueSwitch
+                                        ;
+
+valorSwitch::=                          PR_CASE ENTERO
+                                        |PR_CASE FLOTANTE
+                                        |PR_CASE CARACTER
+                                        |PR_DEFAULT
+                                        ;
+
+bloqueSwich::=                          LLAVE_A bloque LLAVE_C
+                                        |bloque
+                                        ;
+
+expresionAr::=                          expresionAr MAS expresionAr
+                                        |expresionAr MENOS expresionAr
+                                        |expresionAr DIV expresionAr
+                                        |expresionAr POR expresionAr
+                                        |expresionAr MOD expresionAr
+                                        |PAR_A expresionAr PAR_C
+                                        |llamadaMetodo
+                                        |CARACTER
+                                        |FLOTANTE
+                                        |ENTERO
+                                        ;
+
+expresionBool::=                        expresionAr DISTINTO expresionAr
+                                        |expresionAr COMPARADOR expresionAr
+                                        |expresionAr MENOR expresionAr
+                                        |expresionAr MENORIGUAL expresionAr
+                                        |expresionAr MAYOR expresionAr
+                                        |expresionAr MAYORIGUAL expresionAr
+                                        |expresionBool AND expresionBool
+                                        |expresionBool OR expresionBool
+                                        |NOT expresionBool
+                                        ;
+
+llamadaMetodo::=                        JAVA PUNTO ID PUNTO ID PAR_A listadoParametrosEnviados PAR_C
+                                        |PY PUNTO ID PAR_A listadoParametrosEnviados PAR_C
+                                        |VB PUNTO ID PAR_A listadoParametrosEnviados PAR_C
+                                        ;
+
+listadoParametrosEnviados::=            parametrosEnviados
+                                        |
+                                        ;
+
+parametrosEnviados::=                   parametrosEnviados COMA expresionAr
+                                        |expresionAr
+                                        ;
+
+//produccionesGenerales
+tiposDeDato::=                          PR_ENTERO
+                                        |PR_FLOTANTE
+                                        |PR_CARACTER
+                                        ;
+
+valorAtomico::=                         ENTERO
+                                        |FLOTANTE
+                                        |CARACTER
+                                        |MENOS ENTERO
+                                        ;
+
+tiposDeMetodo::=                        VOID
+                                        |tiposDeDato
+                                        ;
+
+publicOpcional::=                       PUBLIC
+                                        |
                                         ;

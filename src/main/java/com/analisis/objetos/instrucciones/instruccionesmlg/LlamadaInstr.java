@@ -6,7 +6,7 @@
 package com.analisis.objetos.instrucciones.instruccionesmlg;
 
 import com.analisis.objetos.analisis.Pos;
-import com.analisis.objetos.basicos.accionesAsignacion.Llamada;
+import com.analisis.objetos.basicos.Llamadas.Llamada;
 
 /**
  *

@@ -137,7 +137,8 @@ Comment = {TraditionalComment} | {EndOfLineComment}
     ("S"|"s")("E"|"e")("L"|"l")("E"|"e")("C"|"c")("T"|"t")                      { return symbol(yyline+1, yycolumn+1, yytext(), sym.SELECT); }
     ("C"|"c")("A"|"a")("S"|"s")("E"|"e")                                        { return symbol(yyline+1, yycolumn+1, yytext(), sym.CASE); }
     ("D"|"d")("I"|"i")("M"|"m")                                                 { return symbol(yyline+1, yycolumn+1, yytext(), sym.DIM); }
-    ("N"|"n")("E"|"e")("X"|"x")("T"|"t")                                                { return symbol(yyline+1, yycolumn+1, yytext(), sym.NEXT); }
+    ("N"|"n")("E"|"e")("X"|"x")("T"|"t")                                        { return symbol(yyline+1, yycolumn+1, yytext(), sym.NEXT); }
+    ("B"|"b")("Y"|"y")("V"|"v")("A"|"a")("L"|"l")                               { return symbol(yyline+1, yycolumn+1, yytext(), sym.BYVAL); }
 
     // mensajes a pantalla
     ("C"|"c")("O"|"o")("N"|"n")("S"|"s")("O"|"o")("L"|"l")("E"|"e")("\.")("W"|"w")("R"|"r")("I"|"i")("T"|"t")("E"|"e")                      {return symbol(yyline+1, yycolumn+1, yytext(), sym.MENSAJE);}

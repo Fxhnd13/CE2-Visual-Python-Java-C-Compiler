@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.analisis.objetos.basicos.accionesAsignacion;
+package com.analisis.objetos.basicos.Llamadas;
 
 /**
- * Clase que almacena la informacion cuando se realiza una llamada a un metodo/funcion
+ * Interface destinada para las distintas llamadas en los metodos
  * @author jose_
  */
-public class Llamada {
+public interface Llamada {
     
 }
