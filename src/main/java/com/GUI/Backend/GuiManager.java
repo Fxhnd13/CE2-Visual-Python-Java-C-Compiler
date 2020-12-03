@@ -185,8 +185,7 @@ public class GuiManager {
     }
 
     public void generarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea) {
-        GeneradorAst generadorAst = new GeneradorAst();
-        ColeccionInstr instrucciones = generadorAst.generarAst(codigoFuente.getText());
+        GeneradorAst generadorAst = new GeneradorAst(codigoFuente.getText());
         
 //        EstructurasIntermedias generador = new EstructurasIntermedias();
 //        Coleccion coleccion = generador.generarEstructuras(instrucciones); //generamos la informacion que podamos necesitar
