@@ -57,10 +57,10 @@ terminal String DEFAULT, MENSAJELN, INCLUDE, FUNCTION, SEPARADOR_PROGRAMA;
 //declaracion de no terminales
 
 non terminal codigo, visual, metodosVb, dclMetodosVb, dclMetodoVb, funcionVb, procedimientoVb, bloqueVb, sentenciasVb;
-non terminal sentenciaVb, sentenciaSimplePy, sentenciaIfVb, sinoVb, sentenciaForVb, tipoForVb, aumentoForVb, idNextVb;
+non terminal sentenciaVb, sentenciaSimpleVb, sentenciaIfVb, sinoVb, sentenciaForVb, tipoForVb, aumentoForVb, idNextVb;
 non terminal sentenciaWhileVb, sentenciaDoWhileVb, sentenciaSwitchVb, caseVb, contenidoSwitchVb, valorCaseVb;
 non terminal sentenciaDeclaracionVb, declaracionVariableVb, masDeclaracionVariableVb, sentenciaAsignacionVb;
-non terminal accionAsignacionVb, sentenciaIngresoDatosVb, sentenciaEscribirVb, mensajesVb, mensajeVb, sentenciaReturnVb;
+non terminal accionAsignacionVb, sentenciaEscribirVb, mensajesVb, mensajeVb, sentenciaReturnVb;
 non terminal dclParametrosVb, listadoParametrosVb, parametroVb, expresionArVb, condicionVb, expresionBoolVb;
 non terminal llamadaMetodoVb, listadoParametrosEnviadosVb, espaciosVb;
 
@@ -69,11 +69,11 @@ non terminal dclMetodoJv, dclParametrosJv, listadoParametrosJv, bloqueJv, senten
 non terminal sentenciaSimpleJv, sentenciaIfJv, sinoJv, sentenciaForJv, modificadorForJv, sentenciaWhileJv;
 non terminal sentenciaSwitchJv, contenidoSwitchJv, valorSwitchJv, bloqueSwichJv, sentenciaDoWhileJv;
 non terminal sentenciaDeclaracionJv, listadoAsignacionesJv, asignacionJv, sentenciaAsignacionJv, accionAsignacionJv;
-non terminal sentenciaIngresoDatosJv, sentenciaEscribirJv, sentenciaReturnJv, sentenciaBreakJv, expresionArJv;
-non terminal expresionBoolJv, llamadaMetodoJv, listadoParametrosEnviadosJv;
+non terminal sentenciaEscribirJv, sentenciaReturnJv, sentenciaBreakJv, expresionArJv, valorTextoLibreriaJv;
+non terminal expresionBoolJv, llamadaMetodoJv, listadoParametrosEnviadosJv, expresionMensajeJv;
 
 non terminal python, metodosPy, dclMetodosPy, dclMetodoPy, dclParametrosPy, listadoId, sentenciasPy, sentenciaPy;
-non terminal bloquePy, sentenciaSimplePy, ingresoDatosPy, escribirPy, mensajePy, mensajePy, listadoExpresionesArPy;
+non terminal bloquePy, sentenciaSimplePy, escribirPy, mensajesPy, mensajePy, listadoExpresionesArPy;
 non terminal sentenciaIfPy, elseIfPy, elsePy, sentenciaWhilePy, sentenciaForPy, rangePy, condicionPy, expresionArPy;
 non terminal llamadaMetodoPy, asignacionVarPy, listadoParametrosEnviadosPy, expresionBoolPy;
 
@@ -82,14 +82,15 @@ non terminal dclConstantes, dclConstante, secVariables, dclVariables, sentenciaD
 non terminal listadoDeclaraciones, asignacionValor, listadoDeclaracionesClases, asignacionConstructor;
 non terminal accionConstructor, codigoMain, bloque, sentencias, sentencia, sentenciaSimple, sentenciaAsignacion;
 non terminal lugarAsignacion, sentenciaEscribir, expresionCadena, listadoExpresiones, expresionCadenaEntrada;
-non terminal valorCadena, valorTexto, comodin, sentenciaIngresoDatos, sentenciaLimpiarPantalla, sentenciaEsperarTecla;
+non terminal valorCadena, comodin, sentenciaIngresoDatos, sentenciaLimpiarPantalla, sentenciaEsperarTecla;
 non terminal sentenciaBreak, sentenciaIf, sino, sentenciaFor, modificadorFor, sentenciaWhile, sentenciaDoWhile; 
-non terminal sentenciaSwitch, contenidoSwitch, valorSwitch, bloqueSwich, expresionAr, expresionBool, llamadaMetodo;
+non terminal sentenciaSwitch, contenidoSwitch, valorSwitch, bloqueSwitch, expresionAr, expresionBool, llamadaMetodo;
 non terminal listadoParametrosEnviados, parametrosEnviados;
 
-non terminal tiposDeDato, valorAtomico, tiposDeMetodo, publicOpcional;
+non terminal tiposDeDato, valorAtomico, tiposDeMetodo, publicOpcional, ingresoDatos;
 
 //declaracion de precedencia
+precedence left PR_ENTERO, PR_FLOTANTE, PR_CARACTER;
 precedence left OR;
 precedence left AND;
 precedence left NOT;
@@ -138,9 +139,9 @@ sentenciaVb::=                          sentenciaIfVb FIN_LINEA
                                         |sentenciaSimpleVb FIN_LINEA
                                         ;
 
-sentenciaSimplePy::=                    sentenciaDeclaracionVb 
+sentenciaSimpleVb::=                    sentenciaDeclaracionVb 
                                         |sentenciaAsignacionVb 
-                                        |sentenciaIngresoDatosVb 
+                                        |ingresoDatos 
                                         |sentenciaEscribirVb 
                                         |llamadaMetodoVb 
                                         |sentenciaReturnVb 
@@ -157,7 +158,7 @@ sinoVb::=                               ELSEIF condicionVb THEN espaciosVb bloqu
                                         |ELSE espaciosVb bloqueVb
                                         ;
 
-sentenciaForVb::=                       FOR ID tipoForVb IGUAL expresionArVb TO expresionArVb aumentoForVb espaciosVb bloqueVb NEXT idNext;
+sentenciaForVb::=                       FOR ID tipoForVb IGUAL expresionArVb TO expresionArVb aumentoForVb espaciosVb bloqueVb NEXT idNextVb;
 
 tipoForVb::=                            tiposDeDato
                                         |
@@ -202,16 +203,8 @@ masDeclaracionVariableVb::=             COMA listadoId AS tiposDeDato IGUAL expr
 
 sentenciaAsignacionVb::=                ID IGUAL accionAsignacionVb;
 
-accionAsignacionVb::=                   sentenciaIngresoDatosVb
+accionAsignacionVb::=                   ingresoDatos
                                         |expresionArVb
-                                        ;
-
-sentenciaIngresoDatosVb::=              INTINPUT PAR_A CADENA PAR_C
-                                        |CHARINPUT PAR_A CADENA PAR_C
-                                        |FLOATINPUT PAR_A CADENA PAR_C
-                                        |INTINPUT PAR_A PAR_C
-                                        |CHARINPUT PAR_A PAR_C
-                                        |FLOATINPUT PAR_A PAR_C
                                         ;
 
 sentenciaEscribirVb::=                  MENSAJE PAR_A mensajesVb PAR_C
@@ -274,7 +267,7 @@ listadoParametrosEnviadosVb::=          listadoParametrosEnviadosVb COMA expresi
                                         |expresionArVb
                                         ;
 
-espaciosVb:=                            espaciosVb FIN_LINEA
+espaciosVb::=                            espaciosVb FIN_LINEA
                                         |FIN_LINEA
                                         ;
 
@@ -331,10 +324,11 @@ sentenciaJv::=                          sentenciaIfJv
 
 sentenciaSimpleJv::=                    sentenciaDeclaracionJv
                                         |sentenciaAsignacionJv
-                                        |sentenciaIngresoDatosJv
+                                        |ingresoDatos
                                         |sentenciaEscribirJv
                                         |llamadaMetodoJv
                                         |sentenciaReturnJv
+                                        |sentenciaBreakJv
                                         ;
 
 sentenciaIfJv::=                        IF PAR_A expresionBoolJv PAR_C LLAVE_A bloqueJv LLAVE_C sinoJv;
@@ -381,20 +375,12 @@ asignacionJv::=                         ID IGUAL accionAsignacionJv
                                         |ID
                                         ;
 
-sentenciaAsignacionJv::=                ID IGUAL accionAsignacionJv; 
-                                        |THIS ID IGUAL accionAsignacionJv;
+sentenciaAsignacionJv::=                ID IGUAL accionAsignacionJv
+                                        |THIS ID IGUAL accionAsignacionJv
                                         ;
 
 accionAsignacionJv::=                   expresionArJv
-                                        |sentenciaIngresoDatosJv
-                                        ;
-
-sentenciaIngresoDatosJv::=               INTINPUT PAR_A CADENA PAR_C
-                                        |INTINPUT PAR_A PAR_C
-                                        |CHARINPUT PAR_A CADENA PAR_C
-                                        |CHARINPUT PAR_A PAR_C
-                                        |FLOATINPUT PAR_A CADENA PAR_C
-                                        |FLOATINPUT PAR_A PAR_C
+                                        |ingresoDatos
                                         ;
 
 sentenciaEscribirJv::=                  MENSAJE PAR_A expresionMensajeJv PAR_C
@@ -474,22 +460,14 @@ bloquePy::=                             NEWLINE IDENT sentenciasPy DEDENT
 
 sentenciaSimplePy::=                    asignacionVarPy
                                         |escribirPy
-                                        |ingresoDatosPy
+                                        |ingresoDatos
                                         |llamadaMetodoPy
-                                        ;
-
-ingresoDatosPy::=                       INTINPUT PAR_A CADENA PAR_C
-                                        |CHARINPUT PAR_A CADENA PAR_C
-                                        |FLOATINPUT PAR_A CADENA PAR_C
-                                        |INTINPUT PAR_A PAR_C
-                                        |CHARINPUT PAR_A PAR_C
-                                        |FLOATINPUT PAR_A PAR_C
                                         ;
 
 escribirPy::=                           PRINT PAR_A mensajesPy PAR_C
                                         ;
 
-mensajePy::=                            mensajesPy COMA mensajePy
+mensajesPy::=                            mensajesPy COMA mensajePy
                                         |mensajePy
                                         ;
 
@@ -571,7 +549,7 @@ dclLibrerias::=                         dclLibrerias dclLibreria
 
 dclLibreria::=                          HASHTAG INCLUDE libreria;
 
-libreria::=                             JAVA valorTexto
+libreria::=                             JAVA valorTextoLibreriaJv
                                         |PY
                                         |VB
                                         |MENOR libreriaC MAYOR
@@ -581,7 +559,9 @@ libreriaC::=                            libreriaC PUNTO ID
                                         |ID
                                         ;
 
-valorTexto::=                           
+valorTextoLibreriaJv::=                 CADENA
+                                        |POR
+                                        ;
 
 secConstantes::=                        dclConstantes
                                         |
@@ -728,10 +708,10 @@ contenidoSwitch::=                      contenidoSwitch valorSwitch DOS_PUNTOS b
                                         |valorSwitch DOS_PUNTOS bloqueSwitch
                                         ;
 
-valorSwitch::=                          PR_CASE ENTERO
-                                        |PR_CASE FLOTANTE
-                                        |PR_CASE CARACTER
-                                        |PR_DEFAULT
+valorSwitch::=                          CASE ENTERO
+                                        |CASE FLOTANTE
+                                        |CASE CARACTER
+                                        |DEFAULT
                                         ;
 
 bloqueSwich::=                          LLAVE_A bloque LLAVE_C
@@ -775,6 +755,15 @@ parametrosEnviados::=                   parametrosEnviados COMA expresionAr
                                         ;
 
 //produccionesGenerales
+
+ingresoDatos::=                         INTINPUT PAR_A CADENA PAR_C
+                                        |CHARINPUT PAR_A CADENA PAR_C
+                                        |FLOATINPUT PAR_A CADENA PAR_C
+                                        |INTINPUT PAR_A PAR_C
+                                        |CHARINPUT PAR_A PAR_C
+                                        |FLOATINPUT PAR_A PAR_C
+                                        ;
+
 tiposDeDato::=                          PR_ENTERO
                                         |PR_FLOTANTE
                                         |PR_CARACTER

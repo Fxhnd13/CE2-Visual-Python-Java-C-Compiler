@@ -6,7 +6,10 @@
 package com.analisis.objetos.instrucciones.instruccionesmlg;
 
 import com.analisis.objetos.analisis.Pos;
+import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.nodos.NodoAritmetico;
+import com.generadores.objetos.Cuarteto;
+import java.util.List;
 
 /**
  *
@@ -39,6 +42,21 @@ public class MensajeInstr implements Instruccion{
 
     public void setPosicion(Pos posicion) {
         this.posicion = posicion;
+    }
+
+    @Override
+    public void generarCodigoAssembler(Coleccion coleccion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void analizarSemanticamente(Coleccion coleccion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

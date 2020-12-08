@@ -97,6 +97,7 @@ Comment = {TraditionalComment} | {EndOfLineComment}
         }
     }
 
+    public ErrorManager gerErrores(){ return errores; }
 %}
 
 %init{

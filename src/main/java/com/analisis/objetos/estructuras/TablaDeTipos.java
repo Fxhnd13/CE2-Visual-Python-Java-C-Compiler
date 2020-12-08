@@ -8,6 +8,7 @@ package com.analisis.objetos.estructuras;
 import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Dato;
+import com.analisis.objetos.basicos.Simbolo;
 
 /**
  * Clase destinada al manejo de los tipos dentro del analisis semantico
@@ -235,5 +236,35 @@ public class TablaDeTipos {
             }
         }
         return null;
+    }
+
+    public void evaluarAsignacion(Simbolo simbolo, String tipoParaAsignar, Coleccion coleccion) {
+        if(simbolo.getRol().equals(CONST.VAR)){
+            switch(simbolo.getTipo()){
+                case CONST.FLOTANTE: break;
+                case CONST.ENTERO:{
+                    switch(tipoParaAsignar){
+                        case CONST.FLOTANTE:{
+                            coleccion.getErrores().agregarError("Semantico", simbolo.getId(),"No se puede asignar a una variable tipo entero un valor flotante.", posicion);
+                            break;
+                        }
+                    }
+                    break;
+                }
+                case CONST.CARACTER:{
+                    switch(tipoParaAsignar){
+                        case CONST.FLOTANTE:{
+                            coleccion.getErrores().agregarError("Semantico", simbolo.getId(),"No se puede asignar a una variable tipo entero un valor flotante.", posicion);
+                            break;
+                        }
+                    }
+                    break;
+                }
+                case CONST.INDEFINIDO:{
+                    simbolo.setTipo(tipoParaAsignar);
+                    break;
+                }
+            }
+        }
     }
 }

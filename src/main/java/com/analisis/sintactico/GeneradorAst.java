@@ -31,24 +31,24 @@ public class GeneradorAst {
     
     public void generarAst(String codigo){
         Lexer lexer = new Lexer(new StringReader(codigo));
-        while(lexer.isAnalizando()){
-            try {
-                lexer.next_token();
-            } catch (IOException ex) {
-                Logger.getLogger(GeneradorAst.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        while(lexer.isAnalizando()){
+//            try {
+//                lexer.next_token();
+//            } catch (IOException ex) {
+//                Logger.getLogger(GeneradorAst.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
         
         //Aqui tenemos que generar las estructuras intermecias que rayos
-//        Parser parser = new Parser(lexer);
-//        try {
-//            parser.debug_parse();
-//            System.out.println("*****************************************");
-//            System.out.println("SE ANALIZO EXITOSAMENTE");
-//            System.out.println("*****************************************");
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
+        Parser parser = new Parser(lexer);
+        try {
+            parser.parse();
+            System.out.println("*****************************************");
+            System.out.println("SE ANALIZO EXITOSAMENTE");
+            System.out.println("*****************************************");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public ColeccionInstr getInstrucciones() {

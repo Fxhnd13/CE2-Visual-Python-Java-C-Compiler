@@ -7,6 +7,9 @@ package com.analisis.objetos.instrucciones.instruccionesmlg;
 
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.lugaresAsignacion.Lugar;
+import com.analisis.objetos.estructuras.Coleccion;
+import com.generadores.objetos.Cuarteto;
+import java.util.List;
 
 /**
  * Clase destinada al almacenamiento de la informacion de una instruccion de declaracion
@@ -59,6 +62,21 @@ public class DeclaracionInstr implements Instruccion{
 
     public void setConstante(boolean constante) {
         this.constante = constante;
+    }
+
+    @Override
+    public void generarCodigoAssembler(Coleccion coleccion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void analizarSemanticamente(Coleccion coleccion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

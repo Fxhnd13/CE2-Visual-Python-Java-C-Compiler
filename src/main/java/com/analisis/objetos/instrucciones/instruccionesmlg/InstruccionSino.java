@@ -5,10 +5,13 @@
  */
 package com.analisis.objetos.instrucciones.instruccionesmlg;
 
+import java.util.List;
+
 /**
  *
  * @author jose_
  */
 public interface InstruccionSino extends Instruccion{
     
+    public List<Instruccion> getInstrucciones();
 }

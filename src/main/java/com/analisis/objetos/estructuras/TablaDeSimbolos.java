@@ -36,4 +36,13 @@ public class TablaDeSimbolos {
     public String getUltimoPosicionLibre(){
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public List<Simbolo> getSimbolos() {
+        return simbolos;
+    }
+
+    public void setSimbolos(List<Simbolo> simbolos) {
+        this.simbolos = simbolos;
+    }
+    
 }

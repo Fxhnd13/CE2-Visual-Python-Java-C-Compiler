@@ -721,13 +721,13 @@ public class Lexer implements java_cup.runtime.Scanner {
             if(i>(tam-1-value.lastIndexOf('\n'))){
                 integers.remove(integers.size()-1);
                 this.yypushback(tam - value.lastIndexOf('\n'));
-                Symbol simbolo = new Symbol(sym.DEDENT, yyline, yycolumn, value);
+                Symbol simbolo = new Symbol(sym.DEDENT, yyline+1, yycolumn+1, value);
                 escribirSimbolo(simbolo);
                 return simbolo;
             } else if(i< (tam-1-value.lastIndexOf('\n'))) {
                 integers.add(tam-1-value.lastIndexOf('\n'));
                 verificarident = false;
-                Symbol simbolo = new Symbol(sym.IDENT, yyline, yycolumn, value);
+                Symbol simbolo = new Symbol(sym.IDENT, yyline+1, yycolumn+1, value);
                 escribirSimbolo(simbolo);
                 return simbolo;
             } else {
@@ -737,7 +737,7 @@ public class Lexer implements java_cup.runtime.Scanner {
         } else {
             this.yypushback(tam - value.lastIndexOf('\n'));
             verificarident = true;
-            Symbol simbolo = new Symbol(sym.NEWLINE, yyline, yycolumn, value);
+            Symbol simbolo = new Symbol(sym.NEWLINE, yyline+1, yycolumn+1, value);
             escribirSimbolo(simbolo);
             return simbolo;
         }

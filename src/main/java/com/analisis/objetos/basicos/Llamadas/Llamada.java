@@ -5,10 +5,15 @@
  */
 package com.analisis.objetos.basicos.Llamadas;
 
+import com.analisis.objetos.nodos.NodoAritmetico;
+import java.util.List;
+
 /**
  * Interface destinada para las distintas llamadas en los metodos
  * @author jose_
  */
 public interface Llamada {
     
+    public String getIdMetodo();
+    public List<NodoAritmetico> getParametros();
 }

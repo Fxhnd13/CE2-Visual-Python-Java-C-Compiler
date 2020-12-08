@@ -100,4 +100,11 @@ public class Coleccion {
     public Simbolo getAtributoDeClase(String nombre) {
         return ((Clase)clasesJv.getSimbolo(this.clase).getValor()).getSimbolos().getSimbolo(nombre);
     }
+
+    public boolean existeMetodo(String nombreMetodo) {
+        for (String nombre : nombresMetodos) {
+            if(nombre.equals(nombreMetodo)) return true;
+        }
+        return false;
+    }
 }

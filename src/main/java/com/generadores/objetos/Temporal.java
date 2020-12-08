@@ -5,10 +5,46 @@
  */
 package com.generadores.objetos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author jose_
  */
 public class Temporal {
     
+    public static String temporal = "t";
+    public static List<VarT> temporales = new ArrayList();
+    public static int contador = 0;
+    
+    public static String siguienteTemporal(String tipo) {
+        temporal = "t" + contador;
+        contador++;
+        temporales.add(new VarT(tipo,temporal));
+        return temporal;
+    } 
+    
+    public static String actualTemporal() {
+        contador--;
+        temporal = "t" + contador;
+        contador++;
+        return temporal;
+    }
+   
+    public static String ultimoTemporal() {
+        return temporal;
+    }
+
+    public static void reiniciar() {
+        temporales.clear();
+        contador = 0;
+    }
+
+    static String getTipoTemporal(String resultado) {
+        for (VarT temporal : temporales) {
+            if(temporal.getTemporal().equals(resultado)) return temporal.getTipo();
+        }
+        return null;
+    }
 }

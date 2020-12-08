@@ -5,10 +5,14 @@
  */
 package com.analisis.objetos.basicos.lugaresAsignacion;
 
+import com.analisis.objetos.analisis.Pos;
+
 /**
  * Interfaz destinada a implementarse en los lugares en los que se puede realizar una asignacion
  * @author jose_
  */
 public interface Lugar {
     
+    public String getId();
+    public Pos getPosicion();
 }
