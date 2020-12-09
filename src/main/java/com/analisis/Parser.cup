@@ -85,7 +85,7 @@ non terminal lugarAsignacion, sentenciaEscribir, expresionCadena, listadoExpresi
 non terminal valorCadena, comodin, sentenciaIngresoDatos, sentenciaLimpiarPantalla, sentenciaEsperarTecla;
 non terminal sentenciaBreak, sentenciaIf, sino, sentenciaFor, modificadorFor, sentenciaWhile, sentenciaDoWhile; 
 non terminal sentenciaSwitch, contenidoSwitch, valorSwitch, bloqueSwitch, expresionAr, expresionBool, llamadaMetodo;
-non terminal listadoParametrosEnviados, parametrosEnviados;
+non terminal listadoParametrosEnviados, parametrosEnviados, sentenciaDeclaracionInicial;
 
 non terminal tiposDeDato, valorAtomico, tiposDeMetodo, publicOpcional, ingresoDatos;
 
@@ -119,9 +119,9 @@ dclMetodoVb::=                          funcionVb
                                         |procedimientoVb
                                         ;
 
-funcionVb::=                            FUNCTION ID dclParametrosVb AS tiposDeDato espaciosVb bloqueVb END FUNCTION espaciosVb;
+funcionVb::=                            publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato espaciosVb bloqueVb END FUNCTION espaciosVb;
 
-procedimientoVb::=                      SUB ID dclParametrosVb espaciosVb bloqueVb END SUB espaciosVb;
+procedimientoVb::=                      publicOpcional SUB ID dclParametrosVb espaciosVb bloqueVb END SUB espaciosVb;
 
 bloqueVb::=                             sentenciasVb
                                         |
@@ -131,12 +131,12 @@ sentenciasVb::=                         sentenciasVb sentenciaVb
                                         |sentenciaVb
                                         ;
 
-sentenciaVb::=                          sentenciaIfVb FIN_LINEA
-                                        |sentenciaForVb FIN_LINEA
-                                        |sentenciaWhileVb FIN_LINEA
-                                        |sentenciaDoWhileVb FIN_LINEA
-                                        |sentenciaSwitchVb FIN_LINEA
-                                        |sentenciaSimpleVb FIN_LINEA
+sentenciaVb::=                          sentenciaIfVb espaciosVb
+                                        |sentenciaForVb espaciosVb
+                                        |sentenciaWhileVb espaciosVb
+                                        |sentenciaDoWhileVb espaciosVb
+                                        |sentenciaSwitchVb espaciosVb
+                                        |sentenciaSimpleVb espaciosVb
                                         ;
 
 sentenciaSimpleVb::=                    sentenciaDeclaracionVb 
@@ -387,6 +387,11 @@ sentenciaEscribirJv::=                  MENSAJE PAR_A expresionMensajeJv PAR_C
                                         |MENSAJELN PAR_A expresionMensajeJv PAR_C
                                         ;
 
+expresionMensajeJv::=                   expresionMensajeJv MAS expresionMensajeJv
+                                        |CADENA
+                                        |expresionArJv
+                                        ;
+
 sentenciaReturnJv::=                    RETURN expresionArJv;
 
 sentenciaBreakJv::=                     BREAK;
@@ -448,10 +453,10 @@ sentenciasPy::=                         sentenciasPy sentenciaPy
                                         |sentenciaPy
                                         ;
 
-sentenciaPy::=                          sentenciaIfPy
-                                        |sentenciaForPy
-                                        |sentenciaWhilePy
-                                        |sentenciaSimplePy
+sentenciaPy::=                          sentenciaIfPy NEWLINE
+                                        |sentenciaForPy NEWLINE
+                                        |sentenciaWhilePy NEWLINE
+                                        |sentenciaSimplePy NEWLINE
                                         ;
 
 bloquePy::=                             NEWLINE IDENT sentenciasPy DEDENT
@@ -464,7 +469,7 @@ sentenciaSimplePy::=                    asignacionVarPy
                                         |llamadaMetodoPy
                                         ;
 
-escribirPy::=                           PRINT PAR_A mensajesPy PAR_C
+escribirPy::=                           MENSAJE PAR_A mensajesPy PAR_C
                                         ;
 
 mensajesPy::=                            mensajesPy COMA mensajePy
@@ -519,6 +524,8 @@ llamadaMetodoPy::=                      ID PAR_A listadoParametrosEnviadosPy PAR
                                         ;
 
 asignacionVarPy::=                      listadoId IGUAL listadoExpresionesArPy
+                                        |ID IGUAL ingresoDatos
+                                        |ID IGUAL expresionArPy
                                         ;
 
 listadoParametrosEnviadosPy::=          listadoParametrosEnviadosPy COMA expresionArPy
@@ -560,7 +567,7 @@ libreriaC::=                            libreriaC PUNTO ID
                                         ;
 
 valorTextoLibreriaJv::=                 CADENA
-                                        |POR
+                                        |CARACTER
                                         ;
 
 secConstantes::=                        dclConstantes
@@ -577,13 +584,15 @@ secVariables::=                         dclVariables
                                         |
                                         ;
 
-dclVariables::=                         dclVariables sentenciaDeclaracion
-                                        |sentenciaDeclaracion
+dclVariables::=                         dclVariables sentenciaDeclaracionInicial
+                                        |sentenciaDeclaracionInicial
                                         ;
 
-sentenciaDeclaracion::=                 tiposDeDato listadoDeclaraciones FIN_LINEA
-                                        |JAVA PUNTO ID listadoDeclaracionesClases FIN_LINEA
-                                        |tiposDeDato arreglo FIN_LINEA
+sentenciaDeclaracionInicial::=          sentenciaDeclaracion FIN_LINEA;
+
+sentenciaDeclaracion::=                 tiposDeDato listadoDeclaraciones 
+                                        |JAVA PUNTO ID listadoDeclaracionesClases 
+                                        |tiposDeDato arreglo
                                         ;
 
 arreglo::=                              ID listDimensiones;
@@ -655,6 +664,8 @@ expresionCadena::=                      expresionCadena valorCadena
 
 listadoExpresiones::=                   listadoExpresiones COMA expresionAr
                                         |expresionAr
+                                        |listadoExpresiones COMA AMPERSON expresionAr
+                                        |AMPERSON expresionAr
                                         ;
 
 expresionCadenaEntrada::=               valorTexto comodin
@@ -678,9 +689,9 @@ comodin::=                              COMODIN_CARACTER
 
 sentenciaIngresoDatos::=                SCANF PAR_A expresionCadenaEntrada COMA AMPERSON lugarAsignacion PAR_C;
 
-sentenciaLimpiarPantalla::=             LIMPIAR_PANTALLA;
+sentenciaLimpiarPantalla::=             LIMPIAR_PANTALLA PAR_A PAR_C;
 
-sentenciaEsperarTecla::=                ESPERAR_TECLA;
+sentenciaEsperarTecla::=                ESPERAR_TECLA PAR_A PAR_C;
 
 sentenciaBreak::=                       BREAK;
 
@@ -725,9 +736,7 @@ expresionAr::=                          expresionAr MAS expresionAr
                                         |expresionAr MOD expresionAr
                                         |PAR_A expresionAr PAR_C
                                         |llamadaMetodo
-                                        |CARACTER
-                                        |FLOTANTE
-                                        |ENTERO
+                                        |valorAtomico
                                         ;
 
 expresionBool::=                        expresionAr DISTINTO expresionAr
@@ -773,6 +782,7 @@ valorAtomico::=                         ENTERO
                                         |FLOTANTE
                                         |CARACTER
                                         |MENOS ENTERO
+                                        |ID
                                         ;
 
 tiposDeMetodo::=                        VOID
