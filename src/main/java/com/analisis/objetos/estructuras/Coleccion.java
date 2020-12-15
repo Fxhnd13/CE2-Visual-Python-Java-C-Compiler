@@ -7,6 +7,7 @@ package com.analisis.objetos.estructuras;
 
 import com.analisis.objetos.analisis.ErrorA;
 import com.analisis.objetos.analisis.ErrorManager;
+import com.analisis.objetos.basicos.Llamadas.Llamada;
 import com.analisis.objetos.basicos.Simbolo;
 import java.util.List;
 
@@ -19,17 +20,21 @@ public class Coleccion {
     private int tipadoActual;
     private String clase = null;
     private TablaDeSimbolos metodosPy, metodosVb, clasesJv, simbolos;
-    private List<String> nombresMetodos;
     private ErrorManager errores;
+    private boolean enCaso = false;
 
     public Coleccion() {
+        metodosPy = new TablaDeSimbolos();
+        metodosVb = new TablaDeSimbolos();
+        clasesJv = new TablaDeSimbolos();
+        simbolos = new TablaDeSimbolos();
+        errores = new ErrorManager();
     }
 
-    public Coleccion(int tipado, TablaDeSimbolos simbolos, TablaDeSimbolos metodosPy, TablaDeSimbolos metodosVb, TablaDeSimbolos clasesJv, List<String> nombresMetodos, ErrorManager errores) {
+    public Coleccion(int tipado, TablaDeSimbolos simbolos, TablaDeSimbolos metodosPy, TablaDeSimbolos metodosVb, TablaDeSimbolos clasesJv, ErrorManager errores) {
         this.metodosPy = metodosPy;
         this.metodosVb = metodosVb;
         this.clasesJv = clasesJv;
-        this.nombresMetodos = nombresMetodos;
         this.errores = errores;
     }
 
@@ -56,15 +61,7 @@ public class Coleccion {
     public void setClasesJv(TablaDeSimbolos clasesJv) {
         this.clasesJv = clasesJv;
     }
-
-    public List<String> getNombresMetodos() {
-        return nombresMetodos;
-    }
-
-    public void setNombresMetodos(List<String> nombresMetodos) {
-        this.nombresMetodos = nombresMetodos;
-    }
-
+    
     public ErrorManager getErrores() {
         return errores;
     }
@@ -101,10 +98,11 @@ public class Coleccion {
         return ((Clase)clasesJv.getSimbolo(this.clase).getValor()).getSimbolos().getSimbolo(nombre);
     }
 
-    public boolean existeMetodo(String nombreMetodo) {
-        for (String nombre : nombresMetodos) {
-            if(nombre.equals(nombreMetodo)) return true;
-        }
+    public boolean existeMetodo(Llamada llamada) {
+        System.out.println("Sin implementación la busqueda de un metodo");
         return false;
     }
+    
+    public boolean isEnCaso(){ return this.enCaso; }
+    public void setEnCaso(boolean valor){ this.enCaso = valor; }
 }

@@ -122,7 +122,7 @@ public class AsignacionInstr implements Instruccion{
             }
         }else if(accion instanceof AccionConstructor){
             AccionConstructor action = (AccionConstructor) accion;
-            if(!coleccion.existeMetodo(Utilidades.nombreMetodo(CONST.SEC_JV, action.getConstructor()))){
+            if(!coleccion.existeMetodo(action.getConstructor())){
                 coleccion.getErrores().agregarError("Semantico",action.getConstructor().getIdMetodo(),"No existe un constructor con los parametros enviados.", action.getPosicion());
             }
 //            Clase clase = (Clase) coleccion.getClasesJv().getSimbolo(lugar.getTipoInstancia()).getValor();

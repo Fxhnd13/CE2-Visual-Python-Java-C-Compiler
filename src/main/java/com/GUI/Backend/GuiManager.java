@@ -10,6 +10,8 @@ import com.analisis.objetos.estructuras.ColeccionInstr;
 import com.analisis.semantico.General;
 import com.analisis.sintactico.GeneradorAst;
 import com.generadores.EstructurasIntermedias;
+import com.generadores.objetos.Etiqueta;
+import com.generadores.objetos.Temporal;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -185,18 +187,20 @@ public class GuiManager {
     }
 
     public void generarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea) {
-        GeneradorAst generadorAst = new GeneradorAst(codigoFuente.getText());
-        
-//        EstructurasIntermedias generador = new EstructurasIntermedias();
-//        Coleccion coleccion = generador.generarEstructuras(instrucciones); //generamos la informacion que podamos necesitar
-//        
-//        General analizadorGeneral = new General();
-//        analizadorGeneral.analizar(instrucciones, coleccion); //hacemos el analisis semantico con la informacion recolectada
+        reiniciar(); //conteo en 0 de temporales y etiquetas
+        GeneradorAst generadorAst = new GeneradorAst(codigoFuente.getText()); //generamos el ast a partir del archivo de entrada
+        General analizadorSemantico = new General();
+        analizadorSemantico.analizar(generadorAst.getInstrucciones()); //hacemos el analisis semantico con la informacion recolectada
 //        
 //        if(coleccion.getErrores().isEmpty()){
 //            
 //        }else{
 //            
 //        }
+    }
+    
+    public void reiniciar(){
+        Temporal.reiniciar();
+        Etiqueta.reiniciar();
     }
 }

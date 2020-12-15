@@ -39,6 +39,11 @@ parser code{:
         System.out.println("No se esperaba un token tipo <"+sym.terminalNames[s.sym]+"> en ("+linea+","+columna+")");
     }
 
+    public void agregarError(String tipo, String cadena, String descripcion, int linea, int columna){
+        errores.getErrores().remove(errores.getErrores().size()-1);
+        errores.agregarError(tipo, cadena, descripcion, new Pos(linea, columna));
+    }
+
 :}
 
 //declaracion de terminales
@@ -119,9 +124,14 @@ dclMetodoVb::=                          funcionVb
                                         |procedimientoVb
                                         ;
 
-funcionVb::=                            publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato espaciosVb bloqueVb END FUNCTION espaciosVb;
+funcionVb::=                            publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato espaciosVb bloqueVb END FUNCTION espaciosVb 
+                                        |publicOpcional FUNCTION ID dclParametrosVb error:e espaciosVb bloqueVb END FUNCTION espaciosVb {: agregarError("Sintactico",(String) e,"No se especifico el tipo para la funcion declarada, se esperaba un tipo.", eleft, eright); :}
+                                        |publicOpcional FUNCTION error:e dclParametrosVb AS tiposDeDato espaciosVb bloqueVb END FUNCTION espaciosVb {: agregarError("Sintactico",(String) e,"No se especifico un identificador para la funcion declarada, se esperaba un identificador.", eleft, eright); :}
+                                        ;
 
-procedimientoVb::=                      publicOpcional SUB ID dclParametrosVb espaciosVb bloqueVb END SUB espaciosVb;
+procedimientoVb::=                      publicOpcional SUB ID dclParametrosVb espaciosVb bloqueVb END SUB espaciosVb
+                                        |publicOpcional SUB error:e dclParametrosVb espaciosVb bloqueVb END SUB espaciosVb {: agregarError("Sintactico",(String) e,"No se especifico un identificador para el procedimiento declarado, se esperaba un identificador.", eleft, eright); :}
+                                        ;
 
 bloqueVb::=                             sentenciasVb
                                         |
@@ -144,21 +154,33 @@ sentenciaSimpleVb::=                    sentenciaDeclaracionVb
                                         |ingresoDatos 
                                         |sentenciaEscribirVb 
                                         |llamadaMetodoVb 
-                                        |sentenciaReturnVb 
+                                        |sentenciaReturnVb
                                         ;
 
-sentenciaIfVb::=                        IF expresionBoolVb THEN sentenciaSimpleVb 
-                                        |IF expresionBoolVb THEN sentenciaSimpleVb ELSE sentenciaSimpleVb
-                                        |IF expresionBoolVb THEN espaciosVb bloqueVb sinoVb END IF
-                                        |IF expresionBoolVb espaciosVb bloqueVb sinoVb END IF
+sentenciaIfVb::=                        IF condicionVb THEN sentenciaSimpleVb
+                                        |IF condicionVb THEN sentenciaSimpleVb ELSE sentenciaSimpleVb
+                                        |IF condicionVb THEN espaciosVb bloqueVb sinoVb END IF
+                                        |IF condicionVb espaciosVb bloqueVb sinoVb END IF
+                                        |IF error:e THEN sentenciaSimpleVb ELSE sentenciaSimpleVb {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
+                                        |IF condicionVb error:e sentenciaSimpleVb ELSE sentenciaSimpleVb {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada THEN.", eleft, eright); :}
+                                        |IF error:e THEN espaciosVb bloqueVb sinoVb END IF {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
+                                        |IF error:e THEN sentenciaSimpleVb {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
+                                        |IF condicionVb error:e sentenciaSimpleVb {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada THEN.", eleft, eright); :}
                                         ;
 
 sinoVb::=                               ELSEIF condicionVb THEN espaciosVb bloqueVb sinoVb
                                         |ELSEIF condicionVb espaciosVb bloqueVb sinoVb
                                         |ELSE espaciosVb bloqueVb
+                                        |ELSEIF error:e espaciosVb bloqueVb sinoVb {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
+                                        |ELSEIF error:e THEN espaciosVb bloqueVb sinoVb {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
                                         ;
 
-sentenciaForVb::=                       FOR ID tipoForVb IGUAL expresionArVb TO expresionArVb aumentoForVb espaciosVb bloqueVb NEXT idNextVb;
+sentenciaForVb::=                       FOR ID tipoForVb IGUAL expresionArVb TO expresionArVb aumentoForVb espaciosVb bloqueVb NEXT idNextVb
+                                        |FOR error:e tipoForVb IGUAL expresionArVb TO expresionArVb aumentoForVb espaciosVb bloqueVb NEXT idNextVb {: agregarError("Sintactico",(String) e,"Se esperaba un identificador.", eleft, eright); :}
+                                        |FOR ID tipoForVb error:e TO expresionArVb aumentoForVb espaciosVb bloqueVb NEXT idNextVb {: agregarError("Sintactico",(String) e,"No se declaro un valor de inicio.", eleft, eright); :}//error no hay valor de inicio
+                                        |FOR ID tipoForVb IGUAL expresionArVb error:e aumentoForVb espaciosVb bloqueVb NEXT idNextVb {: agregarError("Sintactico",(String) e,"No se declaro un valor de finalizacion.", eleft, eright); :} //error no hay valor de fin
+                                        |FOR ID tipoForVb IGUAL expresionArVb TO expresionArVb error:e espaciosVb bloqueVb NEXT idNextVb {: agregarError("Sintactico",(String) e,"Se esperaba un valor de aumento para cada ciclo del for.", eleft, eright); :} //error se esperaba en todo caso un paso de aumento
+                                        ;
 
 tipoForVb::=                            tiposDeDato
                                         |
@@ -172,21 +194,33 @@ idNextVb::=                             ID
                                         |
                                         ;
 
-sentenciaWhileVb::=                     WHILE condicionVb espaciosVb bloqueVb END WHILE;
+sentenciaWhileVb::=                     WHILE condicionVb espaciosVb bloqueVb END WHILE
+                                        |WHILE error:e espaciosVb bloqueVb END WHILE {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
+                                        |WHILE condicionVb espaciosVb bloqueVb END error:e  {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada WHILE.", eleft, eright); :}
+                                        ;
 
-sentenciaDoWhileVb::=                   DO espaciosVb bloqueVb LOOP WHILE condicionVb;
+sentenciaDoWhileVb::=                   DO espaciosVb bloqueVb LOOP WHILE condicionVb
+                                        |DO espaciosVb bloqueVb LOOP error:e condicionVb  {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada WHILE.", eleft, eright); :}
+                                        |DO espaciosVb bloqueVb LOOP WHILE error:e  {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
+                                        ;
 
-sentenciaSwitchVb::=                    SELECT caseVb expresionArVb espaciosVb contenidoSwitchVb END SELECT;
+sentenciaSwitchVb::=                    SELECT caseVb expresionArVb espaciosVb contenidoSwitchVb END SELECT
+                                        |SELECT caseVb error:e espaciosVb contenidoSwitch END SELECT  {: agregarError("Sintactico",(String) e,"Se esperaba una expresion aritmetica.", eleft, eright); :}
+                                        |SELECT caseVb expresionArVb espaciosVb contenidoSwitch END error:e  {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada SELECT.", eleft, eright); :}
+                                        ;
 
 caseVb::=                               CASE
                                         |
                                         ;
 
 contenidoSwitchVb::=                    contenidoSwitchVb valorCaseVb espaciosVb bloqueVb
+                                        |contenidoSwitchVb error:e espaciosVb bloqueVb  {: agregarError("Sintactico",(String) e,"Se esperaba un caso.", eleft, eright); :}
                                         |valorCaseVb espaciosVb bloqueVb
+                                        |error:e espaciosVb bloqueVb  {: agregarError("Sintactico",(String) e,"Se esperaba un caso .", eleft, eright); :}
                                         ;
 
 valorCaseVb::=                          CASE valorAtomico
+                                        |CASE error:e  {: agregarError("Sintactico",(String) e,"Se esperaba un valor primitivo constante.", eleft, eright); :}
                                         |ELSE
                                         ;
 
@@ -194,14 +228,17 @@ sentenciaDeclaracionVb::=               declaracionVariableVb masDeclaracionVari
 
 declaracionVariableVb::=                DIM listadoId AS tiposDeDato IGUAL expresionArVb
                                         |DIM listadoId AS tiposDeDato
+                                        |DIM listadoId error:e  {: agregarError("Sintactico",(String) e,"No se especifico el tipo de la(s) variable(s) declarada(s).", eleft, eright); :}
                                         ;
 
 masDeclaracionVariableVb::=             COMA listadoId AS tiposDeDato IGUAL expresionArVb masDeclaracionVariableVb
                                         |COMA listadoId AS tiposDeDato masDeclaracionVariableVb
-                                        |
+                                        |COMA listadoId error:e masDeclaracionVariableVb  {: agregarError("Sintactico",(String) e,"No se especifico el tipo de la(s) variable(s) delcarada(s).", eleft, eright); :}
                                         ;
 
-sentenciaAsignacionVb::=                ID IGUAL accionAsignacionVb;
+sentenciaAsignacionVb::=                ID IGUAL accionAsignacionVb
+                                        |ID error:e  {: agregarError("Sintactico",(String) e,"Se esperaba una asignacion ( = expresion).", eleft, eright); :}
+                                        ;
 
 accionAsignacionVb::=                   ingresoDatos
                                         |expresionArVb
@@ -209,6 +246,8 @@ accionAsignacionVb::=                   ingresoDatos
 
 sentenciaEscribirVb::=                  MENSAJE PAR_A mensajesVb PAR_C
                                         |MENSAJELN PAR_A mensajesVb PAR_C
+                                        |MENSAJE:e PAR_A PAR_C  {: agregarError("Sintactico","<Sin cadena>","Se esperaba un mensaje para mostrar a pantalla (al menos 1).", eleft, eright); :}
+                                        |MENSAJELN:e PAR_A PAR_C  {: agregarError("Sintactico","<Sin cadena>","Se esperaba un mensaje para mostrar a pantalla (al menos 1).", eleft, eright); :}
                                         ;
 
 mensajesVb::=                           mensajesVb AMPERSON mensajeVb
@@ -217,9 +256,12 @@ mensajesVb::=                           mensajesVb AMPERSON mensajeVb
 
 mensajeVb::=                            CADENA
                                         |expresionArVb
+                                        |error:e  {: agregarError("Sintactico",(String) e,"Se esperaba una cadena o una expresion.", eleft, eright); :}
                                         ;
 
-sentenciaReturnVb::=                    RETURN expresionArVb;
+sentenciaReturnVb::=                    RETURN expresionArVb
+                                        |RETURN error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
+                                        ;
 
 dclParametrosVb::=                      PAR_A listadoParametrosVb PAR_C
                                         |PAR_A PAR_C
@@ -232,6 +274,9 @@ listadoParametrosVb::=                  listadoParametrosVb COMA parametroVb
 
 parametroVb::=                          BYVAL ID AS tiposDeDato
                                         |ID AS tiposDeDato
+                                        |ID error:e {: agregarError("Sintactico",(String) e,"No se especifico el tipo del parametro declarado.", eleft, eright); :}
+                                        |BYVAL ID error:e {: agregarError("Sintactico",(String) e,"No se especifico el tipo del parametro declarado.", eleft, eright); :}
+                                        |error:e {: agregarError("Sintactico",(String) e,"Se esperaba una declaracion de variable.", eleft, eright); :}
                                         ;
 
 expresionArVb::=                        expresionArVb MAS expresionArVb
@@ -264,7 +309,9 @@ llamadaMetodoVb::=                      ID PAR_A listadoParametrosEnviadosVb PAR
                                         ;
 
 listadoParametrosEnviadosVb::=          listadoParametrosEnviadosVb COMA expresionArVb
+                                        |listadoParametrosEnviadosVb COMA error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
                                         |expresionArVb
+                                        |error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
                                         ;
 
 espaciosVb::=                            espaciosVb FIN_LINEA
@@ -282,7 +329,11 @@ dclClasesJv::=                          dclClasesJv dclClaseJv
                                         |dclClaseJv
                                         ;
 
-dclClaseJv::=                           publicOpcional CLASS ID LLAVE_A contenidoClaseJv LLAVE_C;
+dclClaseJv::=                           publicOpcional CLASS ID LLAVE_A contenidoClaseJv LLAVE_C
+                                        |publicOpcional error:e ID LLAVE_A contenidoClaseJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba la palabra clave Class", eleft, eright); :}
+                                        |publicOpcional CLASS error:e LLAVE_A contenidoClaseJv LLAVE_C {: agregarError("Sintactico",(String) e,"No se especifico el identificador para la clase, se esperaba un identificador.", eleft, eright); :}
+                                        |publicOpcional CLASS ID error:e 
+                                        ;
 
 contenidoClaseJv::=                     sentenciasDeClaseJv
                                         |
@@ -296,7 +347,12 @@ sentenciaDeClaseJv::=                   sentenciaDeclaracionJv
                                         |dclMetodoJv
                                         ;
 
-dclMetodoJv::=                          publicOpcional tiposDeMetodo ID PAR_A dclParametrosJv PAR_C LLAVE_A bloqueJv LLAVE_C;
+dclMetodoJv::=                          publicOpcional tiposDeMetodo ID PAR_A dclParametrosJv PAR_C LLAVE_A bloqueJv LLAVE_C
+                                        |publicOpcional error:e ID PAR_A dclParametrosJv PAR_C LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"No se especifico el tipo del procedimiento/funcion declarado", eleft, eright); :}
+                                        |publicOpcional tiposDeMetodo error:e PAR_A dclParametrosJv PAR_C LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"No se especifico un identificador para el metodo, se esperaba un identificador", eleft, eright); :}
+                                        |publicOpcional tiposDeMetodo ID error:e LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba un listado de parametros (lleno o vacio) dentro de parentesis.", eleft, eright); :}
+                                        |publicOpcional tiposDeMetodo ID PAR_A dclParametrosJv PAR_C error:e 
+                                        ;
 
 dclParametrosJv::=                      listadoParametrosJv
                                         |
@@ -304,6 +360,10 @@ dclParametrosJv::=                      listadoParametrosJv
 
 listadoParametrosJv::=                  listadoParametrosJv COMA tiposDeDato ID
                                         |tiposDeDato ID
+                                        |listadoParametrosJv COMA error:e ID {: agregarError("Sintactico",(String) e,"No se especifico el tipo del parametro declarado.", eleft, eright); :}
+                                        |listadoParametrosJv COMA tiposDeDato error:e {: agregarError("Sintactico",(String) e,"No se utilizo un identificador en la declaracion del parametro.", eleft, eright); :}
+                                        |tiposDeDato error:e {: agregarError("Sintactico",(String) e,"No se utilizo un identificador en la declaracion del parametro.", eleft, eright); :}
+                                        |error:e ID {: agregarError("Sintactico",(String) e,"No se especifico el tipo del parametro declarado.", eleft, eright); :}
                                         ;
 
 bloqueJv::=                             sentenciasJv
@@ -331,26 +391,52 @@ sentenciaSimpleJv::=                    sentenciaDeclaracionJv
                                         |sentenciaBreakJv
                                         ;
 
-sentenciaIfJv::=                        IF PAR_A expresionBoolJv PAR_C LLAVE_A bloqueJv LLAVE_C sinoJv;
+sentenciaIfJv::=                        IF PAR_A expresionBoolJv PAR_C LLAVE_A bloqueJv LLAVE_C sinoJv
+                                        |IF PAR_A expresionBoolJv PAR_C sentenciaSimpleJv FIN_LINEA
+                                        |IF PAR_A error:e PAR_C LLAVE_A bloqueJv LLAVE_C sinoJv {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana", eleft, eright); :}
+                                        |IF error:e LLAVE_A bloqueJv LLAVE_C sinoJv {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
+                                        |IF PAR_A expresionBoolJv PAR_C error:e sinoJv {: agregarError("Sintactico",(String) e,"Se esperaba una llave con bloque de codigo o una sentencia simple", eleft, eright); :}
+                                        ;
 
 sinoJv::=                               ELSE IF PAR_A expresionBoolJv PAR_C LLAVE_A bloqueJv LLAVE_C sinoJv
                                         |ELSE LLAVE_A bloqueJv LLAVE_C 
+                                        |ELSE IF PAR_A error:e PAR_C LLAVE_A bloqueJv LLAVE_C sinoJv {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana", eleft, eright); :}
+                                        |ELSE IF error:e LLAVE_A bloqueJv LLAVE_C sinoJv {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto", eleft, eright); :}
+                                        |ELSE IF PAR_A expresionBoolJv PAR_C error:e {: agregarError("Sintactico",(String) e,"Se esperaba una llave con bloque de codigo.", eleft, eright); :}
+                                        |ELSE error:e {: agregarError("Sintactico",(String) e,"Se esperaba una llave con bloque de codigo.", eleft, eright); :}
                                         |
                                         ;
 
-sentenciaForJv::=                       FOR PAR_A tiposDeDato ID IGUAL expresionArJv FIN_LINEA expresionBoolJv FIN_LINEA ID modificadorForJv PAR_C LLAVE_A bloqueJv LLAVE_C;
+sentenciaForJv::=                       FOR PAR_A tiposDeDato ID IGUAL expresionArJv FIN_LINEA expresionBoolJv FIN_LINEA ID modificadorForJv PAR_C LLAVE_A bloqueJv LLAVE_C
+                                        |FOR PAR_A tiposDeDato ID error:e FIN_LINEA expresionBoolJv FIN_LINEA ID modificadorForJv PAR_C LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"No se asignó un valor de inicio para el ciclo.", eleft, eright); :}
+                                        |FOR PAR_A tiposDeDato error:e FIN_LINEA expresionBoolJv FIN_LINEA ID modificadorForJv PAR_C LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"No se declaro el identificador a evaluar con cada iteracion.", eleft, eright); :}
+                                        |FOR PAR_A tiposDeDato ID IGUAL expresionArJv FIN_LINEA error:e FIN_LINEA ID modificadorForJv PAR_C LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
+                                        |FOR error:e LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
+                                        |FOR PAR_A tiposDeDato ID IGUAL expresionArJv FIN_LINEA expresionBoolJv FIN_LINEA ID modificadorForJv error:e LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
+                                        ;
 
 modificadorForJv::=                     IGUAL expresionArJv
                                         |AUMENTO
                                         |DISMINUCION
+                                        |error:e {: agregarError("Sintactico",(String) e,"Se esperaba una asignación o un modificador (++, --).", eleft, eright); :}
                                         ;
 
-sentenciaWhileJv::=                     WHILE PAR_A expresionBoolJv PAR_C LLAVE_A bloqueJv LLAVE_C;
+sentenciaWhileJv::=                     WHILE PAR_A expresionBoolJv PAR_C LLAVE_A bloqueJv LLAVE_C      
+                                        |WHILE error:e LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
+                                        |WHILE PAR_A error:e PAR_C LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
+                                        |WHILE PAR_A expresionBoolJv error:e LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
+                                        ;
 
-sentenciaSwitchJv::=                    SWITCH PAR_A expresionArJv PAR_C LLAVE_A contenidoSwitchJv LLAVE_C;
+sentenciaSwitchJv::=                    SWITCH PAR_A expresionArJv PAR_C LLAVE_A contenidoSwitchJv LLAVE_C
+                                        |SWITCH error:e LLAVE_A contenidoSwitch LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
+                                        |SWITCH PAR_A error:e PAR_C LLAVE_A contenidoSwitch LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
+                                        |SWITCH PAR_A expresionArJv error:e LLAVE_A contenidoSwitchJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
+                                        ;
 
 contenidoSwitchJv::=                    contenidoSwitchJv valorSwitchJv DOS_PUNTOS bloqueSwichJv
                                         |valorSwitchJv DOS_PUNTOS bloqueSwichJv
+                                        |contenidoSwitchJv error:e DOS_PUNTOS bloqueSwichJv {: agregarError("Sintactico",(String) e,"Se esperaba un valor constante.", eleft, eright); :}
+                                        |error:e DOS_PUNTOS bloqueSwichJv {: agregarError("Sintactico",(String) e,"Se esperaba un valor constante.", eleft, eright); :}                                        
                                         ;
 
 valorSwitchJv::=                        CASE ENTERO
@@ -363,7 +449,12 @@ bloqueSwichJv::=                        LLAVE_A bloqueJv LLAVE_C
                                         |bloqueJv
                                         ;
 
-sentenciaDoWhileJv::=                   DO LLAVE_A bloqueJv LLAVE_C WHILE PAR_A expresionBoolJv PAR_C;
+sentenciaDoWhileJv::=                   DO LLAVE_A bloqueJv LLAVE_C WHILE PAR_A expresionBoolJv PAR_C
+                                        |DO LLAVE_A bloqueJv LLAVE_C WHILE PAR_A expresionBoolJv error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
+                                        |DO LLAVE_A bloqueJv LLAVE_C WHILE PAR_A error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
+                                        |DO LLAVE_A bloqueJv LLAVE_C WHILE error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
+                                        |DO LLAVE_A bloqueJv LLAVE_C error:e {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada WHILE.", eleft, eright); :}
+                                        ;
 
 sentenciaDeclaracionJv::=               tiposDeDato listadoAsignacionesJv;
 
@@ -385,14 +476,23 @@ accionAsignacionJv::=                   expresionArJv
 
 sentenciaEscribirJv::=                  MENSAJE PAR_A expresionMensajeJv PAR_C
                                         |MENSAJELN PAR_A expresionMensajeJv PAR_C
+                                        |MENSAJE PAR_A expresionMensajeJv error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
+                                        |MENSAJE PAR_A error:e {: agregarError("Sintactico",(String) e,"Se esperaba un mensaje a pantalla.", eleft, eright); :}
+                                        |MENSAJE error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
+                                        |MENSAJELN PAR_A expresionMensajeJv error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
+                                        |MENSAJELN PAR_A error:e {: agregarError("Sintactico",(String) e,"Se esperaba un mensaje a pantalla.", eleft, eright); :}
+                                        |MENSAJELN error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}                                        
                                         ;
 
 expresionMensajeJv::=                   expresionMensajeJv MAS expresionMensajeJv
                                         |CADENA
                                         |expresionArJv
+                                        |error:e {: agregarError("Sintactico",(String) e,"Se esperaba una cadena o una expresion.", eleft, eright); :}
                                         ;
 
-sentenciaReturnJv::=                    RETURN expresionArJv;
+sentenciaReturnJv::=                    RETURN expresionArJv
+                                        |RETURN error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
+                                        ;
 
 sentenciaBreakJv::=                     BREAK;
 
@@ -424,6 +524,8 @@ llamadaMetodoJv::=                      ID PAR_A listadoParametrosEnviadosJv PAR
 
 listadoParametrosEnviadosJv::=          listadoParametrosEnviadosJv COMA expresionArJv
                                         |expresionArJv
+                                        |listadoParametrosEnviadosJv COMA error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
+                                        |error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
                                         ;
 
 

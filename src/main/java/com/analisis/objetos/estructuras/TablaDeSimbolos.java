@@ -22,15 +22,29 @@ public class TablaDeSimbolos {
     }
     
     public Simbolo getSimbolo(String nombre){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Simbolo simbolo : simbolos) {
+            if(simbolo.getId().equals(nombre)) return simbolo;
+        }
+        return null;
     }
     
     public boolean existeSimbolo(String nombre){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Simbolo simbolo : simbolos) {
+            if(simbolo.getId().equals(nombre)) return true;
+        }
+        return false;
     }
     
     public void agregarSimbolo(Simbolo simbolo){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        simbolos.add(simbolo);
+    }
+    
+    public boolean agregarSimboloSiNoExiste(Simbolo simbolo){
+        if(!existeSimbolo(simbolo.getId())){
+            simbolos.add(simbolo);
+            return true;
+        }
+        return false;
     }
     
     public String getUltimoPosicionLibre(){

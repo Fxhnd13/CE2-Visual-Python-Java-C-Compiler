@@ -6,14 +6,16 @@
 package com.analisis.objetos.instrucciones.instruccionesmlg;
 
 import com.analisis.objetos.analisis.Pos;
+import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.nodos.NodoBooleano;
+import com.generadores.objetos.Cuarteto;
 import java.util.List;
 
 /**
  * Clase destinada a almacenar la informacion de una instruccion While
  * @author jose_
  */
-public class WhileInstr {
+public class WhileInstr implements Instruccion{
     
     private NodoBooleano condiciones;
     private List<Instruccion> instrucciones;
@@ -50,6 +52,21 @@ public class WhileInstr {
 
     public void setPosicion(Pos posicion) {
         this.posicion = posicion;
+    }
+
+    @Override
+    public void generarCodigoAssembler(Coleccion coleccion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void analizarSemanticamente(Coleccion coleccion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

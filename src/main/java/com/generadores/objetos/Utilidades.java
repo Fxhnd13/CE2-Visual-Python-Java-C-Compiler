@@ -9,6 +9,7 @@ package com.generadores.objetos;
 import com.analisis.objetos.basicos.Llamadas.Llamada;
 import com.analisis.objetos.basicos.Simbolo;
 import com.analisis.objetos.estructuras.Metodo;
+import com.analisis.objetos.estructuras.TablaDeSimbolos;
 import com.analisis.objetos.instrucciones.instruccionesmlg.MetodoInstr;
 
 /**
@@ -58,5 +59,24 @@ public class Utilidades {
     public static String nombreMetodo(String seccion, String clase, Llamada metodo){
         seccion+="_"+clase;
         return nombreMetodo(seccion, metodo);
+    }
+    
+    
+
+    public static boolean existeMetodo(TablaDeSimbolos metodos, Simbolo metodo) {
+        for (Simbolo metodoT : metodos.getSimbolos()) {
+            MetodoInstr metodoComparacion = (MetodoInstr) metodoT.getValor();
+            MetodoInstr metodoComparador = (MetodoInstr) metodo.getValor();
+            if(metodoComparacion.getId().equals(metodoComparador.getId())){
+                boolean existe = true;
+                for (int i = 0; i < metodoComparacion.getParametros().size(); i++) {    
+                    if(!metodoComparacion.getParametros().get(i).equals(metodoComparador.getParametros().get(i))){
+                        existe = false;
+                    }
+                }
+                if(existe) return true;
+            }
+        }
+        return false;
     }
 }
