@@ -8,6 +8,7 @@ package com.analisis.objetos.instrucciones.instruccionesmlg;
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.nodos.NodoBooleano;
+import com.analisis.semantico.AnalizadorBloque;
 import com.generadores.objetos.Cuarteto;
 import java.util.List;
 
@@ -76,7 +77,13 @@ public class SiInstr implements InstruccionSino{
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        condicion.analizarSemanticamente(coleccion);
+        coleccion.getSimbolos().agregarAmbitoTemporal();
+        AnalizadorBloque analizador = new AnalizadorBloque();
+        analizador.analizarBloque(instrucciones, coleccion);
+        if(instruccionSino!=null){
+            instruccionSino.analizarSemanticamente(coleccion);
+        }
     }
     
 }

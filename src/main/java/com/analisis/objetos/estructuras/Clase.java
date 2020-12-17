@@ -5,6 +5,10 @@
  */
 package com.analisis.objetos.estructuras;
 
+import com.analisis.objetos.instrucciones.instruccionesmlg.AsignacionInstr;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Clase destinada a almacenar la informacion de una clase
  * @author jose_
@@ -12,8 +16,12 @@ package com.analisis.objetos.estructuras;
 public class Clase {
     
     private TablaDeSimbolos simbolos, metodos;
+    private List<AsignacionInstr> asignaciones;
 
     public Clase() {
+        this.simbolos = new TablaDeSimbolos();
+        this.metodos = new TablaDeSimbolos();
+        this.asignaciones = new ArrayList();
     }
 
     public Clase(TablaDeSimbolos simbolos, TablaDeSimbolos metodos) {
@@ -35,6 +43,14 @@ public class Clase {
 
     public void setMetodos(TablaDeSimbolos metodos) {
         this.metodos = metodos;
+    }
+
+    public List<AsignacionInstr> getAsignaciones() {
+        return asignaciones;
+    }
+
+    public void setAsignaciones(List<AsignacionInstr> asignaciones) {
+        this.asignaciones = asignaciones;
     }
     
 }

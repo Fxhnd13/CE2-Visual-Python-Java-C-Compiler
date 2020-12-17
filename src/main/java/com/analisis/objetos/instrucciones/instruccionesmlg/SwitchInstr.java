@@ -6,8 +6,12 @@
 package com.analisis.objetos.instrucciones.instruccionesmlg;
 
 import com.analisis.objetos.analisis.Pos;
+import com.analisis.objetos.basicos.Simbolo;
 import com.analisis.objetos.basicos.lugaresAsignacion.Lugar;
+import com.analisis.objetos.basicos.lugaresAsignacion.LugarArreglo;
+import com.analisis.objetos.basicos.lugaresAsignacion.LugarVariable;
 import com.analisis.objetos.estructuras.Coleccion;
+import com.analisis.semantico.AnalizadorBloque;
 import com.generadores.objetos.Cuarteto;
 import java.util.List;
 
@@ -76,7 +80,39 @@ public class SwitchInstr implements Instruccion{
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String tipoEvaluar = retornarTipo(coleccion);
+        for (CaseInstr caso : casos) {
+            if(tipoEvaluar.equals(caso.getValor().getTipo())) coleccion.getErrores().agregarError("Semantico", (String) caso.getValor().getValor(),"Un valor declarado en la instruccion case no coincide con el tipo de la variable a evaluar. ", caso.getPosicion());
+            if(coleccion.getTipadoActual() == 1 || coleccion.getTipadoActual() == 3){
+                boolean tieneBreak = false;
+                for (int i = 0; i < caso.getInstrucciones().size(); i++) {
+                    Instruccion instruccion = caso.getInstrucciones().get(i);
+                    if(instruccion instanceof BreakInstr) { tieneBreak = true; break; }
+                }
+                if(!tieneBreak){
+                    //error no tiene break xd
+                    coleccion.getErrores().agregarError("Semantico","break","La seccion del case no posee una instruccion break.", caso.getPosicion());
+                }
+            }
+            AnalizadorBloque analizador = new AnalizadorBloque();
+            coleccion.getSimbolos().agregarAmbitoTemporal();
+            coleccion.setCaso(coleccion.getCaso()+1);
+            analizador.analizarBloque(caso.getInstrucciones(), coleccion);
+            coleccion.setCaso(coleccion.getCaso()-1);
+            coleccion.getSimbolos().eliminarAmbitoTemporal();
+        }
+    }
+
+    private String retornarTipo(Coleccion coleccion) {
+        String tipo = null;
+        if(lugarAsignacion instanceof LugarArreglo){
+            Simbolo simbolo = coleccion.getSimbolos().getSimbolo(lugarAsignacion.getId());
+            if(simbolo!=null) tipo = simbolo.getTipo();
+        }else if(lugarAsignacion instanceof LugarVariable){
+            Simbolo simbolo = coleccion.getSimbolos().getSimbolo(lugarAsignacion.getId());
+            if(simbolo!=null) tipo = simbolo.getTipo();
+        }
+        return tipo;
     }
     
 }

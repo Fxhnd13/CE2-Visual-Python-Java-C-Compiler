@@ -5,7 +5,10 @@
  */
 package com.analisis.objetos.estructuras;
 
+import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.basicos.Simbolo;
+import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Temporal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +19,29 @@ import java.util.List;
 public class TablaDeSimbolos {
 
     private List<Simbolo> simbolos;
+    private List<Integer> ambitos;
     
     public TablaDeSimbolos(){
         simbolos = new ArrayList();
+    }
+
+    public List<Simbolo> getSimbolos() {
+        return simbolos;
+    }
+
+    public void setSimbolos(List<Simbolo> simbolos) {
+        this.simbolos = simbolos;
+    }
+    
+    public void agregarAmbitoTemporal(){
+        ambitos.add(simbolos.size());
+    }
+    
+    public void eliminarAmbitoTemporal(){
+        for (int i = (simbolos.size()-1); i >= ambitos.get(ambitos.size()-1); i--) {
+            simbolos.remove(i);
+        }
+        ambitos.remove(ambitos.size()-1);
     }
     
     public Simbolo getSimbolo(String nombre){
@@ -47,16 +70,24 @@ public class TablaDeSimbolos {
         return false;
     }
     
-    public String getUltimoPosicionLibre(){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public List<Simbolo> getSimbolos() {
-        return simbolos;
-    }
-
-    public void setSimbolos(List<Simbolo> simbolos) {
-        this.simbolos = simbolos;
+    public String getUltimaPosicionLibre(List<Cuarteto> cuartetos){
+        String pos = null;
+        for(int i = simbolos.size()-1; i >= 0; i--){
+            if(simbolos.get(i).getDireccion()!=null){
+                String t = simbolos.get(i).getSize();
+                String d = simbolos.get(i).getDireccion();
+                try{
+                    pos = String.valueOf(Integer.parseInt(t)+Integer.parseInt(d));
+                    break;
+                }catch(Exception ex){
+                    cuartetos.add(new Cuarteto("+",t,d,Temporal.siguienteTemporal(CONST.ENTERO)));
+                    pos = Temporal.actualTemporal();
+                    break;
+                }
+            }
+        }
+        if(pos == null) pos = "0";
+        return pos;
     }
     
 }

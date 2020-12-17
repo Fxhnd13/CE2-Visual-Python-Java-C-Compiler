@@ -5,6 +5,7 @@
  */
 package com.analisis.objetos.basicos.Llamadas;
 
+import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.nodos.NodoAritmetico;
 import java.util.List;
 
@@ -16,4 +17,5 @@ public interface Llamada {
     
     public String getIdMetodo();
     public List<NodoAritmetico> getParametros();
+    public Pos getPosicion();
 }

@@ -40,7 +40,7 @@ public class Mod implements NodoAritmetico{
     }
 
     @Override
-    public List<Cuarteto> generarCuartetos(Coleccion coleccion, String clase) {
+    public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -70,9 +70,12 @@ public class Mod implements NodoAritmetico{
         return this.posicion;
     }
 
-    @Override
-    public String getTipo() {
-        return this.tipoRetorno;
+    public String getTipoRetorno() {
+        return tipoRetorno;
+    }
+
+    public void setTipoRetorno(String tipoRetorno) {
+        this.tipoRetorno = tipoRetorno;
     }
     
 }

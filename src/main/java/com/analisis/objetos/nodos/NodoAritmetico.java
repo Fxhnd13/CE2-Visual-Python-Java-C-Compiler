@@ -18,8 +18,8 @@ import java.util.List;
 public interface NodoAritmetico {
     
     public Dato analizarSemanticamente(Coleccion coleccion);
-    public List<Cuarteto> generarCuartetos(Coleccion coleccion, String clase);
-    public String getTipo();
+    public List<Cuarteto> generarCuartetos(Coleccion coleccion);
+    public String getTipoRetorno();
     
     public void setPosicion(Pos posicion);
     public Pos getPosicion();

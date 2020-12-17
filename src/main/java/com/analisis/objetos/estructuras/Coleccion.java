@@ -17,11 +17,10 @@ import java.util.List;
  */
 public class Coleccion {
     
-    private int tipadoActual;
-    private String clase = null;
+    private int tipadoActual, caso;
+    private String clase = null, ultimoReturn = null;
     private TablaDeSimbolos metodosPy, metodosVb, clasesJv, simbolos;
     private ErrorManager errores;
-    private boolean enCaso = false;
 
     public Coleccion() {
         metodosPy = new TablaDeSimbolos();
@@ -103,6 +102,24 @@ public class Coleccion {
         return false;
     }
     
-    public boolean isEnCaso(){ return this.enCaso; }
-    public void setEnCaso(boolean valor){ this.enCaso = valor; }
+    public boolean isEnCaso(){ 
+        return this.caso > 0;
+    }
+    
+    public int getCaso(){
+        return this.caso;
+    }
+    
+    public void setCaso(int caso){
+        this.caso = caso;
+    }
+
+    public String getUltimoReturn() {
+        return ultimoReturn;
+    }
+
+    public void setUltimoReturn(String ultimoReturn) {
+        this.ultimoReturn = ultimoReturn;
+    }
+    
 }

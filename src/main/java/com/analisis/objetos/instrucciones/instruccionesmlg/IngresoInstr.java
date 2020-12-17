@@ -7,6 +7,7 @@ package com.analisis.objetos.instrucciones.instruccionesmlg;
 
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.accionesAsignacion.Accion;
+import com.analisis.objetos.basicos.accionesAsignacion.AccionIngreso;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.generadores.objetos.Cuarteto;
 import java.util.List;
@@ -56,7 +57,7 @@ public class IngresoInstr implements Instruccion{
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ((AccionIngreso)accion).getMensaje().analizarSemanticamente(coleccion);
     }
     
 }

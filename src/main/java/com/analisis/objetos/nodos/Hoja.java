@@ -6,19 +6,16 @@
 package com.analisis.objetos.nodos;
 
 import com.analisis.objetos.analisis.CONST;
-import com.analisis.objetos.analisis.ErrorA;
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Dato;
 import com.analisis.objetos.basicos.Simbolo;
 import com.analisis.objetos.basicos.Llamadas.Llamada;
-import com.analisis.objetos.basicos.Llamadas.LlamadaJava;
-import com.analisis.objetos.basicos.Llamadas.LlamadaPython;
-import com.analisis.objetos.basicos.Llamadas.LlamadaVisual;
 import com.analisis.objetos.basicos.lugaresAsignacion.LugarArreglo;
 import com.analisis.objetos.estructuras.Arreglo;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.semantico.AnalizadorLlamadaMetodo;
 import com.generadores.objetos.Cuarteto;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,12 +42,15 @@ public class Hoja implements NodoAritmetico{
         if(valor.getValor() instanceof Llamada){
             AnalizadorLlamadaMetodo analizador = new AnalizadorLlamadaMetodo();
             tipoRetorno = analizador.analizarLLamada((Llamada)valor.getValor(), coleccion);
+            if(tipoRetorno!=null){
+                return new Dato(tipoRetorno, ((Llamada)valor.getValor()).getIdMetodo());
+            }
         }else{
             switch(valor.getTipo()){
-                case CONST.ENTERO: tipoRetorno = CONST.ENTERO; break;
-                case CONST.FLOTANTE: tipoRetorno = CONST.FLOTANTE; break;
-                case CONST.CARACTER: tipoRetorno = CONST.CARACTER; break;
-                case CONST.CADENA: tipoRetorno = CONST.CADENA; break;
+                case CONST.ENTERO: tipoRetorno = CONST.ENTERO; return new Dato(tipoRetorno,(String)valor.getValor());
+                case CONST.FLOTANTE: tipoRetorno = CONST.FLOTANTE; return new Dato(tipoRetorno,(String)valor.getValor());
+                case CONST.CARACTER: tipoRetorno = CONST.CARACTER; return new Dato(tipoRetorno,(String)valor.getValor());
+                case CONST.CADENA: tipoRetorno = CONST.CADENA; return new Dato(tipoRetorno,(String)valor.getValor());
                 case CONST.ARREGLO:{
                     return analizarArreglo(coleccion);
                 }
@@ -81,8 +81,22 @@ public class Hoja implements NodoAritmetico{
     } //para el primer analisis
 
     @Override
-    public List<Cuarteto> generarCuartetos(Coleccion coleccion, String clase) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
+        List<Cuarteto> cuartetosRetorno = new ArrayList();
+        if(valor.getValor() instanceof Llamada){
+            
+        }else{
+            switch(valor.getTipo()){
+                case CONST.ENTERO: 
+                case CONST.FLOTANTE: 
+                case CONST.CARACTER: 
+                case CONST.CADENA: 
+                case CONST.ARREGLO:
+                case CONST.ID:
+                case CONST.ID_GLOBAL:
+            }
+        }
+        return cuartetosRetorno;
     }
 
     private Dato analizarArreglo(Coleccion coleccion) {
@@ -137,11 +151,6 @@ public class Hoja implements NodoAritmetico{
     @Override
     public Pos getPosicion() {
         return this.posicion;
-    }
-
-    @Override
-    public String getTipo() {
-        return this.tipoRetorno;
     }
     
 }

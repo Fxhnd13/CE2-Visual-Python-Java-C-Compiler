@@ -5,7 +5,9 @@
  */
 package com.analisis.objetos.instrucciones.instruccionesmlg;
 
+import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.analisis.Pos;
+import com.analisis.objetos.basicos.accionesAsignacion.AccionExpresion;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.nodos.NodoBooleano;
 import com.generadores.objetos.Cuarteto;
@@ -96,7 +98,27 @@ public class ForInstr implements Instruccion{
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        coleccion.getSimbolos().agregarAmbitoTemporal();
+        if(variableFor!=null){ //si hay una instruccion de declaracion
+            if(variableFor.getTipo()==null){ //si no se especifico un tipo
+               if(!coleccion.getSimbolos().existeSimbolo(variableFor.getLugar().getId())) { //y la variable no existe
+                   coleccion.getErrores().agregarError("Semantico",variableFor.getLugar().getId(),"La variable utilizada para el ciclo no fue declarada antes.",variableFor.getPosicion());
+               }
+            }else{
+                variableFor.analizarSemanticamente(coleccion);
+            }
+        }
+        valorInicial.analizarSemanticamente(coleccion);
+        if(!coleccion.getSimbolos().getSimbolo(valorInicial.getLugar().getId()).getTipo().equals(CONST.ENTERO)) coleccion.getErrores().agregarError("Semantico",variableFor.getLugar().getId(),"La variable utilizada para el ciclo no es entera.",variableFor.getPosicion());
+        condicion.analizarSemanticamente(coleccion);
+        if(!(sentenciaFinal instanceof AsignacionInstr)){
+            coleccion.getErrores().agregarError("Semantico",variableFor.getLugar().getId(),"Al final del ciclo no se modifica la variable utilizada.",sentenciaFinal.getPosicion());
+        }else{
+            AsignacionInstr sentencia = (AsignacionInstr) sentenciaFinal;
+            if(variableFor.getLugar().getId().equals(sentencia.getLugar().getId())) coleccion.getErrores().agregarError("Semantico", sentencia.getLugar().getId(), "En el modificador del ciclo no se utiliza la misma variable que se declaro al inicio.", sentencia.getPosicion());
+            ((AccionExpresion)sentencia.getAccion()).getExpresion().analizarSemanticamente(coleccion);
+        }
+        coleccion.getSimbolos().eliminarAmbitoTemporal();
     }
     
 }

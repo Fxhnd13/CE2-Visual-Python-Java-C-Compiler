@@ -7,6 +7,7 @@ package com.analisis.objetos.instrucciones.instruccionesmlg;
 
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.estructuras.Coleccion;
+import com.analisis.semantico.AnalizadorBloque;
 import com.generadores.objetos.Cuarteto;
 import java.util.List;
 
@@ -55,7 +56,10 @@ public class SinoInstr implements InstruccionSino{
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        AnalizadorBloque analizador = new AnalizadorBloque();
+        coleccion.getSimbolos().agregarAmbitoTemporal();
+        analizador.analizarBloque(instrucciones, coleccion);
+        coleccion.getSimbolos().eliminarAmbitoTemporal();
     }
     
 }

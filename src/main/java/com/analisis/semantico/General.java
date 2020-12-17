@@ -49,7 +49,16 @@ public class General {
     }
 
     private void analizarSeccionPrincipal(List<Instruccion> instruccionesPr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Instruccion instruccion : instruccionesPr) {
+            if(instruccion instanceof DeclaracionInstr){
+                ((DeclaracionInstr)instruccion).analizarSemanticamente(coleccion);
+            }else if (instruccion instanceof AsignacionInstr){
+                ((AsignacionInstr)instruccion).analizarSemanticamente(coleccion);
+            }else if(instruccion instanceof MetodoInstr){
+                AnalizadorBloque analizador = new AnalizadorBloque();
+                analizador.analizarBloque(((MetodoInstr)instruccion).getInstrucciones(), coleccion);
+            }
+        }
     }
 
     private void analizarSeccionVisual(List<Instruccion> instruccionesVb) {
@@ -61,7 +70,19 @@ public class General {
     }
 
     private void analizarSeccionJava(List<Instruccion> instruccionesJv) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Instruccion instruccion : instruccionesJv) {
+            if(instruccion instanceof ClaseInstr){
+                coleccion.setClase(((ClaseInstr)instruccion).getId());
+                for (Instruccion instruccionDeClase : ((ClaseInstr)instruccion).getInstrucciones()) {
+                    if(instruccionDeClase instanceof MetodoInstr){
+                        analizarInstruccionDeclaracionMetodo((MetodoInstr)instruccionDeClase, CONST.SEC_JV);
+                    }else if(instruccionDeClase instanceof AsignacionInstr){
+                        ((AsignacionInstr)instruccion).analizarSemanticamente(coleccion);
+                    }
+                }
+            }
+        }
+        coleccion.setClase(null);
     }
 
     private void analizarSeccionPython(List<Instruccion> instruccionesPy) {
@@ -76,7 +97,8 @@ public class General {
         coleccion.setSimbolos(new TablaDeSimbolos()); //la tabla de simbolos con la que se evaluara el metodo
         analizarRetornoDelMetodo(instr, seccion); //verificamos que esté bien el return (si es que se debe analizar)
         analizarParametrosDelMetodo(instr, seccion); //verificamos que no haya inconsistencias en la declaracion de los parametros
-        analizarBloque(instr.getInstrucciones());
+        AnalizadorBloque analizador = new AnalizadorBloque();
+        analizador.analizarBloque(instr.getInstrucciones(), coleccion);
     }
     
     private void analizarRetornoDelMetodo(MetodoInstr instr, String seccion){
@@ -103,43 +125,5 @@ public class General {
             }
         }
     }
-
-    public void analizarBloque(List<Instruccion> instrucciones) {
-        for (int i = 0; i < instrucciones.size(); i++) {
-            Instruccion instruccion = instrucciones.get(i);
-            if(instruccion instanceof DeclaracionInstr){
-                ((DeclaracionInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if(instruccion instanceof AsignacionInstr){
-                ((AsignacionInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if(instruccion instanceof DoWhileInstr){
-                ((DoWhileInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if(instruccion instanceof WhileInstr){
-                ((WhileInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if(instruccion instanceof ForInstr){
-                ((ForInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if(instruccion instanceof SiInstr){
-                ((SiInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if(instruccion instanceof SwitchInstr){
-                ((SwitchInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if(instruccion instanceof IngresoInstr){
-                ((IngresoInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if(instruccion instanceof LlamadaInstr){
-                ((LlamadaInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if(instruccion instanceof MensajeInstr){
-                ((MensajeInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if(instruccion instanceof LimpiarInstr){
-                //no se hace nada, literalmente se ignora
-            }else if(instruccion instanceof ReturnInstr){
-                ((ReturnInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if(instruccion instanceof BreakInstr){
-                if(!coleccion.isEnCaso()){
-                    //error no estamos en un caso de switch
-                }else{
-                    //verificamos que no haya más instrucciones dentro de esta seccion si las hay entonces hay error
-                }
-            }else if(instruccion instanceof LibreriaInstr){
-                //se agrega para un posterior uso(?)
-            }
-        }
-    }
+    
 }

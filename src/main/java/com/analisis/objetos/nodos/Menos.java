@@ -40,12 +40,7 @@ public class Menos implements NodoAritmetico{
     }
 
     @Override
-    public List<Cuarteto> generarCuartetos(Coleccion coleccion, String clase) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getTipo() {
+    public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

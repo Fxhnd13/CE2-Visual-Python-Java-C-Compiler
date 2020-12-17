@@ -12,6 +12,7 @@ import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.estructuras.ColeccionInstr;
 import com.analisis.objetos.estructuras.Metodo;
 import com.analisis.objetos.estructuras.TablaDeSimbolos;
+import com.analisis.objetos.instrucciones.instruccionesmlg.AsignacionInstr;
 import com.analisis.objetos.instrucciones.instruccionesmlg.ClaseInstr;
 import com.analisis.objetos.instrucciones.instruccionesmlg.DeclaracionInstr;
 import com.analisis.objetos.instrucciones.instruccionesmlg.Instruccion;
@@ -55,7 +56,11 @@ public class EstructurasIntermedias {
                         }
                     }else if(instruccionDeClaseActual instanceof DeclaracionInstr){
                         //agregamos una variable
-                        clase.getMetodos().agregarSimbolo(simboloDeVariable((DeclaracionInstr)instruccionDeClaseActual));
+                        if(!clase.getMetodos().agregarSimboloSiNoExiste(simboloDeVariable((DeclaracionInstr)instruccionDeClaseActual))){
+                            coleccion.getErrores().agregarError("Semantico",((DeclaracionInstr)instruccion).getLugar().getId(), "Ya existe un atributo declarado para la clase con el identificador utilizado", instruccion.getPosicion());
+                        }
+                    }else if(instruccionDeClaseActual instanceof AsignacionInstr){
+                        clase.getAsignaciones().add((AsignacionInstr)instruccionDeClaseActual);
                     }
                 }
                 coleccion.getClasesJv().agregarSimbolo(simboloDeClase((ClaseInstr)instruccion, clase));

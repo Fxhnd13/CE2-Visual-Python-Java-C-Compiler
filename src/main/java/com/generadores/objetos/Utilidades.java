@@ -6,7 +6,11 @@
 
 package com.generadores.objetos;
 
+import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.basicos.Llamadas.Llamada;
+import com.analisis.objetos.basicos.Llamadas.LlamadaJava;
+import com.analisis.objetos.basicos.Llamadas.LlamadaPython;
+import com.analisis.objetos.basicos.Llamadas.LlamadaVisual;
 import com.analisis.objetos.basicos.Simbolo;
 import com.analisis.objetos.estructuras.Metodo;
 import com.analisis.objetos.estructuras.TablaDeSimbolos;
@@ -40,7 +44,7 @@ public class Utilidades {
     public static String nombreMetodo(String seccion, Llamada metodo){
         String nombre = seccion+"_"+metodo.getIdMetodo()+(!metodo.getParametros().isEmpty()?"":"_");
         for (int i = 0; i < metodo.getParametros().size(); i++) {
-            nombre+= metodo.getParametros().get(i).getTipo();
+            nombre+= metodo.getParametros().get(i).getTipoRetorno();
             if((i+1) < metodo.getParametros().size()) nombre+="_";
         }
         return nombre;
@@ -78,5 +82,37 @@ public class Utilidades {
             }
         }
         return false;
+    }
+
+    public static Simbolo existeMetodo(TablaDeSimbolos metodosVb, LlamadaVisual llamada) {
+        for (Simbolo metodo : metodosVb.getSimbolos()) {
+            MetodoInstr instr = (MetodoInstr) metodo.getValor();
+            if(nombreMetodo(CONST.SEC_VB, instr).equals(nombreMetodo(CONST.SEC_VB, llamada))) return metodo;
+        }
+        return null;
+    }
+    
+    public static Simbolo existeMetodo(TablaDeSimbolos metodosPy, LlamadaPython llamada){
+        for (Simbolo metodo : metodosPy.getSimbolos()) {
+            MetodoInstr instr = (MetodoInstr) metodo.getValor();
+            if(nombreMetodo(CONST.SEC_PY, instr).equals(nombreMetodo(CONST.SEC_PY, llamada))) return metodo;
+        }
+        return null;
+    }
+    
+    public static Simbolo existeMetodo(TablaDeSimbolos metodos, String clase, LlamadaJava llamada){
+        for (Simbolo metodo : metodos.getSimbolos()) {
+            MetodoInstr instr = (MetodoInstr) metodo.getValor();
+            if(nombreMetodo(CONST.SEC_JV,clase,instr).equals(nombreMetodo(CONST.SEC_JV,clase,llamada))) return metodo;
+        }
+        return null;
+    }
+    
+    public static Simbolo existeMetodo(String seccion, TablaDeSimbolos metodos, String clase, Llamada llamada){
+        for (Simbolo metodo : metodos.getSimbolos()) {
+            MetodoInstr instr = (MetodoInstr) metodo.getValor();
+            if(nombreMetodo(seccion,clase,instr).equals(nombreMetodo(seccion,clase,llamada))) return metodo;
+        }
+        return null;
     }
 }

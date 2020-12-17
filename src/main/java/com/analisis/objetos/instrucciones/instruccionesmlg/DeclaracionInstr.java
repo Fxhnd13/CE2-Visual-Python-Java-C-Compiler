@@ -5,8 +5,10 @@
  */
 package com.analisis.objetos.instrucciones.instruccionesmlg;
 
+import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.analisis.Pos;
-import com.analisis.objetos.basicos.lugaresAsignacion.Lugar;
+import com.analisis.objetos.basicos.Simbolo;
+import com.analisis.objetos.basicos.lugaresAsignacion.*;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.generadores.objetos.Cuarteto;
 import java.util.List;
@@ -76,7 +78,32 @@ public class DeclaracionInstr implements Instruccion{
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Simbolo simboloParaAgregar = null;
+        if(lugar instanceof LugarClase){
+            //verificar que el tipo de instancia exista
+            Simbolo simboloDeClase = coleccion.getClasesJv().getSimbolo(((LugarClase)lugar).getTipoInstancia());
+            if(simboloDeClase!=null){
+                simboloParaAgregar = new Simbolo(lugar.getId(), CONST.CLASE, ((LugarClase)lugar).getTipoInstancia(),null,null,null,null);
+            }else{
+                coleccion.getErrores().agregarError("Semantico", lugar.getId(), "No existe la clase utilizada en la definición de la seccion java.", lugar.getPosicion());
+            }
+        }else if (lugar instanceof LugarArreglo){
+            //verificar que la declaracion se haya realizado correctamente
+            LugarArreglo valor = (LugarArreglo) lugar;
+            for (int i=0; i < valor.getIndices().size(); i++) {
+                if(!valor.getIndices().get(i).analizarSemanticamente(coleccion).getTipo().equals(CONST.ENTERO)){
+                    coleccion.getErrores().agregarError("Semantico","Dimension "+(i+1),"La dimension para la declaracion del arreglo no es un entero. ",valor.getIndices().get(i).getPosicion());
+                }
+            }
+            simboloParaAgregar = new Simbolo(lugar.getId(),CONST.ARREGLO, valor.getTipo(),null,null,null,null);
+        }else if (lugar instanceof LugarVariable){
+            simboloParaAgregar = new Simbolo(lugar.getId(),CONST.VAR,tipo,null,null,null,null);
+        }
+        if(simboloParaAgregar!=null){
+            if(!coleccion.getSimbolos().agregarSimboloSiNoExiste(simboloParaAgregar)){
+                coleccion.getErrores().agregarError("Semantico", lugar.getId(), "Ya existe una variable declarada con el identificador utilizado.",lugar.getPosicion());
+            }
+        }
     }
     
 }

@@ -146,13 +146,17 @@ public class AsignacionInstr implements Instruccion{
             if(coleccion.getTipadoActual()==2){
                 simbolo = new Simbolo(lugar.getId(),CONST.VAR,CONST.INDEFINIDO,null,null,null,null);
                 coleccion.getSimbolos().agregarSimbolo(simbolo);
-            }else{
+            }else if(coleccion.getTipadoActual()!=1){
                 coleccion.getErrores().agregarError("Semantico",lugar.getId(),"Se ha utilizado una variable que no ha sido declarada",lugar.getPosicion());
             }
         }
-        if(simbolo!=null){
-            TablaDeTipos tablaDeTipos = new TablaDeTipos(posicion);
-            tablaDeTipos.evaluarAsignacion(simbolo, tipoParaAsignar, coleccion);
+        if(coleccion.getTipadoActual()==1){
+            analizarAsignacionVariableGlobal(new LugarVariableGlobal(lugar.getId(), lugar.getPosicion()), accion, coleccion);
+        }else{
+            if(simbolo!=null){
+                TablaDeTipos tablaDeTipos = new TablaDeTipos(posicion);
+                tablaDeTipos.evaluarAsignacion(simbolo, tipoParaAsignar, coleccion);
+            }
         }
     }
     

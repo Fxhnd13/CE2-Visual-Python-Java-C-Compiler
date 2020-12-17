@@ -7,7 +7,8 @@ package com.analisis.objetos.instrucciones.instruccionesmlg;
 
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.estructuras.Coleccion;
-import com.analisis.objetos.nodos.NodoAritmetico;
+import com.analisis.objetos.nodos.NodoBooleano;
+import com.analisis.semantico.AnalizadorBloque;
 import com.generadores.objetos.Cuarteto;
 import java.util.List;
 
@@ -17,24 +18,24 @@ import java.util.List;
  */
 public class DoWhileInstr implements Instruccion{
     
-    private NodoAritmetico condiciones;
+    private NodoBooleano condiciones;
     private List<Instruccion> instrucciones;
     private Pos posicion;
 
     public DoWhileInstr() {
     }
 
-    public DoWhileInstr(NodoAritmetico condiciones, List<Instruccion> instrucciones, Pos posicion) {
+    public DoWhileInstr(NodoBooleano condiciones, List<Instruccion> instrucciones, Pos posicion) {
         this.condiciones = condiciones;
         this.instrucciones = instrucciones;
         this.posicion = posicion;
     }
 
-    public NodoAritmetico getCondiciones() {
+    public NodoBooleano getCondiciones() {
         return condiciones;
     }
 
-    public void setCondiciones(NodoAritmetico condiciones) {
+    public void setCondiciones(NodoBooleano condiciones) {
         this.condiciones = condiciones;
     }
 
@@ -66,7 +67,11 @@ public class DoWhileInstr implements Instruccion{
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.condiciones.analizarSemanticamente(coleccion);
+        coleccion.getSimbolos().agregarAmbitoTemporal();
+        AnalizadorBloque analizador = new AnalizadorBloque();
+        analizador.analizarBloque(instrucciones, coleccion);
+        coleccion.getSimbolos().eliminarAmbitoTemporal();
     }
     
 }

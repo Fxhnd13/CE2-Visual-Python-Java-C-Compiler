@@ -56,7 +56,7 @@ public class MensajeInstr implements Instruccion{
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        mensaje.analizarSemanticamente(coleccion);
     }
     
 }
