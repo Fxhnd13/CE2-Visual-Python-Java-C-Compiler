@@ -65,15 +65,19 @@ public class AnalizadorLlamadaMetodo {
         Simbolo simbolo = coleccion.getSimbolos().getSimbolo(llamada.getIdVariable());
         for (NodoAritmetico parametro : llamada.getParametros()) parametro.analizarSemanticamente(coleccion);
         if(simbolo!=null){
-            Clase estructura = (Clase) coleccion.getClasesJv().getSimbolo(simbolo.getTipo()).getValor();
-            Simbolo metodoLlamado = Utilidades.existeMetodo(estructura.getMetodos(), simbolo.getTipo(), llamada);
-            if(metodoLlamado==null){
-                coleccion.getErrores().agregarError("Semantico",llamada.getIdMetodo(),"No existe un metodo con el identificador utilizado o los parametros enviados", llamada.getPosicion());
+            if(simbolo.getValor()==null){
+                coleccion.getErrores().agregarError("Semantico", llamada.getIdVariable(), "No se ha instanciado el objeto para el cual se realizo una llamada de un metodo", llamada.getPosicion());
             }else{
-                if(metodoLlamado.getTipo().equals(CONST.VOID)){
-                    coleccion.getErrores().agregarError("Semantico", llamada.getIdMetodo(), "El metodo llamado no posee un valor de retorno.", llamada.getPosicion());
+                Clase estructura = (Clase) coleccion.getClasesJv().getSimbolo(simbolo.getTipo()).getValor();
+                Simbolo metodoLlamado = Utilidades.existeMetodo(estructura.getMetodos(), simbolo.getTipo(), llamada);
+                if(metodoLlamado==null){
+                    coleccion.getErrores().agregarError("Semantico",llamada.getIdMetodo(),"No existe un metodo con el identificador utilizado o los parametros enviados", llamada.getPosicion());
                 }else{
-                    tipoRetorno = metodoLlamado.getTipo();
+                    if(metodoLlamado.getTipo().equals(CONST.VOID)){
+                        coleccion.getErrores().agregarError("Semantico", llamada.getIdMetodo(), "El metodo llamado no posee un valor de retorno.", llamada.getPosicion());
+                    }else{
+                        tipoRetorno = metodoLlamado.getTipo();
+                    }
                 }
             }
         }

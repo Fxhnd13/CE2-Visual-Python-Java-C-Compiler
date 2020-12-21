@@ -10,6 +10,9 @@ import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Dato;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Cuartetos;
+import com.generadores.objetos.Etiqueta;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,7 +69,25 @@ public class Distinto implements NodoBooleano{
 
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cuarteto> cuartetosRetorno = new ArrayList();
+        
+        List<Cuarteto> cuartetosI = new ArrayList();
+        List<Cuarteto> cuartetosD = new ArrayList();
+        cuartetosI = izquierdo.generarCuartetos(coleccion);
+        String temporalI = cuartetosI.get(cuartetosI.size()-1).getRes();
+        cuartetosD = derecho.generarCuartetos(coleccion);
+        String temporalD = cuartetosD.get(cuartetosD.size()-1).getRes();
+        
+        Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosI);
+        Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosD);
+        
+        this.etiquetaSi = Etiqueta.siguienteEtiqueta();
+        this.etiquetaNo = Etiqueta.siguienteEtiqueta();
+        
+        cuartetosRetorno.add(new Cuarteto("!=",temporalI, temporalD, etiquetaSi));
+        cuartetosRetorno.add(new Cuarteto("goto",null,null,etiquetaNo));
+        
+        return cuartetosRetorno;
     }
 
     @Override

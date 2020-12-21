@@ -18,6 +18,7 @@ import com.analisis.objetos.instrucciones.instruccionesmlg.DeclaracionInstr;
 import com.analisis.objetos.instrucciones.instruccionesmlg.Instruccion;
 import com.analisis.objetos.instrucciones.instruccionesmlg.MetodoInstr;
 import com.generadores.objetos.Utilidades;
+import java.util.ArrayList;
 
 /**
  *
@@ -63,6 +64,7 @@ public class EstructurasIntermedias {
                         clase.getAsignaciones().add((AsignacionInstr)instruccionDeClaseActual);
                     }
                 }
+                clase.getMetodos().agregarSimboloSiNoExiste(simboloDeMetodo(new MetodoInstr(CONST.VOID,coleccion.getClase(),new ArrayList(),new ArrayList(),instruccion.getPosicion()),CONST.SEC_JV));
                 coleccion.getClasesJv().agregarSimbolo(simboloDeClase((ClaseInstr)instruccion, clase));
             }
         }

@@ -9,7 +9,9 @@ import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Llamadas.Llamada;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.semantico.AnalizadorLlamadaMetodo;
+import com.generadores.Codigo3Direcciones;
 import com.generadores.objetos.Cuarteto;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,7 +54,11 @@ public class LlamadaInstr implements Instruccion{
 
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Codigo3Direcciones generador = new Codigo3Direcciones();
+        List<Cuarteto> cuartetosRetorno = generador.generarCuartetos(llamada, coleccion, false);
+        
+        return cuartetosRetorno;
     }
 
     @Override

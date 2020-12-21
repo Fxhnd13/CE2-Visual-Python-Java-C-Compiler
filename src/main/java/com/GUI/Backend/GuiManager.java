@@ -9,7 +9,10 @@ import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.estructuras.ColeccionInstr;
 import com.analisis.semantico.General;
 import com.analisis.sintactico.GeneradorAst;
+import com.generadores.Codigo3Direcciones;
 import com.generadores.EstructurasIntermedias;
+import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Cuartetos;
 import com.generadores.objetos.Etiqueta;
 import com.generadores.objetos.Temporal;
 import java.awt.event.ActionEvent;
@@ -20,6 +23,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
@@ -186,17 +190,21 @@ public class GuiManager {
         }
     }
 
-    public void generarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea) {
+    public void generarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea, JTextArea codigoGenerado) {
         reiniciar(); //conteo en 0 de temporales y etiquetas
         GeneradorAst generadorAst = new GeneradorAst(codigoFuente.getText()); //generamos el ast a partir del archivo de entrada
         General analizadorSemantico = new General();
-        analizadorSemantico.analizar(generadorAst.getInstrucciones()); //hacemos el analisis semantico con la informacion recolectada
-//        
-//        if(coleccion.getErrores().isEmpty()){
-//            
-//        }else{
-//            
-//        }
+        analizadorSemantico.analizar(generadorAst.getInstrucciones()); //hacemos el analisis semantico con la informacion recolectada 
+        
+        if(analizadorSemantico.getColeccion().getErrores().getErrores().isEmpty()){
+            
+            Codigo3Direcciones generador = new Codigo3Direcciones();
+            List<Cuarteto> cuartetos = generador.generarCodigo(generadorAst.getInstrucciones(), analizadorSemantico.getColeccion());
+            codigoGenerado.setText(Cuartetos.escribirCodigo3DireccionesNormal(cuartetos));
+            
+        }else{
+            
+        }
     }
     
     public void reiniciar(){

@@ -9,7 +9,11 @@ import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.nodos.NodoBooleano;
 import com.analisis.semantico.AnalizadorBloque;
+import com.generadores.Codigo3Direcciones;
 import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Cuartetos;
+import com.generadores.objetos.Etiqueta;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,7 +66,28 @@ public class WhileInstr implements Instruccion{
 
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cuarteto> cuartetosRetorno = new ArrayList();
+        
+        coleccion.getSimbolos().agregarAmbitoTemporal();
+        Codigo3Direcciones generador = new Codigo3Direcciones();
+        List<Cuarteto> cuartetosInstrucciones = generador.generarCodigo3Direcciones(instrucciones, coleccion);
+        coleccion.getSimbolos().eliminarAmbitoTemporal();
+        
+        List<Cuarteto> cuartetosCondicional = condiciones.generarCuartetos(coleccion);
+
+        String etiquetaInicio = Etiqueta.siguienteEtiqueta();
+        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,etiquetaInicio));
+
+        String etiquetaFinal = condiciones.getEtiquetaNo();
+
+
+        Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosCondicional);
+        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,etiquetaInicio));
+        Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosInstrucciones);
+        cuartetosRetorno.add(new Cuarteto("goto",null,null,etiquetaInicio));
+        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,etiquetaFinal));
+        
+        return cuartetosRetorno;
     }
 
     @Override

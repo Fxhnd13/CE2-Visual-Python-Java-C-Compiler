@@ -12,9 +12,12 @@ import com.analisis.objetos.basicos.Simbolo;
 import com.analisis.objetos.basicos.Llamadas.Llamada;
 import com.analisis.objetos.basicos.lugaresAsignacion.LugarArreglo;
 import com.analisis.objetos.estructuras.Arreglo;
+import com.analisis.objetos.estructuras.Clase;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.semantico.AnalizadorLlamadaMetodo;
+import com.generadores.Codigo3Direcciones;
 import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Temporal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +34,8 @@ public class Hoja implements NodoAritmetico{
     public Hoja() {
     }
 
-    public Hoja(Dato valor, String tipo, Pos posicion) {
+    public Hoja(Dato valor, Pos posicion) {
         this.valor = valor;
-        this.tipoRetorno = tipoRetorno;
         this.posicion = posicion;
     }
     
@@ -84,16 +86,41 @@ public class Hoja implements NodoAritmetico{
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
         List<Cuarteto> cuartetosRetorno = new ArrayList();
         if(valor.getValor() instanceof Llamada){
-            
+            Codigo3Direcciones generador = new Codigo3Direcciones();
+            return generador.generarCuartetos((Llamada)valor.getValor(), coleccion, true);
         }else{
             switch(valor.getTipo()){
-                case CONST.ENTERO: 
-                case CONST.FLOTANTE: 
-                case CONST.CARACTER: 
-                case CONST.CADENA: 
-                case CONST.ARREGLO:
-                case CONST.ID:
-                case CONST.ID_GLOBAL:
+                case CONST.ENTERO:{
+                    cuartetosRetorno.add(new Cuarteto(":=",(String)valor.getValor(),null,Temporal.siguienteTemporal(CONST.ENTERO)));
+                    break;
+                } 
+                case CONST.FLOTANTE: {
+                    cuartetosRetorno.add(new Cuarteto(":=",(String)valor.getValor(),null,Temporal.siguienteTemporal(CONST.FLOTANTE)));
+                    break;
+                }
+                case CONST.CARACTER: {
+                    cuartetosRetorno.add(new Cuarteto(":=",(String)valor.getValor(),null,Temporal.siguienteTemporal(CONST.CARACTER)));
+                    break;
+                }
+                case CONST.ARREGLO: {
+                    Codigo3Direcciones generador = new Codigo3Direcciones();
+                    generador.generarCuartetos(cuartetosRetorno, (LugarArreglo)valor.getValor(), coleccion);
+                    break;
+                }
+                case CONST.ID: {
+                    Simbolo simbolo = coleccion.getSimbolos().getSimbolo((String)valor.getValor());
+                    if(simbolo!=null){
+                        cuartetosRetorno.add(new Cuarteto("+",CONST.P,simbolo.getDireccion(),Temporal.siguienteTemporal(CONST.ENTERO)));
+                        cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.FLOTANTE)));
+                    }else{
+                        generarCuartetosDeLlamadaGlobal(cuartetosRetorno, coleccion);
+                    }
+                    break;
+                }
+                case CONST.ID_GLOBAL: {
+                    generarCuartetosDeLlamadaGlobal(cuartetosRetorno, coleccion);
+                    break;
+                }
             }
         }
         return cuartetosRetorno;
@@ -151,6 +178,15 @@ public class Hoja implements NodoAritmetico{
     @Override
     public Pos getPosicion() {
         return this.posicion;
+    }
+
+    private void generarCuartetosDeLlamadaGlobal(List<Cuarteto> cuartetosRetorno, Coleccion coleccion) {
+        Simbolo simbolo = coleccion.getClasesJv().getSimbolo(coleccion.getClase());
+        Clase clase = (Clase) simbolo.getValor();
+        cuartetosRetorno.add(new Cuarteto("+",CONST.P,"0",Temporal.siguienteTemporal(CONST.ENTERO)));
+        String direccionRelativaHeap = clase.getSimbolos().getSimbolo((String)valor.getValor()).getDireccion();
+        cuartetosRetorno.add(new Cuarteto("+",Temporal.actualTemporal(),direccionRelativaHeap,Temporal.siguienteTemporal(CONST.ENTERO)));
+        cuartetosRetorno.add(new Cuarteto("arreglo",CONST.HEAP,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.FLOTANTE)));
     }
     
 }

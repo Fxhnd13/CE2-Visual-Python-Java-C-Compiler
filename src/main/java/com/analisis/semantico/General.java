@@ -12,6 +12,7 @@ import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.estructuras.ColeccionInstr;
 import com.analisis.objetos.estructuras.TablaDeSimbolos;
 import com.analisis.objetos.instrucciones.instruccionesmlg.*;
+import com.analisis.objetos.nodos.Hoja;
 import com.generadores.EstructurasIntermedias;
 import java.util.List;
 
@@ -107,7 +108,17 @@ public class General {
             if(!instr.getTipoRetorno().equals(CONST.VOID)){
                 if(!verificarReturn.tieneReturn(instr.getInstrucciones(), coleccion, instr.getTipoRetorno())){
                     //si el tipo es distinto a void y no tiene return, error
-                    coleccion.getErrores().agregarError("Semantico",instr.getId(),"El metodo no posee un valor de retorno.",instr.getPosicion());
+                    if(seccion.equals(CONST.SEC_JV)){
+                        coleccion.getErrores().agregarError("Semantico",instr.getId(),"El metodo no posee un valor de retorno.",instr.getPosicion());
+                    }else{
+                        Simbolo simbolo = new Simbolo(instr.getId(),CONST.VAR,instr.getTipoRetorno(),null,null,null,null);
+                        verificarReturn.tieneReturn(instr.getInstrucciones(), coleccion, seccion, simbolo);
+                        if(simbolo.getValor()==null){
+                            coleccion.getErrores().agregarError("Semantico",instr.getId(),"El metodo no posee un valor de retorno.",instr.getPosicion());
+                        }else{
+                            instr.getInstrucciones().add(new ReturnInstr(new Hoja(new Dato(CONST.ID,simbolo.getId()),null),null));
+                        }
+                    }
                 }
             }else{
                 if(verificarReturn.tieneReturn(instr.getInstrucciones(), coleccion, instr.getTipoRetorno())){

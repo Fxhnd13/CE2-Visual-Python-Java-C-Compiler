@@ -9,8 +9,13 @@ import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Simbolo;
 import com.analisis.objetos.basicos.lugaresAsignacion.*;
+import com.analisis.objetos.estructuras.Arreglo;
+import com.analisis.objetos.estructuras.Clase;
 import com.analisis.objetos.estructuras.Coleccion;
+import com.analisis.objetos.nodos.NodoAritmetico;
 import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Temporal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,7 +78,61 @@ public class DeclaracionInstr implements Instruccion{
 
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cuarteto> cuartetosRetorno = new ArrayList();
+        if(lugar instanceof LugarVariable){
+            
+            String direccion = coleccion.getSimbolos().getUltimaPosicionLibre(cuartetosRetorno);
+            coleccion.getSimbolos().agregarSimbolo(new Simbolo(lugar.getId(),tipo,CONST.VAR,"1",direccion,null,null));
+            
+        }else if(lugar instanceof LugarArreglo){
+
+            LugarArreglo lugarArreglo = (LugarArreglo) lugar;
+            Arreglo arreglo = new Arreglo();
+            
+            for (NodoAritmetico expresion : lugarArreglo.getIndices()) {
+                for (Cuarteto cuarteto : expresion.generarCuartetos(coleccion)) {
+                    cuartetosRetorno.add(cuarteto);
+                }
+                arreglo.getTemporales().add(Temporal.actualTemporal());
+            }
+            String temporalSize = Temporal.siguienteTemporal(CONST.ENTERO);
+            if(arreglo.getTemporales().size()==1){
+                cuartetosRetorno.add(new Cuarteto(":=",arreglo.getTemporales().get(0),null,temporalSize));
+            }else{
+                cuartetosRetorno.add(new Cuarteto(":=","0",null,temporalSize));
+                for (String temporal : arreglo.getTemporales()) {
+                    cuartetosRetorno.add(new Cuarteto("*",temporal,temporalSize,temporalSize));
+                }
+            }
+            String temporalDireccion = coleccion.getSimbolos().getUltimaPosicionLibre(cuartetosRetorno);
+            
+            coleccion.getSimbolos().agregarSimbolo(new Simbolo(
+                    lugar.getId(),
+                    tipo,
+                    CONST.ARREGLO,
+                    temporalSize,
+                    temporalDireccion,
+                    null,
+                    arreglo
+            ));
+            
+            cuartetosRetorno.add(new Cuarteto("dclArreglo",null,temporalSize,lugar.getId()));
+
+        }else if(lugar instanceof LugarClase){
+            
+            Clase clase = (Clase) coleccion.getClasesJv().getSimbolo(((LugarClase)lugar).getTipoInstancia()).getValor();
+            
+            coleccion.getSimbolos().agregarSimbolo(new Simbolo(
+                    lugar.getId(),
+                    ((LugarClase) lugar).getTipoInstancia(),
+                    CONST.CLASE,
+                    String.valueOf(clase.getSimbolos().getSimbolos().size()),
+                    null,//direccion
+                    null,
+                    null
+            ));
+        }
+        return cuartetosRetorno;
     }
 
     @Override

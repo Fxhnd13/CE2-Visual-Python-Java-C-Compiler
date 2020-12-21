@@ -10,6 +10,8 @@ import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Dato;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Cuartetos;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +60,20 @@ public class And implements NodoBooleano{
 
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cuarteto> cuartetosRetorno = new ArrayList();
+        
+        List<Cuarteto> cuartetosI = izquierdo.generarCuartetos(coleccion);
+        List<Cuarteto> cuartetosD = derecho.generarCuartetos(coleccion);
+        
+        Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosI);
+        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,izquierdo.getEtiquetaSi()));
+        Cuartetos.cambiarEtiqueta(cuartetosD, derecho.getEtiquetaNo(), izquierdo.getEtiquetaNo());
+        Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosD);
+        
+        this.etiquetaSi = derecho.getEtiquetaSi();
+        this.etiquetaNo = izquierdo.getEtiquetaNo();
+        
+        return cuartetosRetorno;
     }
 
     @Override

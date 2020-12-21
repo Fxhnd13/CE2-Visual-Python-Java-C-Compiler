@@ -45,7 +45,10 @@ public class Not implements NodoBooleano{
 
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cuarteto> cuartetosRetorno = hijo.generarCuartetos(coleccion);
+        this.etiquetaNo = hijo.getEtiquetaSi();
+        this.etiquetaSi = hijo.getEtiquetaNo();
+        return cuartetosRetorno;
     }
 
     @Override

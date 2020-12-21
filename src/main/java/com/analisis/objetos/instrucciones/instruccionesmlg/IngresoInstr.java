@@ -10,6 +10,8 @@ import com.analisis.objetos.basicos.accionesAsignacion.Accion;
 import com.analisis.objetos.basicos.accionesAsignacion.AccionIngreso;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Cuartetos;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,13 +20,13 @@ import java.util.List;
  */
 public class IngresoInstr implements Instruccion{
     
-    private Accion accion;
+    private AccionIngreso accion;
     private Pos posicion;
 
     public IngresoInstr() {
     }
 
-    public IngresoInstr(Accion accion, Pos posicion) {
+    public IngresoInstr(AccionIngreso accion, Pos posicion) {
         this.accion = accion;
         this.posicion = posicion;
     }
@@ -33,7 +35,7 @@ public class IngresoInstr implements Instruccion{
         return accion;
     }
 
-    public void setAccion(Accion accion) {
+    public void setAccion(AccionIngreso accion) {
         this.accion = accion;
     }
 
@@ -52,12 +54,17 @@ public class IngresoInstr implements Instruccion{
 
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cuarteto> cuartetosRetorno = new ArrayList();
+        if(accion!=null){
+            Cuartetos.unirCuartetos(cuartetosRetorno, accion.getMensaje().generarCuartetos(coleccion));
+        }
+        cuartetosRetorno.add(new Cuarteto("read",null,null,null));
+        return cuartetosRetorno;
     }
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
-        ((AccionIngreso)accion).getMensaje().analizarSemanticamente(coleccion);
+        if(accion!=null) accion.getMensaje().analizarSemanticamente(coleccion);
     }
     
 }

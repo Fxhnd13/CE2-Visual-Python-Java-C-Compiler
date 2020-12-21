@@ -92,7 +92,7 @@ non terminal sentenciaBreak, sentenciaIf, sino, sentenciaFor, modificadorFor, se
 non terminal sentenciaSwitch, contenidoSwitch, valorSwitch, bloqueSwitch, expresionAr, expresionBool, llamadaMetodo;
 non terminal listadoParametrosEnviados, parametrosEnviados, sentenciaDeclaracionInicial;
 
-non terminal tiposDeDato, valorAtomico, tiposDeMetodo, publicOpcional, ingresoDatos;
+non terminal tiposDeDato, valorAtomico, tiposDeMetodo, publicOpcional, ingresoDatos, ingreso;
 
 //declaracion de precedencia
 precedence left PR_ENTERO, PR_FLOTANTE, PR_CARACTER;
@@ -332,7 +332,7 @@ dclClasesJv::=                          dclClasesJv dclClaseJv
 dclClaseJv::=                           publicOpcional CLASS ID LLAVE_A contenidoClaseJv LLAVE_C
                                         |publicOpcional error:e ID LLAVE_A contenidoClaseJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba la palabra clave Class", eleft, eright); :}
                                         |publicOpcional CLASS error:e LLAVE_A contenidoClaseJv LLAVE_C {: agregarError("Sintactico",(String) e,"No se especifico el identificador para la clase, se esperaba un identificador.", eleft, eright); :}
-                                        |publicOpcional CLASS ID error:e 
+                                        |publicOpcional CLASS ID error:e {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo (contenido de la clase).", eleft, eright); :}
                                         ;
 
 contenidoClaseJv::=                     sentenciasDeClaseJv
@@ -541,6 +541,11 @@ dclMetodosPy::=                         dclMetodosPy dclMetodoPy
                                         ;
 
 dclMetodoPy::=                          DEF ID PAR_A dclParametrosPy PAR_C DOS_PUNTOS bloquePy
+                                        |DEF error:e {: agregarError("Sintactico",(String) e,"Se esperaba un identificador para la declaracion del metodo.", eleft, eright); :}
+                                        |DEF ID error:e  {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
+                                        |DEF ID PAR_A dclParametrosPy error:e  {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
+                                        |DEF ID PAR_A dclParametrosPy PAR_C error:e {: agregarError("Sintactico",(String) e,"Se esperaba el token dos puntos.", eleft, eright); :}            
+                                        |DEF ID PAR_A dclParametrosPy PAR_C DOS_PUNTOS error:e {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
                                         ;
 
 dclParametrosPy::=                      listadoId
@@ -548,6 +553,7 @@ dclParametrosPy::=                      listadoId
                                         ;
 
 listadoId::=                            listadoId COMA ID
+                                        |listadoId COMA error:e {: agregarError("Sintactico",(String) e,"Se esperaba un identificador.", eleft, eright); :}
                                         |ID
                                         ;
 
@@ -559,6 +565,7 @@ sentenciaPy::=                          sentenciaIfPy NEWLINE
                                         |sentenciaForPy NEWLINE
                                         |sentenciaWhilePy NEWLINE
                                         |sentenciaSimplePy NEWLINE
+                                        |error
                                         ;
 
 bloquePy::=                             NEWLINE IDENT sentenciasPy DEDENT
@@ -572,6 +579,9 @@ sentenciaSimplePy::=                    asignacionVarPy
                                         ;
 
 escribirPy::=                           MENSAJE PAR_A mensajesPy PAR_C
+                                        |MENSAJE PAR_A error:e  {: agregarError("Sintactico",(String) e,"Se esperaba un mensaje para mostrar en pantalla.", eleft, eright); :}
+                                        |MENSAJE error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
+                                        |MENSAJE PAR_A mensajesPy error:e {: agregarError("Sintactico",(String) e,".", eleft, eright); :}
                                         ;
 
 mensajesPy::=                            mensajesPy COMA mensajePy
@@ -583,32 +593,59 @@ mensajePy::=                            CADENA
                                         ;
 
 listadoExpresionesArPy::=               listadoExpresionesArPy COMA expresionArPy
+                                        |listadoExpresionesArPy COMA error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
                                         |expresionArPy
+                                        |error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
                                         ;
 
-sentenciaIfPy::=                        IF condicionPy DOS_PUNTOS bloquePy elseIfPy elsePy
+sentenciaIfPy::=                        IF condicionPy DOS_PUNTOS bloquePy elseIfPy
+                                        |IF condicionPy DOS_PUNTOS error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
+                                        |IF condicionPy error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba el token dos puntos.", eleft, eright); :}
+                                        |IF error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
                                         ;
 
-elseIfPy::=                             elseIfPy ELSEIF condicionPy DOS_PUNTOS bloquePy
+elseIfPy::=                             ELSEIF condicionPy DOS_PUNTOS bloquePy elseIfPy
+                                        |ELSEIF condicionPy DOS_PUNTOS error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
+                                        |ELSEIF condicionPy error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba un token dos puntos.", eleft, eright); :}
+                                        |ELSEIF error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
+                                        |elsePy
                                         |
                                         ;
 
 elsePy::=                               ELSE DOS_PUNTOS bloquePy
+                                        |ELSE DOS_PUNTOS error:e {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
+                                        |ELSE error:e {: agregarError("Sintactico",(String) e,"Se esperaba un token dos puntos.", eleft, eright); :}
                                         ;
 
 sentenciaWhilePy::=                     WHILE condicionPy bloquePy
+                                        |WHILE condicionPy error:e {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
                                         ;
 
 sentenciaForPy::=                       FOR ID IN rangePy DOS_PUNTOS bloquePy
+                                        |FOR ID IN rangePy DOS_PUNTOS error:e {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
+                                        |FOR ID IN rangePy error:e {: agregarError("Sintactico",(String) e,"Se esperaba un token dos puntos.", eleft, eright); :}
+                                        |FOR ID IN error:e {: agregarError("Sintactico",(String) e,"Se esperaba la funcion range.", eleft, eright); :}
+                                        |FOR ID error:e {: agregarError("Sintactico",(String) e,"Se esperaba el token 'in'.", eleft, eright); :}
+                                        |FOR error:e {: agregarError("Sintactico",(String) e,"Se esperaba un identificador para el ciclo for.", eleft, eright); :}
                                         ;
 
 rangePy::=                              RANGE PAR_A expresionArPy PAR_C
                                         |RANGE PAR_A expresionArPy COMA expresionArPy PAR_C
                                         |RANGE PAR_A expresionArPy COMA expresionArPy COMA expresionArPy PAR_C
+                                        |RANGE PAR_A expresionArPy COMA expresionArPy COMA expresionArPy error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
+                                        |RANGE PAR_A expresionArPy COMA expresionArPy COMA error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion aritmetica.", eleft, eright); :}
+                                        |RANGE PAR_A expresionArPy COMA expresionArPy error:e {: agregarError("Sintactico",(String) e,"Se esperaba una coma.", eleft, eright); :}
+                                        |RANGE PAR_A expresionArPy COMA error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion aritmetica.", eleft, eright); :}
+                                        |RANGE PAR_A expresionArPy error:e {: agregarError("Sintactico",(String) e,"Se esperaba una coma.", eleft, eright); :}
+                                        |RANGE PAR_A error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion aritmetica.", eleft, eright); :}
+                                        |RANGE error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
                                         ;
 
 condicionPy::=                          PAR_A expresionBoolPy PAR_C
+                                        |PAR_A expresionBoolPy error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
+                                        |PAR_A error:e {: agregarError("Sintactico",(String) e,"Se espraba una expresion booleana.", eleft, eright); :}
                                         |expresionBoolPy
+                                        |error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion boolana.", eleft, eright); :}
                                         ;
 
 expresionArPy::=                        expresionArPy MAS expresionArPy
@@ -622,10 +659,12 @@ expresionArPy::=                        expresionArPy MAS expresionArPy
                                         ;
 
 llamadaMetodoPy::=                      ID PAR_A listadoParametrosEnviadosPy PAR_C
+                                        |ID PAR_A listadoParametrosEnviadosPy error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
                                         |ID PAR_A PAR_C
                                         ;
 
 asignacionVarPy::=                      listadoId IGUAL listadoExpresionesArPy
+                                        |listadoId error:e {: agregarError("Sintactico",(String) e,"Se esperaba un token igual (=).", eleft, eright); :}
                                         |ID IGUAL ingresoDatos
                                         |ID IGUAL expresionArPy
                                         ;
@@ -656,12 +695,18 @@ dclLibrerias::=                         dclLibrerias dclLibreria
                                         |dclLibreria
                                         ;
 
-dclLibreria::=                          HASHTAG INCLUDE libreria;
+dclLibreria::=                          HASHTAG INCLUDE libreria
+                                        |HASHTAG INCLUDE error:e {: agregarError("Sintactico",(String) e,"Se esperaba una libreria", eleft, eright); :}
+                                        |HASHTAG error:e {: agregarError("Sintactico",(String) e,"Se esperaba una palabra reservada include.", eleft, eright); :}
+                                        ;
 
-libreria::=                             JAVA valorTextoLibreriaJv
+libreria::=                             JAVA PUNTO valorTextoLibreriaJv
+                                        |JAVA error:e {: agregarError("Sintactico",(String)e,"Se esperaba las clases a importar.",eleft,eright); :}
                                         |PY
                                         |VB
                                         |MENOR libreriaC MAYOR
+                                        |MENOR libreriaC error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token '>'",eleft,eright); :}
+                                        |MENOR error:e {: agregarError("Sintactico",(String)e,"Se esperaba el formato de una libreria de C.",eleft,eright); :}
                                         ;
 
 libreriaC::=                            libreriaC PUNTO ID
@@ -680,7 +725,13 @@ dclConstantes::=                        dclConstantes dclConstante
                                         |dclConstante
                                         ;
 
-dclConstante::=                         CONST tiposDeDato ID IGUAL expresionAr FIN_LINEA;
+dclConstante::=                         CONST tiposDeDato ID IGUAL expresionAr FIN_LINEA
+                                        |CONST tiposDeDato ID IGUAL expresionAr error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token fin de linea ';'",eleft,eright); :}
+                                        |CONST tiposDeDato ID IGUAL error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion para asignar a la variable.",eleft,eright); :}
+                                        |CONST tiposDeDato ID error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token '='",eleft,eright); :}
+                                        |CONST tiposDeDato error:e {: agregarError("Sintactico",(String)e,"Se esperaba un identificador.",eleft,eright); :}
+                                        |CONST error:e {: agregarError("Sintactico",(String)e,"Se esperaba un tipo de dato para la variable declarada.",eleft,eright); :}
+                                        ;
 
 secVariables::=                         dclVariables
                                         |
@@ -690,38 +741,57 @@ dclVariables::=                         dclVariables sentenciaDeclaracionInicial
                                         |sentenciaDeclaracionInicial
                                         ;
 
-sentenciaDeclaracionInicial::=          sentenciaDeclaracion FIN_LINEA;
-
-sentenciaDeclaracion::=                 tiposDeDato listadoDeclaraciones 
-                                        |JAVA PUNTO ID listadoDeclaracionesClases 
-                                        |tiposDeDato arreglo
+sentenciaDeclaracionInicial::=          sentenciaDeclaracion FIN_LINEA
+                                        |sentenciaDeclaracion error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token fin de linea ';'.",eleft,eright); :}
                                         ;
 
-arreglo::=                              ID listDimensiones;
+sentenciaDeclaracion::=                 tiposDeDato listadoDeclaraciones
+                                        |JAVA PUNTO ID listadoDeclaracionesClases 
+                                        |tiposDeDato arreglo
+                                        |tiposDeDato error:e {: agregarError("Sintactico",(String)e,"Se esperaba un listado de identificadores o la estructura de un arreglo.",eleft,eright); :}
+                                        |JAVA PUNTO error:e {: agregarError("Sintactico",(String)e,"Se esperaba un identificador referente a una clase declarada en la seccion de java.",eleft,eright); :}
+                                        |JAVA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token punto '.'.",eleft,eright); :}
+                                        ;
+
+arreglo::=                              ID listDimensiones
+                                        ;
 
 listDimensiones::=                      listDimensiones COR_A expresionAr COR_C
                                         |COR_A expresionAr COR_C
+                                        |COR_A error:e COR_C {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica.",eleft,eright); :}
+                                        |listDimensiones COR_A error:e COR_C {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica.",eleft,eright); :}
                                         ;
 
 listadoDeclaraciones::=                 listadoDeclaraciones COMA ID asignacionValor
                                         |ID asignacionValor
+                                        |listadoDeclaraciones COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un identificador.",eleft,eright); :}
                                         ;
  
 asignacionValor::=                      IGUAL expresionAr
+                                        |IGUAL error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica.",eleft,eright); :}
                                         |
                                         ;
 
 listadoDeclaracionesClases::=           listadoDeclaracionesClases COMA ID asignacionConstructor
                                         |ID asignacionConstructor
+                                        |listadoDeclaracionesClases COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un identificador",eleft,eright); :}
                                         ;
 
 asignacionConstructor::=                accionConstructor
                                         |
                                         ;
 
-accionConstructor::=                    PAR_A listadoParametrosEnviados PAR_C;
+accionConstructor::=                    PAR_A listadoParametrosEnviados PAR_C
+                                        |PAR_A listadoParametrosEnviados error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        ;
 
-codigoMain::=                           VOID MAIN PAR_A PAR_C LLAVE_A bloque LLAVE_C;
+codigoMain::=                           VOID MAIN PAR_A PAR_C LLAVE_A bloque LLAVE_C
+                                        |VOID MAIN PAR_A PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
+                                        |VOID MAIN PAR_A PAR_C error:e bloque {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta",eleft,eright); :}
+                                        |VOID MAIN PAR_A error:e bloque {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
+                                        |VOID MAIN error:e bloque {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
+                                        |VOID error:e bloque {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada 'main'.",eleft,eright); :}
+                                        ;
 
 bloque::=                               sentencias 
                                         |
@@ -749,7 +819,10 @@ sentenciaSimple::=                      sentenciaAsignacion
                                         |sentenciaBreak
                                         ;
 
-sentenciaAsignacion::=                  lugarAsignacion IGUAL expresionAr;
+sentenciaAsignacion::=                  lugarAsignacion IGUAL expresionAr
+                                        |lugarAsignacion IGUAL error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion arimetica.",eleft,eright); :}
+                                        |lugarAsignacion error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token '='.",eleft,eright); :}
+                                        ;
 
 lugarAsignacion::=                      ID
                                         |arreglo
@@ -758,6 +831,11 @@ lugarAsignacion::=                      ID
 
 sentenciaEscribir::=                    PRINTF PAR_A expresionCadena PAR_C
                                         |PRINTF PAR_A expresionCadena COMA listadoExpresiones PAR_C
+                                        |PRINTF PAR_A expresionCadena error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        |PRINTF PAR_A error:e {: agregarError("Sintactico",(String)e,"Se esperaba contenido para mostrar en pantalla.",eleft,eright); :}
+                                        |PRINTF error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
+                                        |PRINTF PAR_A expresionCadena COMA listadoExpresiones error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        |PRINTF PAR_A expresionCadena COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un listado de expresiones.",eleft,eright); :}
                                         ;
 
 expresionCadena::=                      expresionCadena valorCadena
@@ -768,12 +846,19 @@ listadoExpresiones::=                   listadoExpresiones COMA expresionAr
                                         |expresionAr
                                         |listadoExpresiones COMA AMPERSON expresionAr
                                         |AMPERSON expresionAr
+                                        |AMPERSON error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresiona aritmetica.",eleft,eright); :}
+                                        |listadoExpresiones COMA AMPERSON error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica.",eleft,eright); :}
+                                        |listadoExpresiones COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica.",eleft,eright); :}
                                         ;
 
 expresionCadenaEntrada::=               valorTexto comodin
                                         |comodin valorTexto
                                         |valorTexto comodin valorTexto
                                         |comodin
+                                        |valorTexto error:e {: agregarError("Sintactico",(String)e,"Se esperaba un comodin.",eleft,eright); :}
+                                        |error:e valorTexto {: agregarError("Sintactico",(String)e,"Se esperaba un comodin",eleft,eright); :}
+                                        |valorTexto error:e valorTexto {: agregarError("Sintactico",(String)e,"Se esperaba un comodin",eleft,eright); :}
+                                        |error:e {: agregarError("Sintactico",(String)e,"Se esperaba un comodin.",eleft,eright); :}
                                         ;
 
 valorCadena::=                          valorTexto
@@ -789,42 +874,97 @@ comodin::=                              COMODIN_CARACTER
                                         |COMODIN_FLOTANTE
                                         ;
 
-sentenciaIngresoDatos::=                SCANF PAR_A expresionCadenaEntrada COMA AMPERSON lugarAsignacion PAR_C;
+sentenciaIngresoDatos::=                SCANF PAR_A expresionCadenaEntrada COMA AMPERSON lugarAsignacion PAR_C
+                                        |SCANF PAR_A expresionCadenaEntrada COMA AMPERSON lugarAsignacion error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        |SCANF PAR_A expresionCadenaEntrada COMA AMPERSON error:e {: agregarError("Sintactico",(String)e,"Se esperaba un lugar para asignar el valor leido.",eleft,eright); :}
+                                        |SCANF PAR_A expresionCadenaEntrada COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token '&'",eleft,eright); :}
+                                        |SCANF PAR_A expresionCadenaEntrada error:e {: agregarError("Sintactico",(String)e,"Se esperaba una coma.",eleft,eright); :}
+                                        |SCANF PAR_A error:e {: agregarError("Sintactico",(String)e,"Se esperaba una cadena para ingresar texto.",eleft,eright); :}
+                                        |SCANF error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
+                                        ;
 
-sentenciaLimpiarPantalla::=             LIMPIAR_PANTALLA PAR_A PAR_C;
+sentenciaLimpiarPantalla::=             LIMPIAR_PANTALLA PAR_A PAR_C
+                                        |LIMPIAR_PANTALLA PAR_A error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        |LIMPIAR_PANTALLA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
+                                        ;
 
-sentenciaEsperarTecla::=                ESPERAR_TECLA PAR_A PAR_C;
+sentenciaEsperarTecla::=                ESPERAR_TECLA PAR_A PAR_C
+                                        |ESPERAR_TECLA PAR_A error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        |ESPERAR_TECLA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
+                                        ;
 
 sentenciaBreak::=                       BREAK;
 
-sentenciaIf::=                          IF PAR_A expresionBool PAR_C LLAVE_A bloque LLAVE_C sino;
+sentenciaIf::=                          IF PAR_A expresionBool PAR_C LLAVE_A bloque LLAVE_C sino
+                                        |IF PAR_A expresionBool PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
+                                        |IF PAR_A expresionBool PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
+                                        |IF PAR_A expresionBool error:e LLAVE_A bloque LLAVE_C{: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        |IF PAR_A error:e LLAVE_A bloque LLAVE_C{: agregarError("Sintactico",(String)e,"Se esperaba una expresion booleana.",eleft,eright); :}
+                                        |IF error:e LLAVE_A bloque LLAVE_C{: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
+                                        ;
 
 sino::=                                 ELSE IF PAR_A expresionBool PAR_C LLAVE_A bloque LLAVE_C sino
                                         |ELSE LLAVE_A bloque LLAVE_C
                                         |
+                                        |ELSE IF PAR_A expresionBool PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
+                                        |ELSE IF PAR_A expresionBool PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
+                                        |ELSE IF PAR_A expresionBool error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        |ELSE IF PAR_A error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba una expresion booleana.",eleft,eright); :}
+                                        |ELSE IF error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
+                                        |ELSE LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
+                                        |ELSE error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
                                         ;
 
-sentenciaFor::=                         FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor PAR_C LLAVE_A bloque LLAVE_C; 
+sentenciaFor::=                         FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor PAR_C LLAVE_A bloque LLAVE_C
+                                        |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esparaba una llave cerrada.",eleft,eright); :}
+                                        |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
+                                        |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"",eleft,eright); :}
+                                        ; 
 
 modificadorFor::=                       IGUAL expresionAr
+                                        |IGUAL error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica",eleft,eright); :}
                                         |AUMENTO
                                         |DISMINUCION
+                                        |error:e {: agregarError("Sintactico",(String)e,"Se esperaba un modificador para la variable.",eleft,eright); :}
                                         ;
 
-sentenciaWhile::=                       WHILE PAR_A expresionBool PAR_C LLAVE_A bloque LLAVE_C;
+sentenciaWhile::=                       WHILE PAR_A expresionBool PAR_C LLAVE_A bloque LLAVE_C
+                                        |WHILE PAR_A expresionBool PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
+                                        |WHILE PAR_A expresionBool PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
+                                        |WHILE PAR_A expresionBool error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        |WHILE PAR_A error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba una expresion booleana",eleft,eright); :}
+                                        |WHILE error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
+                                        ;
 
-sentenciaDoWhile::=                     DO LLAVE_A bloque LLAVE_C WHILE PAR_A expresionBool PAR_C FIN_LINEA;
+sentenciaDoWhile::=                     DO LLAVE_A bloque LLAVE_C WHILE PAR_A expresionBool PAR_C FIN_LINEA
+                                        |DO LLAVE_A bloque LLAVE_C WHILE PAR_A expresionBool PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba un fin de linea.",eleft,eright); :}
+                                        |DO LLAVE_A bloque LLAVE_C WHILE PAR_A expresionBool error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        |DO LLAVE_A bloque LLAVE_C WHILE PAR_A error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion booleana.",eleft,eright); :}
+                                        |DO LLAVE_A bloque LLAVE_C WHILE error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto",eleft,eright); :}
+                                        |DO LLAVE_A bloque LLAVE_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada while.",eleft,eright); :}
+                                        |DO LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
+                                        ;
 
-sentenciaSwitch::=                      SWITCH PAR_A expresionAr PAR_C LLAVE_A contenidoSwitch LLAVE_C;
+sentenciaSwitch::=                      SWITCH PAR_A expresionAr PAR_C LLAVE_A contenidoSwitch LLAVE_C
+                                        |SWITCH PAR_A expresionAr PAR_C LLAVE_A contenidoSwitch error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
+                                        |SWITCH PAR_A expresionAr PAR_C LLAVE_A error:e {: agregarError("Sintactico",(String)e,"Se esperaban casos.",eleft,eright); :}
+                                        |SWITCH PAR_A expresionAr error:e LLAVE_A contenidoSwitch LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        |SWITCH PAR_A error:e LLAVE_A contenidoSwitch LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba una expresion.",eleft,eright); :}
+                                        |SWITCH error:e LLAVE_A contenidoSwitch LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
+                                        ;
 
 contenidoSwitch::=                      contenidoSwitch valorSwitch DOS_PUNTOS bloqueSwitch 
                                         |valorSwitch DOS_PUNTOS bloqueSwitch
+                                        |valorSwitch DOS_PUNTOS error:e {: agregarError("Sintactico",(String)e,"Se esperaba un bloque de switch.",eleft,eright); :}
+                                        |contenidoSwitch valorSwitch DOS_PUNTOS error:e {: agregarError("Sintactico",(String)e,"Se esperaba un bloque de switch.",eleft,eright); :}
                                         ;
 
 valorSwitch::=                          CASE ENTERO
                                         |CASE FLOTANTE
                                         |CASE CARACTER
                                         |DEFAULT
+                                        |error:e {: agregarError("Sintactico",(String)e,"Se esperaba un valor para un caso de un switch.",eleft,eright); :}
                                         ;
 
 bloqueSwich::=                          LLAVE_A bloque LLAVE_C
@@ -867,12 +1007,16 @@ parametrosEnviados::=                   parametrosEnviados COMA expresionAr
 
 //produccionesGenerales
 
-ingresoDatos::=                         INTINPUT PAR_A CADENA PAR_C
-                                        |CHARINPUT PAR_A CADENA PAR_C
-                                        |FLOATINPUT PAR_A CADENA PAR_C
-                                        |INTINPUT PAR_A PAR_C
-                                        |CHARINPUT PAR_A PAR_C
-                                        |FLOATINPUT PAR_A PAR_C
+ingresoDatos::=                         ingreso PAR_A CADENA PAR_C
+                                        |ingreso PAR_A PAR_C
+                                        |ingreso PAR_A CADENA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
+                                        |ingreso PAR_A error:e {: agregarError("Sintactico",(String)e,"Se esperaba una cadena, o que estuviese vacio.",eleft,eright); :}
+                                        |ingreso error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
+                                        ;
+
+ingreso::=                              INTINPUT
+                                        |CHARINPUT
+                                        |FLOATINPUT
                                         ;
 
 tiposDeDato::=                          PR_ENTERO

@@ -19,10 +19,14 @@ import java.util.List;
 public class TablaDeSimbolos {
 
     private List<Simbolo> simbolos;
-    private List<Integer> ambitos;
+    private List<Integer> ambitos, ambitosMetodo;
     
     public TablaDeSimbolos(){
         simbolos = new ArrayList();
+        ambitos = new ArrayList();
+        ambitosMetodo = new ArrayList();
+        ambitos.add(0);
+        ambitosMetodo.add(0);
     }
 
     public List<Simbolo> getSimbolos() {
@@ -34,12 +38,16 @@ public class TablaDeSimbolos {
     }
     
     public void agregarAmbitoTemporal(){
-        ambitos.add(simbolos.size());
+        ambitos.add(simbolos.size()-ambitos.get(ambitos.size()-1));
     }
     
     public void eliminarAmbitoTemporal(){
-        for (int i = (simbolos.size()-1); i >= ambitos.get(ambitos.size()-1); i--) {
-            simbolos.remove(i);
+        int variablesAntes = 0;
+        for (Integer ambito : ambitos) {
+            variablesAntes+=ambito;
+        }
+        for (int i = simbolos.size()-1; i >= variablesAntes; i--) {
+            simbolos.remove(simbolos.size()-1);
         }
         ambitos.remove(ambitos.size()-1);
     }
@@ -60,6 +68,7 @@ public class TablaDeSimbolos {
     
     public void agregarSimbolo(Simbolo simbolo){
         simbolos.add(simbolo);
+        ordenarSimbolos();
     }
     
     public boolean agregarSimboloSiNoExiste(Simbolo simbolo){
@@ -72,6 +81,7 @@ public class TablaDeSimbolos {
     
     public String getUltimaPosicionLibre(List<Cuarteto> cuartetos){
         String pos = null;
+        ordenarSimbolos();
         for(int i = simbolos.size()-1; i >= 0; i--){
             if(simbolos.get(i).getDireccion()!=null){
                 String t = simbolos.get(i).getSize();
@@ -90,4 +100,17 @@ public class TablaDeSimbolos {
         return pos;
     }
     
+    public String getVariablesDeclaradasEnElAmbitoActual(){
+        return String.valueOf(ambitos.get(ambitos.size()-1));
+    }
+
+    private void ordenarSimbolos() {
+        for (int i = simbolos.size()-1; i >= 0 ; i++) {
+            if(simbolos.get(i).getDireccion()==null){
+                Simbolo temporal = simbolos.get(i);
+                simbolos.remove(i);
+                simbolos.add(temporal);
+            }
+        }
+    }
 }

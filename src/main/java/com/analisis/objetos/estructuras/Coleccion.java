@@ -18,7 +18,7 @@ import java.util.List;
 public class Coleccion {
     
     private int tipadoActual, caso;
-    private String clase = null, ultimoReturn = null;
+    private String clase = null, ultimoReturn = null, etiquetaReturn = null;
     private TablaDeSimbolos metodosPy, metodosVb, clasesJv, simbolos;
     private ErrorManager errores;
 
@@ -43,6 +43,14 @@ public class Coleccion {
 
     public void setMetodosPy(TablaDeSimbolos metodosPy) {
         this.metodosPy = metodosPy;
+    }
+
+    public String getEtiquetaReturn() {
+        return etiquetaReturn;
+    }
+
+    public void setEtiquetaReturn(String etiquetaReturn) {
+        this.etiquetaReturn = etiquetaReturn;
     }
 
     public TablaDeSimbolos getMetodosVb() {
@@ -95,11 +103,6 @@ public class Coleccion {
 
     public Simbolo getAtributoDeClase(String nombre) {
         return ((Clase)clasesJv.getSimbolo(this.clase).getValor()).getSimbolos().getSimbolo(nombre);
-    }
-
-    public boolean existeMetodo(Llamada llamada) {
-        System.out.println("Sin implementación la busqueda de un metodo");
-        return false;
     }
     
     public boolean isEnCaso(){ 

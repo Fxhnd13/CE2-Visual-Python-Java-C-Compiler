@@ -10,7 +10,11 @@ import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.accionesAsignacion.AccionExpresion;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.nodos.NodoBooleano;
+import com.generadores.Codigo3Direcciones;
 import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Cuartetos;
+import com.generadores.objetos.Etiqueta;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -93,7 +97,30 @@ public class ForInstr implements Instruccion{
 
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Codigo3Direcciones generador = new Codigo3Direcciones();
+        List<Cuarteto> cuartetosRetorno = new ArrayList();
+        Cuartetos.unirCuartetos(cuartetosRetorno, valorInicial.generarCuartetos(coleccion));
+
+        List<Cuarteto> cuartetosCondiciones = condicion.generarCuartetos(coleccion);
+        coleccion.getSimbolos().agregarAmbitoTemporal();
+        List<Cuarteto> cuartetosCodigo = generador.generarCodigo3Direcciones(instrucciones, coleccion);
+
+        String etiquetaInicio = Etiqueta.siguienteEtiqueta();
+
+        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,etiquetaInicio)); //marcamos el inicio
+        Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosCondiciones); //concatenamos con las condicionales
+        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,condicion.getEtiquetaSi()));//nos movemos dentro si si
+        Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosCodigo);
+
+        List<Instruccion> instruccionesTemporales = new ArrayList();
+        instruccionesTemporales.add(sentenciaFinal);
+        Cuartetos.unirCuartetos(cuartetosRetorno, generador.generarCodigo3Direcciones(instruccionesTemporales, coleccion));
+        coleccion.getSimbolos().agregarAmbitoTemporal();
+
+        cuartetosRetorno.add(new Cuarteto("goto",null,null,etiquetaInicio)); //verificamos otra vez al inicio
+        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,condicion.getEtiquetaNo())); //etiqueta final
+        
+        return cuartetosRetorno;
     }
 
     @Override

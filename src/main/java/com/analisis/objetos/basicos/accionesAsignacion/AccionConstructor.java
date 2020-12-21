@@ -6,7 +6,7 @@
 package com.analisis.objetos.basicos.accionesAsignacion;
 
 import com.analisis.objetos.analisis.Pos;
-import com.analisis.objetos.basicos.Llamadas.Llamada;
+import com.analisis.objetos.basicos.Llamadas.LlamadaJava;
 
 /**
  * Clase destinada a almacenar la informacion del constructor llamado
@@ -14,22 +14,22 @@ import com.analisis.objetos.basicos.Llamadas.Llamada;
  */
 public class AccionConstructor implements Accion{
     
-    private Llamada constructor;
+    private LlamadaJava constructor;
     private Pos posicion;
 
     public AccionConstructor() {
     }
 
-    public AccionConstructor(Llamada constructor, Pos posicion) {
+    public AccionConstructor(LlamadaJava constructor, Pos posicion) {
         this.constructor = constructor;
         this.posicion = posicion;
     }
 
-    public Llamada getConstructor() {
+    public LlamadaJava getConstructor() {
         return constructor;
     }
 
-    public void setConstructor(Llamada constructor) {
+    public void setConstructor(LlamadaJava constructor) {
         this.constructor = constructor;
     }
 

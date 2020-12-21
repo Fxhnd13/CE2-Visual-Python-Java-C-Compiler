@@ -5,11 +5,15 @@
  */
 package com.analisis.objetos.instrucciones.instruccionesmlg;
 
+import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Dato;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.nodos.NodoAritmetico;
 import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Cuartetos;
+import com.generadores.objetos.Temporal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,7 +56,13 @@ public class ReturnInstr implements Instruccion{
 
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cuarteto> cuartetosRetorno = new ArrayList();
+        Cuartetos.unirCuartetos(cuartetosRetorno, expresion.generarCuartetos(coleccion));
+        String temporalRetorno = Temporal.actualTemporal();
+        cuartetosRetorno.add(new Cuarteto("+",CONST.P,"0",Temporal.siguienteTemporal(CONST.ENTERO)));
+        cuartetosRetorno.add(new Cuarteto(":=a",temporalRetorno,Temporal.actualTemporal(),CONST.STACK));
+        cuartetosRetorno.add(new Cuarteto("goto",null,null,coleccion.getEtiquetaReturn()));
+        return cuartetosRetorno;
     }
 
     @Override

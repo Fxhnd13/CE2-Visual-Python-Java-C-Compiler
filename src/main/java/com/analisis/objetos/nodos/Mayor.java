@@ -5,10 +5,14 @@
  */
 package com.analisis.objetos.nodos;
 
+import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Dato;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Cuartetos;
+import com.generadores.objetos.Etiqueta;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,44 +21,103 @@ import java.util.List;
  */
 public class Mayor implements NodoBooleano{
 
+    private String etiquetaSi, etiquetaNo;
+    private NodoAritmetico derecho, izquierdo;
+    private Pos posicion;
+
+    public Mayor() {
+    }
+
+    public Mayor(NodoAritmetico derecho, NodoAritmetico izquierdo, Pos posicion) {
+        this.derecho = derecho;
+        this.izquierdo = izquierdo;
+        this.posicion = posicion;
+    }
+    
     @Override
     public Dato analizarSemanticamente(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Dato izquierdo = this.izquierdo.analizarSemanticamente(coleccion);
+        Dato derecho = this.derecho.analizarSemanticamente(coleccion);
+        boolean izquierdoOperable = false, derechoOperable = false;
+        if(izquierdo != null){
+            if(izquierdo.getTipo().equals(CONST.CLASE)){
+                coleccion.getErrores().agregarError("Semantico","Sin especificar","No es posible usar el operador 'distinto de' con un valor tipo Objeto.", izquierdo.getPosicion());
+            }else if(izquierdo.getTipo().equals(CONST.VOID)){
+                coleccion.getErrores().agregarError("Semantico","Sin especificar","No es posible usar el operador 'distinto de' con un valor tipo Void.", izquierdo.getPosicion());
+            }
+        }
+        if(derecho != null){
+            if(derecho.getTipo().equals(CONST.CLASE)){
+                coleccion.getErrores().agregarError("Semantico","Sin especificar","No es posible usar el operador 'distinto de' con un valor tipo Objeto.", derecho.getPosicion());
+            }else if(derecho.getTipo().equals(CONST.VOID)){
+                coleccion.getErrores().agregarError("Semantico","Sin especificar","No es posible usar el operador 'distinto de' con un valor tipo Void. ", derecho.getPosicion());
+            }
+        }
+        if(izquierdoOperable && derechoOperable){
+            if(izquierdo.getTipo().equals(derecho.getTipo())){
+                return new Dato(CONST.BOOLEAN, null);
+            }else{
+                if(izquierdo.getTipo().equals(CONST.CARACTER) || derecho.getTipo().equals(CONST.CARACTER)){
+                    coleccion.getErrores().agregarError("Semantico","Sin especificar","No es posible comparar un valor tipo Char con otro distinto. ("+izquierdo.getTipo()+","+derecho.getTipo()+")", this.getPosicion());
+                }else{
+                    return new Dato(CONST.BOOLEAN, null);
+                }
+            }
+        }
+        return null;
     }
 
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cuarteto> cuartetosRetorno = new ArrayList();
+        
+        List<Cuarteto> cuartetosI = new ArrayList();
+        List<Cuarteto> cuartetosD = new ArrayList();
+        cuartetosI = izquierdo.generarCuartetos(coleccion);
+        String temporalI = cuartetosI.get(cuartetosI.size()-1).getRes();
+        cuartetosD = derecho.generarCuartetos(coleccion);
+        String temporalD = cuartetosD.get(cuartetosD.size()-1).getRes();
+        
+        Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosI);
+        Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosD);
+        
+        this.etiquetaSi = Etiqueta.siguienteEtiqueta();
+        this.etiquetaNo = Etiqueta.siguienteEtiqueta();
+        
+        cuartetosRetorno.add(new Cuarteto(">",temporalI, temporalD, etiquetaSi));
+        cuartetosRetorno.add(new Cuarteto("goto",null,null,etiquetaNo));
+        
+        return cuartetosRetorno;
     }
 
     @Override
     public String getEtiquetaSi() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return etiquetaSi;
     }
 
     @Override
     public String getEtiquetaNo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return etiquetaNo;
     }
 
     @Override
     public Pos getPosicion() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return posicion;
     }
 
     @Override
     public void setEtiquetaSi(String etiquetaSi) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.etiquetaSi = etiquetaSi;
     }
 
     @Override
     public void setEtiquetaNo(String etiquetaNo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.etiquetaNo = etiquetaNo;
     }
 
     @Override
     public void setPosicion(Pos posicion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.posicion = posicion;
     }
     
 }

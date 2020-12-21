@@ -14,19 +14,19 @@ import java.util.List;
  */
 public class Cuartetos {
     
-    public void cambiarEtiqueta(List<Cuarteto> cuartetos, String etiquetaAnterior, String nuevaEtiqueta){
+    public static void cambiarEtiqueta(List<Cuarteto> cuartetos, String etiquetaAnterior, String nuevaEtiqueta){
         for (Cuarteto cuarteto : cuartetos) {
             if(cuarteto.getRes().equals(etiquetaAnterior)) cuarteto.setRes(nuevaEtiqueta);
         }
     }
     
-    public void unirCuartetos(List<Cuarteto> cuartetos, List<Cuarteto> cuartetosUnir){
+    public static void unirCuartetos(List<Cuarteto> cuartetos, List<Cuarteto> cuartetosUnir){
         for (Cuarteto cuarteto : cuartetosUnir) {
             cuartetos.add(cuarteto);
         }
     }
     
-    private String tipoDeC(String tipo){
+    private static String tipoDeC(String tipo){
         switch((tipo==null)?"indefinido----":tipo){
             case CONST.ENTERO: return "int";
             case CONST.FLOTANTE: return "float";
@@ -35,12 +35,16 @@ public class Cuartetos {
         return null;
     }
     
-    private String tipoDeComodin(String tipo){
+    private static String tipoDeComodin(String tipo){
         switch((tipo==null)?"Indefinido----":tipo){
             case CONST.ENTERO: return "%d";
             case CONST.FLOTANTE: return "%f";
             case CONST.CARACTER: return " %c";
         }
         return null;
+    }
+
+    public static String escribirCodigo3DireccionesNormal(List<Cuarteto> cuartetos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

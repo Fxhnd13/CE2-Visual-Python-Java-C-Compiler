@@ -9,6 +9,8 @@ import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.nodos.NodoAritmetico;
 import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Cuartetos;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,7 +53,11 @@ public class MensajeInstr implements Instruccion{
 
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cuarteto> cuartetosRetorno = new ArrayList();
+        if(mensaje!=null){
+            Cuartetos.unirCuartetos(cuartetosRetorno, mensaje.generarCuartetos(coleccion));
+        }
+        return cuartetosRetorno;
     }
 
     @Override

@@ -10,6 +10,9 @@ import com.analisis.objetos.basicos.Dato;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.estructuras.TablaDeTipos;
 import com.generadores.objetos.Cuarteto;
+import com.generadores.objetos.Cuartetos;
+import com.generadores.objetos.Temporal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +44,26 @@ public class Mod implements NodoAritmetico{
 
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cuarteto> cuartetosRetorno = new ArrayList();
+        
+        List<Cuarteto> cuartetosI = new ArrayList();
+        List<Cuarteto> cuartetosD = new ArrayList();
+        
+        cuartetosI = izquierdo.generarCuartetos(coleccion);
+        String temporalI = (coleccion.getUltimoReturn()==null)?Temporal.actualTemporal():coleccion.getUltimoReturn();
+        coleccion.setUltimoReturn(null);
+        
+        cuartetosD = derecho.generarCuartetos(coleccion);
+        String temporalD = (coleccion.getUltimoReturn()==null)?Temporal.actualTemporal():coleccion.getUltimoReturn();
+        coleccion.setUltimoReturn(null);
+        
+        String temporalS = Temporal.siguienteTemporal(this.tipoRetorno);
+        
+        if(!cuartetosI.isEmpty())Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosI);
+        if(!cuartetosD.isEmpty())Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosD);
+        cuartetosRetorno.add(new Cuarteto("%",temporalI, temporalD, temporalS));
+        
+        return cuartetosRetorno;
     }
     
     public NodoAritmetico getIzquierdo() {
