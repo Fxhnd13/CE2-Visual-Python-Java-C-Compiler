@@ -7,7 +7,8 @@ package com.analisis.objetos.instrucciones.instruccionesmlg;
 
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.estructuras.Coleccion;
-import com.analisis.objetos.nodos.NodoAritmetico;
+import com.analisis.objetos.nodos.Concat;
+import com.analisis.objetos.nodos.Concat;
 import com.generadores.objetos.Cuarteto;
 import com.generadores.objetos.Cuartetos;
 import java.util.ArrayList;
@@ -19,22 +20,22 @@ import java.util.List;
  */
 public class MensajeInstr implements Instruccion{
     
-    private NodoAritmetico mensaje;
+    private Concat mensaje;
     private Pos posicion;
 
     public MensajeInstr() {
     }
 
-    public MensajeInstr(NodoAritmetico mensaje, Pos posicion) {
+    public MensajeInstr(Concat mensaje, Pos posicion) {
         this.mensaje = mensaje;
         this.posicion = posicion;
     }
 
-    public NodoAritmetico getMensaje() {
+    public Concat getMensaje() {
         return mensaje;
     }
 
-    public void setMensaje(NodoAritmetico mensaje) {
+    public void setMensaje(Concat mensaje) {
         this.mensaje = mensaje;
     }
 

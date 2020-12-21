@@ -8,10 +8,12 @@ action code{: :}
 parser code{:
 
     private ErrorManager errores;
+    private ColeccionInstr instrucciones; 
 
     public Parser(Lexer lex) { 
         super(lex);   
         errores = new ErrorManager();
+        instrucciones = new ColeccionInstr();
     }
 
     public void setAccion(String tipo, String mensaje, String accion){
@@ -60,39 +62,60 @@ terminal String JAVA, MAIN, BREAK, CLASS, THIS, MENSAJE, CONST, ESPERAR_TECLA, P
 terminal String DEFAULT, MENSAJELN, INCLUDE, FUNCTION, SEPARADOR_PROGRAMA;
 
 //declaracion de no terminales
+non terminal Instruccion funcionVb, procedimientoVb, sentenciaIfVb, sentenciaForVb, sentenciaWhileVb, sentenciaDoWhileVb;
+non terminal Instruccion sentenciaAsignacionVb, sentenciaEscribirVb, sentenciaReturnVb, sentenciaSwitchVb, sinoVb;
 
-non terminal codigo, visual, metodosVb, dclMetodosVb, dclMetodoVb, funcionVb, procedimientoVb, bloqueVb, sentenciasVb;
-non terminal sentenciaVb, sentenciaSimpleVb, sentenciaIfVb, sinoVb, sentenciaForVb, tipoForVb, aumentoForVb, idNextVb;
-non terminal sentenciaWhileVb, sentenciaDoWhileVb, sentenciaSwitchVb, caseVb, contenidoSwitchVb, valorCaseVb;
-non terminal sentenciaDeclaracionVb, declaracionVariableVb, masDeclaracionVariableVb, sentenciaAsignacionVb;
-non terminal accionAsignacionVb, sentenciaEscribirVb, mensajesVb, mensajeVb, sentenciaReturnVb;
-non terminal dclParametrosVb, listadoParametrosVb, parametroVb, expresionArVb, condicionVb, expresionBoolVb;
-non terminal llamadaMetodoVb, listadoParametrosEnviadosVb, espaciosVb;
+non terminal Llamada llamadaMetodoVb;
+
+non terminal AccionIngreso ingresoDatos;
+
+non terminal List<Instruccion> bloqueVb, sentenciasVb, sentenciaSimpleVb, declaracionVariableVb, masDeclaracionVariableVb;
+non terminal List<Instruccion> sentenciaVb, sentenciaDeclaracionVb;
+
+non terminal String tipoForVb, tiposDeDato, idNextVb;
+
+non terminal NodoAritmetico expresionArVb, expresionArJv, expresionArPy, expresionAr, aumentoForVb, mensajeVb;
+non terminal NodoBooleano condicionVb, expresionBoolVb, condicionPy, expresionBoolPy, expresionBoolJv, expresionBool;
+
+non terminal List<CaseInstr> contenidoSwitchVb;
+
+non terminal Dato valorCaseVb, valorAtomico, parametroVb;
+
+non terminal Accion accionAsignacionVb;
+
+non terminal List<Dato> dclParametrosVb, listadoParametrosVb;
+
+non terminal Object codigo, visual, metodosVb, dclMetodosVb, dclMetodoVb, caseVb, espaciosVb;
+
+non terminal List<NodoAritmetico> listadoParametrosEnviados, listadoParametrosEnviadosJv, listadoParametrosEnviadosPy;
+non terminal List<NodoAritmetico> listadoParametrosEnviadosVb, listadoExpresionesArPy, listadoExpresiones, parametrosEnviados;
+
+non terminal Concat mensajesPy, mensajesVb;
 
 non terminal java, clasesJv, dclClasesJv, dclClaseJv, contenidoClaseJv, sentenciasDeClaseJv, sentenciaDeClaseJv;
 non terminal dclMetodoJv, dclParametrosJv, listadoParametrosJv, bloqueJv, sentenciasJv, sentenciaJv;
 non terminal sentenciaSimpleJv, sentenciaIfJv, sinoJv, sentenciaForJv, modificadorForJv, sentenciaWhileJv;
 non terminal sentenciaSwitchJv, contenidoSwitchJv, valorSwitchJv, bloqueSwichJv, sentenciaDoWhileJv;
 non terminal sentenciaDeclaracionJv, listadoAsignacionesJv, asignacionJv, sentenciaAsignacionJv, accionAsignacionJv;
-non terminal sentenciaEscribirJv, sentenciaReturnJv, sentenciaBreakJv, expresionArJv, valorTextoLibreriaJv;
-non terminal expresionBoolJv, llamadaMetodoJv, listadoParametrosEnviadosJv, expresionMensajeJv;
+non terminal sentenciaEscribirJv, sentenciaReturnJv, sentenciaBreakJv, valorTextoLibreriaJv;
+non terminal llamadaMetodoJv, expresionMensajeJv;
 
 non terminal python, metodosPy, dclMetodosPy, dclMetodoPy, dclParametrosPy, listadoId, sentenciasPy, sentenciaPy;
-non terminal bloquePy, sentenciaSimplePy, escribirPy, mensajesPy, mensajePy, listadoExpresionesArPy;
-non terminal sentenciaIfPy, elseIfPy, elsePy, sentenciaWhilePy, sentenciaForPy, rangePy, condicionPy, expresionArPy;
-non terminal llamadaMetodoPy, asignacionVarPy, listadoParametrosEnviadosPy, expresionBoolPy;
+non terminal bloquePy, sentenciaSimplePy, escribirPy, mensajesPy, mensajePy;
+non terminal sentenciaIfPy, elseIfPy, elsePy, sentenciaWhilePy, sentenciaForPy, rangePy;
+non terminal llamadaMetodoPy, asignacionVarPy;
 
 non terminal principal, secLibrerias, dclLibrerias, dclLibreria, libreria, libreriaC, valorTexto, secConstantes;
 non terminal dclConstantes, dclConstante, secVariables, dclVariables, sentenciaDeclaracion, arreglo, listDimensiones;
 non terminal listadoDeclaraciones, asignacionValor, listadoDeclaracionesClases, asignacionConstructor;
 non terminal accionConstructor, codigoMain, bloque, sentencias, sentencia, sentenciaSimple, sentenciaAsignacion;
-non terminal lugarAsignacion, sentenciaEscribir, expresionCadena, listadoExpresiones, expresionCadenaEntrada;
+non terminal lugarAsignacion, sentenciaEscribir, expresionCadena, expresionCadenaEntrada;
 non terminal valorCadena, comodin, sentenciaIngresoDatos, sentenciaLimpiarPantalla, sentenciaEsperarTecla;
 non terminal sentenciaBreak, sentenciaIf, sino, sentenciaFor, modificadorFor, sentenciaWhile, sentenciaDoWhile; 
-non terminal sentenciaSwitch, contenidoSwitch, valorSwitch, bloqueSwitch, expresionAr, expresionBool, llamadaMetodo;
-non terminal listadoParametrosEnviados, parametrosEnviados, sentenciaDeclaracionInicial;
+non terminal sentenciaSwitch, contenidoSwitch, valorSwitch, bloqueSwitch, llamadaMetodo;
+non terminal sentenciaDeclaracionInicial;
 
-non terminal tiposDeDato, valorAtomico, tiposDeMetodo, publicOpcional, ingresoDatos, ingreso;
+non terminal tiposDeMetodo, publicOpcional, ingreso;
 
 //declaracion de precedencia
 precedence left PR_ENTERO, PR_FLOTANTE, PR_CARACTER;
@@ -120,47 +143,141 @@ dclMetodosVb::=                         dclMetodosVb dclMetodoVb
                                         |dclMetodoVb
                                         ;
 
-dclMetodoVb::=                          funcionVb
-                                        |procedimientoVb
+dclMetodoVb::=                          funcionVb:metodoInstr {: instrucciones.getInstruccionesVb().add(metodoInstr); :}
+                                        |procedimientoVb:metodoInstr {: instrucciones.getInstruccionesVb().add(metodoInstr); :}
                                         ;
 
-funcionVb::=                            publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato espaciosVb bloqueVb END FUNCTION espaciosVb 
+funcionVb::=                            publicOpcional FUNCTION:pos ID:id dclParametrosVb:parametros AS tiposDeDato:tipo espaciosVb bloqueVb:instrucciones END FUNCTION espaciosVb {:
+                                            if(id!=null&&tipo!=null){
+                                                if(parametros==null)parametros = new ArrayList();
+                                                if(instrucciones==null)instrucciones = new ArrayList();
+                                                RESULT = new MetodoInstr(tipo,id,parametros,instrucciones, new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |publicOpcional FUNCTION ID dclParametrosVb error:e espaciosVb bloqueVb END FUNCTION espaciosVb {: agregarError("Sintactico",(String) e,"No se especifico el tipo para la funcion declarada, se esperaba un tipo.", eleft, eright); :}
                                         |publicOpcional FUNCTION error:e dclParametrosVb AS tiposDeDato espaciosVb bloqueVb END FUNCTION espaciosVb {: agregarError("Sintactico",(String) e,"No se especifico un identificador para la funcion declarada, se esperaba un identificador.", eleft, eright); :}
+                                        |publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato espaciosVb bloqueVb END error:e {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada FUNCTION.",new Pos(eleft,eright)); :}
+                                        |publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato espaciosVb bloqueVb error:e {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada END.",new Pos(eleft,eright)); :}
+                                        |publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato error:e bloqueVb END FUNCTION {: agregarError("Sintactico",(String)e,"Se esperaba un salto de linea.",new Pos(eleft,eright)); :}
                                         ;
 
-procedimientoVb::=                      publicOpcional SUB ID dclParametrosVb espaciosVb bloqueVb END SUB espaciosVb
+procedimientoVb::=                      publicOpcional SUB:pos ID:id dclParametrosVb:parametros espaciosVb bloqueVb:instrucciones END SUB espaciosVb {:
+                                            if(id!=null){
+                                                if(parametros==null)parametros = new ArrayList();
+                                                if(instrucciones==null)instrucciones = new ArrayList();
+                                                RESULT = new MetodoInstr(CONST.VOID,id,parametros,instrucciones,new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |publicOpcional SUB error:e dclParametrosVb espaciosVb bloqueVb END SUB espaciosVb {: agregarError("Sintactico",(String) e,"No se especifico un identificador para el procedimiento declarado, se esperaba un identificador.", eleft, eright); :}
+                                        |publicOpcional SUB ID dclParametrosVb espaciosVb bloqueVb END error:e {: agregarError("Sintactico",(String)e,"Se seperaba una palabra reservada SUB.",new Pos(eleft,eright)); :}
+                                        |publicOpcional SUB ID dclParametrosVb espaciosVb bloqueVb error:e {: agregarError("Sintactico",(String)e,"Se seperaba una palabra reservada END.",new Pos(eleft,eright)); :}
+                                        |publicOpcional SUB ID dclParametrosVb error:e bloqueVb END SUB {: agregarError("Sintactico",(String)e,"Se esperaba un salto de linea.",new Pos(eleft,eright)); :}
                                         ;
 
-bloqueVb::=                             sentenciasVb
-                                        |
+bloqueVb::=                             sentenciasVb:instrucciones {:
+                                            if(instrucciones==null)instrucciones = new ArrayList();
+                                            RESULT = instrucciones;
+                                        :}
+                                        | {:
+                                            RESULT = new ArrayList();
+                                        :}
                                         ;
 
-sentenciasVb::=                         sentenciasVb sentenciaVb
-                                        |sentenciaVb
+sentenciasVb::=                         sentenciasVb:instrucciones sentenciaVb:instruccion {:
+                                            if(instrucciones==null)instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones;
+                                        :}
+                                        |sentenciaVb:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null)instrucciones.add(instruccion);
+                                            RESULT = instrucciones;
+                                        :}
                                         ;
 
-sentenciaVb::=                          sentenciaIfVb espaciosVb
-                                        |sentenciaForVb espaciosVb
-                                        |sentenciaWhileVb espaciosVb
-                                        |sentenciaDoWhileVb espaciosVb
-                                        |sentenciaSwitchVb espaciosVb
-                                        |sentenciaSimpleVb espaciosVb
+sentenciaVb::=                          sentenciaIfVb:instruccion espaciosVb {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null)instrucciones.add(instruccion);
+                                            RESULT = instrucciones;
+                                        :}
+                                        |sentenciaForVb:instruccion espaciosVb {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null)instrucciones.add(instruccion);
+                                            RESULT = instrucciones;
+                                        :}
+                                        |sentenciaWhileVb:instruccion espaciosVb {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null)instrucciones.add(instruccion);
+                                            RESULT = instrucciones;
+                                        :}
+                                        |sentenciaDoWhileVb:instruccion espaciosVb {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null)instrucciones.add(instruccion);
+                                            RESULT = instrucciones;
+                                        :}
+                                        |sentenciaSwitchVb:instruccion espaciosVb {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null)instrucciones.add(instruccion);
+                                            RESULT = instrucciones;
+                                        :}
+                                        |sentenciaSimpleVb:instrucciones espaciosVb {:
+                                            RESULT = (instrucciones==null)? new ArrayList() : instrucciones;
+                                        :}
                                         ;
 
-sentenciaSimpleVb::=                    sentenciaDeclaracionVb 
-                                        |sentenciaAsignacionVb 
-                                        |ingresoDatos 
-                                        |sentenciaEscribirVb 
-                                        |llamadaMetodoVb 
-                                        |sentenciaReturnVb
+sentenciaSimpleVb::=                    sentenciaDeclaracionVb:instrucciones {:
+                                            RESULT = (instrucciones==null)? new ArrayList() : instrucciones;
+                                        :}
+                                        |sentenciaAsignacionVb:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null)instrucciones.add(instruccion);
+                                            RESULT = instrucciones;
+                                        :}
+                                        |ingresoDatos:accionIngreso {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(accionIngreso!=null) instrucciones.add(new IngresoInstr(accionIngreso, new Pos(accionIngresoleft, accionIngresoright)));
+                                            RESULT = instrucciones;
+                                        :}
+                                        |sentenciaEscribirVb:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null)instrucciones.add(instruccion);
+                                            RESULT = instrucciones;
+                                        :}
+                                        |llamadaMetodoVb:llamada {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(llamada!=null) instrucciones.add(new LlamadaInstr(llamada, new Pos(llamadaleft,llamadaright)));
+                                            RESULT = instrucciones;
+                                        :}
+                                        |sentenciaReturnVb:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null)instrucciones.add(instruccion);
+                                            RESULT = instrucciones;
+                                        :}
                                         ;
 
-sentenciaIfVb::=                        IF condicionVb THEN sentenciaSimpleVb
-                                        |IF condicionVb THEN sentenciaSimpleVb ELSE sentenciaSimpleVb
-                                        |IF condicionVb THEN espaciosVb bloqueVb sinoVb END IF
-                                        |IF condicionVb espaciosVb bloqueVb sinoVb END IF
+sentenciaIfVb::=                        IF:pos condicionVb:condicion THEN sentenciaSimpleVb:instrucciones {:
+                                            if(pos!=null&&condicion!=null&&instrucciones!=null){
+                                                RESULT = new SiInstr(condicion,instrucciones,null,new Pos(posleft,posright));
+                                            }
+                                        :}
+                                        |IF:pos condicionVb:condicion THEN sentenciaSimpleVb:instrucciones ELSE sentenciaSimpleVb:instruccionesSino END IF {:
+                                            if(pos!=null&&condicion!=null&&instrucciones!=null&&instruccionesSino!=null){
+                                                RESULT = new SiInstr(condicion,instrucciones,new SinoInstr(instruccionesSino,new Pos(instruccionesSinoleft,instruccionesSinoright), new Pos(posleft,posright)));
+                                            }
+                                        :}
+                                        |IF:pos condicionVb:condicion THEN espaciosVb bloqueVb:instrucciones sinoVb:instruccion END IF {:
+                                            if(pos!=null&&condicion!=null&&instrucciones!=null&&instruccion!=null){
+                                                RESULT = new SiInstr(condicion,instrucciones,instruccion,new Pos(posleft,posright));
+                                            }
+                                        :}
+                                        |IF:pos condicionVb:condicion espaciosVb bloqueVb:instrucciones sinoVb:instruccion END IF {:
+                                            if(pos!=null&&condicion!=null&&instrucciones!=null&&instruccion!=null){
+                                                RESULT = new SiInstr(condicion,instrucciones,instruccion,new Pos(posleft,posright));
+                                            }
+                                        :}
+                                        |IF condicionVb espaciosVb bloqueVb sinoVb END error:e {: agregarError("Sintactico",(String)e,"Se esperaba una palabra reservada IF.",new Pos(eleft,eright)); :}
+                                        |IF condicionVb THEN espaciosVb sentenciaSimpleVb ELSE sentenciaSimpleVb END error:e {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada IF.",new Pos(eleft,eright)); :}
+                                        |IF condicionVb THEN sentenciaSimpleVb ELSE sentenciaSimpleVb END error:e {: agregarError("Sintactico",(String)e,"Se esperaba una palabra reservada IF.",new Pos(eleft,eright)); :}
                                         |IF error:e THEN sentenciaSimpleVb ELSE sentenciaSimpleVb {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
                                         |IF condicionVb error:e sentenciaSimpleVb ELSE sentenciaSimpleVb {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada THEN.", eleft, eright); :}
                                         |IF error:e THEN espaciosVb bloqueVb sinoVb END IF {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
@@ -168,43 +285,95 @@ sentenciaIfVb::=                        IF condicionVb THEN sentenciaSimpleVb
                                         |IF condicionVb error:e sentenciaSimpleVb {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada THEN.", eleft, eright); :}
                                         ;
 
-sinoVb::=                               ELSEIF condicionVb THEN espaciosVb bloqueVb sinoVb
-                                        |ELSEIF condicionVb espaciosVb bloqueVb sinoVb
-                                        |ELSE espaciosVb bloqueVb
+sinoVb::=                               ELSEIF:pos condicionVb:condicion THEN espaciosVb bloqueVb:instrucciones sinoVb:instruccion {:
+                                            if(pos!=null&&condicion!=null&&instrucciones!=null){
+                                                RESULT = new SiInstr(condicion,instrucciones,instruccion,new Pos(posleft,posright));
+                                            }
+                                        :}
+                                        |ELSEIF:pos condicionVb:condicion espaciosVb bloqueVb:instrucciones sinoVb:instruccion {:
+                                            if(pos!=null&&condicion!=null&&instrucciones!=null){
+                                                RESULT = new SiInstr(condicion,instrucciones,instruccion,new Pos(posleft,posright));
+                                            }
+                                        :}
+                                        |ELSE:pos espaciosVb bloqueVb:instrucciones {:
+                                            if(pos!=null&&instrucciones!=null){
+                                                RESULT = new SinoInstr(instrucciones, new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |ELSEIF error:e espaciosVb bloqueVb sinoVb {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
                                         |ELSEIF error:e THEN espaciosVb bloqueVb sinoVb {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
+                                        |
                                         ;
 
-sentenciaForVb::=                       FOR ID tipoForVb IGUAL expresionArVb TO expresionArVb aumentoForVb espaciosVb bloqueVb NEXT idNextVb
+sentenciaForVb::=                       FOR:pos ID:id tipoForVb:tipo IGUAL expresionArVb:expInicial TO expresionArVb:expFinal aumentoForVb:expAumento espaciosVb bloqueVb:instrucciones NEXT idNextVb:id2 {:
+                                            if(pos!=null&&id!=null&&expInicial!=null&&expFinal!=null&&instrucciones!=null){
+                                                RESULT = new ForInstr(
+                                                    new DeclaracionInstr(tipo, new LugarVariable(id, new Pos(idleft,idright)), new Pos(idleft,idright), false),
+                                                    new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(expInicial, new Pos(expInicialleft,expInicialright)), new Pos(idleft,idright)),
+                                                    new MenorIgual(new Hoja(new Dato(CONST.ID, id), new Pos(idleft, idright)), expFinal, new Pos(idleft,idright)),
+                                                    new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(new Mas(new Hoja(new Dato(CONST.ID, id),new Pos(idleft,idright)),(expAumento!=null)?expAumento:new Hoja(new Dato(CONST.ENTERO,"1"),new Pos(expFinalleft,expFinalright))))),
+                                                    new Pos(posleft,posright),
+                                                    instrucciones
+                                                );
+                                            }
+                                        :}
                                         |FOR error:e tipoForVb IGUAL expresionArVb TO expresionArVb aumentoForVb espaciosVb bloqueVb NEXT idNextVb {: agregarError("Sintactico",(String) e,"Se esperaba un identificador.", eleft, eright); :}
                                         |FOR ID tipoForVb error:e TO expresionArVb aumentoForVb espaciosVb bloqueVb NEXT idNextVb {: agregarError("Sintactico",(String) e,"No se declaro un valor de inicio.", eleft, eright); :}//error no hay valor de inicio
                                         |FOR ID tipoForVb IGUAL expresionArVb error:e aumentoForVb espaciosVb bloqueVb NEXT idNextVb {: agregarError("Sintactico",(String) e,"No se declaro un valor de finalizacion.", eleft, eright); :} //error no hay valor de fin
                                         |FOR ID tipoForVb IGUAL expresionArVb TO expresionArVb error:e espaciosVb bloqueVb NEXT idNextVb {: agregarError("Sintactico",(String) e,"Se esperaba un valor de aumento para cada ciclo del for.", eleft, eright); :} //error se esperaba en todo caso un paso de aumento
                                         ;
 
-tipoForVb::=                            tiposDeDato
+tipoForVb::=                            tiposDeDato:tipo {:
+                                            RESULT = tipo;
+                                        :}
+                                        | 
+                                        ;
+
+aumentoForVb::=                         STEP expresionArVb:expresion {:
+                                            RESULT = expresion;
+                                        :}
                                         |
                                         ;
 
-aumentoForVb::=                         STEP expresionArVb
+idNextVb::=                             ID:id {:
+                                            RESULT = id;
+                                        :}
                                         |
                                         ;
 
-idNextVb::=                             ID
-                                        |
-                                        ;
-
-sentenciaWhileVb::=                     WHILE condicionVb espaciosVb bloqueVb END WHILE
+sentenciaWhileVb::=                     WHILE:pos condicionVb:condicion espaciosVb bloqueVb:instrucciones END WHILE {:
+                                            if(pos!=null&&condicion!=null&&instrucciones!=null){
+                                                RESULT = new WhileInstr(condicion,instrucciones, new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |WHILE error:e espaciosVb bloqueVb END WHILE {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
                                         |WHILE condicionVb espaciosVb bloqueVb END error:e  {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada WHILE.", eleft, eright); :}
                                         ;
 
-sentenciaDoWhileVb::=                   DO espaciosVb bloqueVb LOOP WHILE condicionVb
+sentenciaDoWhileVb::=                   DO:pos espaciosVb bloqueVb:instrucciones LOOP WHILE condicionVb:condicion {:
+                                            if(pos!=null&&condicion!=null&&instrucciones!=null){
+                                                RESULT = new WhileInstr(condicion,instrucciones, new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |DO espaciosVb bloqueVb LOOP error:e condicionVb  {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada WHILE.", eleft, eright); :}
                                         |DO espaciosVb bloqueVb LOOP WHILE error:e  {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
                                         ;
 
-sentenciaSwitchVb::=                    SELECT caseVb expresionArVb espaciosVb contenidoSwitchVb END SELECT
+sentenciaSwitchVb::=                    SELECT:pos caseVb expresionArVb:expresion espaciosVb contenidoSwitchVb:casos END SELECT {:
+                                            if(pos!=null&&expresion!=null&&casos!=null){
+                                                CaseInstr porDefecto = null;
+                                                for(CaseInstr caso : casos){
+                                                    if(caso.getValor().getTipo().equals(CONST.VOID)){
+                                                        if(porDefecto!=null){
+                                                            errores.agregarError("Sintactico","Sin cadena","Ya existe un caso por defecto, solo puede haber uno.", caso.getPosicion());
+                                                        }else{
+                                                            porDefecto = caso;
+                                                        }
+                                                    }
+                                                }
+                                                RESULT = new SwitchInstr(expresion,casos,porDefecto, new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |SELECT caseVb error:e espaciosVb contenidoSwitch END SELECT  {: agregarError("Sintactico",(String) e,"Se esperaba una expresion aritmetica.", eleft, eright); :}
                                         |SELECT caseVb expresionArVb espaciosVb contenidoSwitch END error:e  {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada SELECT.", eleft, eright); :}
                                         ;
@@ -213,18 +382,35 @@ caseVb::=                               CASE
                                         |
                                         ;
 
-contenidoSwitchVb::=                    contenidoSwitchVb valorCaseVb espaciosVb bloqueVb
+contenidoSwitchVb::=                    contenidoSwitchVb:casos valorCaseVb:dato espaciosVb bloqueVb:instrucciones {:
+                                            if(casos==null) casos = new ArrayList();
+                                            if(dato!=null&&instrucciones!=null) casos.add(new CaseInstr(dato,instrucciones, new pos(datoleft,datoright)));
+                                            RESULT = casos;
+                                        :}
                                         |contenidoSwitchVb error:e espaciosVb bloqueVb  {: agregarError("Sintactico",(String) e,"Se esperaba un caso.", eleft, eright); :}
-                                        |valorCaseVb espaciosVb bloqueVb
+                                        |valorCaseVb:dato espaciosVb bloqueVb:instrucciones {:
+                                            List<CaseInstr> casos = new ArrayList();
+                                            if(dato!=null&&instrucciones!=null) casos.add(new CaseInstr(dato,instrucciones, new Pos(datoleft,datoright)));
+                                            RESULT = casos;
+                                        :}
                                         |error:e espaciosVb bloqueVb  {: agregarError("Sintactico",(String) e,"Se esperaba un caso .", eleft, eright); :}
                                         ;
 
-valorCaseVb::=                          CASE valorAtomico
+valorCaseVb::=                          CASE valorAtomico {: RESULT = valorAtomico; :}
                                         |CASE error:e  {: agregarError("Sintactico",(String) e,"Se esperaba un valor primitivo constante.", eleft, eright); :}
-                                        |ELSE
+                                        |ELSE {: RESULT = new Dato(CONST.VOID, null); :}
                                         ;
 
-sentenciaDeclaracionVb::=               declaracionVariableVb masDeclaracionVariableVb;
+sentenciaDeclaracionVb::=               declaracionVariableVb:instrucciones masDeclaracionVariableVb:masInstrucciones {:
+                                            if(instrucciones==null) instrucciones = new ArrayList();
+                                            if(masInstrucciones!=null){
+                                                for(Instruccion instruccion = masInstrucciones){
+                                                    instrucciones.add(instruccion);
+                                                }
+                                            }
+                                            RESULT = instrucciones;
+                                        :}
+                                        ;
 
 declaracionVariableVb::=                DIM listadoId AS tiposDeDato IGUAL expresionArVb
                                         |DIM listadoId AS tiposDeDato

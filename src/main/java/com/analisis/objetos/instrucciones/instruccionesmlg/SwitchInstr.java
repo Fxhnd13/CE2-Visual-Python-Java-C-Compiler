@@ -140,7 +140,13 @@ public class SwitchInstr implements Instruccion{
     public void analizarSemanticamente(Coleccion coleccion) {
         Dato dato = lugarAsignacion.analizarSemanticamente(coleccion);
         for (CaseInstr caso : casos) {
-            if(dato!=null && !dato.getTipo().equals(caso.getValor().getTipo())) coleccion.getErrores().agregarError("Semantico", (String) caso.getValor().getValor(),"Un valor declarado en la instruccion case no coincide con el tipo de la variable a evaluar. ", caso.getPosicion());
+            analizarCaso(dato, caso, coleccion);
+        }
+        if(porDefecto!=null)analizarCaso(new Dato(CONST.VOID,null), porDefecto, coleccion);
+    }
+
+    private void analizarCaso(Dato dato, CaseInstr caso, Coleccion coleccion) {
+        if(dato!=null && !dato.getTipo().equals(caso.getValor().getTipo())) coleccion.getErrores().agregarError("Semantico", (String) caso.getValor().getValor(),"Un valor declarado en la instruccion case no coincide con el tipo de la variable a evaluar. ", caso.getPosicion());
             if(coleccion.getTipadoActual() == 1 || coleccion.getTipadoActual() == 3){
                 boolean tieneBreak = false;
                 for (int i = 0; i < caso.getInstrucciones().size(); i++) {
@@ -158,7 +164,6 @@ public class SwitchInstr implements Instruccion{
             analizador.analizarBloque(caso.getInstrucciones(), coleccion);
             coleccion.setCaso(coleccion.getCaso()-1);
             coleccion.getSimbolos().eliminarAmbitoTemporal();
-        }
     }
     
 }

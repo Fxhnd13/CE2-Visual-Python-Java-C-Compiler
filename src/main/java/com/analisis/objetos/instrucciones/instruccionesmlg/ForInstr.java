@@ -10,6 +10,7 @@ import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.accionesAsignacion.AccionExpresion;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.nodos.NodoBooleano;
+import com.analisis.semantico.AnalizadorBloque;
 import com.generadores.Codigo3Direcciones;
 import com.generadores.objetos.Cuarteto;
 import com.generadores.objetos.Cuartetos;
@@ -138,6 +139,8 @@ public class ForInstr implements Instruccion{
         valorInicial.analizarSemanticamente(coleccion);
         if(!coleccion.getSimbolos().getSimbolo(valorInicial.getLugar().getId()).getTipo().equals(CONST.ENTERO)) coleccion.getErrores().agregarError("Semantico",variableFor.getLugar().getId(),"La variable utilizada para el ciclo no es entera.",variableFor.getPosicion());
         condicion.analizarSemanticamente(coleccion);
+        AnalizadorBloque analizador = new AnalizadorBloque();
+        analizador.analizarBloque(instrucciones, coleccion);
         if(!(sentenciaFinal instanceof AsignacionInstr)){
             coleccion.getErrores().agregarError("Semantico",variableFor.getLugar().getId(),"Al final del ciclo no se modifica la variable utilizada.",sentenciaFinal.getPosicion());
         }else{
