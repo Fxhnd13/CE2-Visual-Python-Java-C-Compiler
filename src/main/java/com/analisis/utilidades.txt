@@ -1,3 +1,4 @@
 cd Documents\NetBeansProjects\Compilador\src\main\java\com\analisis
 java -jar C:\Users\jose_\Documents\NetBeansProjects\Compilador\src\test\lib\java-cup-11b.jar -parser Parser Parser.cup
+java -jar /home/fxhnd/NetBeansProjects/Compilador/src/test/lib/java-cup-11b.jar -parser Parser Parser.cup
 {: agregarError("Sintactico",(String)e,".",new Pos(eleft,eright)); :}
