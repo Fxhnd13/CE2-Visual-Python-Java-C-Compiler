@@ -23,6 +23,7 @@ public class CONST {
     public static final String COMODIN_CARACTER = "COMODIN_CARACTER";
     public static final String ID = "ID";
     public static final String ID_GLOBAL = "ID_GLOBAL";
+    public static final String LLAMADA = "LLAMADA";
     public static final String SEC_VB = "VB";
     public static final String SEC_JV = "JAVA";
     public static final String SEC_PY = "PY";

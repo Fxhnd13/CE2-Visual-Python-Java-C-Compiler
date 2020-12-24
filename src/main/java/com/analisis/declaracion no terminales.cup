@@ -1,0 +1,54 @@
+non terminal Instruccion funcionVb, procedimientoVb, sentenciaIfVb, sentenciaForVb, sentenciaWhileVb, sentenciaDoWhileVb;
+non terminal Instruccion sentenciaAsignacionVb, sentenciaEscribirVb, sentenciaReturnVb, sentenciaSwitchVb, sinoVb;
+
+non terminal Llamada llamadaMetodoVb;
+
+non terminal AccionIngreso ingresoDatos;
+
+non terminal List<Instruccion> bloqueVb, sentenciasVb, sentenciaSimpleVb, declaracionVariableVb, masDeclaracionVariableVb;
+non terminal List<Instruccion> sentenciaVb, sentenciaDeclaracionVb;
+
+non terminal String tipoForVb, tiposDeDato, idNextVb, tiposDeMetodo, ingreso;
+
+non terminal NodoAritmetico expresionArVb, expresionArJv, expresionArPy, expresionAr, aumentoForVb, mensajeVb;
+non terminal NodoBooleano condicionVb, expresionBoolVb, condicionPy, expresionBoolPy, expresionBoolJv, expresionBool;
+
+non terminal List<CaseInstr> contenidoSwitchVb;
+
+non terminal Dato valorCaseVb, valorAtomico, parametroVb;
+
+non terminal Accion accionAsignacionVb;
+
+non terminal List<Dato> dclParametrosVb, listadoParametrosVb;
+
+non terminal Object codigo, visual, metodosVb, dclMetodosVb, dclMetodoVb, caseVb, espaciosVb;
+
+non terminal List<NodoAritmetico> listadoParametrosEnviados, listadoParametrosEnviadosJv, listadoParametrosEnviadosPy;
+non terminal List<NodoAritmetico> listadoParametrosEnviadosVb, listadoExpresionesArPy, listadoExpresiones, parametrosEnviados;
+
+non terminal Concat mensajesPy, mensajesVb;
+
+non terminal java, clasesJv, dclClasesJv, dclClaseJv, contenidoClaseJv, sentenciasDeClaseJv, sentenciaDeClaseJv;
+non terminal dclMetodoJv, dclParametrosJv, listadoParametrosJv, bloqueJv, sentenciasJv, sentenciaJv;
+non terminal sentenciaSimpleJv, sentenciaIfJv, sinoJv, sentenciaForJv, modificadorForJv, sentenciaWhileJv;
+non terminal sentenciaSwitchJv, contenidoSwitchJv, valorSwitchJv, bloqueSwichJv, sentenciaDoWhileJv;
+non terminal sentenciaDeclaracionJv, listadoAsignacionesJv, asignacionJv, sentenciaAsignacionJv, accionAsignacionJv;
+non terminal sentenciaEscribirJv, sentenciaReturnJv, sentenciaBreakJv, valorTextoLibreriaJv;
+non terminal llamadaMetodoJv, expresionMensajeJv;
+
+non terminal python, metodosPy, dclMetodosPy, dclMetodoPy, dclParametrosPy, listadoId, sentenciasPy, sentenciaPy;
+non terminal bloquePy, sentenciaSimplePy, escribirPy, mensajePy;
+non terminal sentenciaIfPy, elseIfPy, elsePy, sentenciaWhilePy, sentenciaForPy, rangePy;
+non terminal llamadaMetodoPy, asignacionVarPy;
+
+non terminal principal, secLibrerias, dclLibrerias, dclLibreria, libreria, libreriaC, valorTexto, secConstantes;
+non terminal dclConstantes, dclConstante, secVariables, dclVariables, sentenciaDeclaracion, arreglo, listDimensiones;
+non terminal listadoDeclaraciones, asignacionValor, listadoDeclaracionesClases, asignacionConstructor;
+non terminal accionConstructor, codigoMain, bloque, sentencias, sentencia, sentenciaSimple, sentenciaAsignacion;
+non terminal lugarAsignacion, sentenciaEscribir, expresionCadena, expresionCadenaEntrada;
+non terminal valorCadena, comodin, sentenciaIngresoDatos, sentenciaLimpiarPantalla, sentenciaEsperarTecla;
+non terminal sentenciaBreak, sentenciaIf, sino, sentenciaFor, modificadorFor, sentenciaWhile, sentenciaDoWhile; 
+non terminal sentenciaSwitch, contenidoSwitch, valorSwitch, bloqueSwitch, llamadaMetodo;
+non terminal sentenciaDeclaracionInicial;
+
+non terminal tiposDeMetodo, publicOpcional, ingreso;

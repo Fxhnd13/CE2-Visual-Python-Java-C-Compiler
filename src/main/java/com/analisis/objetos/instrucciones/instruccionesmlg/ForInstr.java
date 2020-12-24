@@ -7,8 +7,13 @@ package com.analisis.objetos.instrucciones.instruccionesmlg;
 
 import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.analisis.Pos;
+import com.analisis.objetos.basicos.Dato;
 import com.analisis.objetos.basicos.accionesAsignacion.AccionExpresion;
+import com.analisis.objetos.basicos.lugaresAsignacion.LugarVariable;
 import com.analisis.objetos.estructuras.Coleccion;
+import com.analisis.objetos.nodos.Hoja;
+import com.analisis.objetos.nodos.Mas;
+import com.analisis.objetos.nodos.Menor;
 import com.analisis.objetos.nodos.NodoBooleano;
 import com.analisis.semantico.AnalizadorBloque;
 import com.generadores.Codigo3Direcciones;
@@ -34,6 +39,14 @@ public class ForInstr implements Instruccion{
     public ForInstr() {
     }
 
+    public ForInstr(String id, int idleft, int idright, RangePy rango, List<Instruccion> instrucciones, Pos posicion){
+        valorInicial = new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(rango.getInicio(), new Pos(idleft,idright)), new Pos(idleft,idright));
+        condicion = new Menor(new Hoja(new Dato(CONST.ID, id), new Pos(idleft,idright)), rango.getFin(), new Pos(idleft,idright));
+        sentenciaFinal = new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(new Mas(new Hoja(new Dato(CONST.ID, id), new Pos(idleft,idright)), rango.getAumento(), new Pos(idleft,idright)), new Pos(idleft,idright)), new Pos(idleft,idright));
+        this.posicion = posicion;
+        this.instrucciones = instrucciones;
+    }
+    
     public ForInstr(DeclaracionInstr variableFor, AsignacionInstr valorInicial, NodoBooleano condicion, Instruccion sentenciaFinal, Pos posicion, List<Instruccion> instrucciones) {
         this.variableFor = variableFor;
         this.valorInicial = valorInicial;

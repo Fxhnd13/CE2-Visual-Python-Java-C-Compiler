@@ -6,49 +6,55 @@
 
 package com.analisis.objetos.instrucciones.instruccionesmlg;
 
+import com.analisis.objetos.analisis.CONST;
+import com.analisis.objetos.analisis.Pos;
+import com.analisis.objetos.basicos.Dato;
+import com.analisis.objetos.nodos.Hoja;
+import com.analisis.objetos.nodos.NodoAritmetico;
+
 /**
  *
  * @author Jose Soberanis
  */
 public class RangePy {
 
-    private double aumento, inicio, fin;
+    private NodoAritmetico aumento, inicio, fin;
     
-    public RangePy(double inicio, double fin, double aumento){
+    public RangePy(NodoAritmetico inicio, NodoAritmetico fin, NodoAritmetico aumento){
         this.inicio = inicio;
         this.fin = fin;
         this.aumento = aumento;
     }
     
-    public RangePy(double inicio, double fin){
-        this(inicio, fin, 1);
+    public RangePy(NodoAritmetico inicio, NodoAritmetico fin){
+        this(inicio, fin, new Hoja(new Dato(CONST.ENTERO, "1"), new Pos()));
     }
     
-    public RangePy(double fin){
-        this(0,fin,1);
+    public RangePy(NodoAritmetico fin){
+        this(new Hoja(new Dato(CONST.ENTERO,"0"), new Pos()), fin, new Hoja(new Dato(CONST.ENTERO, "1"), new Pos()));
     }
 
-    public double getAumento() {
+    public NodoAritmetico getAumento() {
         return aumento;
     }
 
-    public void setAumento(double aumento) {
+    public void setAumento(NodoAritmetico aumento) {
         this.aumento = aumento;
     }
 
-    public double getInicio() {
+    public NodoAritmetico getInicio() {
         return inicio;
     }
 
-    public void setInicio(double inicio) {
+    public void setInicio(NodoAritmetico inicio) {
         this.inicio = inicio;
     }
 
-    public double getFin() {
+    public NodoAritmetico getFin() {
         return fin;
     }
 
-    public void setFin(double fin) {
+    public void setFin(NodoAritmetico fin) {
         this.fin = fin;
     }
     

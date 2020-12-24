@@ -55,7 +55,7 @@ public class IngresoInstr implements Instruccion{
     @Override
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
         List<Cuarteto> cuartetosRetorno = new ArrayList();
-        if(accion!=null){
+        if(accion.getMensaje()!=null){
             Cuartetos.unirCuartetos(cuartetosRetorno, accion.getMensaje().generarCuartetos(coleccion));
         }
         cuartetosRetorno.add(new Cuarteto("read",null,null,null));
@@ -64,7 +64,7 @@ public class IngresoInstr implements Instruccion{
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
-        if(accion!=null) accion.getMensaje().analizarSemanticamente(coleccion);
+        if(accion.getMensaje()!=null) accion.getMensaje().analizarSemanticamente(coleccion);
     }
     
 }
