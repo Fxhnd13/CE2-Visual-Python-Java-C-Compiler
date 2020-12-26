@@ -72,60 +72,50 @@ terminal String JAVA, MAIN, BREAK, CLASS, THIS, MENSAJE, CONST, ESPERAR_TECLA, P
 terminal String DEFAULT, MENSAJELN, INCLUDE, FUNCTION, SEPARADOR_PROGRAMA;
 
 //declaracion de no terminales
-non terminal Instruccion funcionVb, procedimientoVb, sentenciaIfVb, sentenciaForVb, sentenciaWhileVb, sentenciaDoWhileVb;
-non terminal Instruccion sentenciaAsignacionVb, sentenciaEscribirVb, sentenciaReturnVb, sentenciaSwitchVb, sinoVb;
+//objetos simples
+non terminal Instruccion                funcionVb, procedimientoVb, sentenciaIfVb, sinoVb, sentenciaForVb, sentenciaWhileVb;
+non terminal Instruccion                sentenciaDoWhileVb, sentenciaSwitchVb, sentenciaAsignacionVb, sentenciaEscribirVb;
+non terminal Instruccion                sentenciaReturnVb, dclMetodoJv, sentenciaIfJv, sinoJv, sentenciaForJv, sentenciaWhileJv;
+non terminal Instruccion                sentenciaSwitchJv, sentenciaDoWhileJv, sentenciaAsignacionJv, sentenciaEscribirJv;
+non terminal Instruccion                sentenciaReturnJv, sentenciaBreakJv, escribirPy, sentenciaIfPy, elseIfPy, elsePy; 
+non terminal Instruccion                sentenciaWhilePy, sentenciaForPy, dclLibreria, libreria, codigoMain, sentenciaAsignacion;
+non terminal Instruccion                sentenciaEscribir, sentenciaIngresoDatos, sentenciaLimpiarPantalla, sentenciaEsperarTecla;
+non terminal Instruccion                sentenciaBreak, sentenciaIf, sino, sentenciaFor, sentenciaWhile, sentenciaDoWhile;
+non terminal Instruccion                sentenciaSwitch;
+non terminal NodoAritmetico             aumentoForVb, mensajeVb, expresionArVb, modificadorForJv, cadenaExpresionJv, expresionArJv; 
+non terminal NodoAritmetico             mensajePy, expresionArPy, listDimensiones, modificadorFor, expresionAr;
+non terminal NodoBooleano               condicionVb, expresionBoolVb, expresionBoolJv, condicionPy, expresionBoolPy, expresionBool;
+non terminal String                     tipoForVb, idNextVb, valorTextoLibreriaJv, valorTexto, ingreso, tiposDeDato, tiposDeMetodo;
+non terminal Dato                       valorCaseVb, parametroVb, valorSwitchJv, valorCadena, comodin, valorSwitch, valorAtomico;
+non terminal Accion                     accionAsignacionVb, accionAsignacionJv;
+non terminal AccionExpresion            asignacionValor;
+non terminal AccionIngreso              expresionCadenaEntrada, ingresoDatos;
+non terminal Concat                     mensajesVb, expresionMensajeJv, mensajesPy;
+non terminal Llamada                    llamadaMetodoVb, llamadaMetodoJv, llamadaMetodoPy, llamadaMetodo;
+non terminal RangePy                    rangePy;
+non terminal LugarArreglo               arreglo;
+non terminal Lugar                      lugarAsignacion;
 
-non terminal Llamada llamadaMetodoVb;
+//listados
+non terminal List<LugarArreglo>         arreglos;
+non terminal List<Instruccion>          bloqueVb, sentenciasVb, sentenciaVb, sentenciaSimpleVb, sentenciaDeclaracionVb;
+non terminal List<Instruccion>          declaracionVariableVb, masDeclaracionVariableVb, contenidoClaseJv, sentenciasDeClaseJv;
+non terminal List<Instruccion>          sentenciaDeClaseJv, bloqueJv, sentenciasJv, sentenciaJv, sentenciaSimpleJv, bloqueSwitchJv;
+non terminal List<Instruccion>          sentenciaDeclaracionJv, listadoAsignacionesJv, asignacionJv, sentenciasPy, sentenciaPy; 
+non terminal List<Instruccion>          bloquePy, sentenciaSimplePy, asignacionVarPy, secLibrerias, dclLibrerias, secConstantes;
+non terminal List<Instruccion>          dclConstantes, dclConstante, secVariables, dclVariables, sentenciaDeclaracionInicial;
+non terminal List<Instruccion>          sentenciaDeclaracion, listadoDeclaraciones, listadoDeclaracionesClases, bloque, sentencias;
+non terminal List<Instruccion>          sentencia, sentenciaSimple, bloqueSwitch;
+non terminal List<CaseInstr>            contenidoSwitchVb, contenidoSwitchJv, contenidoSwitch;
+non terminal List<Dato>                 dclParametrosVb, listadoParametrosVb, dclParametrosJv, listadoParametrosJv, dclParametrosPy;
+non terminal List<Dato>                 expresionCadena;
+non terminal List<NodoAritmetico>       listadoParametrosEnviadosVb, listadoParametrosEnviadosJv, listadoExpresionesArPy; 
+non terminal List<NodoAritmetico>       listadoParametrosEnviadosPy, asignacionConstructor, accionConstructor;
+non terminal List<NodoAritmetico>       listadoExpresiones, listadoParametrosEnviados, parametrosEnviados;
+non terminal List<String>               listadoId, libreriaC;
 
-non terminal AccionIngreso ingresoDatos;
-
-non terminal List<Instruccion> bloqueVb, sentenciasVb, sentenciaSimpleVb, declaracionVariableVb, masDeclaracionVariableVb;
-non terminal List<Instruccion> sentenciaVb, sentenciaDeclaracionVb;
-
-non terminal String tipoForVb, tiposDeDato, idNextVb;
-
-non terminal NodoAritmetico expresionArVb, expresionArJv, expresionArPy, expresionAr, aumentoForVb, mensajeVb;
-non terminal NodoBooleano condicionVb, expresionBoolVb, condicionPy, expresionBoolPy, expresionBoolJv, expresionBool;
-
-non terminal List<CaseInstr> contenidoSwitchVb;
-
-non terminal Dato valorCaseVb, valorAtomico, parametroVb;
-
-non terminal Accion accionAsignacionVb;
-
-non terminal List<Dato> dclParametrosVb, listadoParametrosVb;
-
-non terminal Object codigo, visual, metodosVb, dclMetodosVb, dclMetodoVb, caseVb, espaciosVb;
-
-non terminal List<NodoAritmetico> listadoParametrosEnviados, listadoParametrosEnviadosJv, listadoParametrosEnviadosPy;
-non terminal List<NodoAritmetico> listadoParametrosEnviadosVb, listadoExpresionesArPy, listadoExpresiones, parametrosEnviados;
-
-non terminal Concat mensajesPy, mensajesVb;
-
-non terminal java, clasesJv, dclClasesJv, dclClaseJv, contenidoClaseJv, sentenciasDeClaseJv, sentenciaDeClaseJv;
-non terminal dclMetodoJv, dclParametrosJv, listadoParametrosJv, bloqueJv, sentenciasJv, sentenciaJv;
-non terminal sentenciaSimpleJv, sentenciaIfJv, sinoJv, sentenciaForJv, modificadorForJv, sentenciaWhileJv;
-non terminal sentenciaSwitchJv, contenidoSwitchJv, valorSwitchJv, bloqueSwichJv, sentenciaDoWhileJv;
-non terminal sentenciaDeclaracionJv, listadoAsignacionesJv, asignacionJv, sentenciaAsignacionJv, accionAsignacionJv;
-non terminal sentenciaEscribirJv, sentenciaReturnJv, sentenciaBreakJv, valorTextoLibreriaJv;
-non terminal llamadaMetodoJv, expresionMensajeJv;
-
-non terminal python, metodosPy, dclMetodosPy, dclMetodoPy, dclParametrosPy, listadoId, sentenciasPy, sentenciaPy;
-non terminal bloquePy, sentenciaSimplePy, escribirPy, mensajePy;
-non terminal sentenciaIfPy, elseIfPy, elsePy, sentenciaWhilePy, sentenciaForPy, rangePy;
-non terminal llamadaMetodoPy, asignacionVarPy;
-
-non terminal principal, secLibrerias, dclLibrerias, dclLibreria, libreria, libreriaC, valorTexto, secConstantes;
-non terminal dclConstantes, dclConstante, secVariables, dclVariables, sentenciaDeclaracion, arreglo, listDimensiones;
-non terminal listadoDeclaraciones, asignacionValor, listadoDeclaracionesClases, asignacionConstructor;
-non terminal accionConstructor, codigoMain, bloque, sentencias, sentencia, sentenciaSimple, sentenciaAsignacion;
-non terminal lugarAsignacion, sentenciaEscribir, expresionCadena, expresionCadenaEntrada;
-non terminal valorCadena, comodin, sentenciaIngresoDatos, sentenciaLimpiarPantalla, sentenciaEsperarTecla;
-non terminal sentenciaBreak, sentenciaIf, sino, sentenciaFor, modificadorFor, sentenciaWhile, sentenciaDoWhile; 
-non terminal sentenciaSwitch, contenidoSwitch, valorSwitch, bloqueSwitch, llamadaMetodo;
-non terminal sentenciaDeclaracionInicial, cadenaExpresion;
-
-non terminal tiposDeMetodo, publicOpcional, ingreso;
+//producciones que no retornan nada
+non terminal Object                         codigo, visual, metodosVb, dclMetodosVb, dclMetodoVb, caseVb, espacios, java, clasesJv, dclClasesJv, dclClaseJv, python, metodosPy, dclMetodosPy, dclMetodoPy, principal, publicOpcional;
 
 //declaracion de precedencia
 precedence left PR_ENTERO, PR_FLOTANTE, PR_CARACTER, COMA;
@@ -777,8 +767,8 @@ dclMetodoJv::=                          publicOpcional tiposDeMetodo:tipo ID:id 
                                         |publicOpcional tiposDeMetodo ID PAR_A dclParametrosJv PAR_C error:e 
                                         ;
 
-dclParametrosJv::=                      listadoParametrosJv
-                                        |
+dclParametrosJv::=                      listadoParametrosJv:parametros {: RESULT = (parametros==null) new ArrayList() : parametros; :}
+                                        | {: RESULT = new ArrayList(); :}
                                         ;
 
 listadoParametrosJv::=                  listadoParametrosJv:parametros COMA tiposDeDato:tipo ID:id {:
@@ -1118,13 +1108,14 @@ accionAsignacionJv::=                   expresionArJv:expresion {: RESULT = Acci
 
 sentenciaEscribirJv::=                  MENSAJE PAR_A expresionMensajeJv:mensajes PAR_C {:
                                             if(pos!=null && mensajes!=null){
-                                                MensajeInstr instruccion = new MensajeInstr(mensajes, new Pos(posleft,posright));
+                                                RESULT = new MensajeInstr(mensajes, new Pos(posleft,posright));
                                             }
                                         :}
                                         |MENSAJELN PAR_A expresionMensajeJv:mensajes PAR_C {:
                                             if(pos!=null && mensajes!=null){
                                                 MensajeInstr instruccion = new MensajeInstr(mensajes, new Pos(posleft,posright));
                                                 instruccion.getMensaje().getMensajes().add(new Hoja(new Dato(CONST.CADENA,"\\n"), new Pos()));
+                                                RESULT = instruccion;                                                
                                             }
                                         :}
                                         |MENSAJE PAR_A expresionMensajeJv error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
@@ -1302,19 +1293,27 @@ dclMetodoPy::=                          DEF:pos ID:id PAR_A dclParametrosPy:para
                                         |DEF ID PAR_A dclParametrosPy PAR_C DOS_PUNTOS error:e {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
                                         ;
 
-dclParametrosPy::=                      listadoId:parametros {: RESULT = (parametros!=null)? parametros : new ArrayList(); :}
+dclParametrosPy::=                      listadoId:parametros {: 
+                                            List<Dato> param = new ArrayList();
+                                            if(parametros!=null){
+                                                for(String id : parametros){
+                                                    param.add(new Dato(CONST.INDEFINIDO, id));
+                                                }
+                                            }
+                                            RESULT = param;
+                                        :}
                                         | {: RESULT = new ArrayList(); :}
                                         ;
 
 listadoId::=                            listadoId:parametros COMA ID:id {:
                                             if(parametros==null) parametros = new ArrayList();
-                                            if(id!=null) parametros.add(new Dato(CONST.INDEFINIDO, id));
+                                            if(id!=null) parametros.add(id);
                                             RESULT = parametros; 
                                         :}
                                         |listadoId COMA error:e {: agregarError("Sintactico",(String) e,"Se esperaba un identificador.", eleft, eright); :}
                                         |ID:id {:
-                                            List<Dato> parametros = new ArrayList();
-                                            if(id!=null) parametros.add(new Dato(CONST.INDEFINIDO, id));
+                                            List<String> parametros = new ArrayList();
+                                            if(id!=null) parametros.add(id);
                                             RESULT = parametros;
                                         :}
                                         ;
@@ -1652,47 +1651,90 @@ expresionBoolPy::=                      expresionArPy:expresionI DISTINTO:pos ex
                                         :}
                                         ;
 //producciones principal
-principal::=                            SEPARADOR_PROGRAMA secLibrerias secConstantes secVariables codigoMain;
+principal::=                            SEPARADOR_PROGRAMA secLibrerias:instrLibrerias secConstantes:instrConstantes secVariables:instrVariables codigoMain:instrMetodo {:
+                                            for(Instruccion instruccion : instrLibrerias) coleccionInstr.getInstruccionesPr().add(instruccion);
+                                            for(Instruccion instruccion : instrConstantes) coleccionInstr.getInstruccionesPr().add(instruccion);
+                                            for(Instruccion instruccion : instrVariables) coleccionInstr.getInstruccionesPr().add(instruccion);
+                                            coleccionInstr.getInstruccionesPr().add(instrMetodo);
+                                        :};
 
-secLibrerias::=                         dclLibrerias
-                                        |
+secLibrerias::=                         dclLibrerias {: RESULT = (instrucciones==null) new ArrayList() : instrucciones; :}
+                                        | {: RESULT = new ArrayList(); :}
                                         ;
 
-dclLibrerias::=                         dclLibrerias dclLibreria
-                                        |dclLibreria
+dclLibrerias::=                         dclLibrerias:instruccionesRetorno dclLibreria:instrucciones {:
+                                            if(instruccionesRetorno==null) instruccionesRetorno = new ArrayList(),
+                                            if(instrucciones!=null){
+                                                for(Instruccion instruccion: instrucciones) instruccionesRetorno.add(instruccion);
+                                            }
+                                            RESULT = instruccionesRetorno;
+                                        :}
+                                        |dclLibreria:instrucciones {:
+                                            List<Instruccion> instruccionesRetorno = new ArrayList(),
+                                            if(instrucciones!=null){
+                                                for(Instruccion instruccion: instrucciones) instruccionesRetorno.add(instruccion);
+                                            }
+                                            RESULT = instruccionesRetorno;
+                                        :}
                                         ;
 
-dclLibreria::=                          HASHTAG INCLUDE libreria
+dclLibreria::=                          HASHTAG:pos INCLUDE libreria:libreriaInstr {:
+                                            libreriaInstr.setPosicion(new Pos(posleft,posright));
+                                            RESULT = libreriaInstr;
+                                        :}
                                         |HASHTAG INCLUDE error:e {: agregarError("Sintactico",(String) e,"Se esperaba una libreria", eleft, eright); :}
                                         |HASHTAG error:e {: agregarError("Sintactico",(String) e,"Se esperaba una palabra reservada include.", eleft, eright); :}
                                         ;
 
-libreria::=                             JAVA PUNTO valorTextoLibreriaJv
+libreria::=                             JAVA PUNTO valorTextoLibreriaJv:valor {:
+                                            List<String> valores = new ArrayList();
+                                            valores.add(valor);
+                                            RESULT = new LibreriaInstr(CONST.SEC_JV, valores, null);
+                                        :}
                                         |JAVA error:e {: agregarError("Sintactico",(String)e,"Se esperaba las clases a importar.",eleft,eright); :}
-                                        |PY
-                                        |VB
-                                        |MENOR libreriaC MAYOR
+                                        |PY {: RESULT = new LibreriaInstr(CONST.SEC_PY, new ArrayList(), null); :}
+                                        |VB {: RESULT = new LibreriaInstr(CONST.SEC_VB,new ArrayList(), null); :}
+                                        |MENOR libreriaC:ids MAYOR {: RESULT = new LibreriaInstr(CONST.SEC_C, ids, null);  :}
                                         |MENOR libreriaC error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token '>'",eleft,eright); :}
                                         |MENOR error:e {: agregarError("Sintactico",(String)e,"Se esperaba el formato de una libreria de C.",eleft,eright); :}
                                         ;
 
-libreriaC::=                            libreriaC PUNTO ID
-                                        |ID
+libreriaC::=                            libreriaC:ids PUNTO ID:id {:
+                                            if(ids==null) ids = new ArrayList();
+                                            if(id!=null) ids.add(id);
+                                            RESULT = ids;
+                                        :}
+                                        |ID:id {:
+                                            List<String> ids = new ArrayList();
+                                            if(id!=null) ids.add(id);
+                                            RESULT = ids;
+                                        :}
                                         ;
 
-valorTextoLibreriaJv::=                 CADENA
-                                        |CARACTER
+valorTextoLibreriaJv::=                 CADENA:valor {: RESULT = valor; :}
+                                        |CARACTER:valor {: RESULT = valor; :}
                                         ;
 
-secConstantes::=                        dclConstantes
-                                        |
+secConstantes::=                        dclConstantes:instrucciones {: RESULT = (instrucciones==null) new ArrayList(): instrucciones; :}
+                                        | {: RESULT = new ArrayList(); :}
                                         ;
 
-dclConstantes::=                        dclConstantes dclConstante
-                                        |dclConstante
+dclConstantes::=                        dclConstantes:instruccionesRetorno dclConstante:instrucciones {:
+                                            if(instruccionesRetorno == null) instruccionesRetorno = new ArrayList();
+                                            if(instrucciones != null) instruccionesRetorno.add(instrucciones);
+                                            RESULT = instruccionesRetorno;
+                                        :}
+                                        |dclConstante:instrucciones {:
+                                            RESULT = (instrucciones == null) new ArrayList() : instrucciones; 
+                                        :}
                                         ;
 
-dclConstante::=                         CONST tiposDeDato ID IGUAL expresionAr FIN_LINEA
+dclConstante::=                         CONST:pos tiposDeDato:tipo ID:id IGUAL expresionAr:expresion FIN_LINEA {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            instrucciones.add(new DeclaracionInstr(tipo, new LugarVariable(id, new Pos(idleft,idright)), new Pos(posleft,posright), true));
+                                            instrucciones.add(new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(expresion, new Pos(expresionleft,expresionright)), new Pos(posleft,posright)));
+                                            RESULT = instrucciones; 
+                                        :}
                                         |CONST tiposDeDato ID IGUAL expresionAr error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token fin de linea ';'",eleft,eright); :}
                                         |CONST tiposDeDato ID IGUAL error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion para asignar a la variable.",eleft,eright); :}
                                         |CONST tiposDeDato ID error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token '='",eleft,eright); :}
@@ -1700,59 +1742,144 @@ dclConstante::=                         CONST tiposDeDato ID IGUAL expresionAr F
                                         |CONST error:e {: agregarError("Sintactico",(String)e,"Se esperaba un tipo de dato para la variable declarada.",eleft,eright); :}
                                         ;
 
-secVariables::=                         dclVariables
-                                        |
+secVariables::=                         dclVariables:instrucciones  {: RESULT = (instrucciones==null)? new ArrayList(): instrucciones; :}
+                                        | {: RESULT = new ArrayList(); :}
                                         ;
 
-dclVariables::=                         dclVariables sentenciaDeclaracionInicial
-                                        |sentenciaDeclaracionInicial
+dclVariables::=                         dclVariables:instruccionesRetorno sentenciaDeclaracionInicial:instrucciones {:
+                                            if(instruccionesRetorno == null) instruccionesRetorno = new ArrayList();
+                                            if(instrucciones != null) instruccionesRetorno.add(instrucciones);
+                                            RESULT = instruccionesRetorno;
+                                        :}
+                                        |sentenciaDeclaracionInicial:instrucciones {:
+                                            RESULT = (instrucciones == null) new ArrayList() : instrucciones; 
+                                        :}
                                         ;
 
-sentenciaDeclaracionInicial::=          sentenciaDeclaracion FIN_LINEA
+sentenciaDeclaracionInicial::=          sentenciaDeclaracion:instrucciones FIN_LINEA {:
+                                            RESULT = instrucciones; 
+                                        :}
                                         |sentenciaDeclaracion error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token fin de linea ';'.",eleft,eright); :}
                                         ;
 
-sentenciaDeclaracion::=                 tiposDeDato listadoDeclaraciones
-                                        |JAVA PUNTO ID listadoDeclaracionesClases 
-                                        |tiposDeDato arreglo
+sentenciaDeclaracion::=                 tiposDeDato:tipo listadoDeclaraciones:instrucciones {:
+                                            if(instrucciones == null) instrucciones = new ArrayList();
+                                            for(Instruccion instruccion : instrucciones){
+                                                if(instruccion instanceof DeclaracionInstr){
+                                                    ((DeclaracionInstr)instruccion).setTipo(tipo);
+                                                }
+                                            }
+                                            RESULT = instrucciones;
+                                        :}
+                                        |JAVA PUNTO ID:tipo listadoDeclaracionesClases:instrucciones {:
+                                            if(instrucciones == null) instrucciones = new ArrayList();
+                                            for(Instruccion instruccion : instrucciones){
+                                                if(instruccion instanceof DeclaracionInstr){
+                                                    ((DeclaracionInstr)instruccion).setTipo(tipo);
+                                                }
+                                            }
+                                            RESULT = instrucciones;
+                                        :}
+                                        |tiposDeDato:tipo arreglos:instrucciones {:
+                                            if(instrucciones == null) instrucciones = new ArrayList();
+                                            for(Instruccion instruccion : instrucciones){
+                                                if(instruccion instanceof DeclaracionInstr){
+                                                    ((DeclaracionInstr)instruccion).setTipo(tipo);
+                                                }
+                                            }
+                                            RESULT = instrucciones;
+                                        :}
                                         |tiposDeDato error:e {: agregarError("Sintactico",(String)e,"Se esperaba un listado de identificadores o la estructura de un arreglo.",eleft,eright); :}
                                         |JAVA PUNTO error:e {: agregarError("Sintactico",(String)e,"Se esperaba un identificador referente a una clase declarada en la seccion de java.",eleft,eright); :}
                                         |JAVA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token punto '.'.",eleft,eright); :}
                                         ;
 
-arreglo::=                              ID listDimensiones
+arreglos::=                             arreglos:arreglos arreglo:arreglo {:
+                                            if(arreglos==null) arreglos = new ArrayList();
+                                            if(arreglo!=null) arreglos.add(arreglo);
+                                            RESULT = arreglos;
+                                        :}
+                                        |arreglo:arreglo {:
+                                            List<LugarArreglo> arreglos = new ArrayList();
+                                            if(arreglo!=null) arreglos.add(arreglo);
+                                            RESULT = arreglos;
+                                        :}
+
+arreglo::=                              ID:id listDimensiones:expresiones {:
+                                            RESULT = new LugarArreglo(id, expresiones, new Pos(idleft,idright));
+                                        :}
                                         ;
 
-listDimensiones::=                      listDimensiones COR_A expresionAr COR_C
-                                        |COR_A expresionAr COR_C
+listDimensiones::=                      listDimensiones:expresiones COR_A expresionAr:expresion COR_C {:
+                                            if(expresiones == null) expresiones = new ArrayList();
+                                            if(expresion!=null) expresiones.add(expresion);
+                                            RESULT = expresiones;
+                                        :}
+                                        |COR_A expresionAr:expresion COR_C {:
+                                            List<NodoAritmetico> expresiones = new ArrayList();
+                                            if(expresion!=null) expresiones.add(expresion);
+                                            RESULT = expresiones; 
+                                        :}
                                         |COR_A error:e COR_C {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica.",eleft,eright); :}
                                         |listDimensiones COR_A error:e COR_C {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica.",eleft,eright); :}
                                         ;
 
-listadoDeclaraciones::=                 listadoDeclaraciones COMA ID asignacionValor
-                                        |ID asignacionValor
+listadoDeclaraciones::=                 listadoDeclaraciones:instrucciones COMA ID:id asignacionValor:expresion {:
+                                            if(instrucciones == null) instrucciones = new ArrayList();
+                                            instrucciones.add(new DeclaracionInstr(null, LugarVariable(id, new Pos(idleft,idright)), new Pos(idleft,idright), false));
+                                            if(constructor!=null){
+                                                instrucciones.add(new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(expresion, new Pos(constructorleft,constructorright)), new Pos(expresionleft,expresionright)));
+                                            }
+                                            RESULT = instrucciones;
+                                        :}
+                                        |ID:id asignacionValor:expresion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            instrucciones.add(new DeclaracionInstr(null, LugarVariable(id, new Pos(idleft,idright)), new Pos(idleft,idright), false));
+                                            if(constructor!=null){
+                                                instrucciones.add(new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(expresion, new Pos(constructorleft,constructorright)), new Pos(expresionleft,expresionright)));
+                                            }
+                                            RESULT = instrucciones;
+                                        :}
                                         |listadoDeclaraciones COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un identificador.",eleft,eright); :}
                                         ;
  
-asignacionValor::=                      IGUAL expresionAr
+asignacionValor::=                      IGUAL expresionAr:expresion {: RESULT = expresion; :}
                                         |IGUAL error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica.",eleft,eright); :}
-                                        |
+                                        | {: RESULT = null; :}
                                         ;
 
-listadoDeclaracionesClases::=           listadoDeclaracionesClases COMA ID asignacionConstructor
-                                        |ID asignacionConstructor
+listadoDeclaracionesClases::=           listadoDeclaracionesClases:instrucciones COMA ID:id asignacionConstructor:constructor {:
+                                            if(instrucciones == null) instrucciones = new ArrayList();
+                                            instrucciones.add(new DeclaracionInstr(null, LugarClase(null, id, new Pos(idleft,idright)), new Pos(idleft,idright), false));
+                                            if(constructor!=null){
+                                                instrucciones.add(new AsignacionInstr(new LugarClase(null, id, new Pos(idleft,idright)), new AccionConstructor(new LlamadaJava(), new Pos(constructorleft,constructorright)), new Pos(constructorleft,constructorright)));
+                                            }
+                                            RESULT = instrucciones;
+                                        :}
+                                        |ID:id asignacionConstructor:constructor {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            instrucciones.add(new DeclaracionInstr(null, LugarClase(null, id, new Pos(idleft,idright)), new Pos(idleft,idright), false));
+                                            if(constructor!=null){
+                                                instrucciones.add(new AsignacionInstr(new LugarClase(null, id, new Pos(idleft,idright)), new AccionConstructor(new LlamadaJava(), new Pos(constructorleft,constructorright)), new Pos(constructorleft,constructorright)));
+                                            }
+                                            RESULT = instrucciones;
+                                        :}
                                         |listadoDeclaracionesClases COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un identificador",eleft,eright); :}
                                         ;
 
-asignacionConstructor::=                accionConstructor
-                                        |
+asignacionConstructor::=                accionConstructor:expresiones {: RESULT = expresiones; :}
+                                        | {: RESULT = null; :}
                                         ;
 
-accionConstructor::=                    PAR_A listadoParametrosEnviados PAR_C
+accionConstructor::=                    PAR_A listadoParametrosEnviados:expresiones PAR_C {:
+                                            RESULT = expresiones;
+                                        :}
                                         |PAR_A listadoParametrosEnviados error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
                                         ;
 
-codigoMain::=                           VOID MAIN PAR_A PAR_C LLAVE_A bloque LLAVE_C
+codigoMain::=                           VOID:pos MAIN:id PAR_A PAR_C LLAVE_A bloque:instrucciones LLAVE_C {:
+                                            RESULT = new MetodoInstr(pos, id, new ArrayList(), instrucciones, new Pos(posleft, posright));
+                                        :}
                                         |VOID MAIN PAR_A PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
                                         |VOID MAIN PAR_A PAR_C error:e bloque {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta",eleft,eright); :}
                                         |VOID MAIN PAR_A error:e bloque {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
@@ -1760,44 +1887,110 @@ codigoMain::=                           VOID MAIN PAR_A PAR_C LLAVE_A bloque LLA
                                         |VOID error:e bloque {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada 'main'.",eleft,eright); :}
                                         ;
 
-bloque::=                               sentencias 
-                                        |
+bloque::=                               sentencias:instrucciones {: RESULT = (instrucciones == null) new ArrayList() : instrucciones; :}
+                                        | {: RESULT = new ArrayList(); :}
                                         ;
 
-sentencias::=                           sentencias sentencia
-                                        |sentencia
+sentencias::=                           sentencias:instruccionesRetorno sentencia:instrucciones {:
+                                            if(instruccionesRetorno == null) instruccionesRetorno = new ArrayList();
+                                            if(instrucciones!=null){
+                                                for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
+                                            }
+                                            RESULT = instruccionesRetorno;
+                                        :}
+                                        |sentencia:instrucciones {:
+                                            RESULT = (instrucciones==null) new ArrayList() : instruccionesRetorno;
+                                        :}
                                         ;
 
-sentencia::=                            sentenciaIf
-                                        |sentenciaFor
-                                        |sentenciaWhile
-                                        |sentenciaDoWhile
-                                        |sentenciaSwitch
-                                        |sentenciaSimple FIN_LINEA
+sentencia::=                            sentenciaIf:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones; 
+                                        :}
+                                        |sentenciaFor:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones; 
+                                        :}
+                                        |sentenciaWhile:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones; 
+                                        :}
+                                        |sentenciaDoWhile:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones; 
+                                        :}
+                                        |sentenciaSwitch:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones; 
+                                        :}
+                                        |sentenciaSimple:instrucciones FIN_LINEA {:
+                                            RESULT = instrucciones;
+                                        :}
                                         ;
 
-sentenciaSimple::=                      sentenciaAsignacion
-                                        |sentenciaDeclaracion
-                                        |sentenciaEscribir
-                                        |sentenciaIngresoDatos
-                                        |sentenciaLimpiarPantalla
-                                        |sentenciaEsperarTecla
-                                        |llamadaMetodo
-                                        |sentenciaBreak
+sentenciaSimple::=                      sentenciaDeclaracion:instrucciones {:
+                                            RESULT = instrucciones; 
+                                        :}
+                                        |sentenciaAsignacion:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones; 
+                                        :}
+                                        |sentenciaEscribir:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones; 
+                                        :}
+                                        |sentenciaIngresoDatos:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones; 
+                                        :}
+                                        |sentenciaLimpiarPantalla:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones; 
+                                        :}
+                                        |sentenciaEsperarTecla:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones; 
+                                        :}
+                                        |llamadaMetodo:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones; 
+                                        :}
+                                        |sentenciaBreak:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones; 
+                                        :}
                                         ;
 
-sentenciaAsignacion::=                  lugarAsignacion IGUAL expresionAr
+sentenciaAsignacion::=                  lugarAsignacion:lugar IGUAL expresionAr:expresion {:
+                                            RESULT = new AsignacionInstr(lugar, new AccionExpresion(expresion, new Pos(expresionleft,expresionright)), new Pos(lugarleft,lugarright));
+                                        :}
                                         |lugarAsignacion IGUAL error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion arimetica.",eleft,eright); :}
                                         |lugarAsignacion error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token '='.",eleft,eright); :}
                                         ;
 
-lugarAsignacion::=                      ID
-                                        |arreglo
-                                        |JAVA PUNTO ID
+lugarAsignacion::=                      ID:id {: RESULT = new LugarVariable(id, new Pos(idleft, idright)); :}
+                                        |arreglo:lugarArreglo {: RESULT = lugarArreglo; :}
+                                        |JAVA:pos PUNTO ID:id {: RESULT = new LugarClase(id, new Pos(idleft, idright)); :}
                                         ;
 
-sentenciaEscribir::=                    PRINTF PAR_A expresionCadena PAR_C
-                                        |PRINTF PAR_A expresionCadena COMA listadoExpresiones PAR_C
+sentenciaEscribir::=                    PRINTF:pos PAR_A expresionCadena:datos PAR_C {:
+                                            RESULT = new MensajeInstr(new Scanf(datos, new ArrayList(), new Pos(datosleft, datosright)), new Pos(posleft,posright));
+                                        :}
+                                        |PRINTF:pos PAR_A expresionCadena:datos COMA listadoExpresiones:expresiones PAR_C {:
+                                            RESULT = new MensajeInstr(new Scanf(datos, expresiones, new Pos(datosleft,datosright)), new Pos(posleft,posright));
+                                        :}
                                         |PRINTF PAR_A expresionCadena error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
                                         |PRINTF PAR_A error:e {: agregarError("Sintactico",(String)e,"Se esperaba contenido para mostrar en pantalla.",eleft,eright); :}
                                         |PRINTF error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
@@ -1805,43 +1998,83 @@ sentenciaEscribir::=                    PRINTF PAR_A expresionCadena PAR_C
                                         |PRINTF PAR_A expresionCadena COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un listado de expresiones.",eleft,eright); :}
                                         ;
 
-expresionCadena::=                      expresionCadena valorCadena
-                                        |valorCadena
+expresionCadena::=                      expresionCadena:expresiones valorCadena:expresion {:
+                                            if(expresiones==null) expresiones = new ArrayList();
+                                            if(expresion!=null) expresiones.add(expresion);
+                                            RESULT = expresiones;
+                                        :} 
+                                        |valorCadena:expresion {:
+                                            List<Dato> expresiones = new ArrayList(),
+                                            if(expresion!=null) expresiones.add(expresion);
+                                            RESULT = expresiones;
+                                        :}
                                         ;
 
-listadoExpresiones::=                   listadoExpresiones COMA expresionAr
-                                        |expresionAr
-                                        |listadoExpresiones COMA AMPERSON expresionAr
-                                        |AMPERSON expresionAr
+listadoExpresiones::=                   listadoExpresiones:expresiones COMA expresionAr:expresion {:
+                                            if(expresiones==null) expresiones = new ArrayList();
+                                            if(expresion!=null) expresiones.add(expresion);
+                                            RESULT = expresiones;
+                                        :} 
+                                        |expresionAr:expresion {:
+                                            List<NodoAritmetico> expresiones = new ArrayList(),
+                                            if(expresion!=null) expresiones.add(expresion);
+                                            RESULT = expresiones;
+                                        :}
+                                        |listadoExpresiones:expresiones COMA AMPERSON expresionAr:expresion {:
+                                            if(expresiones==null) expresiones = new ArrayList();
+                                            if(expresion!=null) expresiones.add(expresion);
+                                            RESULT = expresiones;
+                                        :} 
+                                        |AMPERSON expresionAr:expresion {:
+                                            List<NodoAritmetico> expresiones = new ArrayList(),
+                                            if(expresion!=null) expresiones.add(expresion);
+                                            RESULT = expresiones;
+                                        :}
                                         |AMPERSON error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresiona aritmetica.",eleft,eright); :}
                                         |listadoExpresiones COMA AMPERSON error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica.",eleft,eright); :}
                                         |listadoExpresiones COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica.",eleft,eright); :}
                                         ;
 
-expresionCadenaEntrada::=               valorTexto comodin
-                                        |comodin valorTexto
-                                        |valorTexto comodin valorTexto
-                                        |comodin
+expresionCadenaEntrada::=               valorTexto:cadena comodin:tipo {:
+                                            Concat concat = new Concat(new Pos(cadenaleft,cadenaright));
+                                            concat.getMensajes().add(cadena);
+                                            RESULT = new AccionIngreso(concat, tipo.getTipo(), new Pos(cadenaleft,cadenaright));
+                                        :}
+                                        |comodin:tipo valorTexto:cadena {:
+                                            Concat concat = new Concat(new Pos(cadenaleft,cadenaright));
+                                            concat.getMensajes().add(cadena);
+                                            RESULT = new AccionIngreso(concat, tipo.getTipo(), new Pos(cadenaleft,cadenaright));
+                                        :}
+                                        |valorTexto:cadena comodin:tipo valorTexto:cadena2 {:
+                                            Concat concat = new Concat(new Pos(cadenaleft,cadenaright));
+                                            concat.getMensajes().add(cadena); concat.getMensajes().add(cadena2);
+                                            RESULT = new AccionIngreso(concat, tipo.getTipo(), new Pos(cadenaleft,cadenaright));
+                                        :}
+                                        |comodin:tipo {:
+                                            RESULT = new AccionIngreso(null, tipo.getTipo(), new Pos(tipoleft,tiporight));
+                                        :}
                                         |valorTexto error:e {: agregarError("Sintactico",(String)e,"Se esperaba un comodin.",eleft,eright); :}
                                         |error:e valorTexto {: agregarError("Sintactico",(String)e,"Se esperaba un comodin",eleft,eright); :}
                                         |valorTexto error:e valorTexto {: agregarError("Sintactico",(String)e,"Se esperaba un comodin",eleft,eright); :}
                                         |error:e {: agregarError("Sintactico",(String)e,"Se esperaba un comodin.",eleft,eright); :}
                                         ;
 
-valorCadena::=                          valorTexto
-                                        |comodin
+valorCadena::=                          valorTexto:valor {: RESULT = new Dato(CONST.CADENA, valor); :}
+                                        |comodin:comodin {: RESULT = comodin; :}
                                         ;
 
-valorTexto::=                           CADENA
-                                        |CARACTER
+valorTexto::=                           CADENA:valor {: RESULT = valor; :}
+                                        |CARACTER:valor {: RESULT = valor; :}
                                         ;
 
-comodin::=                              COMODIN_CARACTER
-                                        |COMODIN_ENTERO
-                                        |COMODIN_FLOTANTE
+comodin::=                              COMODIN_CARACTER:valor {: RESULT = new Dato(CONST.CARACTER,null); :}
+                                        |COMODIN_ENTERO:valor {: RESULT = new Dato(CONST.ENTERO,null); :}
+                                        |COMODIN_FLOTANTE:valor {: RESULT = new Dato(CONST.FLOTANTE,null); :}
                                         ;
 
-sentenciaIngresoDatos::=                SCANF PAR_A expresionCadenaEntrada COMA AMPERSON lugarAsignacion PAR_C
+sentenciaIngresoDatos::=                SCANF:pos PAR_A expresionCadenaEntrada:accion COMA AMPERSON lugarAsignacion:lugar PAR_C {:
+                                            RESULT = AsignacionInstr(lugar,accion, new Pos(posleft,posright));
+                                        :}
                                         |SCANF PAR_A expresionCadenaEntrada COMA AMPERSON lugarAsignacion error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
                                         |SCANF PAR_A expresionCadenaEntrada COMA AMPERSON error:e {: agregarError("Sintactico",(String)e,"Se esperaba un lugar para asignar el valor leido.",eleft,eright); :}
                                         |SCANF PAR_A expresionCadenaEntrada COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token '&'",eleft,eright); :}
@@ -1850,19 +2083,24 @@ sentenciaIngresoDatos::=                SCANF PAR_A expresionCadenaEntrada COMA 
                                         |SCANF error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
                                         ;
 
-sentenciaLimpiarPantalla::=             LIMPIAR_PANTALLA PAR_A PAR_C
+sentenciaLimpiarPantalla::=             LIMPIAR_PANTALLA:pos PAR_A PAR_C {: RESULT = new LimpiarInstr(new Pos(posleft,posright)); :}
                                         |LIMPIAR_PANTALLA PAR_A error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
                                         |LIMPIAR_PANTALLA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
                                         ;
 
-sentenciaEsperarTecla::=                ESPERAR_TECLA PAR_A PAR_C
+sentenciaEsperarTecla::=                ESPERAR_TECLA:pos PAR_A PAR_C {: RESULT = new GetchInstr(new Pos(posleft,posright)); :}
                                         |ESPERAR_TECLA PAR_A error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
                                         |ESPERAR_TECLA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
                                         ;
 
-sentenciaBreak::=                       BREAK;
+sentenciaBreak::=                       BREAK {: RESULT = new BreakInstr(); :};
 
-sentenciaIf::=                          IF PAR_A expresionBool PAR_C LLAVE_A bloque LLAVE_C sino
+sentenciaIf::=                          IF:pos PAR_A expresionBool:condicion PAR_C LLAVE_A bloque:instrucciones LLAVE_C sino:instruccionSino {:
+                                            if(pos!=null&&condicion!=null){
+                                                if(instrucciones==null) instrucciones = new ArrayList();
+                                                RESULT = SiInstr(condicion, instrucciones, instruccionSino, new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |IF PAR_A expresionBool PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
                                         |IF PAR_A expresionBool PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
                                         |IF PAR_A expresionBool error:e LLAVE_A bloque LLAVE_C{: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
@@ -1870,8 +2108,18 @@ sentenciaIf::=                          IF PAR_A expresionBool PAR_C LLAVE_A blo
                                         |IF error:e LLAVE_A bloque LLAVE_C{: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
                                         ;
 
-sino::=                                 ELSE IF PAR_A expresionBool PAR_C LLAVE_A bloque LLAVE_C sino
-                                        |ELSE LLAVE_A bloque LLAVE_C
+sino::=                                 ELSE:pos IF PAR_A expresionBool:condicion PAR_C LLAVE_A bloque:instrucciones LLAVE_C sino:instruccionSino {:
+                                            if(pos!=null&&condicion!=null){
+                                                if(instrucciones==null) instrucciones = new ArrayList();
+                                                RESULT = new SiInstr(condicion, instrucciones, instruccionSino, new Pos(posleft,posright));
+                                            }
+                                        :}
+                                        |ELSE:pos LLAVE_A bloque:instrucciones LLAVE_C {:
+                                            if(pos!=null){
+                                                if(instrucciones == null) instrucciones = new ArrayList();
+                                                RESULT = new SinoInstr(instrucciones, new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |
                                         |ELSE IF PAR_A expresionBool PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
                                         |ELSE IF PAR_A expresionBool PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
@@ -1882,21 +2130,86 @@ sino::=                                 ELSE IF PAR_A expresionBool PAR_C LLAVE_
                                         |ELSE error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
                                         ;
 
-sentenciaFor::=                         FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor PAR_C LLAVE_A bloque LLAVE_C
+sentenciaFor::=                         FOR:pos PAR_A tiposDeDato:tipo ID:id IGUAL expresionAr:expresion FIN_LINEA expresionBool:condicion FIN_LINEA ID:id2 modificadorFor:instruccionFor PAR_C LLAVE_A bloque:instrucciones LLAVE_C {:
+                                            List<Instruccion> instruccionesRetorno = new ArrayList();
+                                            AccionAsignacion accionAsignacion = null;
+                                            if((id).equals(id2)){
+                                                if(instruccionFor instanceof Hoja){
+                                                    if(((Hoja)instruccionFor).getValor().getTipo().equals("AUMENTO")){
+                                                        accionAsignacion = new AccionExpresion(
+                                                            new Mas(
+                                                                new Hoja(new Dato(CONST.IDENTIFICADOR,id2, new Pos(id2left,id2right))),
+                                                                new Hoja(new Dato(CONST.TIPO_ENTERO,1)),
+                                                                new Pos(id2left,id2right)
+                                                            ),
+                                                            new Pos(id2left,id2right)
+                                                        );
+                                                    }else if(((Hoja)instruccionFor).getValor().getTipo().equals("DISMINUCION")){
+                                                        accionAsignacion = new AccionExpresion(
+                                                            new Menos(
+                                                                new Hoja(new Dato(CONST.IDENTIFICADOR,id2, new Pos(idleft,idright))),
+                                                                new Hoja(new Dato(CONST.TIPO_ENTERO,-1, new Pos(id2left,id2right))),
+                                                                new Pos(id2left,id2right)
+                                                            ),
+                                                            new Pos(id2left,id2right)
+                                                        );
+                                                    }else{
+                                                        accionAsignacion = new AccionExpresion(instruccionFor, new Ubicacion(instruccionForleft,instruccionForright));
+                                                    }
+                                                }
+                                                if(pos!=null && id!=null && expresion!=null && condicion!=null && instruccionFor!=null && instrucciones!=null){
+                                                    instruccionesRetorno.add(new ForInstr(
+                                                        new DeclaracionInstr(
+                                                            tipo,
+                                                            new LugarVariable(id, new Pos(idleft,idright)),
+                                                            new Pos(posleft,posright),
+                                                            false
+                                                        ),
+                                                        new AsignacionInstr(
+                                                            new LugarVariable(id, new Pos(idleft,idright)),
+                                                            new AccionExpresion(expresion, new Pos(expresionleft,expresionright)),
+                                                            new Pos(posleft,posright)
+                                                        ),
+                                                        condicion,
+                                                        new AsignacionInstr(
+                                                            new LugarVariable(id, new Pos(idleft,idright)),
+                                                            accionAsignacion,
+                                                            new Pos(posleft,posright)
+                                                        ),
+                                                        new Pos(posleft,posright),
+                                                        instrucciones
+                                                    ));
+                                                }    
+                                            }else{
+                                                listErrores.add(new ErrorAnalisis("Semantico",id2,"No se ha utilizado la misma variable para la ejecución del for.", id2left, id2right));
+                                            }
+                                            RESULT = instruccionesRetorno;
+                                        :}
                                         |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esparaba una llave cerrada.",eleft,eright); :}
                                         |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
                                         |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
                                         |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"",eleft,eright); :}
                                         ; 
 
-modificadorFor::=                       IGUAL expresionAr
+modificadorFor::=                       IGUAL expresionAr:expresion {:
+                                            RESULT = expresion;
+                                        :}
+                                        |AUMENTO:val {:
+                                            RESULT = new Hoja(new Dato("AUMENTO",null),new Pos(valleft,valright));
+                                        :}
+                                        |DISMINUCION:val {:
+                                            RESULT = new Hoja(new Dato("DISMINUCION",null), new Pos(valleft,valright));
+                                        :}
                                         |IGUAL error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica",eleft,eright); :}
-                                        |AUMENTO
-                                        |DISMINUCION
                                         |error:e {: agregarError("Sintactico",(String)e,"Se esperaba un modificador para la variable.",eleft,eright); :}
                                         ;
 
-sentenciaWhile::=                       WHILE PAR_A expresionBool PAR_C LLAVE_A bloque LLAVE_C
+sentenciaWhile::=                       WHILE:pos PAR_A expresionBool:condicion PAR_C LLAVE_A bloque:instrucciones LLAVE_C {:
+                                            if(pos!=null && condicion!=null){
+                                                if(instrucciones == null) instrucciones = new ArrayList();
+                                                RESULT = new DoWhileInstr(condicion,instrucciones,new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |WHILE PAR_A expresionBool PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
                                         |WHILE PAR_A expresionBool PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
                                         |WHILE PAR_A expresionBool error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
@@ -1904,7 +2217,12 @@ sentenciaWhile::=                       WHILE PAR_A expresionBool PAR_C LLAVE_A 
                                         |WHILE error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
                                         ;
 
-sentenciaDoWhile::=                     DO LLAVE_A bloque LLAVE_C WHILE PAR_A expresionBool PAR_C FIN_LINEA
+sentenciaDoWhile::=                     DO:pos LLAVE_A bloque:instrucciones LLAVE_C WHILE PAR_A expresionBool:condicion PAR_C FIN_LINEA {:
+                                            if(pos!=null && condicion!=null){
+                                                if(instrucciones == null) instrucciones = new ArrayList();
+                                                RESULT = new DoWhileInstr(condicion,instrucciones,new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |DO LLAVE_A bloque LLAVE_C WHILE PAR_A expresionBool PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba un fin de linea.",eleft,eright); :}
                                         |DO LLAVE_A bloque LLAVE_C WHILE PAR_A expresionBool error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
                                         |DO LLAVE_A bloque LLAVE_C WHILE PAR_A error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion booleana.",eleft,eright); :}
@@ -1913,7 +2231,21 @@ sentenciaDoWhile::=                     DO LLAVE_A bloque LLAVE_C WHILE PAR_A ex
                                         |DO LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
                                         ;
 
-sentenciaSwitch::=                      SWITCH PAR_A expresionAr PAR_C LLAVE_A contenidoSwitch LLAVE_C
+sentenciaSwitch::=                      SWITCH PAR_A expresionAr:expresion PAR_C LLAVE_A contenidoSwitch:casos LLAVE_C {:
+                                            if(pos!=null&&expresion!=null&&casos!=null){
+                                                CaseInstr porDefecto = null;
+                                                for(CaseInstr caso : casos){
+                                                    if(caso.getValor().getTipo().equals(CONST.VOID)){
+                                                        if(porDefecto!=null){
+                                                            errores.agregarError("Sintactico","Sin cadena","Ya existe un caso por defecto, solo puede haber uno.", caso.getPosicion());
+                                                        }else{
+                                                            porDefecto = caso;
+                                                        }
+                                                    }
+                                                }
+                                                RESULT = new SwitchInstr(expresion,casos,porDefecto, new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |SWITCH PAR_A expresionAr PAR_C LLAVE_A contenidoSwitch error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
                                         |SWITCH PAR_A expresionAr PAR_C LLAVE_A error:e {: agregarError("Sintactico",(String)e,"Se esperaban casos.",eleft,eright); :}
                                         |SWITCH PAR_A expresionAr error:e LLAVE_A contenidoSwitch LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
@@ -1921,21 +2253,35 @@ sentenciaSwitch::=                      SWITCH PAR_A expresionAr PAR_C LLAVE_A c
                                         |SWITCH error:e LLAVE_A contenidoSwitch LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
                                         ;
 
-contenidoSwitch::=                      contenidoSwitch valorSwitch DOS_PUNTOS bloqueSwitch 
-                                        |valorSwitch DOS_PUNTOS bloqueSwitch
+contenidoSwitch::=                      contenidoSwitch:casos valorSwitch:dato DOS_PUNTOS bloqueSwitch:instrucciones {:
+                                            if(casos==null) casos = new ArrayList();
+                                            if(dato!=null){
+                                                if(instrucciones==null) instrucciones = new ArrayList();
+                                                RESULT = new CaseInstr(dato, instrucciones, new Pos(datoleft,datoright));
+                                            }
+                                        :}
+                                        |valorSwitch:dato DOS_PUNTOS bloqueSwitch:instrucciones {:
+                                            List<CaseInstr> casos = new ArrayList();
+                                            if(dato!=null){
+                                                if(instrucciones==null) instrucciones = new ArrayList();
+                                                RESULT = new CaseInstr(dato, instrucciones, new Pos(datoleft,datoright));
+                                            }
+                                        :}
                                         |valorSwitch DOS_PUNTOS error:e {: agregarError("Sintactico",(String)e,"Se esperaba un bloque de switch.",eleft,eright); :}
                                         |contenidoSwitch valorSwitch DOS_PUNTOS error:e {: agregarError("Sintactico",(String)e,"Se esperaba un bloque de switch.",eleft,eright); :}
                                         ;
 
-valorSwitch::=                          CASE ENTERO
-                                        |CASE FLOTANTE
-                                        |CASE CARACTER
-                                        |DEFAULT
+valorSwitch::=                          CASE ENTERO:valor {: RESULT = new Dato(CONST.ENTERO, valor); :}
+                                        |CASE FLOTANTE:valor {: RESULT = new Dato(CONST.FLOTANTE, valor); :}
+                                        |CASE CARACTER:valor {: RESULT = new Dato(CONST.CARACTER, valor); :}
+                                        |CASE MENOS ENTERO:valor {: RESULT = new Dato(CONST.ENTERO, "-"+valor); :}
+                                        |CASE MENOS FLOTANTE:valor {: RESULT = new Dato(CONST.FLOTANTE, "-"+valor); :}
+                                        |DEFAULT {: RESULT = new Dato(CONST.VOID, null); :}
                                         |error:e {: agregarError("Sintactico",(String)e,"Se esperaba un valor para un caso de un switch.",eleft,eright); :}
                                         ;
 
-bloqueSwich::=                          LLAVE_A bloque LLAVE_C
-                                        |bloque
+bloqueSwich::=                          LLAVE_A bloque:instrucciones LLAVE_C {: RESULT = (instrucciones==null)? new ArrayList() : instrucciones; :}
+                                        |bloque:instrucciones {: RESULT = (instrucciones==null)? new ArrayList() : instrucciones; :}
                                         ;
 
 expresionAr::=                          expresionAr:expresionI MAS:pos expresionAr:expresionD {:
@@ -2071,14 +2417,14 @@ ingresoDatos::=                         ingreso:ingreso PAR_A CADENA:cadena PAR_
                                         |ingreso error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
                                         ;
 
-ingreso::=                              INTINPUT:valor {: RESULT = valor; :}
-                                        |CHARINPUT:valor {: RESULT = valor; :}
-                                        |FLOATINPUT:valor {: RESULT = valor; :}
+ingreso::=                              INTINPUT:valor {: RESULT = CONST.ENTERO; :}
+                                        |CHARINPUT:valor {: RESULT = CONST.CARACTER; :}
+                                        |FLOATINPUT:valor {: RESULT = CONST.FLOTANTE; :}
                                         ;
 
-tiposDeDato::=                          PR_ENTERO:valor {: RESULT = valor; :}
-                                        |PR_FLOTANTE:valor {: RESULT = valor; :}
-                                        |PR_CARACTER:valor {: RESULT = valor; :}
+tiposDeDato::=                          PR_ENTERO:valor {: RESULT = CONST.ENTERO; :}
+                                        |PR_FLOTANTE:valor {: RESULT = CONST.FLOTANTE; :}
+                                        |PR_CARACTER:valor {: RESULT = CONST.CARACTER; :}
                                         ;
 
 valorAtomico::=                         ENTERO:valor {: RESULT = new Dato(CONST.ENTERO,valor); :}

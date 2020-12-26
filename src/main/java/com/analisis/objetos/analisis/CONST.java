@@ -27,6 +27,7 @@ public class CONST {
     public static final String SEC_VB = "VB";
     public static final String SEC_JV = "JAVA";
     public static final String SEC_PY = "PY";
+    public static final String SEC_C = "C";
     public static final String CONSTRUCTOR = "CONSTRUCTOR";
     public static final String VOID = "VOID";
     public static final String ARREGLO = "ARREGLO";

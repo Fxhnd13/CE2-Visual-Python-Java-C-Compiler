@@ -11,44 +11,20 @@ import com.generadores.objetos.Cuarteto;
 import java.util.List;
 
 /**
- * Clase destinada al almacenamiento de la informacion de una libreria para el codigo C
- * @author jose_
+ *
+ * @author fxhnd
  */
-public class LibreriaInstr implements Instruccion{
+public class GetchInstr implements Instruccion{
     
-    private String tipo;
-    private List<String> datos;
     private Pos posicion;
 
-    public LibreriaInstr() {
-    }
-
-    public LibreriaInstr(String tipo, List<String> datos, Pos posicion) {
-        this.tipo = tipo;
-        this.datos = datos;
+    public GetchInstr(Pos posicion) {
         this.posicion = posicion;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public List<String> getDatos() {
-        return datos;
-    }
-
-    public void setDatos(List<String> datos) {
-        this.datos = datos;
+    public GetchInstr() {
     }
     
-    public Pos getPosicion() {
-        return this.posicion;
-    }
-
     @Override
     public void generarCodigoAssembler(Coleccion coleccion) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -61,6 +37,11 @@ public class LibreriaInstr implements Instruccion{
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Pos getPosicion() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

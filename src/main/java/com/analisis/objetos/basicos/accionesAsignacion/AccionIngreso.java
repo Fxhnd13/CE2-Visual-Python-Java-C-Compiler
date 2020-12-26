@@ -6,7 +6,8 @@
 package com.analisis.objetos.basicos.accionesAsignacion;
 
 import com.analisis.objetos.analisis.Pos;
-import com.analisis.objetos.nodos.NodoAritmetico;
+import com.analisis.objetos.nodos.Mensaje;
+import com.analisis.objetos.nodos.Mensaje;
 
 /**
  * Clase destinada a almacenar la informacion cuando se quiere asignar a una variable un valor ingresado por el usaurio
@@ -14,24 +15,24 @@ import com.analisis.objetos.nodos.NodoAritmetico;
  */
 public class AccionIngreso implements Accion{
     
-    private NodoAritmetico mensaje;
+    private Mensaje mensaje;
     private String tipoRetorno;
     private Pos posicion;
 
     public AccionIngreso() {
     }
 
-    public AccionIngreso(NodoAritmetico mensaje, String tipoRetorno, Pos posicion) {
+    public AccionIngreso(Mensaje mensaje, String tipoRetorno, Pos posicion) {
         this.mensaje = mensaje;
         this.tipoRetorno = tipoRetorno;
         this.posicion = posicion;
     }
 
-    public NodoAritmetico getMensaje() {
+    public Mensaje getMensaje() {
         return mensaje;
     }
 
-    public void setMensaje(NodoAritmetico mensaje) {
+    public void setMensaje(Mensaje mensaje) {
         this.mensaje = mensaje;
     }
 

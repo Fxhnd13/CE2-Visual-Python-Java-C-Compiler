@@ -24,8 +24,10 @@ import com.analisis.objetos.estructuras.Clase;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.estructuras.Metodo;
 import com.analisis.objetos.estructuras.TablaDeTipos;
+import com.analisis.objetos.nodos.Concat;
 import com.analisis.objetos.nodos.Hoja;
 import com.analisis.objetos.nodos.NodoAritmetico;
+import com.analisis.objetos.nodos.Scanf;
 import com.analisis.semantico.AnalizadorLlamadaMetodo;
 import com.generadores.Codigo3Direcciones;
 import com.generadores.objetos.Cuarteto;
@@ -228,7 +230,13 @@ public class AsignacionInstr implements Instruccion{
         if(accion instanceof AccionExpresion){
             tipo = ((AccionExpresion)accion).getExpresion().analizarSemanticamente(coleccion).getTipo();
         }else if(accion instanceof AccionIngreso){
+            int erroresAntes = coleccion.getErrores().getErrores().size();
             ((AccionIngreso)accion).getMensaje().analizarSemanticamente(coleccion);
+            if(erroresAntes == coleccion.getErrores().getErrores().size()){
+                if(((AccionIngreso)accion).getMensaje() instanceof Scanf){
+                    ((AccionIngreso)accion).setMensaje(new Concat((Scanf) ((AccionIngreso)accion).getMensaje()));
+                }
+            }
             tipo = ((AccionIngreso)accion).getTipoRetorno();
         }
         return tipo;

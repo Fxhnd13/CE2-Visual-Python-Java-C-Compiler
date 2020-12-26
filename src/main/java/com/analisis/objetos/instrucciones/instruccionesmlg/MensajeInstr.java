@@ -6,9 +6,12 @@
 package com.analisis.objetos.instrucciones.instruccionesmlg;
 
 import com.analisis.objetos.analisis.Pos;
+import com.analisis.objetos.basicos.accionesAsignacion.AccionIngreso;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.nodos.Concat;
-import com.analisis.objetos.nodos.Concat;
+import com.analisis.objetos.nodos.Mensaje;
+import com.analisis.objetos.nodos.Mensaje;
+import com.analisis.objetos.nodos.Scanf;
 import com.generadores.objetos.Cuarteto;
 import com.generadores.objetos.Cuartetos;
 import java.util.ArrayList;
@@ -20,22 +23,22 @@ import java.util.List;
  */
 public class MensajeInstr implements Instruccion{
     
-    private Concat mensaje;
+    private Mensaje mensaje;
     private Pos posicion;
 
     public MensajeInstr() {
     }
 
-    public MensajeInstr(Concat mensaje, Pos posicion) {
+    public MensajeInstr(Mensaje mensaje, Pos posicion) {
         this.mensaje = mensaje;
         this.posicion = posicion;
     }
 
-    public Concat getMensaje() {
+    public Mensaje getMensaje() {
         return mensaje;
     }
 
-    public void setMensaje(Concat mensaje) {
+    public void setMensaje(Mensaje mensaje) {
         this.mensaje = mensaje;
     }
 
@@ -63,7 +66,15 @@ public class MensajeInstr implements Instruccion{
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
-        mensaje.analizarSemanticamente(coleccion);
+        if(mensaje instanceof Scanf){
+            int erroresAntes = coleccion.getErrores().getErrores().size();
+            mensaje.analizarSemanticamente(coleccion);
+            if(erroresAntes == coleccion.getErrores().getErrores().size()){
+                mensaje = new Concat((Scanf) mensaje);
+            }
+        }else{
+            mensaje.analizarSemanticamente(coleccion);
+        }
     }
     
 }

@@ -13,26 +13,17 @@ import com.analisis.objetos.analisis.Pos;
  */
 public class LugarClase implements Lugar{
     
-    private String tipoInstancia, id;
+    private String id;
     private Pos posicion;
 
     public LugarClase() {
     }
 
-    public LugarClase(String tipoInstancia, String id, Pos posicion) {
-        this.tipoInstancia = tipoInstancia;
+    public LugarClase(String id, Pos posicion) {
         this.id = id;
         this.posicion = posicion;
     }
-
-    public String getTipoInstancia() {
-        return tipoInstancia;
-    }
-
-    public void setTipoInstancia(String tipoInstancia) {
-        this.tipoInstancia = tipoInstancia;
-    }
-
+    
     public String getId() {
         return id;
     }

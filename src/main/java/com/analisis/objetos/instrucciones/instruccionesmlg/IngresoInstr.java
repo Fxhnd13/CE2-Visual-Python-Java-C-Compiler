@@ -9,6 +9,8 @@ import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.accionesAsignacion.Accion;
 import com.analisis.objetos.basicos.accionesAsignacion.AccionIngreso;
 import com.analisis.objetos.estructuras.Coleccion;
+import com.analisis.objetos.nodos.Concat;
+import com.analisis.objetos.nodos.Scanf;
 import com.generadores.objetos.Cuarteto;
 import com.generadores.objetos.Cuartetos;
 import java.util.ArrayList;
@@ -64,7 +66,15 @@ public class IngresoInstr implements Instruccion{
 
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
-        if(accion.getMensaje()!=null) accion.getMensaje().analizarSemanticamente(coleccion);
+        if(accion.getMensaje()!=null){
+            int erroresAntes = coleccion.getErrores().getErrores().size();
+            accion.getMensaje().analizarSemanticamente(coleccion);
+            if(erroresAntes == coleccion.getErrores().getErrores().size()){
+                if(accion.getMensaje() instanceof Scanf){
+                    accion.setMensaje(new Concat((Scanf) accion.getMensaje()));
+                }
+            }
+        }
     }
     
 }

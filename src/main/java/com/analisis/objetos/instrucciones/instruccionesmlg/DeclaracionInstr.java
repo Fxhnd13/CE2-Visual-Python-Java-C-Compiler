@@ -120,11 +120,11 @@ public class DeclaracionInstr implements Instruccion{
 
         }else if(lugar instanceof LugarClase){
             
-            Clase clase = (Clase) coleccion.getClasesJv().getSimbolo(((LugarClase)lugar).getTipoInstancia()).getValor();
+            Clase clase = (Clase) coleccion.getClasesJv().getSimbolo(tipo).getValor();
             
             coleccion.getSimbolos().agregarSimbolo(new Simbolo(
                     lugar.getId(),
-                    ((LugarClase) lugar).getTipoInstancia(),
+                    tipo,
                     CONST.CLASE,
                     String.valueOf(clase.getSimbolos().getSimbolos().size()),
                     null,//direccion
@@ -140,9 +140,9 @@ public class DeclaracionInstr implements Instruccion{
         Simbolo simboloParaAgregar = null;
         if(lugar instanceof LugarClase){
             //verificar que el tipo de instancia exista
-            Simbolo simboloDeClase = coleccion.getClasesJv().getSimbolo(((LugarClase)lugar).getTipoInstancia());
+            Simbolo simboloDeClase = coleccion.getClasesJv().getSimbolo(tipo);
             if(simboloDeClase!=null){
-                simboloParaAgregar = new Simbolo(lugar.getId(), CONST.CLASE, ((LugarClase)lugar).getTipoInstancia(),null,null,null,null);
+                simboloParaAgregar = new Simbolo(lugar.getId(), CONST.CLASE, tipo,null,null,null,null);
             }else{
                 coleccion.getErrores().agregarError("Semantico", lugar.getId(), "No existe la clase utilizada en la definición de la seccion java.", lugar.getPosicion());
             }
@@ -154,7 +154,7 @@ public class DeclaracionInstr implements Instruccion{
                     coleccion.getErrores().agregarError("Semantico","Dimension "+(i+1),"La dimension para la declaracion del arreglo no es un entero. ",valor.getIndices().get(i).getPosicion());
                 }
             }
-            simboloParaAgregar = new Simbolo(lugar.getId(),CONST.ARREGLO, valor.getTipo(),null,null,null,null);
+            simboloParaAgregar = new Simbolo(lugar.getId(),CONST.ARREGLO, tipo,null,null,null,null);
         }else if (lugar instanceof LugarVariable){
             simboloParaAgregar = new Simbolo(lugar.getId(),CONST.VAR,tipo,null,null,null,null);
         }

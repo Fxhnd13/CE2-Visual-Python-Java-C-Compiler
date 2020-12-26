@@ -7,6 +7,7 @@ package com.analisis.objetos.nodos;
 
 import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.analisis.Pos;
+import com.analisis.objetos.basicos.Dato;
 import com.analisis.objetos.basicos.Llamadas.Llamada;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.generadores.objetos.Cuarteto;
@@ -19,11 +20,23 @@ import java.util.List;
  *
  * @author jose_
  */
-public class Concat {
+public class Concat implements Mensaje{
     
     private List<NodoAritmetico> mensajes;
     private Pos posicion;
 
+    public Concat(Scanf nodo){
+        this.posicion = nodo.getPosicion();
+        int expresionesUsadas = 0;
+        for (Dato mensaje : nodo.getMensajes()) {
+            if(mensaje.getTipo().equals(CONST.COMODIN_CARACTER)||mensaje.getTipo().equals(CONST.COMODIN_ENTERO)||mensaje.getTipo().equals(CONST.COMODIN_FLOTANTE)){
+                mensajes.add(nodo.getExpresiones().get(expresionesUsadas++));
+            }else{
+                mensajes.add(new Hoja(mensaje, posicion));
+            }
+        }
+    }
+    
     public Concat(Pos pos){
         this(new ArrayList(), pos);
     }
@@ -52,7 +65,7 @@ public class Concat {
     public void setPosicion(Pos posicion) {
         this.posicion = posicion;
     }
-
+    
     public void analizarSemanticamente(Coleccion coleccion) {
         for (NodoAritmetico mensaje : mensajes) {
             mensaje.analizarSemanticamente(coleccion);
@@ -84,6 +97,9 @@ public class Concat {
                         msg = (String) hoja.getValor().getValor();
                     }
                 }
+            }else{
+                Cuartetos.unirCuartetos(cuartetosRetorno, mensaje.generarCuartetos(coleccion));
+                msg = Temporal.actualTemporal();
             }
             cuartetosRetorno.add(new Cuarteto("write",null,null,msg));
         }
