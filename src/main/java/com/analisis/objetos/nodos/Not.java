@@ -81,4 +81,11 @@ public class Not implements NodoBooleano{
         this.posicion = posicion;
     }
     
+    public NodoBooleano getHijo(){
+        return this.hijo;
+    }
+
+    public void setHijo(NodoBooleano hijo){
+        this.hijo = hijo;
+    }
 }

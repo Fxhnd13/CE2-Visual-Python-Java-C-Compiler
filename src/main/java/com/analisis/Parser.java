@@ -3203,7 +3203,9 @@ class CUP$Parser$actions {
 		List<Instruccion> instruccion = (List<Instruccion>)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		
                                             if(instrucciones==null)instrucciones = new ArrayList();
-                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            if(instruccion!=null){
+                                                instrucciones.add(instruccion);
+                                            }
                                             RESULT = instrucciones;
                                         
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("sentenciasVb",14, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -4144,7 +4146,7 @@ class CUP$Parser$actions {
 		
                                             if(instrucciones==null) instrucciones = new ArrayList();
                                             if(masInstrucciones!=null){
-                                                for(Instruccion instruccion = masInstrucciones){
+                                                for(Instruccion instruccion : masInstrucciones){
                                                     instrucciones.add(instruccion);
                                                 }
                                             }
@@ -4601,7 +4603,7 @@ class CUP$Parser$actions {
 		int parametrosleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int parametrosright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<Dato> parametros = (List<Dato>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = (parametros!=null) parametros : new ArrayList(); 
+		 RESULT = (parametros!=null)? parametros : new ArrayList(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("dclParametrosVb",40, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -4876,7 +4878,7 @@ class CUP$Parser$actions {
 		Dato dato = (Dato)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		
                                             if(dato!=null){
-                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright)):
+                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright));
                                             }
                                         
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("expresionArVb",23, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -6493,7 +6495,7 @@ class CUP$Parser$actions {
 		Dato dato = (Dato)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		
                                             if(dato!=null){
-                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright)):
+                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright));
                                             }
                                         
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("expresionArJv",24, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -7748,7 +7750,7 @@ class CUP$Parser$actions {
 		Dato dato = (Dato)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		
                                             if(dato!=null){
-                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright)):
+                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright));
                                             }
                                         
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("expresionArPy",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -10142,7 +10144,7 @@ class CUP$Parser$actions {
 		Dato dato = (Dato)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		
                                             if(dato!=null){
-                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright)):
+                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright));
                                             }
                                         
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("expresionAr",26, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);

@@ -73,15 +73,16 @@ terminal String DEFAULT, MENSAJELN, INCLUDE, FUNCTION, SEPARADOR_PROGRAMA;
 
 //declaracion de no terminales
 //objetos simples
-non terminal Instruccion                funcionVb, procedimientoVb, sentenciaIfVb, sinoVb, sentenciaForVb, sentenciaWhileVb;
+non terminal Instruccion                funcionVb, procedimientoVb, sentenciaIfVb, sentenciaForVb, sentenciaWhileVb;
 non terminal Instruccion                sentenciaDoWhileVb, sentenciaSwitchVb, sentenciaAsignacionVb, sentenciaEscribirVb;
-non terminal Instruccion                sentenciaReturnVb, dclMetodoJv, sentenciaIfJv, sinoJv, sentenciaForJv, sentenciaWhileJv;
+non terminal Instruccion                sentenciaReturnVb, dclMetodoJv, sentenciaIfJv, sentenciaForJv, sentenciaWhileJv;
 non terminal Instruccion                sentenciaSwitchJv, sentenciaDoWhileJv, sentenciaAsignacionJv, sentenciaEscribirJv;
-non terminal Instruccion                sentenciaReturnJv, sentenciaBreakJv, escribirPy, sentenciaIfPy, elseIfPy, elsePy; 
+non terminal Instruccion                sentenciaReturnJv, sentenciaBreakJv, escribirPy, sentenciaIfPy; 
 non terminal Instruccion                sentenciaWhilePy, sentenciaForPy, dclLibreria, libreria, codigoMain, sentenciaAsignacion;
 non terminal Instruccion                sentenciaEscribir, sentenciaIngresoDatos, sentenciaLimpiarPantalla, sentenciaEsperarTecla;
-non terminal Instruccion                sentenciaBreak, sentenciaIf, sino, sentenciaFor, sentenciaWhile, sentenciaDoWhile;
+non terminal Instruccion                sentenciaBreak, sentenciaIf, sentenciaFor, sentenciaWhile, sentenciaDoWhile;
 non terminal Instruccion                sentenciaSwitch;
+non terminal InstruccionSino            sino, sinoVb, sinoJv, elsePy, elseIfPy;
 non terminal NodoAritmetico             aumentoForVb, mensajeVb, expresionArVb, modificadorForJv, cadenaExpresionJv, expresionArJv; 
 non terminal NodoAritmetico             mensajePy, expresionArPy, listDimensiones, modificadorFor, expresionAr;
 non terminal NodoBooleano               condicionVb, expresionBoolVb, expresionBoolJv, condicionPy, expresionBoolPy, expresionBool;
@@ -156,9 +157,9 @@ funcionVb::=                            publicOpcional FUNCTION:pos ID:id dclPar
                                         :}
                                         |publicOpcional FUNCTION ID dclParametrosVb error:e espaciosVb bloqueVb END FUNCTION espaciosVb {: agregarError("Sintactico",(String) e,"No se especifico el tipo para la funcion declarada, se esperaba un tipo.", eleft, eright); :}
                                         |publicOpcional FUNCTION error:e dclParametrosVb AS tiposDeDato espaciosVb bloqueVb END FUNCTION espaciosVb {: agregarError("Sintactico",(String) e,"No se especifico un identificador para la funcion declarada, se esperaba un identificador.", eleft, eright); :}
-                                        |publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato espaciosVb bloqueVb END error:e {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada FUNCTION.",new Pos(eleft,eright)); :}
-                                        |publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato espaciosVb bloqueVb error:e {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada END.",new Pos(eleft,eright)); :}
-                                        |publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato error:e bloqueVb END FUNCTION {: agregarError("Sintactico",(String)e,"Se esperaba un salto de linea.",new Pos(eleft,eright)); :}
+                                        |publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato espaciosVb bloqueVb END error:e {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada FUNCTION.", eleft, eright); :}
+                                        |publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato espaciosVb bloqueVb error:e {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada END.", eleft, eright); :}
+                                        |publicOpcional FUNCTION ID dclParametrosVb AS tiposDeDato error:e bloqueVb END FUNCTION {: agregarError("Sintactico",(String)e,"Se esperaba un salto de linea.", eleft, eright); :}
                                         ;
 
 procedimientoVb::=                      publicOpcional SUB:pos ID:id dclParametrosVb:parametros espaciosVb bloqueVb:instrucciones END SUB espaciosVb {:
@@ -169,9 +170,9 @@ procedimientoVb::=                      publicOpcional SUB:pos ID:id dclParametr
                                             }
                                         :}
                                         |publicOpcional SUB error:e dclParametrosVb espaciosVb bloqueVb END SUB espaciosVb {: agregarError("Sintactico",(String) e,"No se especifico un identificador para el procedimiento declarado, se esperaba un identificador.", eleft, eright); :}
-                                        |publicOpcional SUB ID dclParametrosVb espaciosVb bloqueVb END error:e {: agregarError("Sintactico",(String)e,"Se seperaba una palabra reservada SUB.",new Pos(eleft,eright)); :}
-                                        |publicOpcional SUB ID dclParametrosVb espaciosVb bloqueVb error:e {: agregarError("Sintactico",(String)e,"Se seperaba una palabra reservada END.",new Pos(eleft,eright)); :}
-                                        |publicOpcional SUB ID dclParametrosVb error:e bloqueVb END SUB {: agregarError("Sintactico",(String)e,"Se esperaba un salto de linea.",new Pos(eleft,eright)); :}
+                                        |publicOpcional SUB ID dclParametrosVb espaciosVb bloqueVb END error:e {: agregarError("Sintactico",(String)e,"Se seperaba una palabra reservada SUB.", eleft, eright); :}
+                                        |publicOpcional SUB ID dclParametrosVb espaciosVb bloqueVb error:e {: agregarError("Sintactico",(String)e,"Se seperaba una palabra reservada END.", eleft, eright); :}
+                                        |publicOpcional SUB ID dclParametrosVb error:e bloqueVb END SUB {: agregarError("Sintactico",(String)e,"Se esperaba un salto de linea.", eleft, eright); :}
                                         ;
 
 bloqueVb::=                             sentenciasVb:instrucciones {:
@@ -183,15 +184,19 @@ bloqueVb::=                             sentenciasVb:instrucciones {:
                                         :}
                                         ;
 
-sentenciasVb::=                         sentenciasVb:instrucciones sentenciaVb:instruccion {:
-                                            if(instrucciones==null)instrucciones = new ArrayList();
-                                            if(instruccion!=null) instrucciones.add(instruccion);
-                                            RESULT = instrucciones;
+sentenciasVb::=                         sentenciasVb:instruccionesRetorno sentenciaVb:instrucciones {:
+                                            if(instruccionesRetorno==null)instruccionesRetorno = new ArrayList();
+                                            if(instrucciones!=null){
+                                                for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
+                                            }
+                                            RESULT = instruccionesRetorno;
                                         :}
                                         |sentenciaVb:instruccion {:
-                                            List<Instruccion> instrucciones = new ArrayList();
-                                            if(instruccion!=null)instrucciones.add(instruccion);
-                                            RESULT = instrucciones;
+                                            List<Instruccion> instruccionesRetorno = new ArrayList();
+                                            if(instrucciones!=null){
+                                                for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
+                                            }
+                                            RESULT = instruccionesRetorno;
                                         :}
                                         ;
 
@@ -262,7 +267,7 @@ sentenciaIfVb::=                        IF:pos condicionVb:condicion THEN senten
                                         :}
                                         |IF:pos condicionVb:condicion THEN sentenciaSimpleVb:instrucciones ELSE sentenciaSimpleVb:instruccionesSino END IF {:
                                             if(pos!=null&&condicion!=null&&instrucciones!=null&&instruccionesSino!=null){
-                                                RESULT = new SiInstr(condicion,instrucciones,new SinoInstr(instruccionesSino,new Pos(instruccionesSinoleft,instruccionesSinoright), new Pos(posleft,posright)));
+                                                RESULT = new SiInstr(condicion,instrucciones,new SinoInstr(instruccionesSino,new Pos(instruccionesSinoleft,instruccionesSinoright)), new Pos(posleft,posright));
                                             }
                                         :}
                                         |IF:pos condicionVb:condicion THEN espaciosVb bloqueVb:instrucciones sinoVb:instruccion END IF {:
@@ -275,9 +280,9 @@ sentenciaIfVb::=                        IF:pos condicionVb:condicion THEN senten
                                                 RESULT = new SiInstr(condicion,instrucciones,instruccion,new Pos(posleft,posright));
                                             }
                                         :}
-                                        |IF condicionVb espaciosVb bloqueVb sinoVb END error:e {: agregarError("Sintactico",(String)e,"Se esperaba una palabra reservada IF.",new Pos(eleft,eright)); :}
-                                        |IF condicionVb THEN espaciosVb sentenciaSimpleVb ELSE sentenciaSimpleVb END error:e {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada IF.",new Pos(eleft,eright)); :}
-                                        |IF condicionVb THEN sentenciaSimpleVb ELSE sentenciaSimpleVb END error:e {: agregarError("Sintactico",(String)e,"Se esperaba una palabra reservada IF.",new Pos(eleft,eright)); :}
+                                        |IF condicionVb espaciosVb bloqueVb sinoVb END error:e {: agregarError("Sintactico",(String)e,"Se esperaba una palabra reservada IF.", eleft, eright); :}
+                                        |IF condicionVb THEN espaciosVb sentenciaSimpleVb ELSE sentenciaSimpleVb END error:e {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada IF.", eleft, eright); :}
+                                        |IF condicionVb THEN sentenciaSimpleVb ELSE sentenciaSimpleVb END error:e {: agregarError("Sintactico",(String)e,"Se esperaba una palabra reservada IF.", eleft, eright); :}
                                         |IF error:e THEN sentenciaSimpleVb ELSE sentenciaSimpleVb {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
                                         |IF condicionVb error:e sentenciaSimpleVb ELSE sentenciaSimpleVb {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada THEN.", eleft, eright); :}
                                         |IF error:e THEN espaciosVb bloqueVb sinoVb END IF {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
@@ -408,7 +413,7 @@ valorCaseVb::=                          CASE ENTERO:valor {: RESULT = new Dato(C
 sentenciaDeclaracionVb::=               declaracionVariableVb:instrucciones masDeclaracionVariableVb:masInstrucciones {:
                                             if(instrucciones==null) instrucciones = new ArrayList();
                                             if(masInstrucciones!=null){
-                                                for(Instruccion instruccion = masInstrucciones){
+                                                for(Instruccion instruccion : masInstrucciones){
                                                     instrucciones.add(instruccion);
                                                 }
                                             }
@@ -565,7 +570,7 @@ sentenciaReturnVb::=                    RETURN:pos expresionArVb:expresion {:
                                         |RETURN error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
                                         ;
 
-dclParametrosVb::=                      PAR_A listadoParametrosVb:parametros PAR_C {: RESULT = (parametros!=null) parametros : new ArrayList(); :}
+dclParametrosVb::=                      PAR_A listadoParametrosVb:parametros PAR_C {: RESULT = (parametros!=null)? parametros : new ArrayList(); :}
                                         |PAR_A PAR_C {: RESULT = new ArrayList(); :}
                                         | {: RESULT = new ArrayList(); :}
                                         ;
@@ -626,7 +631,7 @@ expresionArVb::=                        expresionArVb:expresionI MAS:pos expresi
                                         :}
                                         |valorAtomico:dato {:
                                             if(dato!=null){
-                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright)):
+                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright));
                                             }
                                         :}
                                         ;
@@ -1192,7 +1197,7 @@ expresionArJv::=                        expresionArJv:expresionI MAS:pos expresi
                                         :}
                                         |valorAtomico:dato {:
                                             if(dato!=null){
-                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright)):
+                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright));
                                             }
                                         :}
                                         |THIS ID:id {:
@@ -1545,7 +1550,7 @@ expresionArPy::=                        expresionArPy:expresionI MAS:pos expresi
                                         :}
                                         |valorAtomico:dato {:
                                             if(dato!=null){
-                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright)):
+                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright));
                                             }
                                         :}
                                         ;
@@ -2321,7 +2326,7 @@ expresionAr::=                          expresionAr:expresionI MAS:pos expresion
                                         :}
                                         |valorAtomico:dato {:
                                             if(dato!=null){
-                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright)):
+                                                RESULT = new Hoja(dato, new Pos(datoleft,datoright));
                                             }
                                         :}
                                         ;
