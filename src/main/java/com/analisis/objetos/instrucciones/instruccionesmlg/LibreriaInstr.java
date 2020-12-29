@@ -49,6 +49,10 @@ public class LibreriaInstr implements Instruccion{
         return this.posicion;
     }
 
+    public void setPosicion(Pos posicion){
+        this.posicion = posicion;
+    }
+    
     @Override
     public void generarCodigoAssembler(Coleccion coleccion) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

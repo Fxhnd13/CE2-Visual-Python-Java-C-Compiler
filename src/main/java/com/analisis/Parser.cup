@@ -60,14 +60,14 @@ parser code{:
 
 //declaracion de terminales
 
-terminal String NEWLINE, ENTERO, FLOTANTE, CARACTER,DEF, ID, PAR_A, PAR_C, DOS_PUNTOS, IDENT, DEDENT, PUNTOCOMA;
+terminal String NEWLINE, ENTERO, FLOTANTE, CARACTER,DEF, ID, PAR_A, ELIF, PASS, PAR_C, DOS_PUNTOS, IDENT, DEDENT;
 terminal String CADENA, COMA, ELSEIF, INTINPUT, CHARINPUT, FLOATINPUT, ELSE, IF, WHILE, RANGE, IN, FOR, MAS, MENOS;
 terminal String POR, DIV, MOD, DISTINTO, COMPARADOR, IGUAL, MENOR, MENORIGUAL, MAYOR, MAYORIGUAL, AND, NOT, OR;
-terminal String RETURN, PRINT, BYVAL;
+terminal String RETURN, BYVAL;
 
 terminal String LLAVE_C, LLAVE_A, PR_ENTERO, PR_FLOTANTE, PR_CARACTER, COR_A, COR_C, PRINTF, SCANF, FIN_LINEA, AMPERSON;
 terminal String HASHTAG, PUNTO, AS, DO, TO, AUMENTO, DISMINUCION, PY, VB, COMODIN_ENTERO, COMODIN_CARACTER, COMODIN_FLOTANTE;
-terminal String DIM, END, SUB, SEPARADOR_VB, SEPARADOR_PY, SEPARADOR_JAVA, CASE, LOOP, NEXT, STEP, THEN, VOID, ELIF, PASS;
+terminal String DIM, END, SUB, SEPARADOR_VB, SEPARADOR_PY, SEPARADOR_JAVA, CASE, LOOP, NEXT, STEP, THEN, VOID;
 terminal String JAVA, MAIN, BREAK, CLASS, THIS, MENSAJE, CONST, ESPERAR_TECLA, PUBLIC, SELECT, SWITCH, LIMPIAR_PANTALLA;
 terminal String DEFAULT, MENSAJELN, INCLUDE, FUNCTION, SEPARADOR_PROGRAMA;
 
@@ -84,7 +84,7 @@ non terminal Instruccion                sentenciaBreak, sentenciaIf, sentenciaFo
 non terminal Instruccion                sentenciaSwitch;
 non terminal InstruccionSino            sino, sinoVb, sinoJv, elsePy, elseIfPy;
 non terminal NodoAritmetico             aumentoForVb, mensajeVb, expresionArVb, modificadorForJv, cadenaExpresionJv, expresionArJv; 
-non terminal NodoAritmetico             mensajePy, expresionArPy, listDimensiones, modificadorFor, expresionAr;
+non terminal NodoAritmetico             mensajePy, expresionArPy, modificadorFor, expresionAr;
 non terminal NodoBooleano               condicionVb, expresionBoolVb, expresionBoolJv, condicionPy, expresionBoolPy, expresionBool;
 non terminal String                     tipoForVb, idNextVb, valorTextoLibreriaJv, valorTexto, ingreso, tiposDeDato, tiposDeMetodo;
 non terminal Dato                       valorCaseVb, parametroVb, valorSwitchJv, valorCadena, comodin, valorSwitch, valorAtomico;
@@ -112,11 +112,11 @@ non terminal List<Dato>                 dclParametrosVb, listadoParametrosVb, dc
 non terminal List<Dato>                 expresionCadena;
 non terminal List<NodoAritmetico>       listadoParametrosEnviadosVb, listadoParametrosEnviadosJv, listadoExpresionesArPy; 
 non terminal List<NodoAritmetico>       listadoParametrosEnviadosPy, asignacionConstructor, accionConstructor;
-non terminal List<NodoAritmetico>       listadoExpresiones, listadoParametrosEnviados, parametrosEnviados;
+non terminal List<NodoAritmetico>       listadoExpresiones, listadoParametrosEnviados, parametrosEnviados, listDimensiones;
 non terminal List<String>               listadoId, libreriaC;
 
 //producciones que no retornan nada
-non terminal Object                         codigo, visual, metodosVb, dclMetodosVb, dclMetodoVb, caseVb, espacios, java, clasesJv, dclClasesJv, dclClaseJv, python, metodosPy, dclMetodosPy, dclMetodoPy, principal, publicOpcional;
+non terminal Object                     codigo, visual, metodosVb, dclMetodosVb, dclMetodoVb, caseVb, espaciosVb, java, clasesJv, dclClasesJv, dclClaseJv, python, metodosPy, dclMetodosPy, dclMetodoPy, principal, publicOpcional;
 
 //declaracion de precedencia
 precedence left PR_ENTERO, PR_FLOTANTE, PR_CARACTER, COMA;
@@ -191,7 +191,7 @@ sentenciasVb::=                         sentenciasVb:instruccionesRetorno senten
                                             }
                                             RESULT = instruccionesRetorno;
                                         :}
-                                        |sentenciaVb:instruccion {:
+                                        |sentenciaVb:instrucciones {:
                                             List<Instruccion> instruccionesRetorno = new ArrayList();
                                             if(instrucciones!=null){
                                                 for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
@@ -316,7 +316,7 @@ sentenciaForVb::=                       FOR:pos ID:id tipoForVb:tipo IGUAL expre
                                                     new DeclaracionInstr(tipo, new LugarVariable(id, new Pos(idleft,idright)), new Pos(idleft,idright), false),
                                                     new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(expInicial, new Pos(expInicialleft,expInicialright)), new Pos(idleft,idright)),
                                                     new MenorIgual(new Hoja(new Dato(CONST.ID, id), new Pos(idleft, idright)), expFinal, new Pos(idleft,idright)),
-                                                    new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(new Mas(new Hoja(new Dato(CONST.ID, id),new Pos(idleft,idright)),(expAumento!=null)?expAumento:new Hoja(new Dato(CONST.ENTERO,"1"),new Pos(expFinalleft,expFinalright))))),
+                                                    new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(new Mas(new Hoja(new Dato(), new Pos()), (expAumento!=null)?expAumento:new Hoja(new Dato(), new Pos()),new Pos()),new Pos()),new Pos()),
                                                     new Pos(posleft,posright),
                                                     instrucciones
                                                 );
@@ -444,10 +444,10 @@ declaracionVariableVb::=                DIM:pos listadoId:listadoIds AS tiposDeD
                                             }
                                             RESULT = instruccionesRetorno;
                                         :}
-                                        |DIM:pos listadoId:listadoids AS tiposDeDato:tipo masDeclaracionVariableVb:listadoVariables {:
+                                        |DIM:pos listadoId:listadoIds AS tiposDeDato:tipo masDeclaracionVariableVb:listadoVariables {:
                                             List<Instruccion> instruccionesRetorno = new ArrayList();
                                             if(listadoVariables==null) listadoVariables = new ArrayList();
-                                            if(pos!=null && listadoIds!=null && tipo!=null && expresion!=null){
+                                            if(pos!=null && listadoIds!=null && tipo!=null){
                                                 for(int i = 0; i < listadoIds.size(); i++){
                                                     instruccionesRetorno.add(new DeclaracionInstr(
                                                         tipo,
@@ -536,6 +536,7 @@ sentenciaEscribirVb::=                  MENSAJE:pos PAR_A mensajesVb:mensajes PA
                                             if(pos!=null && mensajes!=null){
                                                 MensajeInstr instruccion = new MensajeInstr(mensajes, new Pos(posleft,posright));
                                                 instruccion.getMensaje().getMensajes().add(new Hoja(new Dato(CONST.CADENA,"\\n"), new Pos()));
+                                                RESULT = instruccion;
                                             }
                                         :}
                                         |MENSAJE:e PAR_A PAR_C  {: agregarError("Sintactico","<Sin cadena>","Se esperaba un mensaje para mostrar a pantalla (al menos 1).", eleft, eright); :}
@@ -620,7 +621,7 @@ expresionArVb::=                        expresionArVb:expresionI MAS:pos expresi
                                             }
                                         :}
                                         |PAR_A expresionArVb:expresion PAR_C {:
-                                            if(expresion!=null&&pos!=null){
+                                            if(expresion!=null){
                                                 RESULT = expresion;
                                             }
                                         :}
@@ -738,15 +739,19 @@ contenidoClaseJv::=                     sentenciasDeClaseJv:instrucciones {: RES
                                         | {: RESULT = new ArrayList(); :}
                                         ;
 
-sentenciasDeClaseJv::=                  sentenciasDeClaseJv:instrucciones sentenciaDeClaseJv:instruccion {:
-                                            if(instrucciones==null) instrucciones = new ArrayList();
-                                            if(instruccion!=null) instrucciones.add(instruccion);
-                                            RESULT = instrucciones;
+sentenciasDeClaseJv::=                  sentenciasDeClaseJv:instruccionesRetorno sentenciaDeClaseJv:instrucciones {:
+                                            if(instruccionesRetorno==null) instruccionesRetorno = new ArrayList();
+                                            if(instrucciones!=null){
+                                                for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
+                                            }
+                                            RESULT = instruccionesRetorno;
                                         :}
-                                        |sentenciaDeClaseJv:instruccion {:
-                                            List<Instruccion> instrucciones = new ArrayList();
-                                            if(instruccion!=null)instrucciones.add(instruccion);
-                                            RESULT = instrucciones;
+                                        |sentenciaDeClaseJv:instrucciones {:
+                                            List<Instruccion> instruccionesRetorno = new ArrayList();
+                                            if(instrucciones!=null){
+                                                for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
+                                            }
+                                            RESULT = instruccionesRetorno;
                                         :}
                                         ;
 
@@ -772,7 +777,7 @@ dclMetodoJv::=                          publicOpcional tiposDeMetodo:tipo ID:id 
                                         |publicOpcional tiposDeMetodo ID PAR_A dclParametrosJv PAR_C error:e 
                                         ;
 
-dclParametrosJv::=                      listadoParametrosJv:parametros {: RESULT = (parametros==null) new ArrayList() : parametros; :}
+dclParametrosJv::=                      listadoParametrosJv:parametros {: RESULT = (parametros==null)? new ArrayList() : parametros; :}
                                         | {: RESULT = new ArrayList(); :}
                                         ;
 
@@ -796,15 +801,19 @@ bloqueJv::=                             sentenciasJv:instrucciones {: RESULT = i
                                         | {: RESULT = new ArrayList(); :}
                                         ;
 
-sentenciasJv::=                         sentenciasJv:instrucciones sentenciaJv:instruccion {:
-                                            if(instrucciones==null) instrucciones = new ArrayList();
-                                            if(instruccion!=null)instrucciones.add(instruccion);
-                                            RESULT = instrucciones;
+sentenciasJv::=                         sentenciasJv:instruccionesRetorno sentenciaJv:instrucciones {:
+                                            if(instruccionesRetorno==null) instruccionesRetorno = new ArrayList();
+                                            if(instrucciones!=null){
+                                                for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
+                                            }
+                                            RESULT = instruccionesRetorno;
                                         :}
-                                        |sentenciaJv:instruccion {:
-                                            List<Instruccion> instrucciones = new ArrayList();
-                                            if(instruccion!=null)instrucciones.add(instruccion);
-                                            RESULT = instrucciones;
+                                        |sentenciaJv:instrucciones {:
+                                            List<Instruccion> instruccionesRetorno = new ArrayList();
+                                            if(instrucciones!=null){
+                                                for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
+                                            }
+                                            RESULT = instruccionesRetorno;
                                         :}
                                         ;
 
@@ -857,7 +866,6 @@ sentenciaSimpleJv::=                    sentenciaDeclaracionJv:instrucciones {:
                                             RESULT = instrucciones;
                                         :}
                                         |llamadaMetodoJv:llamada {:
-                                            :instruccion {:
                                             List<Instruccion> instrucciones = new ArrayList();
                                             if(llamada!=null)instrucciones.add(new LlamadaInstr(llamada, new Pos(llamadaleft,llamadaright)));
                                             RESULT = instrucciones;
@@ -880,11 +888,13 @@ sentenciaIfJv::=                        IF:pos PAR_A expresionBoolJv:condicion P
                                                 RESULT = new SiInstr(condicion,instrucciones, instruccionSino, new Pos(posleft,posright));
                                             }
                                         :}
-                                        |IF:pos PAR_A expresionBoolJv:condicion PAR_C sentenciaSimpleJv:instruccion FIN_LINEA {:
+                                        |IF:pos PAR_A expresionBoolJv:condicion PAR_C sentenciaSimpleJv:instrucciones FIN_LINEA {:
                                             if(pos!=null&&condicion!=null){
-                                                List<Instruccion> instrucciones = new ArrayList();
-                                                if(instruccion!=null) instrucciones.add(instruccion);
-                                                RESULT = new SiInstr(condicion,instrucciones,null,new Pos(posleft,posright));
+                                                List<Instruccion> instruccionesRetorno = new ArrayList();
+                                                if(instrucciones!=null){
+                                                    for(Instruccion instruccion : instrucciones) instrucciones.add(instruccion);
+                                                }
+                                                RESULT = new SiInstr(condicion,instruccionesRetorno,null,new Pos(posleft,posright));
                                             }
                                         :}
                                         |IF PAR_A error:e PAR_C LLAVE_A bloqueJv LLAVE_C sinoJv {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana", eleft, eright); :}
@@ -912,15 +922,14 @@ sinoJv::=                               ELSE:pos IF PAR_A expresionBoolJv:condic
                                         ;
 
 sentenciaForJv::=                       FOR:pos PAR_A tiposDeDato:tipo ID:id IGUAL expresionArJv:expresion FIN_LINEA expresionBoolJv:condicion FIN_LINEA ID:id2 modificadorForJv:instruccionFor PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C {:
-                                            List<Instruccion> instruccionesRetorno = new ArrayList();
-                                            AccionAsignacion accionAsignacion = null;
+                                            Accion accionAsignacion = null;
                                             if((id).equals(id2)){
                                                 if(instruccionFor instanceof Hoja){
                                                     if(((Hoja)instruccionFor).getValor().getTipo().equals("AUMENTO")){
                                                         accionAsignacion = new AccionExpresion(
                                                             new Mas(
-                                                                new Hoja(new Dato(CONST.IDENTIFICADOR,id2, new Pos(id2left,id2right))),
-                                                                new Hoja(new Dato(CONST.TIPO_ENTERO,1)),
+                                                                new Hoja(new Dato(CONST.ID,id2), new Pos(id2left,id2right)),
+                                                                new Hoja(new Dato(CONST.ENTERO,1), new Pos(instruccionForleft,instruccionForright)),
                                                                 new Pos(id2left,id2right)
                                                             ),
                                                             new Pos(id2left,id2right)
@@ -928,18 +937,18 @@ sentenciaForJv::=                       FOR:pos PAR_A tiposDeDato:tipo ID:id IGU
                                                     }else if(((Hoja)instruccionFor).getValor().getTipo().equals("DISMINUCION")){
                                                         accionAsignacion = new AccionExpresion(
                                                             new Menos(
-                                                                new Hoja(new Dato(CONST.IDENTIFICADOR,id2, new Pos(idleft,idright))),
-                                                                new Hoja(new Dato(CONST.TIPO_ENTERO,-1, new Pos(id2left,id2right))),
+                                                                new Hoja(new Dato(CONST.ID,id2), new Pos(idleft,idright)),
+                                                                new Hoja(new Dato(CONST.ENTERO,-1), new Pos(id2left,id2right)),
                                                                 new Pos(id2left,id2right)
                                                             ),
                                                             new Pos(id2left,id2right)
                                                         );
                                                     }else{
-                                                        accionAsignacion = new AccionExpresion(instruccionFor, new Ubicacion(instruccionForleft,instruccionForright));
+                                                        accionAsignacion = new AccionExpresion(instruccionFor, new Pos(instruccionForleft,instruccionForright));
                                                     }
                                                 }
                                                 if(pos!=null && id!=null && expresion!=null && condicion!=null && instruccionFor!=null && instrucciones!=null){
-                                                    instruccionesRetorno.add(new ForInstr(
+                                                    RESULT = new ForInstr(
                                                         new DeclaracionInstr(
                                                             tipo,
                                                             new LugarVariable(id, new Pos(idleft,idright)),
@@ -959,12 +968,11 @@ sentenciaForJv::=                       FOR:pos PAR_A tiposDeDato:tipo ID:id IGU
                                                         ),
                                                         new Pos(posleft,posright),
                                                         instrucciones
-                                                    ));
+                                                    );
                                                 }    
                                             }else{
-                                                listErrores.add(new ErrorAnalisis("Semantico",id2,"No se ha utilizado la misma variable para la ejecución del for.", id2left, id2right));
+                                                errores.agregarError("Semantico",id2,"No se ha utilizado la misma variable para la ejecución del for.", new Pos(id2left, id2right));
                                             }
-                                            RESULT = instruccionesRetorno;
                                         :}
                                         |FOR PAR_A tiposDeDato ID error:e FIN_LINEA expresionBoolJv FIN_LINEA ID modificadorForJv PAR_C LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"No se asignó un valor de inicio para el ciclo.", eleft, eright); :}
                                         |FOR PAR_A tiposDeDato error:e FIN_LINEA expresionBoolJv FIN_LINEA ID modificadorForJv PAR_C LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"No se declaro el identificador a evaluar con cada iteracion.", eleft, eright); :}
@@ -986,15 +994,13 @@ modificadorForJv::=                     IGUAL expresionArJv:expresion {:
                                         ;
 
 sentenciaWhileJv::=                     WHILE:pos PAR_A expresionBoolJv:expresion PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C {:
-                                            List<Instruccion> instruccionesRetorno = new ArrayList();
                                             if(pos!=null && expresion!=null && instrucciones!=null){
-                                                instruccionesRetorno.add(new DoWhileInstr(
+                                                RESULT = new DoWhileInstr(
                                                     expresion,
                                                     instrucciones,
                                                     new Pos(posleft,posright)
-                                                ));
+                                                );
                                             }
-                                            RESULT = instruccionesRetorno;
                                         :}   
                                         |WHILE error:e LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
                                         |WHILE PAR_A error:e PAR_C LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
@@ -1021,18 +1027,18 @@ sentenciaSwitchJv::=                    SWITCH:pos PAR_A expresionArJv:expresion
                                         |SWITCH PAR_A expresionArJv error:e LLAVE_A contenidoSwitchJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
                                         ;
 
-contenidoSwitchJv::=                    contenidoSwitchJv:casos valorSwitchJv:dato DOS_PUNTOS bloqueSwichJv:instrucciones {:
+contenidoSwitchJv::=                    contenidoSwitchJv:casos valorSwitchJv:dato DOS_PUNTOS bloqueSwitchJv:instrucciones {:
                                             if(casos==null) casos = new ArrayList();
-                                            if(dato!=null) casos.add(new CaseInstr(dato,(instrucciones!=null)instrucciones:new ArrayList(), new Pos(datoleft,datoright)));
+                                            if(dato!=null) casos.add(new CaseInstr(dato,(instrucciones!=null)?instrucciones:new ArrayList(), new Pos(datoleft,datoright)));
                                             RESULT = casos;
                                         :}
-                                        |valorSwitchJv:dato DOS_PUNTOS bloqueSwichJv:instrucciones {:
+                                        |valorSwitchJv:dato DOS_PUNTOS bloqueSwitchJv:instrucciones {:
                                             List<CaseInstr> casos = new ArrayList();
-                                            if(dato!=null) casos.add(new CaseInstr(dato,(instrucciones!=null)instrucciones:new ArrayList(), new Pos(datoleft,datoright)));
+                                            if(dato!=null) casos.add(new CaseInstr(dato,(instrucciones!=null)?instrucciones:new ArrayList(), new Pos(datoleft,datoright)));
                                             RESULT = casos;
                                         :}
-                                        |contenidoSwitchJv error:e DOS_PUNTOS bloqueSwichJv {: agregarError("Sintactico",(String) e,"Se esperaba un valor constante.", eleft, eright); :}
-                                        |error:e DOS_PUNTOS bloqueSwichJv {: agregarError("Sintactico",(String) e,"Se esperaba un valor constante.", eleft, eright); :}                                        
+                                        |contenidoSwitchJv error:e DOS_PUNTOS bloqueSwitchJv {: agregarError("Sintactico",(String) e,"Se esperaba un valor constante.", eleft, eright); :}
+                                        |error:e DOS_PUNTOS bloqueSwitchJv {: agregarError("Sintactico",(String) e,"Se esperaba un valor constante.", eleft, eright); :}                                        
                                         ;
 
 valorSwitchJv::=                        CASE ENTERO:valor {: RESULT = new Dato(CONST.ENTERO, valor); :}
@@ -1043,20 +1049,19 @@ valorSwitchJv::=                        CASE ENTERO:valor {: RESULT = new Dato(C
                                         |DEFAULT {: RESULT = new Dato(CONST.VOID,null); :}
                                         ;
 
-bloqueSwichJv::=                        LLAVE_A bloqueJv:instrucciones LLAVE_C {: RESULT = (instrucciones==null) new ArrayList() : instrucciones; :}
-                                        |bloqueJv:instrucciones {: RESULT = (instrucciones==null) new ArrayList() : instrucciones; :}
+bloqueSwitchJv::=                        LLAVE_A bloqueJv:instrucciones LLAVE_C {: RESULT = (instrucciones==null)? new ArrayList() : instrucciones; :}
+                                        |bloqueJv:instrucciones {: RESULT = (instrucciones==null)? new ArrayList() : instrucciones; :}
                                         ;
 
 sentenciaDoWhileJv::=                   DO:pos LLAVE_A bloqueJv:instrucciones LLAVE_C WHILE PAR_A expresionBoolJv:expresion PAR_C {:
                                             List<Instruccion> instruccionesRetorno = new ArrayList();
                                             if(pos!=null && expresion!=null && instrucciones!=null){
-                                                instruccionesRetorno.add(new DoWhileInstr(
+                                                RESULT = new DoWhileInstr(
                                                     expresion,
                                                     instrucciones,
                                                     new Pos(posleft,posright)
-                                                ));
+                                                );
                                             }
-                                            RESULT = instruccionesRetorno;
                                         :}   
                                         |DO LLAVE_A bloqueJv LLAVE_C WHILE PAR_A expresionBoolJv error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
                                         |DO LLAVE_A bloqueJv LLAVE_C WHILE PAR_A error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
@@ -1068,7 +1073,7 @@ sentenciaDeclaracionJv::=               tiposDeDato:tipo listadoAsignacionesJv:i
                                             for(Instruccion instruccion : instrucciones){
                                                 if(instruccion instanceof DeclaracionInstr){
                                                     ((DeclaracionInstr)instruccion).setTipo(tipo);
-                                                    ((DeclaracionInstr)instruccion).setPosicion(new Posicion(tipoleft,tiporight));
+                                                    ((DeclaracionInstr)instruccion).setPosicion(new Pos(tipoleft,tiporight));
                                                 }
                                             }
                                         :}
@@ -1082,14 +1087,14 @@ listadoAsignacionesJv::=                listadoAsignacionesJv:instruccionesRetor
                                             RESULT = instruccionesRetorno;
                                         :}
                                         |asignacionJv:instrucciones {:
-                                            RESULT = (instrucciones==null) new ArrayList() : instrucciones;
+                                            RESULT = (instrucciones==null)? new ArrayList() : instrucciones;
                                         :}
                                         ;
 
 asignacionJv::=                         ID:id IGUAL accionAsignacionJv:accion {:
                                             List<Instruccion> instrucciones = new ArrayList();
-                                            instrucciones.add(new DeclaracionInstr(null,LugarVariable(id, new Pos(idleft,idright)),null,false));
-                                            instrucciones.add(new AsignacionInstr(LugarVariable(id, new Pos(idleft,idright)),accion,new Pos(idleft,idright)));
+                                            instrucciones.add(new DeclaracionInstr(null,new LugarVariable(id, new Pos(idleft,idright)),null,false));
+                                            instrucciones.add(new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)),accion,new Pos(idleft,idright)));
                                             RESULT = instrucciones;
                                         :}
                                         |ID:id {:
@@ -1107,16 +1112,16 @@ sentenciaAsignacionJv::=                ID:id IGUAL accionAsignacionJv:accion {:
                                         :}
                                         ;
 
-accionAsignacionJv::=                   expresionArJv:expresion {: RESULT = AccionExpresion(expresion, new Pos(expresionleft,expresionright)); :}
+accionAsignacionJv::=                   expresionArJv:expresion {: RESULT = new AccionExpresion(expresion, new Pos(expresionleft,expresionright)); :}
                                         |ingresoDatos:ingreso {: RESULT = ingreso; :}
                                         ;
 
-sentenciaEscribirJv::=                  MENSAJE PAR_A expresionMensajeJv:mensajes PAR_C {:
+sentenciaEscribirJv::=                  MENSAJE:pos PAR_A expresionMensajeJv:mensajes PAR_C {:
                                             if(pos!=null && mensajes!=null){
                                                 RESULT = new MensajeInstr(mensajes, new Pos(posleft,posright));
                                             }
                                         :}
-                                        |MENSAJELN PAR_A expresionMensajeJv:mensajes PAR_C {:
+                                        |MENSAJELN:pos PAR_A expresionMensajeJv:mensajes PAR_C {:
                                             if(pos!=null && mensajes!=null){
                                                 MensajeInstr instruccion = new MensajeInstr(mensajes, new Pos(posleft,posright));
                                                 instruccion.getMensaje().getMensajes().add(new Hoja(new Dato(CONST.CADENA,"\\n"), new Pos()));
@@ -1186,7 +1191,7 @@ expresionArJv::=                        expresionArJv:expresionI MAS:pos expresi
                                             }
                                         :}
                                         |PAR_A expresionArJv:expresion PAR_C {:
-                                            if(expresion!=null&&pos!=null){
+                                            if(expresion!=null){
                                                 RESULT = expresion;
                                             }
                                         :}
@@ -1365,12 +1370,12 @@ sentenciaPy::=                          sentenciaIfPy:instruccion NEWLINE {:
                                         ;
 
 bloquePy::=                             NEWLINE IDENT sentenciasPy:instrucciones DEDENT {:
-                                            if(instrucciones==null) instrucciones = new ArrayList();
-                                            RESULT = instrucciones;
+                                            RESULT = (instrucciones==null)? new ArrayList() : instrucciones;
                                         :}
-                                        |sentenciaSimplePy:instruccion {:
-                                            List<Instruccion> instrucciones = new ArrayList();
-                                            instrucciones.add(instruccion);
+                                        |sentenciaSimplePy:instrucciones {:
+                                            List<Instruccion> instruccionesRetorno = new ArrayList();
+                                            for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
+                                            RESULT = instruccionesRetorno;
                                         :}
                                         ;
 
@@ -1446,13 +1451,13 @@ sentenciaIfPy::=                        IF:pos condicionPy:condicion DOS_PUNTOS 
 elseIfPy::=                             ELSEIF:pos condicionPy:condicion DOS_PUNTOS bloquePy:instrucciones elseIfPy:instruccion {:
                                             if(pos!=null&&condicion!=null){
                                                 if(instrucciones==null)instrucciones = new ArrayList();
-                                                RESULT = new SiInstr(condicion, instrucciones, instruccionSino, new Pos(posleft,posright));
+                                                RESULT = new SiInstr(condicion, instrucciones, instruccion, new Pos(posleft,posright));
                                             }
                                         :}
                                         |ELSEIF condicionPy DOS_PUNTOS error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
                                         |ELSEIF condicionPy error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba un token dos puntos.", eleft, eright); :}
                                         |ELSEIF error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
-                                        |elsePy:instruccionSino
+                                        |elsePy:instruccion {: RESULT = instruccion; :}
                                         |
                                         ;
 
@@ -1539,7 +1544,7 @@ expresionArPy::=                        expresionArPy:expresionI MAS:pos expresi
                                             }
                                         :}
                                         |PAR_A expresionArPy:expresion PAR_C {:
-                                            if(expresion!=null&&pos!=null){
+                                            if(expresion!=null){
                                                 RESULT = expresion;
                                             }
                                         :}
@@ -1582,10 +1587,11 @@ asignacionVarPy::=                      listadoId:listadoI IGUAL listadoExpresio
                                             RESULT = instrucciones;
                                         :}
                                         |listadoId error:e {: agregarError("Sintactico",(String) e,"Se esperaba un token igual (=).", eleft, eright); :}
-                                        |ID:id IGUAL ingresoDatos:ingreso 
+                                        |ID:id IGUAL ingresoDatos:ingreso {:
                                             List<Instruccion> instrucciones = new ArrayList();
-                                            if(id!=null&&expresion!=null) instrucciones.add(new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)),ingreso,new Pos(idleft,idright)));
+                                            if(id!=null&&ingreso!=null) instrucciones.add(new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)),ingreso,new Pos(idleft,idright)));
                                             RESULT = instrucciones;
+                                        :}
                                         |ID:id IGUAL expresionArPy:expresion {:
                                             List<Instruccion> instrucciones = new ArrayList();
                                             if(id!=null&&expresion!=null) instrucciones.add(new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)),new AccionExpresion(expresion, new Pos(expresionleft,expresionright)),new Pos(idleft,idright)));
@@ -1601,7 +1607,7 @@ listadoParametrosEnviadosPy::=          listadoParametrosEnviadosPy:expresiones 
                                         |expresionArPy:expresion {:
                                             List<NodoAritmetico> expresiones = new ArrayList();
                                             if(expresion!=null) expresiones.add(expresion);
-                                            RESULT = expresion;
+                                            RESULT = expresiones;
                                         :}
                                         ;
 
@@ -1663,29 +1669,27 @@ principal::=                            SEPARADOR_PROGRAMA secLibrerias:instrLib
                                             coleccionInstr.getInstruccionesPr().add(instrMetodo);
                                         :};
 
-secLibrerias::=                         dclLibrerias {: RESULT = (instrucciones==null) new ArrayList() : instrucciones; :}
+secLibrerias::=                         dclLibrerias:instrucciones {: RESULT = (instrucciones==null)? new ArrayList() : instrucciones; :}
                                         | {: RESULT = new ArrayList(); :}
                                         ;
 
-dclLibrerias::=                         dclLibrerias:instruccionesRetorno dclLibreria:instrucciones {:
-                                            if(instruccionesRetorno==null) instruccionesRetorno = new ArrayList(),
-                                            if(instrucciones!=null){
-                                                for(Instruccion instruccion: instrucciones) instruccionesRetorno.add(instruccion);
-                                            }
+dclLibrerias::=                         dclLibrerias:instruccionesRetorno dclLibreria:instruccion {:
+                                            if(instruccionesRetorno==null) instruccionesRetorno = new ArrayList();
+                                            if(instruccion!=null) instruccionesRetorno.add(instruccion);
                                             RESULT = instruccionesRetorno;
                                         :}
-                                        |dclLibreria:instrucciones {:
-                                            List<Instruccion> instruccionesRetorno = new ArrayList(),
-                                            if(instrucciones!=null){
-                                                for(Instruccion instruccion: instrucciones) instruccionesRetorno.add(instruccion);
-                                            }
+                                        |dclLibreria:instruccion {:
+                                            List<Instruccion> instruccionesRetorno = new ArrayList();
+                                            if(instruccion!=null) instruccionesRetorno.add(instruccion);
                                             RESULT = instruccionesRetorno;
                                         :}
                                         ;
 
 dclLibreria::=                          HASHTAG:pos INCLUDE libreria:libreriaInstr {:
-                                            libreriaInstr.setPosicion(new Pos(posleft,posright));
-                                            RESULT = libreriaInstr;
+                                            if(libreriaInstr!=null){
+                                                libreriaInstr.setPosicion(new Pos(posleft,posright));
+                                                RESULT = libreriaInstr;
+                                            }
                                         :}
                                         |HASHTAG INCLUDE error:e {: agregarError("Sintactico",(String) e,"Se esperaba una libreria", eleft, eright); :}
                                         |HASHTAG error:e {: agregarError("Sintactico",(String) e,"Se esperaba una palabra reservada include.", eleft, eright); :}
@@ -1720,17 +1724,19 @@ valorTextoLibreriaJv::=                 CADENA:valor {: RESULT = valor; :}
                                         |CARACTER:valor {: RESULT = valor; :}
                                         ;
 
-secConstantes::=                        dclConstantes:instrucciones {: RESULT = (instrucciones==null) new ArrayList(): instrucciones; :}
+secConstantes::=                        dclConstantes:instrucciones {: RESULT = (instrucciones==null)? new ArrayList(): instrucciones; :}
                                         | {: RESULT = new ArrayList(); :}
                                         ;
 
 dclConstantes::=                        dclConstantes:instruccionesRetorno dclConstante:instrucciones {:
                                             if(instruccionesRetorno == null) instruccionesRetorno = new ArrayList();
-                                            if(instrucciones != null) instruccionesRetorno.add(instrucciones);
+                                            if(instrucciones != null){
+                                                for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
+                                            }
                                             RESULT = instruccionesRetorno;
                                         :}
                                         |dclConstante:instrucciones {:
-                                            RESULT = (instrucciones == null) new ArrayList() : instrucciones; 
+                                            RESULT = (instrucciones == null)? new ArrayList() : instrucciones; 
                                         :}
                                         ;
 
@@ -1753,11 +1759,13 @@ secVariables::=                         dclVariables:instrucciones  {: RESULT = 
 
 dclVariables::=                         dclVariables:instruccionesRetorno sentenciaDeclaracionInicial:instrucciones {:
                                             if(instruccionesRetorno == null) instruccionesRetorno = new ArrayList();
-                                            if(instrucciones != null) instruccionesRetorno.add(instrucciones);
+                                            if(instrucciones != null){
+                                                for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
+                                            }
                                             RESULT = instruccionesRetorno;
                                         :}
                                         |sentenciaDeclaracionInicial:instrucciones {:
-                                            RESULT = (instrucciones == null) new ArrayList() : instrucciones; 
+                                            RESULT = (instrucciones == null)? new ArrayList() : instrucciones; 
                                         :}
                                         ;
 
@@ -1781,16 +1789,16 @@ sentenciaDeclaracion::=                 tiposDeDato:tipo listadoDeclaraciones:in
                                             for(Instruccion instruccion : instrucciones){
                                                 if(instruccion instanceof DeclaracionInstr){
                                                     ((DeclaracionInstr)instruccion).setTipo(tipo);
+                                                }else if(instruccion instanceof AsignacionInstr){
+                                                    ((AccionConstructor)((AsignacionInstr)instruccion).getAccion()).getConstructor().setIdMetodo(tipo);
                                                 }
                                             }
                                             RESULT = instrucciones;
                                         :}
-                                        |tiposDeDato:tipo arreglos:instrucciones {:
-                                            if(instrucciones == null) instrucciones = new ArrayList();
-                                            for(Instruccion instruccion : instrucciones){
-                                                if(instruccion instanceof DeclaracionInstr){
-                                                    ((DeclaracionInstr)instruccion).setTipo(tipo);
-                                                }
+                                        |tiposDeDato:tipo arreglos:arreglos {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            for(LugarArreglo lugar : arreglos){
+                                                instrucciones.add(new DeclaracionInstr(tipo,lugar, new Pos(tipoleft,tiporight), false));
                                             }
                                             RESULT = instrucciones;
                                         :}
@@ -1809,6 +1817,7 @@ arreglos::=                             arreglos:arreglos arreglo:arreglo {:
                                             if(arreglo!=null) arreglos.add(arreglo);
                                             RESULT = arreglos;
                                         :}
+                                        ;
 
 arreglo::=                              ID:id listDimensiones:expresiones {:
                                             RESULT = new LugarArreglo(id, expresiones, new Pos(idleft,idright));
@@ -1829,50 +1838,50 @@ listDimensiones::=                      listDimensiones:expresiones COR_A expres
                                         |listDimensiones COR_A error:e COR_C {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica.",eleft,eright); :}
                                         ;
 
-listadoDeclaraciones::=                 listadoDeclaraciones:instrucciones COMA ID:id asignacionValor:expresion {:
+listadoDeclaraciones::=                 listadoDeclaraciones:instrucciones COMA ID:id asignacionValor:accion {:
                                             if(instrucciones == null) instrucciones = new ArrayList();
-                                            instrucciones.add(new DeclaracionInstr(null, LugarVariable(id, new Pos(idleft,idright)), new Pos(idleft,idright), false));
-                                            if(constructor!=null){
-                                                instrucciones.add(new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(expresion, new Pos(constructorleft,constructorright)), new Pos(expresionleft,expresionright)));
+                                            instrucciones.add(new DeclaracionInstr(null, new LugarVariable(id, new Pos(idleft,idright)), new Pos(idleft,idright), false));
+                                            if(accion!=null){
+                                                instrucciones.add(new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), accion, new Pos(accionleft,accionright)));
                                             }
                                             RESULT = instrucciones;
                                         :}
-                                        |ID:id asignacionValor:expresion {:
+                                        |ID:id asignacionValor:accion {:
                                             List<Instruccion> instrucciones = new ArrayList();
-                                            instrucciones.add(new DeclaracionInstr(null, LugarVariable(id, new Pos(idleft,idright)), new Pos(idleft,idright), false));
-                                            if(constructor!=null){
-                                                instrucciones.add(new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(expresion, new Pos(constructorleft,constructorright)), new Pos(expresionleft,expresionright)));
+                                            instrucciones.add(new DeclaracionInstr(null, new LugarVariable(id, new Pos(idleft,idright)), new Pos(idleft,idright), false));
+                                            if(accion!=null){
+                                                instrucciones.add(new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), accion, new Pos(accionleft,accionright)));
                                             }
                                             RESULT = instrucciones;
                                         :}
                                         |listadoDeclaraciones COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un identificador.",eleft,eright); :}
                                         ;
  
-asignacionValor::=                      IGUAL expresionAr:expresion {: RESULT = expresion; :}
+asignacionValor::=                      IGUAL expresionAr:expresion {: RESULT = new AccionExpresion(expresion, new Pos(expresionleft,expresionright)); :}
                                         |IGUAL error:e {: agregarError("Sintactico",(String)e,"Se esperaba una expresion aritmetica.",eleft,eright); :}
                                         | {: RESULT = null; :}
                                         ;
 
 listadoDeclaracionesClases::=           listadoDeclaracionesClases:instrucciones COMA ID:id asignacionConstructor:constructor {:
                                             if(instrucciones == null) instrucciones = new ArrayList();
-                                            instrucciones.add(new DeclaracionInstr(null, LugarClase(null, id, new Pos(idleft,idright)), new Pos(idleft,idright), false));
+                                            instrucciones.add(new DeclaracionInstr(null, new LugarClase(id, new Pos(idleft,idright)), new Pos(idleft,idright), false));
                                             if(constructor!=null){
-                                                instrucciones.add(new AsignacionInstr(new LugarClase(null, id, new Pos(idleft,idright)), new AccionConstructor(new LlamadaJava(), new Pos(constructorleft,constructorright)), new Pos(constructorleft,constructorright)));
+                                                instrucciones.add(new AsignacionInstr(new LugarClase(id, new Pos(idleft,idright)), new AccionConstructor(new LlamadaJava(id,null,constructor,new Pos(constructorleft,constructorright)), new Pos(constructorleft,constructorright)), new Pos(constructorleft,constructorright)));
                                             }
                                             RESULT = instrucciones;
                                         :}
                                         |ID:id asignacionConstructor:constructor {:
                                             List<Instruccion> instrucciones = new ArrayList();
-                                            instrucciones.add(new DeclaracionInstr(null, LugarClase(null, id, new Pos(idleft,idright)), new Pos(idleft,idright), false));
+                                            instrucciones.add(new DeclaracionInstr(null, new LugarClase(id, new Pos(idleft,idright)), new Pos(idleft,idright), false));
                                             if(constructor!=null){
-                                                instrucciones.add(new AsignacionInstr(new LugarClase(null, id, new Pos(idleft,idright)), new AccionConstructor(new LlamadaJava(), new Pos(constructorleft,constructorright)), new Pos(constructorleft,constructorright)));
+                                                instrucciones.add(new AsignacionInstr(new LugarClase(id, new Pos(idleft,idright)), new AccionConstructor(new LlamadaJava(id,null,constructor,new Pos(constructorleft,constructorright)), new Pos(constructorleft,constructorright)), new Pos(constructorleft,constructorright)));
                                             }
                                             RESULT = instrucciones;
                                         :}
                                         |listadoDeclaracionesClases COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un identificador",eleft,eright); :}
                                         ;
 
-asignacionConstructor::=                accionConstructor:expresiones {: RESULT = expresiones; :}
+asignacionConstructor::=                accionConstructor:expresiones {: RESULT = (expresiones==null)? new ArrayList() : expresiones; :}
                                         | {: RESULT = null; :}
                                         ;
 
@@ -1892,7 +1901,7 @@ codigoMain::=                           VOID:pos MAIN:id PAR_A PAR_C LLAVE_A blo
                                         |VOID error:e bloque {: agregarError("Sintactico",(String)e,"Se esperaba la palabra reservada 'main'.",eleft,eright); :}
                                         ;
 
-bloque::=                               sentencias:instrucciones {: RESULT = (instrucciones == null) new ArrayList() : instrucciones; :}
+bloque::=                               sentencias:instrucciones {: RESULT = (instrucciones == null)? new ArrayList() : instrucciones; :}
                                         | {: RESULT = new ArrayList(); :}
                                         ;
 
@@ -1904,7 +1913,7 @@ sentencias::=                           sentencias:instruccionesRetorno sentenci
                                             RESULT = instruccionesRetorno;
                                         :}
                                         |sentencia:instrucciones {:
-                                            RESULT = (instrucciones==null) new ArrayList() : instruccionesRetorno;
+                                            RESULT = (instrucciones==null)? new ArrayList() : instrucciones;
                                         :}
                                         ;
 
@@ -1966,9 +1975,9 @@ sentenciaSimple::=                      sentenciaDeclaracion:instrucciones {:
                                             if(instruccion!=null) instrucciones.add(instruccion);
                                             RESULT = instrucciones; 
                                         :}
-                                        |llamadaMetodo:instruccion {:
+                                        |llamadaMetodo:llamada {:
                                             List<Instruccion> instrucciones = new ArrayList();
-                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            if(llamada!=null) instrucciones.add(new LlamadaInstr(llamada, new Pos(llamadaleft,llamadaright)));
                                             RESULT = instrucciones; 
                                         :}
                                         |sentenciaBreak:instruccion {:
@@ -2009,7 +2018,7 @@ expresionCadena::=                      expresionCadena:expresiones valorCadena:
                                             RESULT = expresiones;
                                         :} 
                                         |valorCadena:expresion {:
-                                            List<Dato> expresiones = new ArrayList(),
+                                            List<Dato> expresiones = new ArrayList();
                                             if(expresion!=null) expresiones.add(expresion);
                                             RESULT = expresiones;
                                         :}
@@ -2021,7 +2030,7 @@ listadoExpresiones::=                   listadoExpresiones:expresiones COMA expr
                                             RESULT = expresiones;
                                         :} 
                                         |expresionAr:expresion {:
-                                            List<NodoAritmetico> expresiones = new ArrayList(),
+                                            List<NodoAritmetico> expresiones = new ArrayList();
                                             if(expresion!=null) expresiones.add(expresion);
                                             RESULT = expresiones;
                                         :}
@@ -2031,7 +2040,7 @@ listadoExpresiones::=                   listadoExpresiones:expresiones COMA expr
                                             RESULT = expresiones;
                                         :} 
                                         |AMPERSON expresionAr:expresion {:
-                                            List<NodoAritmetico> expresiones = new ArrayList(),
+                                            List<NodoAritmetico> expresiones = new ArrayList();
                                             if(expresion!=null) expresiones.add(expresion);
                                             RESULT = expresiones;
                                         :}
@@ -2042,17 +2051,18 @@ listadoExpresiones::=                   listadoExpresiones:expresiones COMA expr
 
 expresionCadenaEntrada::=               valorTexto:cadena comodin:tipo {:
                                             Concat concat = new Concat(new Pos(cadenaleft,cadenaright));
-                                            concat.getMensajes().add(cadena);
+                                            concat.getMensajes().add(new Hoja(new Dato(CONST.CADENA, cadena), new Pos(cadenaleft,cadenaright)));
                                             RESULT = new AccionIngreso(concat, tipo.getTipo(), new Pos(cadenaleft,cadenaright));
                                         :}
                                         |comodin:tipo valorTexto:cadena {:
                                             Concat concat = new Concat(new Pos(cadenaleft,cadenaright));
-                                            concat.getMensajes().add(cadena);
+                                            concat.getMensajes().add(new Hoja(new Dato(CONST.CADENA, cadena), new Pos(cadenaleft,cadenaright)));
                                             RESULT = new AccionIngreso(concat, tipo.getTipo(), new Pos(cadenaleft,cadenaright));
                                         :}
                                         |valorTexto:cadena comodin:tipo valorTexto:cadena2 {:
                                             Concat concat = new Concat(new Pos(cadenaleft,cadenaright));
-                                            concat.getMensajes().add(cadena); concat.getMensajes().add(cadena2);
+                                            concat.getMensajes().add(new Hoja(new Dato(CONST.CADENA, cadena), new Pos(cadenaleft,cadenaright)));
+                                            concat.getMensajes().add(new Hoja(new Dato(CONST.CADENA, cadena2), new Pos(cadena2left,cadena2right)));
                                             RESULT = new AccionIngreso(concat, tipo.getTipo(), new Pos(cadenaleft,cadenaright));
                                         :}
                                         |comodin:tipo {:
@@ -2078,7 +2088,7 @@ comodin::=                              COMODIN_CARACTER:valor {: RESULT = new D
                                         ;
 
 sentenciaIngresoDatos::=                SCANF:pos PAR_A expresionCadenaEntrada:accion COMA AMPERSON lugarAsignacion:lugar PAR_C {:
-                                            RESULT = AsignacionInstr(lugar,accion, new Pos(posleft,posright));
+                                            RESULT = new AsignacionInstr(lugar,accion, new Pos(posleft,posright));
                                         :}
                                         |SCANF PAR_A expresionCadenaEntrada COMA AMPERSON lugarAsignacion error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
                                         |SCANF PAR_A expresionCadenaEntrada COMA AMPERSON error:e {: agregarError("Sintactico",(String)e,"Se esperaba un lugar para asignar el valor leido.",eleft,eright); :}
@@ -2093,7 +2103,7 @@ sentenciaLimpiarPantalla::=             LIMPIAR_PANTALLA:pos PAR_A PAR_C {: RESU
                                         |LIMPIAR_PANTALLA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
                                         ;
 
-sentenciaEsperarTecla::=                ESPERAR_TECLA:pos PAR_A PAR_C {: RESULT = new GetchInstr(new Pos(posleft,posright)); :}
+sentenciaEsperarTecla::=                ESPERAR_TECLA:pos PAR_A PAR_C {: RESULT = new IngresoInstr(new AccionIngreso(null,CONST.CARACTER, new Pos(posleft,posright)), new Pos(posleft,posright)); :}
                                         |ESPERAR_TECLA PAR_A error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
                                         |ESPERAR_TECLA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
                                         ;
@@ -2103,7 +2113,7 @@ sentenciaBreak::=                       BREAK {: RESULT = new BreakInstr(); :};
 sentenciaIf::=                          IF:pos PAR_A expresionBool:condicion PAR_C LLAVE_A bloque:instrucciones LLAVE_C sino:instruccionSino {:
                                             if(pos!=null&&condicion!=null){
                                                 if(instrucciones==null) instrucciones = new ArrayList();
-                                                RESULT = SiInstr(condicion, instrucciones, instruccionSino, new Pos(posleft,posright));
+                                                RESULT = new SiInstr(condicion, instrucciones, instruccionSino, new Pos(posleft,posright));
                                             }
                                         :}
                                         |IF PAR_A expresionBool PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
@@ -2136,15 +2146,14 @@ sino::=                                 ELSE:pos IF PAR_A expresionBool:condicio
                                         ;
 
 sentenciaFor::=                         FOR:pos PAR_A tiposDeDato:tipo ID:id IGUAL expresionAr:expresion FIN_LINEA expresionBool:condicion FIN_LINEA ID:id2 modificadorFor:instruccionFor PAR_C LLAVE_A bloque:instrucciones LLAVE_C {:
-                                            List<Instruccion> instruccionesRetorno = new ArrayList();
-                                            AccionAsignacion accionAsignacion = null;
+                                            Accion accionAsignacion = null;
                                             if((id).equals(id2)){
                                                 if(instruccionFor instanceof Hoja){
                                                     if(((Hoja)instruccionFor).getValor().getTipo().equals("AUMENTO")){
                                                         accionAsignacion = new AccionExpresion(
                                                             new Mas(
-                                                                new Hoja(new Dato(CONST.IDENTIFICADOR,id2, new Pos(id2left,id2right))),
-                                                                new Hoja(new Dato(CONST.TIPO_ENTERO,1)),
+                                                                new Hoja(new Dato(CONST.ID,id2), new Pos(id2left,id2right)),
+                                                                new Hoja(new Dato(CONST.ENTERO,1), new Pos(instruccionForleft,instruccionForright)),
                                                                 new Pos(id2left,id2right)
                                                             ),
                                                             new Pos(id2left,id2right)
@@ -2152,18 +2161,18 @@ sentenciaFor::=                         FOR:pos PAR_A tiposDeDato:tipo ID:id IGU
                                                     }else if(((Hoja)instruccionFor).getValor().getTipo().equals("DISMINUCION")){
                                                         accionAsignacion = new AccionExpresion(
                                                             new Menos(
-                                                                new Hoja(new Dato(CONST.IDENTIFICADOR,id2, new Pos(idleft,idright))),
-                                                                new Hoja(new Dato(CONST.TIPO_ENTERO,-1, new Pos(id2left,id2right))),
+                                                                new Hoja(new Dato(CONST.ID,id2), new Pos(idleft,idright)),
+                                                                new Hoja(new Dato(CONST.ENTERO,-1), new Pos(id2left,id2right)),
                                                                 new Pos(id2left,id2right)
                                                             ),
                                                             new Pos(id2left,id2right)
                                                         );
                                                     }else{
-                                                        accionAsignacion = new AccionExpresion(instruccionFor, new Ubicacion(instruccionForleft,instruccionForright));
+                                                        accionAsignacion = new AccionExpresion(instruccionFor, new Pos(instruccionForleft,instruccionForright));
                                                     }
                                                 }
                                                 if(pos!=null && id!=null && expresion!=null && condicion!=null && instruccionFor!=null && instrucciones!=null){
-                                                    instruccionesRetorno.add(new ForInstr(
+                                                    RESULT = new ForInstr(
                                                         new DeclaracionInstr(
                                                             tipo,
                                                             new LugarVariable(id, new Pos(idleft,idright)),
@@ -2183,12 +2192,11 @@ sentenciaFor::=                         FOR:pos PAR_A tiposDeDato:tipo ID:id IGU
                                                         ),
                                                         new Pos(posleft,posright),
                                                         instrucciones
-                                                    ));
+                                                    );
                                                 }    
                                             }else{
-                                                listErrores.add(new ErrorAnalisis("Semantico",id2,"No se ha utilizado la misma variable para la ejecución del for.", id2left, id2right));
+                                                errores.agregarError("Semantico",id2,"No se ha utilizado la misma variable para la ejecución del for.", new Pos(id2left, id2right));
                                             }
-                                            RESULT = instruccionesRetorno;
                                         :}
                                         |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esparaba una llave cerrada.",eleft,eright); :}
                                         |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
@@ -2236,7 +2244,7 @@ sentenciaDoWhile::=                     DO:pos LLAVE_A bloque:instrucciones LLAV
                                         |DO LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
                                         ;
 
-sentenciaSwitch::=                      SWITCH PAR_A expresionAr:expresion PAR_C LLAVE_A contenidoSwitch:casos LLAVE_C {:
+sentenciaSwitch::=                      SWITCH:pos PAR_A expresionAr:expresion PAR_C LLAVE_A contenidoSwitch:casos LLAVE_C {:
                                             if(pos!=null&&expresion!=null&&casos!=null){
                                                 CaseInstr porDefecto = null;
                                                 for(CaseInstr caso : casos){
@@ -2262,18 +2270,18 @@ contenidoSwitch::=                      contenidoSwitch:casos valorSwitch:dato D
                                             if(casos==null) casos = new ArrayList();
                                             if(dato!=null){
                                                 if(instrucciones==null) instrucciones = new ArrayList();
-                                                RESULT = new CaseInstr(dato, instrucciones, new Pos(datoleft,datoright));
+                                                casos.add(new CaseInstr(dato, instrucciones, new Pos(datoleft,datoright)));
                                             }
+                                            RESULT = casos;
                                         :}
                                         |valorSwitch:dato DOS_PUNTOS bloqueSwitch:instrucciones {:
                                             List<CaseInstr> casos = new ArrayList();
                                             if(dato!=null){
                                                 if(instrucciones==null) instrucciones = new ArrayList();
-                                                RESULT = new CaseInstr(dato, instrucciones, new Pos(datoleft,datoright));
+                                                casos.add(new CaseInstr(dato, instrucciones, new Pos(datoleft,datoright)));
                                             }
+                                            RESULT = casos;
                                         :}
-                                        |valorSwitch DOS_PUNTOS error:e {: agregarError("Sintactico",(String)e,"Se esperaba un bloque de switch.",eleft,eright); :}
-                                        |contenidoSwitch valorSwitch DOS_PUNTOS error:e {: agregarError("Sintactico",(String)e,"Se esperaba un bloque de switch.",eleft,eright); :}
                                         ;
 
 valorSwitch::=                          CASE ENTERO:valor {: RESULT = new Dato(CONST.ENTERO, valor); :}
@@ -2285,7 +2293,7 @@ valorSwitch::=                          CASE ENTERO:valor {: RESULT = new Dato(C
                                         |error:e {: agregarError("Sintactico",(String)e,"Se esperaba un valor para un caso de un switch.",eleft,eright); :}
                                         ;
 
-bloqueSwich::=                          LLAVE_A bloque:instrucciones LLAVE_C {: RESULT = (instrucciones==null)? new ArrayList() : instrucciones; :}
+bloqueSwitch::=                          LLAVE_A bloque:instrucciones LLAVE_C {: RESULT = (instrucciones==null)? new ArrayList() : instrucciones; :}
                                         |bloque:instrucciones {: RESULT = (instrucciones==null)? new ArrayList() : instrucciones; :}
                                         ;
 
@@ -2315,7 +2323,7 @@ expresionAr::=                          expresionAr:expresionI MAS:pos expresion
                                             }
                                         :}
                                         |PAR_A expresionAr:expresion PAR_C {:
-                                            if(expresion!=null&&pos!=null){
+                                            if(expresion!=null){
                                                 RESULT = expresion;
                                             }
                                         :}
@@ -2393,7 +2401,7 @@ llamadaMetodo::=                        JAVA:pos PUNTO ID:idVariable PUNTO ID:id
                                         :}
                                         ;
 
-listadoParametrosEnviados::=            parametrosEnviados:parametros {: RESULT = (parametros==null) new ArrayList(): parametros; :}
+listadoParametrosEnviados::=            parametrosEnviados:parametros {: RESULT = (parametros==null)? new ArrayList(): parametros; :}
                                         | {: RESULT = new ArrayList(); :}
                                         ;
 
@@ -2412,7 +2420,9 @@ parametrosEnviados::=                   parametrosEnviados:expresiones COMA expr
 //produccionesGenerales
 
 ingresoDatos::=                         ingreso:ingreso PAR_A CADENA:cadena PAR_C {:
-                                            RESULT = new AccionIngreso(new Hoja(new Dato(CONST.CADENA, cadena),new Pos(cadenaleft,cadenaright)),ingreso,new Pos(ingresoleft,ingresoright));
+                                            Mensaje mensaje = new Concat(new Pos(cadenaleft,cadenaright));
+                                            mensaje.getMensajes().add(new Hoja(new Dato(CONST.CADENA, cadena), new Pos(cadenaleft,cadenaright)));
+                                            RESULT = new AccionIngreso(mensaje,ingreso,new Pos(ingresoleft,ingresoright));
                                         :}
                                         |ingreso:ingreso PAR_A PAR_C {:
                                             RESULT = new AccionIngreso(null,ingreso, new Pos(ingresoleft,ingresoright));

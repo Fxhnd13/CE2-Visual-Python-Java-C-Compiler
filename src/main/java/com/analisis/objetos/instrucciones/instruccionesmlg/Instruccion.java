@@ -20,4 +20,5 @@ public interface Instruccion {
     public List<Cuarteto> generarCuartetos(Coleccion coleccion);
     public void analizarSemanticamente(Coleccion coleccion);
     public Pos getPosicion();
+    public void setPosicion(Pos posicion);
 }

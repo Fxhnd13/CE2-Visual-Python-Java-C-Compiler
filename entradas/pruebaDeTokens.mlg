@@ -1,0 +1,10 @@
+%%VB
+%%JAVA
+%%PY
+
+def edadmeses(edad, meses):
+	edad = intinput("Ingrese su edad:")
+	meses = edad * 12
+	print("meses = ",meses)
+
+%%PROGRAMA

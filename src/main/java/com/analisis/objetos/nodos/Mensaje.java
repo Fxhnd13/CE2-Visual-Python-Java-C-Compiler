@@ -19,4 +19,5 @@ public interface Mensaje {
     public Pos getPosicion();
     public void analizarSemanticamente(Coleccion coleccion);
     public List<Cuarteto> generarCuartetos(Coleccion coleccion);
+    public List<NodoAritmetico> getMensajes();
 }

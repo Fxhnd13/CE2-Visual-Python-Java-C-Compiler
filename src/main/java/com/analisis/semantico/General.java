@@ -130,6 +130,7 @@ public class General {
     }
 
     private void analizarParametrosDelMetodo(MetodoInstr instr, String seccion) {
+        if(seccion.equals(CONST.SEC_VB)) coleccion.getSimbolos().agregarSimbolo(new Simbolo(instr.getId(),CONST.VAR,instr.getTipoRetorno(),"1",null,instr.getId(),null));
         for (Dato parametro : instr.getParametros()) {
             if(!coleccion.getSimbolos().agregarSimboloSiNoExiste(new Simbolo((String)parametro.getValor(),CONST.VAR,parametro.getTipo(),"1",null,instr.getId(),null))){
                 coleccion.getErrores().agregarError("Semantico", (String)parametro.getValor(), "Ya existe un parametro declarado con el identificador utilizado", parametro.getPosicion());

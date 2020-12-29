@@ -5,6 +5,7 @@
  */
 package com.GUI.Backend;
 
+import com.analisis.objetos.analisis.ErrorA;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.estructuras.ColeccionInstr;
 import com.analisis.semantico.General;
@@ -204,6 +205,11 @@ public class GuiManager {
             
         }else{
             
+            String errores = "";
+            for (ErrorA error : analizadorSemantico.getColeccion().getErrores().getErrores()) {
+                errores+=error.toString()+"\n";
+            }
+            erroresTextArea.setText(errores);
         }
     }
     

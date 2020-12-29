@@ -154,7 +154,7 @@ public class DeclaracionInstr implements Instruccion{
                     coleccion.getErrores().agregarError("Semantico","Dimension "+(i+1),"La dimension para la declaracion del arreglo no es un entero. ",valor.getIndices().get(i).getPosicion());
                 }
             }
-            simboloParaAgregar = new Simbolo(lugar.getId(),CONST.ARREGLO, tipo,null,null,null,null);
+            simboloParaAgregar = new Simbolo(lugar.getId(),CONST.ARREGLO, tipo,null,null,null,new Arreglo(valor.getIndices(),new ArrayList(), lugar.getPosicion()));
         }else if (lugar instanceof LugarVariable){
             simboloParaAgregar = new Simbolo(lugar.getId(),CONST.VAR,tipo,null,null,null,null);
         }

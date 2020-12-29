@@ -1,0 +1,63 @@
+%%VB
+
+Public Sub Saludo()
+
+    Console.write("Segundo Proyecto de Compiladores 2")
+
+End Sub 
+
+
+public Function Factorial(N As Integer) as integer
+
+    Dim Fact, Num As Integer
+    Num = N
+    If N > 0 Then
+	Factorial = 1
+    Else
+        Fact = 1
+        Do
+            Fact = Fact * N
+            N = N - 1
+       Loop While N > 1
+	Factorial = Fact
+    End If
+End Function
+
+%%JAVA
+
+public class Algo{
+
+	public void saludar(){
+		System.out.print("hola mundo");
+	}
+
+	public int suma(int a, int b){
+		return a+b;
+	}
+}
+%%PY
+
+def edadmeses(edad, meses):
+	edad = intinput("Ingrese su edad:")
+	meses = edad * 12
+	print("meses = ",meses)
+
+%%PROGRAMA
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "VB"
+#include "PY"
+#include "JAVA.*"
+
+// Constantes
+const int constante1 = 10;
+JAVA.Algo objeto1();
+
+// Variables globales
+int Arreglo1[1][4];
+
+void main()
+{
+	JAVA.objeto1.saludar();
+}

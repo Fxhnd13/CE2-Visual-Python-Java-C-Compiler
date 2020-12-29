@@ -1,0 +1,248 @@
+%%VB
+
+public sub hola()
+    Dim N as integer
+    Dim c as integer
+    Dim f as Decimal
+    Dim Fact, Factorial, Num As Integer
+    N = 10
+    //hola
+    /*dad*/
+    Num = N
+    f = 5/(1+1)
+    If N = 0 and 5< 5+5 or 5=5 Then
+    	Dim hola as integer
+        Factorial = 1
+    ELSEIF N < 0 THEN
+	dim hola as integer
+    ELSEIF N > 0 THEN
+    	dim hola as integer    	
+    Else
+        Dim como as integer
+        como = 5
+        Fact = 1
+        While N > 1
+            //Dim fact as integer
+            Fact = como * N
+            N = N - 1
+       	End While
+	Factorial = Fact
+	Select CASE como
+            CASE 8
+		Dim como as integer
+            CASE 9
+		dim como as integer
+            CASE else
+		dim como as integer
+	END select
+    End If
+    FOR c = 8 To 15
+    	dim character as char
+    	if Num < 0 THEN 
+            dim como as integer
+        end if
+    next c
+End sub
+
+public Function Factorial(N As Integer) as integer
+    Dim Fact, Num As Integer
+    N = 5
+    Num = N
+    If N = 0 Then
+	Factorial = 1
+    Else
+        Fact = 1
+        Do
+            //Fact = Fact * N _
+            N = N - 1
+                //Dim Fact, Num As Integer
+    		Num = N
+    		If N = 0 Then
+                    	Factorial = 1
+    		Else
+                    Fact = 1
+                    Do
+                        Fact = Fact * N
+            		N = N - 1
+                    Loop While N > 1
+                    //Factorial = Fact
+    		End If
+	Loop While N > 1
+	//Factorial = Fact
+    End If
+    Return 0
+End Function
+
+%%JAVA
+public class algo{
+
+	public int holaMundo() {
+            System.out.println("asasasd");
+            int entero = 10;
+            int a,b=5,s;
+            //char cx,ch = 'd';
+            float ff = 22.5;
+            //int entero = 10;
+            //char ch = 'd';
+            
+            int z = 20;
+            if ((b+5)==5 && ff<50) {
+                while (entero<20) {                
+                    entero = entero +3;
+                }
+                //float ff = 22.5;
+            }else{
+                for (int i = 0; i < 5; i++) {
+                    System.out.println("Hola: "+entero);
+                }
+            }
+            ff = 2.2;
+            switch(ch){
+                case 'd':
+                    System.out.println("d");
+                    break;
+                case 'c':
+                    System.out.println("c");
+                    break;
+
+            }
+            return 2;
+	}
+        
+        public int holaMundo2(int a) {
+		System.out.println("asasasd");
+                if (5<6) {
+                        return 0;
+		}
+                return a;
+               
+        }
+
+        public int holaMundo3(int a) {
+		System.out.println("asasasd");
+		int id = 5, dos = 2;
+                	if (5<6) {
+			//a = b;
+			for(int i = 0; i < 6; i++) {
+				int a = a;
+                                		return 0;
+			}
+                       	 return 0;
+		} else if (6 == 6) {
+			//int a;
+                        
+			while (id > 0) {
+				System.out.println("Hola " + id);
+				do {
+					if (id > 6) {
+					return 1;
+					} else {    
+                                            		int a = a;
+	                                        	}
+				} while (6 == 6)
+			} 
+                        	return 0;
+		} else {
+			switch(id) {
+				case 1: 
+					if(id < 1) {
+						System.out.println("Hoal mundo");
+					}			
+					break;
+				case 2:
+					while(dos == 0 && 6 > 6) {
+						System.out.print("comida");
+					}
+                                        break;
+				default:
+					int a = a;
+					int c = 6;
+			}
+			return 0;
+		}
+	}
+}
+%%PY
+
+def edadmeses(edad, meses):
+    edad = 5
+    intinput("Ingrese su edad:")
+    meses = edad * 12
+    print("meses = ",meses)
+    intinput("")
+    for i in range(4):
+        hola = 'c'
+        if 5<6:
+            g = 1
+        elif 10<1:
+            g = 2
+        else:
+            h = 1
+            while h<10:
+                h= h+3
+                return 10
+    hola = 2
+    return 10
+
+def saludo():
+    edad = intinput("Ingrese su edad:")
+    meses = edad * 12
+    print("meses = ",meses)
+    intinput("")
+    hola = 2
+    j = 5
+
+%%PROGRAMA
+
+#include <stdio.h>;
+#include <stdlib.h>;
+#include "VB";
+#include "PY";
+#include "JAVA.*";
+
+// Constantes
+const int constante1 = 10;
+
+// Variables globales
+int Arreglo1[1][4];
+
+void main()
+{
+    int base, exp, i, resultado;
+
+    clrscr();
+
+    printf("Bienvenido");
+
+    VB.Saludo();
+
+    printf("Ingrese el primer valor entero");
+    scanf("%d",&base);
+    printf("Ingrese el segudo valor entero");
+    scanf("%d",&exp);
+
+    // Factorial
+    resultado = VB.Factorial(i);
+
+    printf("El factorial de %d es %d",&a,&resultado);
+
+    printf("Conversion de años a meses");
+
+    PY.edadmeses();
+
+    // Arreglo
+    Arreglo1[1][1] = 0;
+
+    // inicio for
+    for(i = 0; i <= exp; i = i + 1)
+    {
+      resultado = resultado * base;
+    } // fin for
+
+    printf("%d ",base);
+    printf("^ %d",exp);
+    printf(" = %d",resultado);
+
+    getch();
+    //return 0;
+}

@@ -19,35 +19,35 @@ import java.util.List;
  */
 public class Scanf implements Mensaje {
 
-    private List<Dato> mensajes;
-    private List<NodoAritmetico> expresiones;
+    private List<Dato> cadenas;
+    private List<NodoAritmetico> mensajes;
     private Pos posicion;
 
     public Scanf() {
     }
 
-    public Scanf(List<Dato> mensajes, List<NodoAritmetico> expresiones, Pos posicion) {
+    public Scanf(List<Dato> cadenas, List<NodoAritmetico> mensajes, Pos posicion) {
+        this.cadenas = cadenas;
         this.mensajes = mensajes;
-        this.expresiones = expresiones;
         this.posicion = posicion;
     }
 
-    public List<Dato> getMensajes() {
+    public List<Dato> getCadenas() {
+        return cadenas;
+    }
+
+    public void setCadenas(List<Dato> cadenas) {
+        this.cadenas = cadenas;
+    }
+
+    public List<NodoAritmetico> getMensajes() {
         return mensajes;
     }
 
-    public void setMensajes(List<Dato> mensajes) {
+    public void setMensajes(List<NodoAritmetico> mensajes) {
         this.mensajes = mensajes;
     }
-
-    public List<NodoAritmetico> getExpresiones() {
-        return expresiones;
-    }
-
-    public void setExpresiones(List<NodoAritmetico> expresiones) {
-        this.expresiones = expresiones;
-    }
-
+    
     public Pos getPosicion() {
         return posicion;
     }
@@ -58,14 +58,14 @@ public class Scanf implements Mensaje {
     
     public void analizarSemanticamente(Coleccion coleccion) {
         List<Dato> comodines = new ArrayList();
-        for (Dato mensaje : mensajes) {
+        for (Dato mensaje : cadenas) {
             if(mensaje.getTipo().equals(CONST.COMODIN_CARACTER)||mensaje.getTipo().equals(CONST.COMODIN_ENTERO)||mensaje.getTipo().equals(CONST.COMODIN_FLOTANTE)) comodines.add(mensaje);
         }
-        if(comodines.size()!=expresiones.size()){
-            coleccion.getErrores().agregarError("Semantico", "Sin cadena|", "La cantidad de comodines y expresiones a mostrar no coinciden (comodines: "+comodines+", expresiones: "+expresiones.size(), posicion);
+        if(comodines.size()!=mensajes.size()){
+            coleccion.getErrores().agregarError("Semantico", "Sin cadena|", "La cantidad de comodines y expresiones a mostrar no coinciden (comodines: "+comodines+", expresiones: "+mensajes.size(), posicion);
         }else{
             for (int i = 0; i < comodines.size(); i++) {
-                Dato dato = expresiones.get(i).analizarSemanticamente(coleccion);
+                Dato dato = mensajes.get(i).analizarSemanticamente(coleccion);
                 if(dato!=null){
                     if(dato.getTipo().equals(comodines.get(i)))coleccion.getErrores().agregarError("Semantico","Sin cadena", "El tipo de la expresion No. "+(i+1)+" no coincide con el comodin No."+(i+1), posicion);
                 }

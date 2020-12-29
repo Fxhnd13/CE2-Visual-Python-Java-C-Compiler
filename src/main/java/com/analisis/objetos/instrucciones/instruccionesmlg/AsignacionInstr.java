@@ -7,6 +7,7 @@ package com.analisis.objetos.instrucciones.instruccionesmlg;
 
 import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.analisis.Pos;
+import com.analisis.objetos.basicos.Dato;
 import com.analisis.objetos.basicos.Llamadas.Llamada;
 import com.analisis.objetos.basicos.Llamadas.LlamadaJava;
 import com.analisis.objetos.basicos.Simbolo;
@@ -83,12 +84,6 @@ public class AsignacionInstr implements Instruccion{
     
     @Override
     public void analizarSemanticamente(Coleccion coleccion){
-        Simbolo variable = null;
-        if(coleccion.getClase()!=null){
-            variable = coleccion.getSimbolos().getSimbolo(lugar.getId());
-        }else{
-            variable = ((Clase)coleccion.getClasesJv().getSimbolo(coleccion.getClase()).getValor()).getSimbolos().getSimbolo(lugar.getId());
-        }
         //si existe verificamos que lo que se desea asignar sea de un tipo con sentido
         if(lugar instanceof LugarClase){
             analizarAsignacionObjeto((LugarClase) lugar, accion, coleccion);
@@ -228,13 +223,16 @@ public class AsignacionInstr implements Instruccion{
     private String analizarAccionDeVariable(Accion accion, Coleccion coleccion) {
         String tipo = CONST.INDEFINIDO;
         if(accion instanceof AccionExpresion){
-            tipo = ((AccionExpresion)accion).getExpresion().analizarSemanticamente(coleccion).getTipo();
+            Dato dato = ((AccionExpresion)accion).getExpresion().analizarSemanticamente(coleccion);
+            if(dato!=null) tipo = dato.getTipo();
         }else if(accion instanceof AccionIngreso){
-            int erroresAntes = coleccion.getErrores().getErrores().size();
-            ((AccionIngreso)accion).getMensaje().analizarSemanticamente(coleccion);
-            if(erroresAntes == coleccion.getErrores().getErrores().size()){
-                if(((AccionIngreso)accion).getMensaje() instanceof Scanf){
-                    ((AccionIngreso)accion).setMensaje(new Concat((Scanf) ((AccionIngreso)accion).getMensaje()));
+            if(((AccionIngreso)accion).getMensaje()!=null){
+                int erroresAntes = coleccion.getErrores().getErrores().size();
+                ((AccionIngreso)accion).getMensaje().analizarSemanticamente(coleccion);
+                if(erroresAntes == coleccion.getErrores().getErrores().size()){
+                    if(((AccionIngreso)accion).getMensaje() instanceof Scanf){
+                        ((AccionIngreso)accion).setMensaje(new Concat((Scanf) ((AccionIngreso)accion).getMensaje()));
+                    }
                 }
             }
             tipo = ((AccionIngreso)accion).getTipoRetorno();

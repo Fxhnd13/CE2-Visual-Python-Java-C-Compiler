@@ -105,7 +105,7 @@ public class TablaDeSimbolos {
     }
 
     private void ordenarSimbolos() {
-        for (int i = simbolos.size()-1; i >= 0 ; i++) {
+        for (int i = simbolos.size()-1; i >= 0 ; i--) {
             if(simbolos.get(i).getDireccion()==null){
                 Simbolo temporal = simbolos.get(i);
                 simbolos.remove(i);

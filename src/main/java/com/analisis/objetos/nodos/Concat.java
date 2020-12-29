@@ -26,11 +26,12 @@ public class Concat implements Mensaje{
     private Pos posicion;
 
     public Concat(Scanf nodo){
+        mensajes = new ArrayList();
         this.posicion = nodo.getPosicion();
         int expresionesUsadas = 0;
-        for (Dato mensaje : nodo.getMensajes()) {
+        for (Dato mensaje : nodo.getCadenas()) {
             if(mensaje.getTipo().equals(CONST.COMODIN_CARACTER)||mensaje.getTipo().equals(CONST.COMODIN_ENTERO)||mensaje.getTipo().equals(CONST.COMODIN_FLOTANTE)){
-                mensajes.add(nodo.getExpresiones().get(expresionesUsadas++));
+                mensajes.add(nodo.getMensajes().get(expresionesUsadas++));
             }else{
                 mensajes.add(new Hoja(mensaje, posicion));
             }

@@ -437,6 +437,15 @@ Comment = {TraditionalComment} | {EndOfLineComment}
     "P"                                     { cadena.append("P"); }
     "J"                                     { cadena.append("J"); }
     "V"                                     { cadena.append("V"); }
+    "\."                                    {   if(cadena.length() > 0){
+                                                    String lexema = cadena.toString();
+                                                    cadena.setLength(0);
+                                                    yypushback(yylength());
+                                                    return symbol(yyline+1, (yycolumn+1)-lexema.length(), lexema, sym.CADENA);
+                                                }else{
+                                                    return symbol(yyline+1, yycolumn+1, yytext(), sym.PUNTO); 
+                                                }
+                                            }
     "PY"                                    {   if(cadena.length() > 0){
                                                     String lexema = cadena.toString();
                                                     cadena.setLength(0);
@@ -446,7 +455,7 @@ Comment = {TraditionalComment} | {EndOfLineComment}
                                                     return symbol(yyline+1, yycolumn+1, yytext(), sym.PY); 
                                                 }
                                             }
-    "JAVA."                                  {   if(cadena.length() > 0){
+    "JAVA"                                  {   if(cadena.length() > 0){
                                                     String lexema = cadena.toString();
                                                     cadena.setLength(0);
                                                     yypushback(yylength());
@@ -498,7 +507,7 @@ Comment = {TraditionalComment} | {EndOfLineComment}
                                                     return symbol(yyline+1, (yycolumn+1)-lexema.length(), lexema, (lexema.length() > 1)? sym.CADENA : sym.CARACTER);
                                                 }
                                             }
-    [^"\"""\%""P""J""V"]                    { cadena.append(yytext()); }
+    [^"\"""\%""P""J""V""\."]                    { cadena.append(yytext()); }
 }
 
     [^]                                     { errores.agregarError("Lexico",yytext(),"Caracter no aceptado",new Pos(yyline+1, yycolumn+1)); }

@@ -70,10 +70,10 @@ public class AnalizadorReturn {
                 SwitchInstr instr = (SwitchInstr) instruccion;
                 boolean returnSwitch = true;
                 for (CaseInstr caso : instr.getCasos()) {
-                    if(!tieneReturn(caso.getInstrucciones(), coleccion, tipo)) returnSwitch = false;
+                    if(!tieneReturn(caso.getInstrucciones(), coleccion, tipo, variable)) returnSwitch = false;
                 }
                 if(instr.getPorDefecto()!=null){
-                    if(!tieneReturn(instr.getPorDefecto().getInstrucciones(), coleccion, tipo)) returnSwitch = false;
+                    if(!tieneReturn(instr.getPorDefecto().getInstrucciones(), coleccion, tipo, variable)) returnSwitch = false;
                 }else returnSwitch = false;
                 if(returnSwitch) tieneReturn = true;
                 
@@ -81,9 +81,9 @@ public class AnalizadorReturn {
                 
                 SiInstr instr = (SiInstr) instruccion;
                 boolean returnSi = true;
-                if(!tieneReturn(instr.getInstrucciones(), coleccion, tipo)) returnSi = false;
+                if(!tieneReturn(instr.getInstrucciones(), coleccion, tipo, variable)) returnSi = false;
                 if(instr.getInstruccionSino()!=null){
-                    if(!tieneReturn(instr.getInstruccionSino().getInstrucciones(), coleccion, tipo)) returnSi = false;
+                    if(!tieneReturn(instr.getInstruccionSino().getInstrucciones(), coleccion, tipo, variable)) returnSi = false;
                 }else returnSi = false;
                 if(returnSi) tieneReturn = true;
                 

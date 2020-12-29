@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Jose Soberanis
  */
-public class LlamadaDeAmbito {
+public class LlamadaDeAmbito implements Llamada{
 
     private String idMetodo;
     private List<NodoAritmetico> parametros;

@@ -12,98 +12,96 @@ public class sym {
   public static final int AS = 57;
   public static final int COMODIN_FLOTANTE = 66;
   public static final int SCANF = 52;
-  public static final int CONST = 87;
+  public static final int CONST = 85;
   public static final int COR_C = 50;
   public static final int COR_A = 49;
   public static final int NEWLINE = 2;
-  public static final int MENSAJELN = 94;
-  public static final int MENSAJE = 86;
-  public static final int MAYOR = 36;
+  public static final int MENSAJELN = 92;
+  public static final int MENSAJE = 84;
+  public static final int MAYOR = 37;
   public static final int SEPARADOR_VB = 70;
-  public static final int PASS = 80;
+  public static final int PASS = 10;
   public static final int NEXT = 75;
-  public static final int COMPARADOR = 32;
-  public static final int DEDENT = 12;
+  public static final int COMPARADOR = 33;
+  public static final int DEDENT = 14;
   public static final int PR_ENTERO = 46;
-  public static final int ELIF = 79;
-  public static final int POR = 28;
+  public static final int ELIF = 9;
+  public static final int POR = 29;
   public static final int PR_CARACTER = 48;
   public static final int BYVAL = 43;
   public static final int SUB = 69;
-  public static final int DISTINTO = 31;
+  public static final int DISTINTO = 32;
   public static final int LOOP = 74;
-  public static final int PAR_C = 9;
+  public static final int PAR_C = 11;
   public static final int PAR_A = 8;
-  public static final int NOT = 39;
+  public static final int NOT = 40;
   public static final int DEF = 6;
-  public static final int ELSEIF = 16;
+  public static final int ELSEIF = 17;
   public static final int THEN = 77;
-  public static final int DOS_PUNTOS = 10;
+  public static final int DOS_PUNTOS = 12;
   public static final int LLAVE_C = 44;
   public static final int LLAVE_A = 45;
   public static final int PR_FLOTANTE = 47;
-  public static final int MOD = 30;
-  public static final int CLASS = 84;
+  public static final int MOD = 31;
+  public static final int CLASS = 82;
   public static final int AMPERSON = 54;
   public static final int AUMENTO = 60;
-  public static final int INCLUDE = 95;
-  public static final int SELECT = 90;
+  public static final int INCLUDE = 93;
+  public static final int SELECT = 88;
   public static final int FIN_LINEA = 53;
-  public static final int COMA = 15;
+  public static final int COMA = 16;
   public static final int ENTERO = 3;
   public static final int PRINTF = 51;
-  public static final int SEPARADOR_PROGRAMA = 97;
+  public static final int SEPARADOR_PROGRAMA = 95;
   public static final int COMODIN_ENTERO = 64;
-  public static final int IGUAL = 33;
-  public static final int WHILE = 22;
-  public static final int SWITCH = 91;
+  public static final int IGUAL = 34;
+  public static final int WHILE = 23;
+  public static final int SWITCH = 89;
   public static final int DO = 58;
   public static final int PY = 62;
-  public static final int FOR = 25;
+  public static final int FOR = 26;
   public static final int VOID = 78;
-  public static final int DIV = 29;
-  public static final int PUBLIC = 89;
+  public static final int DIV = 30;
+  public static final int PUBLIC = 87;
   public static final int SEPARADOR_JAVA = 72;
-  public static final int RETURN = 41;
-  public static final int ELSE = 20;
-  public static final int MENOS = 27;
-  public static final int ESPERAR_TECLA = 88;
-  public static final int FLOATINPUT = 19;
-  public static final int MENOR = 34;
-  public static final int BREAK = 83;
-  public static final int JAVA = 81;
-  public static final int MAS = 26;
+  public static final int RETURN = 42;
+  public static final int ELSE = 21;
+  public static final int MENOS = 28;
+  public static final int ESPERAR_TECLA = 86;
+  public static final int FLOATINPUT = 20;
+  public static final int MENOR = 35;
+  public static final int BREAK = 81;
+  public static final int JAVA = 79;
+  public static final int MAS = 27;
   public static final int DIM = 67;
   public static final int DISMINUCION = 61;
   public static final int EOF = 0;
   public static final int PUNTO = 56;
-  public static final int THIS = 85;
-  public static final int DEFAULT = 93;
-  public static final int FUNCTION = 96;
-  public static final int PRINT = 42;
-  public static final int CHARINPUT = 18;
+  public static final int THIS = 83;
+  public static final int DEFAULT = 91;
+  public static final int FUNCTION = 94;
+  public static final int CHARINPUT = 19;
   public static final int CARACTER = 5;
   public static final int VB = 63;
-  public static final int MENORIGUAL = 35;
-  public static final int MAIN = 82;
-  public static final int IN = 24;
-  public static final int OR = 40;
-  public static final int IDENT = 11;
+  public static final int MENORIGUAL = 36;
+  public static final int MAIN = 80;
+  public static final int IN = 25;
+  public static final int OR = 41;
+  public static final int IDENT = 13;
   public static final int error = 1;
-  public static final int IF = 21;
+  public static final int IF = 22;
   public static final int ID = 7;
   public static final int END = 68;
-  public static final int INTINPUT = 17;
-  public static final int LIMPIAR_PANTALLA = 92;
+  public static final int INTINPUT = 18;
+  public static final int LIMPIAR_PANTALLA = 90;
   public static final int FLOTANTE = 4;
-  public static final int PUNTOCOMA = 13;
   public static final int COMODIN_CARACTER = 65;
   public static final int CASE = 73;
-  public static final int CADENA = 14;
-  public static final int MAYORIGUAL = 37;
-  public static final int RANGE = 23;
+  public static final int CADENA = 15;
+  public static final int MAYORIGUAL = 38;
+  public static final int RANGE = 24;
   public static final int STEP = 76;
-  public static final int AND = 38;
+  public static final int AND = 39;
   public static final int TO = 59;
   public static final int SEPARADOR_PY = 71;
   public static final String[] terminalNames = new String[] {
@@ -116,11 +114,12 @@ public class sym {
   "DEF",
   "ID",
   "PAR_A",
+  "ELIF",
+  "PASS",
   "PAR_C",
   "DOS_PUNTOS",
   "IDENT",
   "DEDENT",
-  "PUNTOCOMA",
   "CADENA",
   "COMA",
   "ELSEIF",
@@ -149,7 +148,6 @@ public class sym {
   "NOT",
   "OR",
   "RETURN",
-  "PRINT",
   "BYVAL",
   "LLAVE_C",
   "LLAVE_A",
@@ -186,8 +184,6 @@ public class sym {
   "STEP",
   "THEN",
   "VOID",
-  "ELIF",
-  "PASS",
   "JAVA",
   "MAIN",
   "BREAK",

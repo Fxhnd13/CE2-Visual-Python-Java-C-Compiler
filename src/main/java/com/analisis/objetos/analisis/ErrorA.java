@@ -62,5 +62,10 @@ public class ErrorA {
     public void setCadena(String cadena) {
         this.cadena = cadena;
     }
+
+    @Override
+    public String toString() {
+        return "Error {" + "\n     tipo: " + tipo + "\n     cadena: " + cadena + "\n     descripcion: " + descripcion + "\n     posicion: " + posicion.toString() + "\n}\n";
+    }
     
 }
