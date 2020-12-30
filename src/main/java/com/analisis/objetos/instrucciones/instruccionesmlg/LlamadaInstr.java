@@ -64,7 +64,7 @@ public class LlamadaInstr implements Instruccion{
     @Override
     public void analizarSemanticamente(Coleccion coleccion) {
         AnalizadorLlamadaMetodo analizador = new AnalizadorLlamadaMetodo();
-        analizador.analizarLLamada(llamada, coleccion);
+        analizador.analizarLlamadaSinReturn(llamada, coleccion);
     }
     
 }

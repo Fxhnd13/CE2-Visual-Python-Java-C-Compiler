@@ -551,6 +551,7 @@ mensajesVb::=                           mensajesVb:concat AMPERSON mensajeVb:men
                                         |mensajeVb:mensaje {:
                                             Concat concat = new Concat(new Pos(mensajeleft,mensajeright));
                                             if(mensaje!=null) concat.getMensajes().add(mensaje);
+                                            RESULT = concat;
                                         :}
                                         ;
 
@@ -1076,6 +1077,7 @@ sentenciaDeclaracionJv::=               tiposDeDato:tipo listadoAsignacionesJv:i
                                                     ((DeclaracionInstr)instruccion).setPosicion(new Pos(tipoleft,tiporight));
                                                 }
                                             }
+                                            RESULT = instrucciones;
                                         :}
                                         ;
 
@@ -2082,9 +2084,9 @@ valorTexto::=                           CADENA:valor {: RESULT = valor; :}
                                         |CARACTER:valor {: RESULT = valor; :}
                                         ;
 
-comodin::=                              COMODIN_CARACTER:valor {: RESULT = new Dato(CONST.CARACTER,null); :}
-                                        |COMODIN_ENTERO:valor {: RESULT = new Dato(CONST.ENTERO,null); :}
-                                        |COMODIN_FLOTANTE:valor {: RESULT = new Dato(CONST.FLOTANTE,null); :}
+comodin::=                              COMODIN_CARACTER:valor {: RESULT = new Dato(CONST.COMODIN_CARACTER,null); :}
+                                        |COMODIN_ENTERO:valor {: RESULT = new Dato(CONST.COMODIN_ENTERO,null); :}
+                                        |COMODIN_FLOTANTE:valor {: RESULT = new Dato(CONST.COMODIN_FLOTANTE,null); :}
                                         ;
 
 sentenciaIngresoDatos::=                SCANF:pos PAR_A expresionCadenaEntrada:accion COMA AMPERSON lugarAsignacion:lugar PAR_C {:
@@ -2449,7 +2451,7 @@ valorAtomico::=                         ENTERO:valor {: RESULT = new Dato(CONST.
                                         |ID:valor {: RESULT = new Dato(CONST.ID,valor); :}
                                         ;
 
-tiposDeMetodo::=                        VOID:valor {: RESULT = valor; :}
+tiposDeMetodo::=                        VOID:valor {: RESULT = CONST.VOID; :}
                                         |tiposDeDato:valor {: RESULT = valor; :}
                                         ;
 

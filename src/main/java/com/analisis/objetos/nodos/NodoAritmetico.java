@@ -20,6 +20,7 @@ public interface NodoAritmetico {
     public Dato analizarSemanticamente(Coleccion coleccion);
     public List<Cuarteto> generarCuartetos(Coleccion coleccion);
     public String getTipoRetorno();
+    public void setTipoRetorno(String valor);
     
     public void setPosicion(Pos posicion);
     public Pos getPosicion();

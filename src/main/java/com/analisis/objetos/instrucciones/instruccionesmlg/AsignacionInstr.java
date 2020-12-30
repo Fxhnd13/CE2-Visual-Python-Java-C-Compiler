@@ -154,16 +154,10 @@ public class AsignacionInstr implements Instruccion{
             }
         }else if(accion instanceof AccionConstructor){
             AccionConstructor action = (AccionConstructor) accion;
-            AnalizadorLlamadaMetodo analizador = new AnalizadorLlamadaMetodo();
-            analizador.analizarLlamadaMetodoJavaConReturn(action.getConstructor(), coleccion);
             if(simbolo!=null){
                 if(action.getConstructor().getIdMetodo()==null)action.getConstructor().setIdMetodo(simbolo.getTipo());
-                Simbolo metodo = Utilidades.existeMetodo(clase.getMetodos(),simbolo.getTipo(), action.getConstructor());
-                if(metodo == null){
-                    coleccion.getErrores().agregarError("Semantico","Sin Cadena","No existe un constructor con los parametros indicados",action.getPosicion());
-                }else{
-                    simbolo.setValor(new Object());
-                }
+                AnalizadorLlamadaMetodo analizador = new AnalizadorLlamadaMetodo();
+                analizador.analizarConstructorJava(simbolo, action.getConstructor(), coleccion);
             }
         }
     }
@@ -177,10 +171,13 @@ public class AsignacionInstr implements Instruccion{
                 coleccion.getSimbolos().agregarSimbolo(simbolo);
             }else if(coleccion.getTipadoActual()!=1){
                 coleccion.getErrores().agregarError("Semantico",lugar.getId(),"Se ha utilizado una variable que no ha sido declarada",lugar.getPosicion());
+            }else{
+                Clase clase = (Clase) coleccion.getClasesJv().getSimbolo(coleccion.getClase()).getValor();
+                Simbolo temporal = clase.getSimbolos().getSimbolo(lugar.getId());
+                if(temporal!=null) lugar = new LugarVariableGlobal(lugar.getId(),lugar.getPosicion());
             }
         }
-        if(coleccion.getTipadoActual()==1){
-            lugar = new LugarVariableGlobal(lugar.getId(),lugar.getPosicion());
+        if(lugar instanceof LugarVariableGlobal){
             analizarAsignacionVariableGlobal((LugarVariableGlobal)lugar, accion, coleccion);
         }else{
             if(simbolo!=null){

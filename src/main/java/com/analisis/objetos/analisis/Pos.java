@@ -14,6 +14,8 @@ public class Pos {
     private int y,x;
 
     public Pos() {
+        y=-1;
+        x=-1;
     }
 
     /**
@@ -49,7 +51,7 @@ public class Pos {
 
     @Override
     public String toString() {
-        return "(Linea: " + y + ", Columna: " + x + ')';
+        return ((y==(-1))&&(x==(-1)))? "Posicion desconocida" : "(Linea: " + y + ", Columna: " + x + ')';
     }
     
 }

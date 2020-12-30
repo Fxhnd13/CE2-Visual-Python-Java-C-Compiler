@@ -124,8 +124,8 @@ public class DeclaracionInstr implements Instruccion{
             
             coleccion.getSimbolos().agregarSimbolo(new Simbolo(
                     lugar.getId(),
-                    tipo,
                     CONST.CLASE,
+                    tipo,
                     String.valueOf(clase.getSimbolos().getSimbolos().size()),
                     null,//direccion
                     null,

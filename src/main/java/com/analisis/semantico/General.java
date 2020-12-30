@@ -96,8 +96,12 @@ public class General {
 
     private void analizarInstruccionDeclaracionMetodo(MetodoInstr instr, String seccion) {
         coleccion.setSimbolos(new TablaDeSimbolos()); //la tabla de simbolos con la que se evaluara el metodo
-        analizarRetornoDelMetodo(instr, seccion); //verificamos que esté bien el return (si es que se debe analizar)
         analizarParametrosDelMetodo(instr, seccion); //verificamos que no haya inconsistencias en la declaracion de los parametros
+        analizarRetornoDelMetodo(instr, seccion); //verificamos que esté bien el return (si es que se debe analizar)
+        
+        coleccion.setSimbolos(new TablaDeSimbolos());
+        analizarParametrosDelMetodo(instr, seccion);
+        
         AnalizadorBloque analizador = new AnalizadorBloque();
         analizador.analizarBloque(instr.getInstrucciones(), coleccion);
     }

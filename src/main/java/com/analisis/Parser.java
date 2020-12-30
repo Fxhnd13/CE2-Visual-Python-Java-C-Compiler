@@ -4658,6 +4658,7 @@ class CUP$Parser$actions {
 		
                                             Concat concat = new Concat(new Pos(mensajeleft,mensajeright));
                                             if(mensaje!=null) concat.getMensajes().add(mensaje);
+                                            RESULT = concat;
                                         
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("mensajesVb",78, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -6761,6 +6762,7 @@ class CUP$Parser$actions {
                                                     ((DeclaracionInstr)instruccion).setPosicion(new Pos(tipoleft,tiporight));
                                                 }
                                             }
+                                            RESULT = instrucciones;
                                         
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("sentenciaDeclaracionJv",104, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -10962,7 +10964,7 @@ class CUP$Parser$actions {
 		int valorleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valorright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String valor = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new Dato(CONST.CARACTER,null); 
+		 RESULT = new Dato(CONST.COMODIN_CARACTER,null); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("comodin",70, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -10974,7 +10976,7 @@ class CUP$Parser$actions {
 		int valorleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valorright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String valor = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new Dato(CONST.ENTERO,null); 
+		 RESULT = new Dato(CONST.COMODIN_ENTERO,null); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("comodin",70, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -10986,7 +10988,7 @@ class CUP$Parser$actions {
 		int valorleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valorright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String valor = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new Dato(CONST.FLOTANTE,null); 
+		 RESULT = new Dato(CONST.COMODIN_FLOTANTE,null); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("comodin",70, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -12715,7 +12717,7 @@ class CUP$Parser$actions {
 		int valorleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valorright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String valor = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = valor; 
+		 RESULT = CONST.VOID; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("tiposDeMetodo",65, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

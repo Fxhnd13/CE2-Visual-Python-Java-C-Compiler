@@ -5,11 +5,13 @@
  */
 package com.analisis.semantico;
 
+import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.basicos.Simbolo;
 import com.analisis.objetos.basicos.lugaresAsignacion.LugarVariable;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.instrucciones.instruccionesmlg.AsignacionInstr;
 import com.analisis.objetos.instrucciones.instruccionesmlg.CaseInstr;
+import com.analisis.objetos.instrucciones.instruccionesmlg.DeclaracionInstr;
 import com.analisis.objetos.instrucciones.instruccionesmlg.Instruccion;
 import com.analisis.objetos.instrucciones.instruccionesmlg.ReturnInstr;
 import com.analisis.objetos.instrucciones.instruccionesmlg.SiInstr;
@@ -26,15 +28,25 @@ public class AnalizadorReturn {
         boolean tieneReturn = false;
         for (int i = 0; i < instrucciones.size(); i++) {
             Instruccion instruccion = instrucciones.get(i);
-            if(instruccion instanceof SwitchInstr){
+            if(instruccion instanceof DeclaracionInstr){
+                
+                DeclaracionInstr instr = (DeclaracionInstr) instruccion;
+                Simbolo simboloParaAgregar = new Simbolo(instr.getLugar().getId(),CONST.VAR,instr.getTipo(),"1",null,null,null);
+                coleccion.getSimbolos().agregarSimbolo(simboloParaAgregar);
+                
+            }else if(instruccion instanceof SwitchInstr){
                 
                 SwitchInstr instr = (SwitchInstr) instruccion;
                 boolean returnSwitch = true;
                 for (CaseInstr caso : instr.getCasos()) {
+                    coleccion.getSimbolos().agregarAmbitoTemporal();
                     if(!tieneReturn(caso.getInstrucciones(), coleccion, tipo)) returnSwitch = false;
+                    coleccion.getSimbolos().eliminarAmbitoTemporal();
                 }
                 if(instr.getPorDefecto()!=null){
+                    coleccion.getSimbolos().agregarAmbitoTemporal();
                     if(!tieneReturn(instr.getPorDefecto().getInstrucciones(), coleccion, tipo)) returnSwitch = false;
+                    coleccion.getSimbolos().eliminarAmbitoTemporal();
                 }else returnSwitch = false;
                 if(returnSwitch) tieneReturn = true;
                 
@@ -42,9 +54,13 @@ public class AnalizadorReturn {
                 
                 SiInstr instr = (SiInstr) instruccion;
                 boolean returnSi = true;
+                coleccion.getSimbolos().agregarAmbitoTemporal();
                 if(!tieneReturn(instr.getInstrucciones(), coleccion, tipo)) returnSi = false;
+                coleccion.getSimbolos().agregarAmbitoTemporal();
                 if(instr.getInstruccionSino()!=null){
+                    coleccion.getSimbolos().agregarAmbitoTemporal();
                     if(!tieneReturn(instr.getInstruccionSino().getInstrucciones(), coleccion, tipo)) returnSi = false;
+                    coleccion.getSimbolos().eliminarAmbitoTemporal();
                 }else returnSi = false;
                 if(returnSi) tieneReturn = true;
                 
@@ -65,15 +81,25 @@ public class AnalizadorReturn {
         boolean tieneReturn = false;
         for (int i = 0; i < instrucciones.size(); i++) {
             Instruccion instruccion = instrucciones.get(i);
-            if(instruccion instanceof SwitchInstr){
+            if(instruccion instanceof DeclaracionInstr){
+                
+                DeclaracionInstr instr = (DeclaracionInstr) instruccion;
+                Simbolo simboloParaAgregar = new Simbolo(instr.getLugar().getId(),CONST.VAR,instr.getTipo(),"1",null,null,null);
+                coleccion.getSimbolos().agregarSimbolo(simboloParaAgregar);
+                
+            }else if(instruccion instanceof SwitchInstr){
                 
                 SwitchInstr instr = (SwitchInstr) instruccion;
                 boolean returnSwitch = true;
                 for (CaseInstr caso : instr.getCasos()) {
+                    coleccion.getSimbolos().agregarAmbitoTemporal();
                     if(!tieneReturn(caso.getInstrucciones(), coleccion, tipo, variable)) returnSwitch = false;
+                    coleccion.getSimbolos().eliminarAmbitoTemporal();
                 }
                 if(instr.getPorDefecto()!=null){
+                    coleccion.getSimbolos().agregarAmbitoTemporal();
                     if(!tieneReturn(instr.getPorDefecto().getInstrucciones(), coleccion, tipo, variable)) returnSwitch = false;
+                    coleccion.getSimbolos().eliminarAmbitoTemporal();
                 }else returnSwitch = false;
                 if(returnSwitch) tieneReturn = true;
                 
@@ -81,9 +107,13 @@ public class AnalizadorReturn {
                 
                 SiInstr instr = (SiInstr) instruccion;
                 boolean returnSi = true;
+                coleccion.getSimbolos().agregarAmbitoTemporal();
                 if(!tieneReturn(instr.getInstrucciones(), coleccion, tipo, variable)) returnSi = false;
+                coleccion.getSimbolos().eliminarAmbitoTemporal();
                 if(instr.getInstruccionSino()!=null){
+                    coleccion.getSimbolos().agregarAmbitoTemporal();
                     if(!tieneReturn(instr.getInstruccionSino().getInstrucciones(), coleccion, tipo, variable)) returnSi = false;
+                    coleccion.getSimbolos().eliminarAmbitoTemporal();
                 }else returnSi = false;
                 if(returnSi) tieneReturn = true;
                 

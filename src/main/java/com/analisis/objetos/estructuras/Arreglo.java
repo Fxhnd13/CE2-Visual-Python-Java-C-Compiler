@@ -7,6 +7,7 @@ package com.analisis.objetos.estructuras;
 
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.nodos.NodoAritmetico;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,9 @@ public class Arreglo {
     private Pos posicion;
 
     public Arreglo() {
+        dimensiones = new ArrayList();
+        temporales = new ArrayList();
+        posicion = new Pos();
     }
 
     public Arreglo(List<NodoAritmetico> dimensiones, List<String> temporales, Pos posicion) {
