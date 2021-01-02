@@ -10,7 +10,7 @@ import com.analisis.objetos.nodos.NodoAritmetico;
 import java.util.List;
 
 /**
- *
+ * Clase destinada al manejo de una llamada de java
  * @author jose_
  */
 public class LlamadaJava implements Llamada{

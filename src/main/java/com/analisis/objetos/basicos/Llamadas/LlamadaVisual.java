@@ -10,7 +10,7 @@ import com.analisis.objetos.nodos.NodoAritmetico;
 import java.util.List;
 
 /**
- *
+ * Clase destinada a una llamada de visual
  * @author jose_
  */
 public class LlamadaVisual implements Llamada{

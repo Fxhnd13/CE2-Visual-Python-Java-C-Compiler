@@ -1,0 +1,11 @@
+nasm -f elf holamundo.asm
+ld -m elf_i386 -s -o holamundo holamundo.o
+
+puede que sea necesario dar permisos al ejecutable para poder llevar a cabo esta opcion, por lo que haremos
+sudo chmod +x ejecutar.sh
+
+-m elf_i386 sirve para indicar el tipo de ejecutable, ¿hay tipos? 
+-s para que no se incluya la informacion  de los simbolos que pudieran leerse haciendo debug
+-o el nombre de salida que tendra el ejecutable
+
+objdump -D <nombre>.os

@@ -165,6 +165,10 @@ public class GuiManager {
         accionPegar.putValue(Action.ACCELERATOR_KEY, KeyStroke.getAWTKeyStroke('V', InputEvent.CTRL_DOWN_MASK));
     }
 
+    /**
+     * Metodo para guardar el codigo generado para el ejecutable de C
+     * @param Codigo es el codigo que se escribirá en el archivo, que posteriormente se compilara y ejecutará
+     */
     public void guardarEjecutable(String codigo) {
         File tmp = new File("Generados/Codigo");
         if(!tmp.isDirectory()) tmp.mkdirs();
@@ -178,6 +182,9 @@ public class GuiManager {
         }
     }
     
+    /**
+     * Metodo para ejecutar el codigo generado 
+     */
     public void ejecutarCodigo3Direcciones(){
         File file = new File("Generados/ejecutableC");
         if(file.exists()){
@@ -191,6 +198,12 @@ public class GuiManager {
         }
     }
 
+    /**
+     * Metodo para generar los cuartetos y el codigo ejecutable en 3 direcciones
+     * @param codigoFuente es el codigo que se desea transformar
+     * @param erroresTextArea es el area en el que se desplegarán los errores (si hay)
+     * @param codigoGenerado es el area en el que se desplegará el codigo generado
+     */
     public void generarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea, JTextArea codigoGenerado) {
         reiniciar(); //conteo en 0 de temporales y etiquetas
         GeneradorAst generadorAst = new GeneradorAst(codigoFuente.getText()); //generamos el ast a partir del archivo de entrada

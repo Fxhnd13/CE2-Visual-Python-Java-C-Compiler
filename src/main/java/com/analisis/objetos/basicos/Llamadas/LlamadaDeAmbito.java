@@ -11,7 +11,8 @@ import com.analisis.objetos.nodos.NodoAritmetico;
 import java.util.List;
 
 /**
- *
+ * Clase destinada a la creacion de una llamada de ambito, (python, java, visual) dentro de sus respectivas
+ * secciones
  * @author Jose Soberanis
  */
 public class LlamadaDeAmbito implements Llamada{

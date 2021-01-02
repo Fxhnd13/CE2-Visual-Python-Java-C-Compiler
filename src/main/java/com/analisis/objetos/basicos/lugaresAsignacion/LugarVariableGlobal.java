@@ -9,7 +9,8 @@ package com.analisis.objetos.basicos.lugaresAsignacion;
 import com.analisis.objetos.analisis.Pos;
 
 /**
- *
+ * Clase que almacena la informacion de cuando se desea hacer una asignacion a una variable de tipo primitivo, dentro
+ * de una clase de java
  * @author Jose Soberanis
  */
 public class LugarVariableGlobal implements Lugar{

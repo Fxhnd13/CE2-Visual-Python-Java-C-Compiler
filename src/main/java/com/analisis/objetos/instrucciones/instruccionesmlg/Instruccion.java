@@ -11,14 +11,30 @@ import com.generadores.objetos.Cuarteto;
 import java.util.List;
 
 /**
- *
+ * Interface destinada al manejo de cualquier tipo de instruccion con sus metodos correspondientes
  * @author jose_
  */
 public interface Instruccion {
     
+    /**
+    * Metodo para generar el codigo assembler *depreced*
+    */
     public void generarCodigoAssembler(Coleccion coleccion);
+
+    /**
+    * Metodo para generar los cuartetos generados por la instruccion
+    * @param colecion, tiene los datos necesarios para la generacion de codigo, las estructuras e instrucciones
+    */
     public List<Cuarteto> generarCuartetos(Coleccion coleccion);
+
+    /**
+    * Metodo para analizar si las instrucciones tienen sentido semantico
+    */
     public void analizarSemanticamente(Coleccion coleccion);
+
+    /**
+    * Metedo para obtener la posicion en la que se encuentra la instruccion
+    */
     public Pos getPosicion();
     public void setPosicion(Pos posicion);
 }

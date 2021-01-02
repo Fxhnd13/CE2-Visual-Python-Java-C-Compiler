@@ -10,7 +10,7 @@ import com.analisis.objetos.nodos.NodoAritmetico;
 import java.util.List;
 
 /**
- *
+ * Clase destinada a una llamada de tipo python
  * @author jose_
  */
 public class LlamadaPython implements Llamada{

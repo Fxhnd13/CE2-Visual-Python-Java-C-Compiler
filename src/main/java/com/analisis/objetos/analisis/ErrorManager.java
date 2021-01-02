@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Clase destinada al manejo de los errores y también al desplegue de los mismos
  * @author jose_
  */
 public class ErrorManager {
