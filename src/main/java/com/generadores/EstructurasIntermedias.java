@@ -64,7 +64,10 @@ public class EstructurasIntermedias {
                         clase.getAsignaciones().add((AsignacionInstr)instruccionDeClaseActual);
                     }
                 }
-                clase.getMetodos().agregarSimboloSiNoExiste(simboloDeMetodo(new MetodoInstr(CONST.VOID,((ClaseInstr)instruccion).getId(),new ArrayList(),new ArrayList(),instruccion.getPosicion()),CONST.SEC_JV));
+                MetodoInstr nuevaInstr = new MetodoInstr(CONST.VOID,((ClaseInstr)instruccion).getId(),new ArrayList(),new ArrayList(),instruccion.getPosicion());
+                if(clase.getMetodos().agregarSimboloSiNoExiste(simboloDeMetodo(nuevaInstr,CONST.SEC_JV))){
+                    ((ClaseInstr)instruccion).getInstrucciones().add(nuevaInstr);
+                }
                 coleccion.getClasesJv().agregarSimbolo(simboloDeClase((ClaseInstr)instruccion, clase));
             }
         }

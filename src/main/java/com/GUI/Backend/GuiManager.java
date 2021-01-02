@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -169,13 +170,14 @@ public class GuiManager {
      * Metodo para guardar el codigo generado para el ejecutable de C
      * @param Codigo es el codigo que se escribirá en el archivo, que posteriormente se compilara y ejecutará
      */
-    public void guardarEjecutable(String codigo) {
-        File tmp = new File("Generados/Codigo");
+    public void guardarYEjecutar(String codigo) {
+        File tmp = new File("Compilador/Generados");
         if(!tmp.isDirectory()) tmp.mkdirs();
-        File file = new File("Generados/Codigo/codigoC.c");
+        File file = new File("Compilador/Generados/codigoC.c");
         manager.guardarArchivo(new Documento(file,false,codigo));
         try{
-            Runtime.getRuntime().exec(new String[]{"gcc","-o","Generados/ejecutableC", "Generados/Codigo/codigoC.c"});
+            Runtime.getRuntime().exec("./Compilador/Generados/generar&EjecutarC.sh");
+            //Runtime.getRuntime().exec(new String[]{"gcc","-o","Generados/ejecutableC", "Generados/Codigo/codigoC.c"});
         }catch(Exception ex){
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al guardar el ejecutable del codigo 3 direcciones generado", "Error", JOptionPane.ERROR_MESSAGE);
@@ -204,7 +206,7 @@ public class GuiManager {
      * @param erroresTextArea es el area en el que se desplegarán los errores (si hay)
      * @param codigoGenerado es el area en el que se desplegará el codigo generado
      */
-    public void generarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea, JTextArea codigoGenerado) {
+    public List<Cuarteto> generarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea, JTextArea codigoGenerado) {
         reiniciar(); //conteo en 0 de temporales y etiquetas
         GeneradorAst generadorAst = new GeneradorAst(codigoFuente.getText()); //generamos el ast a partir del archivo de entrada
         General analizadorSemantico = new General();
@@ -214,7 +216,9 @@ public class GuiManager {
             
             Codigo3Direcciones generador = new Codigo3Direcciones();
             List<Cuarteto> cuartetos = generador.generarCodigo(generadorAst.getInstrucciones(), analizadorSemantico.getColeccion());
+            Cuartetos.eliminarRedundanciaEtiquetas(cuartetos);
             codigoGenerado.setText(Cuartetos.escribirCodigo3DireccionesNormal(cuartetos));
+            return cuartetos;
             
         }else{
             
@@ -224,10 +228,19 @@ public class GuiManager {
             }
             erroresTextArea.setText(errores);
         }
+        return new ArrayList();
     }
     
     public void reiniciar(){
         Temporal.reiniciar();
         Etiqueta.reiniciar();
+    }
+
+    public void ejecutarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea, JTextArea codigo3D) {
+        List<Cuarteto> cuartetos = generarCodigo3D(codigoFuente, erroresTextArea, codigo3D);
+        if(!cuartetos.isEmpty()){
+            String codigo = Cuartetos.escribirCodigo3DireccionesEjecutable(cuartetos);
+            guardarYEjecutar(codigo);
+        }
     }
 }

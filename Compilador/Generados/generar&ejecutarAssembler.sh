@@ -2,9 +2,10 @@
 
 echo "Compilando y enlazando..."
 
-gcc -o CodigoC/$1 Ejecutables/$1.c;
+nasm -f elf $1.asm;
+ld -m elf_i386 -s -o $1 $1.o
 
 echo "Ejecutando..."
 echo "-----------------------------------------"
 
-./Generados/$1
+./$1

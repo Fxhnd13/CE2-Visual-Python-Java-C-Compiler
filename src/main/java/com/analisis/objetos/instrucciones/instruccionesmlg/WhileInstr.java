@@ -74,18 +74,18 @@ public class WhileInstr implements Instruccion{
         coleccion.getSimbolos().eliminarAmbitoTemporal();
         
         List<Cuarteto> cuartetosCondicional = condiciones.generarCuartetos(coleccion);
+        
+        String etiquetaAntesDeEvaluacion = Etiqueta.siguienteEtiqueta();
+        String etiquetaDentroCiclo = condiciones.getEtiquetaSi();
+        String etiquetaSalidaCiclo = condiciones.getEtiquetaNo();
 
-        String etiquetaInicio = Etiqueta.siguienteEtiqueta();
-        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,etiquetaInicio));
-
-        String etiquetaFinal = condiciones.getEtiquetaNo();
-
-
+        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,etiquetaAntesDeEvaluacion));
+        
         Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosCondicional);
-        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,etiquetaInicio));
+        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,etiquetaDentroCiclo));
         Cuartetos.unirCuartetos(cuartetosRetorno, cuartetosInstrucciones);
-        cuartetosRetorno.add(new Cuarteto("goto",null,null,etiquetaInicio));
-        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,etiquetaFinal));
+        cuartetosRetorno.add(new Cuarteto("goto",null,null,etiquetaAntesDeEvaluacion));
+        cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,etiquetaSalidaCiclo));
         
         return cuartetosRetorno;
     }

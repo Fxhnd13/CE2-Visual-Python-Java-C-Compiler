@@ -78,7 +78,7 @@ non terminal Instruccion                sentenciaDoWhileVb, sentenciaSwitchVb, s
 non terminal Instruccion                sentenciaReturnVb, dclMetodoJv, sentenciaIfJv, sentenciaForJv, sentenciaWhileJv;
 non terminal Instruccion                sentenciaSwitchJv, sentenciaDoWhileJv, sentenciaAsignacionJv, sentenciaEscribirJv;
 non terminal Instruccion                sentenciaReturnJv, sentenciaBreakJv, escribirPy, sentenciaIfPy; 
-non terminal Instruccion                sentenciaWhilePy, sentenciaForPy, dclLibreria, libreria, codigoMain, sentenciaAsignacion;
+non terminal Instruccion                sentenciaWhilePy, sentenciaForPy, dclLibreria, libreria, sentenciaAsignacion;
 non terminal Instruccion                sentenciaEscribir, sentenciaIngresoDatos, sentenciaLimpiarPantalla, sentenciaEsperarTecla;
 non terminal Instruccion                sentenciaBreak, sentenciaIf, sentenciaFor, sentenciaWhile, sentenciaDoWhile;
 non terminal Instruccion                sentenciaSwitch;
@@ -106,7 +106,7 @@ non terminal List<Instruccion>          sentenciaDeclaracionJv, listadoAsignacio
 non terminal List<Instruccion>          bloquePy, sentenciaSimplePy, asignacionVarPy, secLibrerias, dclLibrerias, secConstantes;
 non terminal List<Instruccion>          dclConstantes, dclConstante, secVariables, dclVariables, sentenciaDeclaracionInicial;
 non terminal List<Instruccion>          sentenciaDeclaracion, listadoDeclaraciones, listadoDeclaracionesClases, bloque, sentencias;
-non terminal List<Instruccion>          sentencia, sentenciaSimple, bloqueSwitch;
+non terminal List<Instruccion>          sentencia, sentenciaSimple, bloqueSwitch, codigoMain;
 non terminal List<CaseInstr>            contenidoSwitchVb, contenidoSwitchJv, contenidoSwitch;
 non terminal List<Dato>                 dclParametrosVb, listadoParametrosVb, dclParametrosJv, listadoParametrosJv, dclParametrosPy;
 non terminal List<Dato>                 expresionCadena;
@@ -357,7 +357,7 @@ sentenciaWhileVb::=                     WHILE:pos condicionVb:condicion espacios
 
 sentenciaDoWhileVb::=                   DO:pos espaciosVb bloqueVb:instrucciones LOOP WHILE condicionVb:condicion {:
                                             if(pos!=null&&condicion!=null&&instrucciones!=null){
-                                                RESULT = new WhileInstr(condicion,instrucciones, new Pos(posleft,posright));
+                                                RESULT = new DoWhileInstr(condicion,instrucciones, new Pos(posleft,posright));
                                             }
                                         :}
                                         |DO espaciosVb bloqueVb LOOP error:e condicionVb  {: agregarError("Sintactico",(String) e,"Se esperaba la palabra reservada WHILE.", eleft, eright); :}
@@ -996,7 +996,7 @@ modificadorForJv::=                     IGUAL expresionArJv:expresion {:
 
 sentenciaWhileJv::=                     WHILE:pos PAR_A expresionBoolJv:expresion PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C {:
                                             if(pos!=null && expresion!=null && instrucciones!=null){
-                                                RESULT = new DoWhileInstr(
+                                                RESULT = new WhileInstr(
                                                     expresion,
                                                     instrucciones,
                                                     new Pos(posleft,posright)
@@ -1664,11 +1664,11 @@ expresionBoolPy::=                      expresionArPy:expresionI DISTINTO:pos ex
                                         :}
                                         ;
 //producciones principal
-principal::=                            SEPARADOR_PROGRAMA secLibrerias:instrLibrerias secConstantes:instrConstantes secVariables:instrVariables codigoMain:instrMetodo {:
+principal::=                            SEPARADOR_PROGRAMA secLibrerias:instrLibrerias secConstantes:instrConstantes secVariables:instrVariables codigoMain:instrMain {:
                                             for(Instruccion instruccion : instrLibrerias) coleccionInstr.getInstruccionesPr().add(instruccion);
                                             for(Instruccion instruccion : instrConstantes) coleccionInstr.getInstruccionesPr().add(instruccion);
                                             for(Instruccion instruccion : instrVariables) coleccionInstr.getInstruccionesPr().add(instruccion);
-                                            coleccionInstr.getInstruccionesPr().add(instrMetodo);
+                                            for(Instruccion instruccion : instrMain) coleccionInstr.getInstruccionesPr().add(instruccion);
                                         :};
 
 secLibrerias::=                         dclLibrerias:instrucciones {: RESULT = (instrucciones==null)? new ArrayList() : instrucciones; :}
@@ -1894,7 +1894,7 @@ accionConstructor::=                    PAR_A listadoParametrosEnviados:expresio
                                         ;
 
 codigoMain::=                           VOID:pos MAIN:id PAR_A PAR_C LLAVE_A bloque:instrucciones LLAVE_C {:
-                                            RESULT = new MetodoInstr(pos, id, new ArrayList(), instrucciones, new Pos(posleft, posright));
+                                            RESULT = (instrucciones==null)? new ArrayList() : instrucciones;
                                         :}
                                         |VOID MAIN PAR_A PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
                                         |VOID MAIN PAR_A PAR_C error:e bloque {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta",eleft,eright); :}
@@ -2222,7 +2222,7 @@ modificadorFor::=                       IGUAL expresionAr:expresion {:
 sentenciaWhile::=                       WHILE:pos PAR_A expresionBool:condicion PAR_C LLAVE_A bloque:instrucciones LLAVE_C {:
                                             if(pos!=null && condicion!=null){
                                                 if(instrucciones == null) instrucciones = new ArrayList();
-                                                RESULT = new DoWhileInstr(condicion,instrucciones,new Pos(posleft,posright));
+                                                RESULT = new WhileInstr(condicion,instrucciones,new Pos(posleft,posright));
                                             }
                                         :}
                                         |WHILE PAR_A expresionBool PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}

@@ -77,32 +77,30 @@ public class Concat implements Mensaje{
         List<Cuarteto> cuartetosRetorno = new ArrayList();
         
         for (NodoAritmetico mensaje : mensajes) {
-            String msg = null;
             if(mensaje instanceof Hoja){
                 Hoja hoja = (Hoja)mensaje;
                 if(hoja.getValor().getValor() instanceof Llamada){
                     Cuartetos.unirCuartetos(cuartetosRetorno, hoja.generarCuartetos(coleccion));
-                    msg = coleccion.getUltimoReturn();
+                    cuartetosRetorno.add(new Cuarteto("printDato",null,null,Temporal.actualTemporal()));
                     coleccion.setUltimoReturn(null);
                 }else{
                     if(hoja.getValor().getTipo().equals(CONST.ARREGLO)){
                         Cuartetos.unirCuartetos(cuartetosRetorno, hoja.generarCuartetos(coleccion));
-                        msg = Temporal.actualTemporal();
+                        cuartetosRetorno.add(new Cuarteto("printDato",null,null,Temporal.actualTemporal()));
                     }else if(hoja.getValor().getTipo().equals(CONST.ID)){
                         Cuartetos.unirCuartetos(cuartetosRetorno, hoja.generarCuartetos(coleccion));
-                        msg = Temporal.actualTemporal();
+                        cuartetosRetorno.add(new Cuarteto("printDato",null,null,Temporal.actualTemporal()));
                     }else if(hoja.getValor().getTipo().equals(CONST.ID_GLOBAL)){
                         Cuartetos.unirCuartetos(cuartetosRetorno, hoja.generarCuartetos(coleccion));
-                        msg = Temporal.actualTemporal();
+                        cuartetosRetorno.add(new Cuarteto("printDato",null,null,Temporal.actualTemporal()));
                     }else{
-                        msg = (String) hoja.getValor().getValor();
+                        cuartetosRetorno.add(new Cuarteto("printCadena",null,null,(String)hoja.getValor().getValor()));
                     }
                 }
             }else{
                 Cuartetos.unirCuartetos(cuartetosRetorno, mensaje.generarCuartetos(coleccion));
-                msg = Temporal.actualTemporal();
+                cuartetosRetorno.add(new Cuarteto("printDato",null,null,Temporal.actualTemporal()));
             }
-            cuartetosRetorno.add(new Cuarteto("write",null,null,msg));
         }
         
         return cuartetosRetorno;

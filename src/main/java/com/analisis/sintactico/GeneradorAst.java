@@ -5,6 +5,7 @@
  */
 package com.analisis.sintactico;
 
+import com.GUI.Mensajes;
 import com.analisis.Lexer;
 import com.analisis.Parser;
 import com.analisis.objetos.estructuras.Coleccion;
@@ -34,9 +35,8 @@ public class GeneradorAst {
         Parser parser = new Parser(lexer);
         try {
             parser.parse();
-            System.out.println("*****************************************");
-            System.out.println("SE ANALIZO EXITOSAMENTE");
-            System.out.println("*****************************************");
+            Mensajes mensajes = new Mensajes();
+            mensajes.informacion("Se ha finalizado el analisis sintactico sin errores graves.");
             instrucciones = parser.getColeccionInstr();
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -245,7 +245,7 @@ public class AsignacionInstr implements Instruccion{
                 Cuartetos.unirCuartetos(cuartetosRetorno, ((AccionIngreso)accion).getMensaje().generarCuartetos(coleccion));
             }
             String posicion = coleccion.getSimbolos().getSimbolo(lugar.getId()).getDireccion();
-            cuartetosRetorno.add(new Cuarteto("read",null,null,Temporal.siguienteTemporal(((AccionIngreso)accion).getTipoRetorno())));
+            cuartetosRetorno.add(new Cuarteto("read",null,null,Temporal.siguienteTemporal(getTipoDeComodin(((AccionIngreso)accion).getTipoRetorno()))));
             String valor = Temporal.actualTemporal();
             cuartetosRetorno.add(new Cuarteto("+",CONST.P,posicion,Temporal.siguienteTemporal(CONST.ENTERO)));
             cuartetosRetorno.add(new Cuarteto(":=a",valor,Temporal.actualTemporal(),CONST.STACK));
@@ -376,6 +376,15 @@ public class AsignacionInstr implements Instruccion{
             String idMetodo = Utilidades.nombreMetodo(CONST.SEC_JV, simbolo.getTipo(), llamada);
             cuartetosRetorno.add(new Cuarteto("call",idMetodo,String.valueOf(temporalesParametros.size()),null));
             cuartetosRetorno.add(new Cuarteto("-",String.valueOf(coleccion.getSimbolos().getSimbolos().size()),CONST.P,CONST.P));
+        }
+    }
+    
+    private String getTipoDeComodin(String comodin){
+        switch(comodin){
+            case CONST.COMODIN_CARACTER: return CONST.CARACTER;
+            case CONST.COMODIN_FLOTANTE: return CONST.FLOTANTE;
+            case CONST.COMODIN_ENTERO: return CONST.ENTERO;
+            default: return CONST.FLOTANTE;
         }
     }
 }

@@ -28,7 +28,7 @@ public class Mayor implements NodoBooleano{
     public Mayor() {
     }
 
-    public Mayor(NodoAritmetico derecho, NodoAritmetico izquierdo, Pos posicion) {
+    public Mayor(NodoAritmetico izquierdo, NodoAritmetico derecho, Pos posicion) {
         this.derecho = derecho;
         this.izquierdo = izquierdo;
         this.posicion = posicion;

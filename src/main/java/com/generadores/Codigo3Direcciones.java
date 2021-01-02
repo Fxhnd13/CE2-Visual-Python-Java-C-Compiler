@@ -59,7 +59,13 @@ public class Codigo3Direcciones {
                         cuartetosRetorno.add(new Cuarteto(":=a",temporalesDeParametros.get(i),Temporal.actualTemporal(),CONST.STACK));
                     }
 
-                    agregarCuartetosDeLlamada(cuartetosRetorno, llamada, CONST.SEC_JV, temporalesDeParametros.size(), coleccion, conReturn);
+                    cuartetosRetorno.add(new Cuarteto("call",Utilidades.nombreMetodo(CONST.SEC_JV, coleccion.getClase(), llamada),String.valueOf(temporalesDeParametros.size()),null));
+                    if(conReturn){
+                        cuartetosRetorno.add(new Cuarteto("+","0",CONST.P,Temporal.siguienteTemporal(CONST.ENTERO)));
+                        cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.FLOTANTE)));
+                        coleccion.setUltimoReturn(Temporal.actualTemporal());
+                    }
+                    cuartetosRetorno.add(new Cuarteto("-",CONST.P,coleccion.getSimbolos().getUltimaPosicionLibre(cuartetosRetorno),CONST.P));
                     break;
                 }
                 case 2: return generarCuartetosLlamadaPython(new LlamadaPython(llamada.getIdMetodo(), llamada.getParametros(), llamada.getPosicion()), coleccion, conReturn);
@@ -86,7 +92,13 @@ public class Codigo3Direcciones {
             cuartetosRetorno.add(new Cuarteto(":=a",temporalesDeParametros.get(i),Temporal.actualTemporal(),CONST.STACK));
         }
         
-        agregarCuartetosDeLlamada(cuartetosRetorno, llamada, CONST.SEC_JV, temporalesDeParametros.size(), coleccion, conReturn);
+        cuartetosRetorno.add(new Cuarteto("call",Utilidades.nombreMetodo(CONST.SEC_JV, simbolo.getTipo(), llamada),String.valueOf(temporalesDeParametros.size()),null));
+        if(conReturn){
+            cuartetosRetorno.add(new Cuarteto("+","0",CONST.P,Temporal.siguienteTemporal(CONST.ENTERO)));
+            cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.FLOTANTE)));
+            coleccion.setUltimoReturn(Temporal.actualTemporal());
+        }
+        cuartetosRetorno.add(new Cuarteto("-",CONST.P,coleccion.getSimbolos().getUltimaPosicionLibre(cuartetosRetorno),CONST.P));
                 
         return cuartetosRetorno;
     }
@@ -220,7 +232,7 @@ public class Codigo3Direcciones {
                         coleccion.getSimbolos().agregarSimboloSiNoExiste(new Simbolo((String)parametro.getValor(),CONST.VAR,parametro.getTipo(),"1",String.valueOf(coleccion.getSimbolos().getSimbolos().size()),null,null));
                     }
                     
-                    cuartetosRetorno.add(new Cuarteto("metodo",null,null,Utilidades.nombreMetodo(CONST.SEC_JV, instr)));
+                    cuartetosRetorno.add(new Cuarteto("metodo",null,null,Utilidades.nombreMetodo(CONST.SEC_JV, claseInstruccion.getId(), instr)));
                     Cuartetos.unirCuartetos(cuartetosRetorno, generarCodigo3Direcciones(instr.getInstrucciones(), coleccion));
                     if(!instr.getTipoRetorno().equals(CONST.VOID))cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,coleccion.getEtiquetaReturn()));
                     if(cuartetosRetorno.get(cuartetosRetorno.size()-1).getOp().equals("etiqueta")) cuartetosRetorno.add(new Cuarteto(":=","0",null,"t00"));
@@ -249,20 +261,11 @@ public class Codigo3Direcciones {
         }
         
         coleccion.setTipadoActual(3);
-        for (Instruccion instruccion : instrucciones.getInstruccionesPr()) {
-
-            if(instruccion instanceof DeclaracionInstr){
-
-                Cuartetos.unirCuartetos(cuartetosRetorno, ((DeclaracionInstr)instruccion).generarCuartetos(coleccion));
-
-            }else if(instruccion instanceof AsignacionInstr) Cuartetos.unirCuartetos(cuartetosRetorno, ((AsignacionInstr)instruccion).generarCuartetos(coleccion));
-        }
         
         cuartetosRetorno.add(new Cuarteto("vacio",null,null,null));
         cuartetosRetorno.add(new Cuarteto("main",null,null,null));
-        for (Instruccion instruccion : instrucciones.getInstruccionesPr()) {
-            if(instruccion instanceof MetodoInstr) Cuartetos.unirCuartetos(cuartetosRetorno, generarCodigo3Direcciones(((MetodoInstr)instruccion).getInstrucciones(), coleccion));
-        }
+        
+        Cuartetos.unirCuartetos(cuartetosRetorno, generarCodigo3Direcciones(instrucciones.getInstruccionesPr(), coleccion));
         
         cuartetosRetorno.add(new Cuarteto("return",null,null,null));
         cuartetosRetorno.add(new Cuarteto("finMetodo",null,null,null));

@@ -50,16 +50,8 @@ public class General {
     }
 
     private void analizarSeccionPrincipal(List<Instruccion> instruccionesPr) {
-        for (Instruccion instruccion : instruccionesPr) {
-            if(instruccion instanceof DeclaracionInstr){
-                ((DeclaracionInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if (instruccion instanceof AsignacionInstr){
-                ((AsignacionInstr)instruccion).analizarSemanticamente(coleccion);
-            }else if(instruccion instanceof MetodoInstr){
-                AnalizadorBloque analizador = new AnalizadorBloque();
-                analizador.analizarBloque(((MetodoInstr)instruccion).getInstrucciones(), coleccion);
-            }
-        }
+        AnalizadorBloque analizador = new AnalizadorBloque();
+        analizador.analizarBloque(instruccionesPr, coleccion);
     }
 
     private void analizarSeccionVisual(List<Instruccion> instruccionesVb) {
