@@ -171,13 +171,12 @@ public class GuiManager {
      * @param Codigo es el codigo que se escribirá en el archivo, que posteriormente se compilara y ejecutará
      */
     public void guardarYEjecutar(String codigo) {
-        File tmp = new File("Compilador/Generados");
+        File tmp = new File("Generados");
         if(!tmp.isDirectory()) tmp.mkdirs();
-        File file = new File("Compilador/Generados/codigoC.c");
+        File file = new File("Generados/codigoC.c");
         manager.guardarArchivo(new Documento(file,false,codigo));
         try{
-            Runtime.getRuntime().exec("./Compilador/Generados/generar&EjecutarC.sh");
-            //Runtime.getRuntime().exec(new String[]{"gcc","-o","Generados/ejecutableC", "Generados/Codigo/codigoC.c"});
+            Runtime.getRuntime().exec(new String[]{"./Generados/generarC.sh" , "Generados/codigoC"});
         }catch(Exception ex){
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al guardar el ejecutable del codigo 3 direcciones generado", "Error", JOptionPane.ERROR_MESSAGE);

@@ -56,6 +56,10 @@ public class Cuartetos {
         }
         codigo+="\n";
         for (Cuarteto cuarteto : cuartetos) {
+            if(cuarteto.getOp().equals("metodo")) codigo+="void "+cuarteto.getRes()+"(void);"+"\n";
+        }
+        codigo+="\n";
+        for (Cuarteto cuarteto : cuartetos) {
             switch(cuarteto.getOp()){
                 case "metodo":{
                     codigo+="void "+cuarteto.getRes()+"(void){ \n";

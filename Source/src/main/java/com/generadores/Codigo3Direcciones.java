@@ -252,7 +252,7 @@ public class Codigo3Direcciones {
             for (Dato parametro : instr.getParametros()) {
                 coleccion.getSimbolos().agregarSimboloSiNoExiste(new Simbolo((String)parametro.getValor(),CONST.VAR,parametro.getTipo(),"1",String.valueOf(coleccion.getSimbolos().getSimbolos().size()),null,null));
             }
-            cuartetosRetorno.add(new Cuarteto("metodo",null,null,Utilidades.nombreMetodo(CONST.SEC_VB, instr)));
+            cuartetosRetorno.add(new Cuarteto("metodo",null,null,Utilidades.nombreMetodo(CONST.SEC_PY, instr)));
             Cuartetos.unirCuartetos(cuartetosRetorno, generarCodigo3Direcciones(instr.getInstrucciones(), coleccion));
             cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,coleccion.getEtiquetaReturn()));
             cuartetosRetorno.add(new Cuarteto(":=","0",null,"t00"));

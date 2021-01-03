@@ -127,6 +127,14 @@ float t118;
 int t119;
 float t120;
 
+void VB_Saludo(void);
+void VB_Factorial_ENTERO(void);
+void JAVA_Algo_saludar(void);
+void JAVA_Algo_hacerSuma_ENTERO_ENTERO(void);
+void JAVA_Algo_suma_ENTERO_ENTERO(void);
+void JAVA_Algo_Algo(void);
+void PY_edadmeses_INDEFINIDO_INDEFINIDO(void);
+
 void VB_Saludo(void){ 
 printf("Segundo Proyecto de Compiladores 2");
 }
@@ -226,7 +234,7 @@ t00 = 0;
 void JAVA_Algo_Algo(void){ 
 }
 
-void VB_edadmeses_INDEFINIDO_INDEFINIDO(void){ 
+void PY_edadmeses_INDEFINIDO_INDEFINIDO(void){ 
 printf("Ingrese su edad:");
 scanf("%f",&t48);
 t49 = p + 1;
