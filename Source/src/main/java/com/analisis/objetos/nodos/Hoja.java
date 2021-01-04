@@ -62,7 +62,18 @@ public class Hoja implements NodoAritmetico{
                         this.tipoRetorno = simbolo.getTipo();
                         return new Dato(simbolo.getTipo(),(String)valor.getValor());
                     }else{
-                        coleccion.getErrores().agregarError("Semantico",(String)valor.getValor(),"No existe una variable declarada con el identificador utilizado",posicion);
+                        if(coleccion.getClase()!=null){
+                            Clase clase = (Clase) coleccion.getClasesJv().getSimbolo(coleccion.getClase()).getValor();
+                            simbolo = clase.getSimbolos().getSimbolo((String)valor.getValor());
+                            if(simbolo!=null){
+                                this.tipoRetorno = simbolo.getTipo();
+                                return new Dato(simbolo.getTipo(),(String)valor.getValor());
+                            }else{
+                                coleccion.getErrores().agregarError("Semantico",(String)valor.getValor(),"No existe una variable declarada con el identificador utilizado",posicion);
+                            }
+                        }else{
+                            coleccion.getErrores().agregarError("Semantico",(String)valor.getValor(),"No existe una variable declarada con el identificador utilizado",posicion);
+                        }
                     }
                     break;
                 }
@@ -99,7 +110,7 @@ public class Hoja implements NodoAritmetico{
                     break;
                 }
                 case CONST.CARACTER: {
-                    cuartetosRetorno.add(new Cuarteto(":=",(String)valor.getValor(),null,Temporal.siguienteTemporal(CONST.CARACTER)));
+                    cuartetosRetorno.add(new Cuarteto(":=","'"+(String)valor.getValor()+"'",null,Temporal.siguienteTemporal(CONST.CARACTER)));
                     break;
                 }
                 case CONST.ARREGLO: {

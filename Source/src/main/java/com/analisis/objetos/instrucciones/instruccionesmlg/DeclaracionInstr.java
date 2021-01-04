@@ -126,7 +126,7 @@ public class DeclaracionInstr implements Instruccion{
                     lugar.getId(),
                     CONST.CLASE,
                     tipo,
-                    String.valueOf(clase.getSimbolos().getSimbolos().size()),
+                    "1",
                     null,//direccion
                     null,
                     null

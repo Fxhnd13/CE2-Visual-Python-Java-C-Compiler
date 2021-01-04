@@ -1,5 +1,12 @@
 #!/bin/bash
-
+echo "------------------------------------------"
 echo "Compilando y enlazando..."
+echo "------------------------------------------"
 
-gcc -o "../Ejecutable/$1 $1.c;
+gcc -o codigoC codigoC.c;
+
+echo "------------------------------------------"
+echo "Ejecutando Codigo Generado"
+echo "------------------------------------------"
+
+./codigoC

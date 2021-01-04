@@ -5,7 +5,7 @@
  */
 package com.analisis.objetos.estructuras;
 
-import com.analisis.objetos.instrucciones.instruccionesmlg.AsignacionInstr;
+import com.analisis.objetos.instrucciones.instruccionesmlg.Instruccion;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class Clase {
     
     private TablaDeSimbolos simbolos, metodos;
-    private List<AsignacionInstr> asignaciones;
+    private List<Instruccion> asignaciones;
 
     public Clase() {
         this.simbolos = new TablaDeSimbolos();
@@ -45,11 +45,11 @@ public class Clase {
         this.metodos = metodos;
     }
 
-    public List<AsignacionInstr> getAsignaciones() {
+    public List<Instruccion> getAsignaciones() {
         return asignaciones;
     }
 
-    public void setAsignaciones(List<AsignacionInstr> asignaciones) {
+    public void setAsignaciones(List<Instruccion> asignaciones) {
         this.asignaciones = asignaciones;
     }
     

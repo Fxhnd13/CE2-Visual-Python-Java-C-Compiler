@@ -1,0 +1,111 @@
+%%VB
+Public Sub Incremento(ByVal Valor as Integer)
+  Valor = Valor + 1
+  Return Valor
+End Sub
+
+
+
+}
+
+%%JAVA
+
+%%PY
+def Mensaje(tipo):
+    if tipo == 1:
+        print("Arreglo antes de ordenarse")
+    elif tipo == 2:
+        print("Arreglo depues de ordenarse")
+    else:
+        print("default")
+
+def Mostrar(indice, valor):
+    print("arreglo[", indice, "] = ",valor)
+
+%%PROGRAMA
+/* ---------------------------------------------
+	Sección de Librerias
+   --------------------------------------------- */
+   #include "VB"
+   #include "PY"
+   
+/* ---------------------------------------------
+    Declaracion de Constantes
+   --------------------------------------------- */
+   
+   const int tamano = 10;
+
+/* ---------------------------------------------
+    Declaracion de Variables Globales
+   --------------------------------------------- */
+   
+   int arreglo[tamano];		 
+   int i=0;
+   int j=0;
+   int tmp;
+   
+   void main ()
+   {
+        // Inicializar arreglo
+		arreglo[0]=7;
+		arreglo[1]=14;
+		arreglo[2]=18;
+		arreglo[3]=19;
+		arreglo[4]=21;
+		arreglo[5]=2;
+		arreglo[6]=9;
+		arreglo[7]=24;
+		arreglo[8]=29;
+		arreglo[9]=47;
+	 
+		PY.Mensaje(1);
+		for(i = 0; i < tamano; i = i + 1)
+	    {
+			Pascal.Mostrar(i,arreglo[i]);
+	    }
+		
+		i = 0;
+		
+		// Ordenar el arreglo
+		// Inicio while 1
+		while(i < 10)
+		{
+			// Inicio while 2
+			while(j < 10)
+			{
+				// Inicio if
+				if(arreglo[j] < arreglo[j+1])
+				{
+                    tmp = arreglo[j];
+                    arreglo[j] = arreglo[j + 1];
+                    arreglo[j + 1] = tmp;
+				
+				} // fin if
+				
+				// contador 2
+				j = VB.Incremento(j);
+			
+			} // fin while
+			
+			// contador 1
+			j = 0;
+			i = VB.Incremento(i);
+			
+		} // fin while
+		
+	   
+	   PY.Mensaje(2);
+	   
+	   // Mostrar el arreglo ordenado
+	   
+	   for(i = 0; i < tamano; i = i + 1)
+	   {
+			PY.Mostrar(i,arreglo[i]);
+	   }
+	   
+	   
+	   
+	   getch();
+   }
+	
+	

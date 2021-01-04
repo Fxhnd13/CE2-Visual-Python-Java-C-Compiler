@@ -299,14 +299,14 @@ public class Cuartetos {
     }
 
     public static void eliminarRedundanciaEtiquetas(List<Cuarteto> cuartetos) {
-//        for (int i = 0; i < cuartetos.size(); i++) {
-//            if(cuartetos.get(i).getOp().equals("etiqueta")){
-//                int j = i+1;
-//                int etiquetasSeguidas = 0;
-//                while((j<cuartetos.size())&&cuartetos.get(j++).getOp().equals("etiqueta")) etiquetasSeguidas++;
-//                eliminarEtiquetas(i,etiquetasSeguidas,cuartetos);
-//            }
-//        }
+        for (int i = 0; i < cuartetos.size(); i++) {
+            if(cuartetos.get(i).getOp().equals("etiqueta")){
+                int j = i+1;
+                int etiquetasSeguidas = 0;
+                while((j<cuartetos.size())&&cuartetos.get(j++).getOp().equals("etiqueta")) etiquetasSeguidas++;
+                eliminarEtiquetas(i,etiquetasSeguidas,cuartetos);
+            }
+        }
     }
 
     private static void eliminarEtiquetas(int i, int etiquetasSeguidas, List<Cuarteto> cuartetos) {

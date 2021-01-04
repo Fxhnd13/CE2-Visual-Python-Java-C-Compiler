@@ -13,6 +13,7 @@ import com.analisis.objetos.estructuras.ColeccionInstr;
 import com.analisis.objetos.estructuras.TablaDeSimbolos;
 import com.analisis.objetos.instrucciones.instruccionesmlg.*;
 import com.analisis.objetos.nodos.Hoja;
+import com.analisis.sintactico.GeneradorAst;
 import com.generadores.EstructurasIntermedias;
 import java.util.List;
 
@@ -32,9 +33,10 @@ public class General {
         this.coleccion = coleccion;
     }
     
-    public void analizar(ColeccionInstr instrucciones) {
+    public void analizar(GeneradorAst ast) {
+        ColeccionInstr instrucciones = ast.getInstrucciones();
         EstructurasIntermedias generadorStr = new EstructurasIntermedias(); //generamos las estructuras intermedias necesarias
-        coleccion = generadorStr.generarEstructuras(instrucciones);
+        coleccion = generadorStr.generarEstructuras(instrucciones, ast.getErrores());
         
         coleccion.setTipadoActual(0);//tipado de visual
         analizarSeccionVisual(instrucciones.getInstruccionesVb());
@@ -50,6 +52,7 @@ public class General {
     }
 
     private void analizarSeccionPrincipal(List<Instruccion> instruccionesPr) {
+        coleccion.setSimbolos(new TablaDeSimbolos());
         AnalizadorBloque analizador = new AnalizadorBloque();
         analizador.analizarBloque(instruccionesPr, coleccion);
     }
@@ -70,7 +73,7 @@ public class General {
                     if(instruccionDeClase instanceof MetodoInstr){
                         analizarInstruccionDeclaracionMetodo((MetodoInstr)instruccionDeClase, CONST.SEC_JV);
                     }else if(instruccionDeClase instanceof AsignacionInstr){
-                        ((AsignacionInstr)instruccion).analizarSemanticamente(coleccion);
+                        ((AsignacionInstr)instruccionDeClase).analizarSemanticamente(coleccion);
                     }
                 }
             }
@@ -89,7 +92,9 @@ public class General {
     private void analizarInstruccionDeclaracionMetodo(MetodoInstr instr, String seccion) {
         coleccion.setSimbolos(new TablaDeSimbolos()); //la tabla de simbolos con la que se evaluara el metodo
         analizarParametrosDelMetodo(instr, seccion); //verificamos que no haya inconsistencias en la declaracion de los parametros
-        analizarRetornoDelMetodo(instr, seccion); //verificamos que esté bien el return (si es que se debe analizar)
+        
+        if(!instr.getTipoRetorno().equals(CONST.CONSTRUCTOR))
+            analizarRetornoDelMetodo(instr, seccion); //verificamos que esté bien el return (si es que se debe analizar)
         
         coleccion.setSimbolos(new TablaDeSimbolos());
         analizarParametrosDelMetodo(instr, seccion);

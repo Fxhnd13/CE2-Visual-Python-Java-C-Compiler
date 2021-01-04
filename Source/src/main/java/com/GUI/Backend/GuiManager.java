@@ -5,6 +5,7 @@
  */
 package com.GUI.Backend;
 
+import com.GUI.Mensajes;
 import com.analisis.objetos.analisis.ErrorA;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.estructuras.ColeccionInstr;
@@ -49,10 +50,12 @@ public class GuiManager {
     
     private Documento documentoActivo;
     private ArchivosManager manager;
+    private Mensajes mensajes;
     
     public GuiManager(Documento documentoActivo){
         this.documentoActivo = documentoActivo;
         this.manager = new ArchivosManager();
+        this.mensajes = new Mensajes();
     }
 
     public Documento getDocumentoActivo() {
@@ -176,7 +179,8 @@ public class GuiManager {
         File file = new File("Generados/codigoC.c");
         manager.guardarArchivo(new Documento(file,false,codigo));
         try{
-            Runtime.getRuntime().exec(new String[]{"./Generados/generarC.sh" , "Generados/codigoC"});
+            Runtime.getRuntime().exec(new String[]{"xdg-open","Generados/"});
+            //Runtime.getRuntime().exec(new String[]{"./Generados/generarC.sh" , "Generados/codigoC"});
         }catch(Exception ex){
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al guardar el ejecutable del codigo 3 direcciones generado", "Error", JOptionPane.ERROR_MESSAGE);
@@ -209,7 +213,7 @@ public class GuiManager {
         reiniciar(); //conteo en 0 de temporales y etiquetas
         GeneradorAst generadorAst = new GeneradorAst(codigoFuente.getText()); //generamos el ast a partir del archivo de entrada
         General analizadorSemantico = new General();
-        analizadorSemantico.analizar(generadorAst.getInstrucciones()); //hacemos el analisis semantico con la informacion recolectada 
+        analizadorSemantico.analizar(generadorAst); //hacemos el analisis semantico con la informacion recolectada 
         
         if(analizadorSemantico.getColeccion().getErrores().getErrores().isEmpty()){
             
@@ -217,6 +221,7 @@ public class GuiManager {
             List<Cuarteto> cuartetos = generador.generarCodigo(generadorAst.getInstrucciones(), analizadorSemantico.getColeccion());
             Cuartetos.eliminarRedundanciaEtiquetas(cuartetos);
             codigoGenerado.setText(Cuartetos.escribirCodigo3DireccionesNormal(cuartetos));
+            mensajes.informacion("Se ha generado el codigo 3 direcciones exitosamente.");
             return cuartetos;
             
         }else{
@@ -225,7 +230,9 @@ public class GuiManager {
             for (ErrorA error : analizadorSemantico.getColeccion().getErrores().getErrores()) {
                 errores+=error.toString()+"\n";
             }
+            mensajes.error("Se han encontrado "+analizadorSemantico.getColeccion().getErrores().getErrores().size()+" errores.");
             erroresTextArea.setText(errores);
+            
         }
         return new ArrayList();
     }
@@ -239,6 +246,7 @@ public class GuiManager {
         List<Cuarteto> cuartetos = generarCodigo3D(codigoFuente, erroresTextArea, codigo3D);
         if(!cuartetos.isEmpty()){
             String codigo = Cuartetos.escribirCodigo3DireccionesEjecutable(cuartetos);
+            mensajes.informacion("Se ha generado el codigo 3 direcciones ejecutable exitosamente.");
             guardarYEjecutar(codigo);
         }
     }

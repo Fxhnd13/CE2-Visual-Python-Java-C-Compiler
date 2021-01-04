@@ -1,0 +1,57 @@
+%%VB	
+
+%%JAVA
+
+public class clase {
+
+	public void programa(){
+		int a, b, c;
+		a = intinput("Ingrese primer numero");
+		b = intinput("Ingrese segundo numero");
+		c = intinput("Ingrese tercer numero");
+		if(a > b && b > c){
+			System.out.println(a+" "+b+" "+c); 
+		} else {
+			if(a > c && c > b){
+				System.out.println(a+" "+c+" "+b); 
+			} else {
+				if(b > a && a > c){
+					System.out.println(b+" "+a+" "+c); 
+				} else {
+					if(b > c && c > a){
+						System.out.println(b+" "+c+" "+a); 
+					} else {
+						if(c > a && a > b){
+							System.out.println(c+" "+a+" "+b); 
+						} else {
+							if(c > b && b > a){
+								System.out.println(c+" "+b+" "+a); 
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public clase(){
+
+	}
+}
+
+%%PY
+
+%%PROGRAMA
+
+#include "VB"
+#include "PY"
+#include "JAVA.*"
+
+
+void main()
+{
+
+	JAVA.clase id();
+	JAVA.id.programa();
+
+}

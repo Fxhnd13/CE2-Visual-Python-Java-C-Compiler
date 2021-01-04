@@ -1,0 +1,188 @@
+%%VB
+
+%%JAVA
+
+public class clase {
+
+	public void programa(){
+		int num, unidades, decenas;
+		num = intinput("Introduzca un número (0 a 99): ");
+	 	unidades = num % 10;
+ 		decenas = num / 10;
+
+		System.out.println("el valor de decenas es: "+decenas);
+ 		switch(decenas){
+ 			case 0:
+ 				System.out.print("");
+ 			break;
+ 			case 1:
+ 				System.out.print("diez");
+ 			break;
+ 			case 2:
+ 				System.out.print("veinte");
+ 			break;
+ 			case 3:
+ 				System.out.print("treinta");
+ 			break;
+ 			case 4:
+ 				System.out.print("cuarenta");
+ 			break;
+ 			case 5:
+ 				System.out.print("cincuenta");
+ 			break;
+ 			case 6:
+ 				System.out.print("sesenta");
+			break;
+ 			case 7:
+ 				System.out.print("setenta");
+ 			break;
+ 			case 8:
+ 				System.out.print("ochenta");
+ 			break;
+ 			case 9:
+ 				System.out.print("noventa");
+ 			break;
+ 		}
+
+ 			System.out.print (" y ");
+ 			switch(unidades){
+ 				case 0:
+ 					System.out.println("");
+ 				break;
+ 				case 1:
+ 					System.out.println("uno");
+ 				break;
+ 				case 2:
+ 					System.out.println("dos");
+ 				break;
+ 				case 3:
+ 					System.out.println("tres");
+ 				break;
+ 				case 4:
+ 					System.out.println("cuatro");
+				break;
+ 				case 5:
+ 					System.out.println("cinco");
+ 					break;
+ 				case 6:
+ 					System.out.println("seis");
+ 					break;
+ 				case 7:
+ 					System.out.println("siete");
+ 					break;
+ 				case 8:
+ 					System.out.println("ocho");
+ 					break;
+ 				case 9:
+ 					System.out.println("nueva");
+ 					break;
+ 			}
+ 
+	}
+
+	// Leer números hasta que se introduzca un 0. Para cada uno indicar si es par o impar
+	public void programa2(){
+ 		int num;
+	        num = intinput("Introduzca un número: ");
+ 		while(num != 0){
+ 			if(num%2 == 0) {
+ 				System.out.println("Par");
+			} else {
+ 				// en caso contrario: impar
+ 				System.out.println("Impar");
+			}
+		       	// repetimos el proceso y volvemos a leer num
+			num = intinput("Introduzca un número: ");
+ 			
+		}
+	}
+
+	// Pedir números hasta que se teclee un 0, mostrar la suma de todos los números introducidos
+	public void programa3(){
+		int num,suma;
+ 		suma=0;
+ 		do
+ 		{
+ 			num = intinput("Introduzca un número: ");
+ 			suma=suma+num;
+ 		} while(num!=0);
+ 		System.out.println("La suma de todos los números es: "+suma);
+	}
+
+	 //Diseña una aplicación que muestre las tablas de multiplicar del 1 al 10.
+	public void programa4(){
+		int tabla, i;
+		for (tabla=1; tabla<=10; tabla=tabla+1)
+ 		{
+ 			System.out.println ("\n\nTabla del " +tabla);
+ 			System.out.println ("---------------");
+ 			for (i=1;i<=10;i=i+1)
+			{
+				int total = tabla*i;
+ 				System.out.println (tabla + " x " + i + " = " +total);
+ 			}
+ 		}
+ 	
+	}
+
+	/* Necesitamos mostrar un contador con 5 dígitos (X-X-X-X-X), que muestre los números del 0-0-0-0-0 al 9-9-9-9-9, con la particularidad que 		cada vez que aparezca un 3 lo sustituya por una E.*/
+	public void programa5(){
+		for (int i=0;i<=9;i=i+1){
+ 			for (int j=0;j<=9;j=j+1){
+ 				for (int k=0;k<=9;k=k+1){
+ 					for (int l=0;l<=9;l=l+1){
+ 						for (int m=0;m<=9;m=m+1){
+
+					 	if(i==3){
+						 	System.out.print("E");
+ 						} else {
+ 							System.out.print(i);
+ 						}
+						if(j==3){
+ 							System.out.print("E");
+ 						} else {
+ 							System.out.print(j);
+	 					}
+						if(k==3){
+ 							System.out.print("E");
+ 						} else {
+ 							System.out.print(k);
+ 						}
+						if(l==3){
+ 							System.out.print("E");
+ 						} else {
+ 							System.out.print(l);
+ 						}
+						if(m==3){
+							System.out.print("E");
+						} else {
+		 					System.out.print(m);
+						}
+ 						System.out.println(" ");
+ 						}
+ 					}
+ 				}
+ 			}
+ 		}
+	}
+
+	
+
+}
+
+%%PY
+
+%%PROGRAMA
+
+#include "VB"
+#include "JAVA.*"
+#include "PY"
+
+
+void main()
+{
+
+	JAVA.clase id();
+	JAVA.id.programa5();
+
+}

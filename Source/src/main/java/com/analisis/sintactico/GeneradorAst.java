@@ -8,6 +8,7 @@ package com.analisis.sintactico;
 import com.GUI.Mensajes;
 import com.analisis.Lexer;
 import com.analisis.Parser;
+import com.analisis.objetos.analisis.ErrorManager;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.estructuras.ColeccionInstr;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
 public class GeneradorAst {
     
     private ColeccionInstr instrucciones;
-    private Coleccion coleccion;
+    private ErrorManager errores;
     
     public GeneradorAst(String codigo){
         //se generan las instrucciones
@@ -38,6 +39,7 @@ public class GeneradorAst {
             Mensajes mensajes = new Mensajes();
             mensajes.informacion("Se ha finalizado el analisis sintactico sin errores graves.");
             instrucciones = parser.getColeccionInstr();
+            errores = parser.getErrores();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -51,13 +53,12 @@ public class GeneradorAst {
         this.instrucciones = instrucciones;
     }
 
-    public Coleccion getColeccion() {
-        return coleccion;
+    public ErrorManager getErrores() {
+        return errores;
     }
 
-    public void setColeccion(Coleccion coleccion) {
-        this.coleccion = coleccion;
+    public void setErrores(ErrorManager errores) {
+        this.errores = errores;
     }
-    
     
 }

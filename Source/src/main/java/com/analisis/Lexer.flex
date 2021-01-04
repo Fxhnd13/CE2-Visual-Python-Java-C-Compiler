@@ -28,6 +28,7 @@ L = [a-zA-Z]
 Digito = [0-9]
 Entero = [1-9]
 IntegerLiteral = 0 | {Entero}{Digito}*
+DecimalLiteral = {IntegerLiteral}"\."{Digito}+
 
 /* comments */
 TraditionalComment   = "/*" [^*] ~"*/"
@@ -185,7 +186,7 @@ Comment = {TraditionalComment} | {EndOfLineComment}
 
     /* valores de datos enteros, flotantes y caracteres */
     {IntegerLiteral}                                { return symbol(yyline+1, yycolumn+1, yytext(), sym.ENTERO);}
-    {IntegerLiteral}("\.")({Digito}*[1-9])          { return symbol(yyline+1, yycolumn+1, yytext(), sym.FLOTANTE);}
+    {DecimalLiteral}                                { return symbol(yyline+1, yycolumn+1, yytext(), sym.FLOTANTE);}
     ("'")[^]("'")                                   { return symbol(yyline+1, yycolumn+1, yytext(), sym.CARACTER);}
     "\""                                            { yybegin(STRING); }
 
@@ -263,7 +264,7 @@ Comment = {TraditionalComment} | {EndOfLineComment}
 
     /* valores de datos enteros, flotantes y caracteres */
     {IntegerLiteral}                                { return symbol(yyline+1, yycolumn+1, yytext(), sym.ENTERO);}
-    {IntegerLiteral}("\.")({Digito}*[1-9])          { return symbol(yyline+1, yycolumn+1, yytext(), sym.FLOTANTE);}
+    {DecimalLiteral}                                { return symbol(yyline+1, yycolumn+1, yytext(), sym.FLOTANTE);}
     ("'")[^]("'")                                   { return symbol(yyline+1, yycolumn+1, yytext().substring(1,2), sym.CARACTER);}
     "\""                                            { yybegin(STRING); }
 
@@ -338,7 +339,7 @@ Comment = {TraditionalComment} | {EndOfLineComment}
 
     /* valores de datos enteros, flotantes y caracteres */
     {IntegerLiteral}                                { return symbol(yyline+1, yycolumn+1, yytext(), sym.ENTERO);}
-    {IntegerLiteral}("\.")({Digito}*[1-9])          { return symbol(yyline+1, yycolumn+1, yytext(), sym.FLOTANTE);}
+    {DecimalLiteral}                                { return symbol(yyline+1, yycolumn+1, yytext(), sym.FLOTANTE);}
     ("'")[^]("'")                                   { return symbol(yyline+1, yycolumn+1, yytext().substring(1,2), sym.CARACTER);}
     "\""                                            { yybegin(STRING); }
 
@@ -419,7 +420,7 @@ Comment = {TraditionalComment} | {EndOfLineComment}
 
     /* valores de datos enteros, flotantes y caracteres */
     {IntegerLiteral}                                { return symbol(yyline+1, yycolumn+1, yytext(), sym.ENTERO);}
-    {IntegerLiteral}("\.")({Digito}*[1-9])          { return symbol(yyline+1, yycolumn+1, yytext(), sym.FLOTANTE);}
+    {DecimalLiteral}                                { return symbol(yyline+1, yycolumn+1, yytext(), sym.FLOTANTE);}
     ("'")[^]("'")                                   { return symbol(yyline+1, yycolumn+1, yytext().substring(1,2), sym.CARACTER);}
     "\""                                            { cadena.setLength(0); yybegin(STRING); }
 

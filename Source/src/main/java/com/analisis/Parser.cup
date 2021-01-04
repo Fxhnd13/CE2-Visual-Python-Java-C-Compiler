@@ -46,7 +46,6 @@ parser code{:
         switch(s.toString()){
         }
         errores.agregarError("Sintactico",cadena,"No se esperaba un token tipo <"+sym.terminalNames[s.sym]+">", new Pos(linea,columna));
-        System.out.println("No se esperaba un token tipo <"+sym.terminalNames[s.sym]+"> en ("+linea+","+columna+")");
     }
 
     public void agregarError(String tipo, String cadena, String descripcion, int linea, int columna){
@@ -55,6 +54,7 @@ parser code{:
     }
 
     public ColeccionInstr getColeccionInstr(){ return coleccionInstr; }
+    public ErrorManager getErrores(){ return errores; }
 
 :}
 
@@ -81,7 +81,7 @@ non terminal Instruccion                sentenciaReturnJv, sentenciaBreakJv, esc
 non terminal Instruccion                sentenciaWhilePy, sentenciaForPy, dclLibreria, libreria, sentenciaAsignacion;
 non terminal Instruccion                sentenciaEscribir, sentenciaIngresoDatos, sentenciaLimpiarPantalla, sentenciaEsperarTecla;
 non terminal Instruccion                sentenciaBreak, sentenciaIf, sentenciaFor, sentenciaWhile, sentenciaDoWhile;
-non terminal Instruccion                sentenciaSwitch;
+non terminal Instruccion                sentenciaSwitch, sentenciaReturnPy;
 non terminal InstruccionSino            sino, sinoVb, sinoJv, elsePy, elseIfPy;
 non terminal NodoAritmetico             aumentoForVb, mensajeVb, expresionArVb, modificadorForJv, cadenaExpresionJv, expresionArJv; 
 non terminal NodoAritmetico             mensajePy, expresionArPy, modificadorFor, expresionAr;
@@ -119,7 +119,7 @@ non terminal List<String>               listadoId, libreriaC;
 non terminal Object                     codigo, visual, metodosVb, dclMetodosVb, dclMetodoVb, caseVb, espaciosVb, java, clasesJv, dclClasesJv, dclClaseJv, python, metodosPy, dclMetodosPy, dclMetodoPy, principal, publicOpcional;
 
 //declaracion de precedencia
-precedence left PR_ENTERO, PR_FLOTANTE, PR_CARACTER, COMA;
+precedence left PR_ENTERO, PR_FLOTANTE, PR_CARACTER, COMA, ID;
 precedence left OR;
 precedence left AND;
 precedence left NOT;
@@ -540,7 +540,13 @@ sentenciaEscribirVb::=                  MENSAJE:pos PAR_A mensajesVb:mensajes PA
                                             }
                                         :}
                                         |MENSAJE:e PAR_A PAR_C  {: agregarError("Sintactico","<Sin cadena>","Se esperaba un mensaje para mostrar a pantalla (al menos 1).", eleft, eright); :}
-                                        |MENSAJELN:e PAR_A PAR_C  {: agregarError("Sintactico","<Sin cadena>","Se esperaba un mensaje para mostrar a pantalla (al menos 1).", eleft, eright); :}
+                                        |MENSAJELN:pos PAR_A:par PAR_C {:
+                                            if(pos!=null){
+                                                MensajeInstr instruccion = new MensajeInstr(new Concat(new Pos(parleft,parright)), new Pos(posleft,posright));
+                                                instruccion.getMensaje().getMensajes().add(new Hoja(new Dato(CONST.CADENA,"\\n"), new Pos()));
+                                                RESULT = instruccion;
+                                            }
+                                        :}
                                         ;
 
 mensajesVb::=                           mensajesVb:concat AMPERSON mensajeVb:mensaje {:
@@ -733,7 +739,6 @@ dclClaseJv::=                           publicOpcional CLASS:pos ID:id LLAVE_A c
                                         :}
                                         |publicOpcional error:e ID LLAVE_A contenidoClaseJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba la palabra clave Class", eleft, eright); :}
                                         |publicOpcional CLASS error:e LLAVE_A contenidoClaseJv LLAVE_C {: agregarError("Sintactico",(String) e,"No se especifico el identificador para la clase, se esperaba un identificador.", eleft, eright); :}
-                                        |publicOpcional CLASS ID error:e {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo (contenido de la clase).", eleft, eright); :}
                                         ;
 
 contenidoClaseJv::=                     sentenciasDeClaseJv:instrucciones {: RESULT = instrucciones; :}
@@ -756,8 +761,18 @@ sentenciasDeClaseJv::=                  sentenciasDeClaseJv:instruccionesRetorno
                                         :}
                                         ;
 
-sentenciaDeClaseJv::=                   sentenciaDeclaracionJv:instrucciones {:
-                                            RESULT = (instrucciones==null)? new ArrayList() : instrucciones;
+sentenciaDeClaseJv::=                   sentenciaDeclaracionJv:instrucciones FIN_LINEA {:
+                                            if(instrucciones!=null){
+                                                for(Instruccion instruccion : instrucciones){
+                                                    if(instruccion instanceof AsignacionInstr){
+                                                        AsignacionInstr instr = (AsignacionInstr) instruccion;
+                                                        instr.setLugar(new LugarVariableGlobal(instr.getLugar().getId(), instr.getLugar().getPosicion()));
+                                                    }
+                                                }
+                                            }else{
+                                                instrucciones = new ArrayList();
+                                            }
+                                            RESULT = instrucciones;
                                         :}
                                         |dclMetodoJv:instruccion {:
                                             List<Instruccion> instrucciones = new ArrayList();
@@ -772,10 +787,14 @@ dclMetodoJv::=                          publicOpcional tiposDeMetodo:tipo ID:id 
                                                 RESULT = new MetodoInstr(tipo,id,parametros,instrucciones, new Pos(idleft,idright));
                                             }
                                         :}
-                                        |publicOpcional error:e ID PAR_A dclParametrosJv PAR_C LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"No se especifico el tipo del procedimiento/funcion declarado", eleft, eright); :}
+                                        |publicOpcional ID:id PAR_A dclParametrosJv:parametros PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C {:
+                                            if(id!=null&&instrucciones!=null){
+                                                if(parametros==null)parametros = new ArrayList();
+                                                RESULT = new MetodoInstr(CONST.CONSTRUCTOR,id,parametros,instrucciones, new Pos(idleft,idright));
+                                            }
+                                        :}
                                         |publicOpcional tiposDeMetodo error:e PAR_A dclParametrosJv PAR_C LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"No se especifico un identificador para el metodo, se esperaba un identificador", eleft, eright); :}
                                         |publicOpcional tiposDeMetodo ID error:e LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba un listado de parametros (lleno o vacio) dentro de parentesis.", eleft, eright); :}
-                                        |publicOpcional tiposDeMetodo ID PAR_A dclParametrosJv PAR_C error:e 
                                         ;
 
 dclParametrosJv::=                      listadoParametrosJv:parametros {: RESULT = (parametros==null)? new ArrayList() : parametros; :}
@@ -795,7 +814,6 @@ listadoParametrosJv::=                  listadoParametrosJv:parametros COMA tipo
                                         |listadoParametrosJv COMA error:e ID {: agregarError("Sintactico",(String) e,"No se especifico el tipo del parametro declarado.", eleft, eright); :}
                                         |listadoParametrosJv COMA tiposDeDato error:e {: agregarError("Sintactico",(String) e,"No se utilizo un identificador en la declaracion del parametro.", eleft, eright); :}
                                         |tiposDeDato error:e {: agregarError("Sintactico",(String) e,"No se utilizo un identificador en la declaracion del parametro.", eleft, eright); :}
-                                        |error:e ID {: agregarError("Sintactico",(String) e,"No se especifico el tipo del parametro declarado.", eleft, eright); :}
                                         ;
 
 bloqueJv::=                             sentenciasJv:instrucciones {: RESULT = instrucciones; :}
@@ -1101,7 +1119,7 @@ asignacionJv::=                         ID:id IGUAL accionAsignacionJv:accion {:
                                         :}
                                         |ID:id {:
                                             List<Instruccion> instrucciones = new ArrayList();
-                                            instrucciones.add(new DeclaracionInstr());
+                                            instrucciones.add(new DeclaracionInstr(null,new LugarVariable(id, new Pos(idleft,idright)),null,false));
                                             RESULT = instrucciones;
                                         :}
                                         ;
@@ -1130,11 +1148,17 @@ sentenciaEscribirJv::=                  MENSAJE:pos PAR_A expresionMensajeJv:men
                                                 RESULT = instruccion;                                                
                                             }
                                         :}
+                                        |MENSAJELN:pos PAR_A:par PAR_C {:
+                                            if(pos!=null){
+                                                MensajeInstr instruccion = new MensajeInstr(new Concat(new Pos(parleft,parright)), new Pos(posleft,posright));
+                                                instruccion.getMensaje().getMensajes().add(new Hoja(new Dato(CONST.CADENA,"\\n"), new Pos()));
+                                                RESULT = instruccion;
+                                            }
+                                        :}
                                         |MENSAJE PAR_A expresionMensajeJv error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
                                         |MENSAJE PAR_A error:e {: agregarError("Sintactico",(String) e,"Se esperaba un mensaje a pantalla.", eleft, eright); :}
                                         |MENSAJE error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
                                         |MENSAJELN PAR_A expresionMensajeJv error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
-                                        |MENSAJELN PAR_A error:e {: agregarError("Sintactico",(String) e,"Se esperaba un mensaje a pantalla.", eleft, eright); :}
                                         |MENSAJELN error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}                                        
                                         ;
 
@@ -1398,6 +1422,18 @@ sentenciaSimplePy::=                    asignacionVarPy:instrucciones {:
                                             List<Instruccion> instrucciones = new ArrayList();
                                             if(llamada!=null) instrucciones.add(new LlamadaInstr(llamada, new Pos(llamadaleft,llamadaright)));
                                             RESULT = instrucciones;
+                                        :}
+                                        |sentenciaReturnPy:instruccion {:
+                                            List<Instruccion> instrucciones = new ArrayList();
+                                            if(instruccion!=null) instrucciones.add(instruccion);
+                                            RESULT = instrucciones;
+                                        :}
+                                        ;
+
+sentenciaReturnPy::=                    RETURN:pos expresionArPy:expresion {:
+                                            if(pos!=null&expresion!=null){
+                                                RESULT = new ReturnInstr(expresion, new Pos(posleft,posright));
+                                            }
                                         :}
                                         ;
 

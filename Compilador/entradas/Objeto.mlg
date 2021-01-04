@@ -1,0 +1,97 @@
+%%VB
+
+%%JAVA
+public class OperacionAlgebraica
+{
+  
+  float num1;
+  float num2;
+  float resultado;
+  int hasta;
+  int contador=1;
+  int x = 0;
+  
+  public OperacionAlgebraica()
+  {
+ num1 = 5;
+ num2 = 5;
+ resultado = 5;
+  }
+  
+  public void Suma()
+  {
+	  System.out.println("\n Ingrese el primer numero  : ");
+	  num1 = floatinput("aaa");
+	  System.out.println("\n Ingrese el segundo numero : ");
+	  num2 = floatinput("bbb");
+	  resultado = num1 + num2;
+  }
+  
+  public void Contador()
+  {
+    System.out.println("\n Ingrese el numero hasta donde quiera contar");
+    hasta = intinput("cccc");
+    do
+	{
+	    System.out.println("");
+		contador = contador + 1;
+	}
+	while (contador <= hasta)
+;
+  }
+  
+  public int Cuadrado(int A)
+  {
+   A = A * A;
+   return A;
+  }
+  
+  public void ElevarCuadrado()
+  {
+      
+	System.out.println("\n Ingrese x para elevarlo al cuadrado :");
+	x = intinput("dddd");
+	System.out.println("\n Antes de Elevarse es : " );
+
+	System.out.println("\n x despus de Elevarse es : ");
+  }
+}
+ 
+
+%%PY
+
+def Continuar(a):
+    print("Desea Repetir el Proceso [s]i o [n]o")
+    a = floatinput("eee")
+    return a
+
+%%PROGRAMA
+//-------------------------------------------------------
+// Seccion de librerias
+//-------------------------------------------------------
+#include "JAVA.OperacionAlgebraica"
+#include "PY"
+
+//---------- Variable Global --------------------
+char Op = 's';
+
+
+void main()
+{
+JAVA.OperacionAlgebraica ObjX();
+
+	  clrscr();
+	  while (1 != 1)
+	  {
+		JAVA.ObjX.Suma();
+		getch();
+		clrscr();
+		JAVA.ObjX.Contador();
+		getch();
+		clrscr();
+		JAVA.ObjX.ElevarCuadrado();
+		Op = PY.Continuar(Op);
+	  }
+
+	  getch();
+  }

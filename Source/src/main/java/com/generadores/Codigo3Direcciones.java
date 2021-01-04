@@ -12,6 +12,7 @@ import com.analisis.objetos.basicos.Llamadas.*;
 import com.analisis.objetos.basicos.Simbolo;
 import com.analisis.objetos.basicos.lugaresAsignacion.LugarArreglo;
 import com.analisis.objetos.estructuras.Arreglo;
+import com.analisis.objetos.estructuras.Clase;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.estructuras.ColeccionInstr;
 import com.analisis.objetos.estructuras.TablaDeSimbolos;
@@ -80,7 +81,8 @@ public class Codigo3Direcciones {
         List<String> posiciones = obtenerPosiciones(llamada, coleccion, 2);
         Simbolo simbolo = coleccion.getSimbolos().getSimbolo(llamada.getIdVariable());
         
-        cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,simbolo.getDireccion(),Temporal.siguienteTemporal(CONST.FLOTANTE)));
+        cuartetosRetorno.add(new Cuarteto("+",CONST.P,simbolo.getDireccion(),Temporal.siguienteTemporal(CONST.ENTERO)));
+        cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.FLOTANTE)));
         String valorThis = Temporal.actualTemporal();
         cuartetosRetorno.add(new Cuarteto("+",CONST.P,coleccion.getSimbolos().getUltimaPosicionLibre(cuartetosRetorno),CONST.P));
         cuartetosRetorno.add(new Cuarteto("+","0",CONST.P, Temporal.siguienteTemporal(CONST.ENTERO)));
@@ -223,21 +225,41 @@ public class Codigo3Direcciones {
                 if(instruccionDeClase instanceof MetodoInstr){
                     MetodoInstr instr = (MetodoInstr) instruccionDeClase;
                     coleccion.setSimbolos(new TablaDeSimbolos());
-                    if(!instr.getTipoRetorno().equals(CONST.VOID)){
-                        coleccion.getSimbolos().agregarSimbolo(new Simbolo(CONST.THIS,CONST.REFERENCIA,CONST.ENTERO,"1","0",null,null));
-                        coleccion.getSimbolos().agregarSimbolo(new Simbolo(CONST.RETURN,CONST.VAR,instr.getTipoRetorno(),"1","1",null,null));
-                        coleccion.setEtiquetaReturn(Etiqueta.siguienteEtiqueta());
-                    }
-                    for (Dato parametro : instr.getParametros()) {
-                        coleccion.getSimbolos().agregarSimboloSiNoExiste(new Simbolo((String)parametro.getValor(),CONST.VAR,parametro.getTipo(),"1",String.valueOf(coleccion.getSimbolos().getSimbolos().size()),null,null));
-                    }
                     
-                    cuartetosRetorno.add(new Cuarteto("metodo",null,null,Utilidades.nombreMetodo(CONST.SEC_JV, claseInstruccion.getId(), instr)));
-                    Cuartetos.unirCuartetos(cuartetosRetorno, generarCodigo3Direcciones(instr.getInstrucciones(), coleccion));
-                    if(!instr.getTipoRetorno().equals(CONST.VOID))cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,coleccion.getEtiquetaReturn()));
-                    if(cuartetosRetorno.get(cuartetosRetorno.size()-1).getOp().equals("etiqueta")) cuartetosRetorno.add(new Cuarteto(":=","0",null,"t00"));
-                    cuartetosRetorno.add(new Cuarteto("finMetodo",null,null,null));
-                    cuartetosRetorno.add(new Cuarteto("vacio",null,null,null));
+                    coleccion.getSimbolos().agregarSimbolo(new Simbolo(CONST.THIS,CONST.REFERENCIA,CONST.ENTERO,"1","0",null,null));
+                    if(instr.getTipoRetorno().equals(CONST.CONSTRUCTOR)){
+                        
+                        for (Dato parametro : instr.getParametros()) {
+                            coleccion.getSimbolos().agregarSimboloSiNoExiste(new Simbolo((String)parametro.getValor(),CONST.VAR,parametro.getTipo(),"1",String.valueOf(coleccion.getSimbolos().getSimbolos().size()),null,null));
+                        }
+                        
+                        Clase clase = (Clase) coleccion.getClasesJv().getSimbolo(claseInstruccion.getId()).getValor();
+                        cuartetosRetorno.add(new Cuarteto("metodo",null,null,Utilidades.nombreMetodo(CONST.SEC_JV, claseInstruccion.getId(), instr)));
+                        String size = (clase.getSimbolos().getSimbolos().isEmpty())? "1" : String.valueOf(clase.getSimbolos().getSimbolos().size());
+                        cuartetosRetorno.add(new Cuarteto("+",size,CONST.H,CONST.H));
+                        Cuartetos.unirCuartetos(cuartetosRetorno, generarCodigo3Direcciones(instr.getInstrucciones(), coleccion));
+                        cuartetosRetorno.add(new Cuarteto("finMetodo",null,null,null));
+                        cuartetosRetorno.add(new Cuarteto("vacio",null,null,null));
+                        
+                    }else{
+                        
+                        if(!instr.getTipoRetorno().equals(CONST.VOID)){
+                            coleccion.getSimbolos().agregarSimbolo(new Simbolo(CONST.RETURN,CONST.VAR,instr.getTipoRetorno(),"1","1",null,null));
+                            coleccion.setEtiquetaReturn(Etiqueta.siguienteEtiqueta());
+                        }
+                        
+                        for (Dato parametro : instr.getParametros()) {
+                            coleccion.getSimbolos().agregarSimboloSiNoExiste(new Simbolo((String)parametro.getValor(),CONST.VAR,parametro.getTipo(),"1",String.valueOf(coleccion.getSimbolos().getSimbolos().size()),null,null));
+                        }
+
+                        cuartetosRetorno.add(new Cuarteto("metodo",null,null,Utilidades.nombreMetodo(CONST.SEC_JV, claseInstruccion.getId(), instr)));
+                        Cuartetos.unirCuartetos(cuartetosRetorno, generarCodigo3Direcciones(instr.getInstrucciones(), coleccion));
+                        if(!instr.getTipoRetorno().equals(CONST.VOID))cuartetosRetorno.add(new Cuarteto("etiqueta",null,null,coleccion.getEtiquetaReturn()));
+                        if(cuartetosRetorno.get(cuartetosRetorno.size()-1).getOp().equals("etiqueta")) cuartetosRetorno.add(new Cuarteto(":=","0",null,"t00"));
+                        cuartetosRetorno.add(new Cuarteto("finMetodo",null,null,null));
+                        cuartetosRetorno.add(new Cuarteto("vacio",null,null,null));
+                        
+                    }
                 }
             }
             coleccion.setClase(null);
@@ -262,6 +284,7 @@ public class Codigo3Direcciones {
         
         coleccion.setTipadoActual(3);
         
+        coleccion.setSimbolos(new TablaDeSimbolos());
         cuartetosRetorno.add(new Cuarteto("vacio",null,null,null));
         cuartetosRetorno.add(new Cuarteto("main",null,null,null));
         

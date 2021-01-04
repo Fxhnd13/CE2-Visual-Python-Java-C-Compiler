@@ -1,0 +1,122 @@
+%%VB
+Function SUMAR(ByVal Op1 as Integer, ByVal Op2 as Integer) as Integer
+ Dim Respuesta as Integer
+ Respuesta = 0
+ Respuesta = Op1 + Op2
+ Return Respuesta
+End Sub
+
+Function RESTAR(ByVal Op1 as Integer, ByVal Op2 as Integer) as Integer
+ Dim Respuesta as Integer
+ Respuesta = 0
+ Respuesta = Op1 - Op2
+ Return Respuesta
+End Sub
+
+
+Function MULTIPLICAR(ByVal Op1 as Integer, ByVal Op2 as Integer) as Integer
+ Dim Respuesta as Integer
+ Respuesta = 0
+ Respuesta = Op1 * Op2
+ Return Respuesta
+End Sub
+
+
+%%JAVA
+%%PY
+def DIVIDIR(Op1,Op2):
+    return Op1 / Op2
+
+def MODULO(Op1,Op2):
+    Resultado = Op1 % Op2
+    return Resultado
+
+
+
+%%PROGRAMA
+#include <stdio.h>
+#include <stdlib.h>
+#include "VB"
+#include "JAVA.*"
+#include "PY"
+
+const int Dim1 = 2;
+const int Dim2 = 2;
+
+
+int Arreglo1[Dim1][Dim2];
+int a = 0;
+int b = 1;
+int c = 3;
+int d = 4;
+int Valor1, Valor2;
+double Resultado_1 ;
+  int Respuesta1;
+  int Respuesta2;
+  int Respuesta3;
+  int Respuesta4;
+  int Contador=0; 
+
+void main()
+{
+
+  
+  
+  clrscr();
+  Respuesta1 = 1+2;
+  Respuesta2 = 0;
+  Respuesta3 = 86;
+  Respuesta4 = 100;
+  
+  
+  printf("Bienvenido");
+  printf("Archivo de prueba...");
+
+  printf("Ingrese el primer valor entero");
+  scanf("%d",&Valor1);
+  scanf("Ingrese el segudo valor entero %d",&Valor2);
+
+  Resultado4 = PY.MODULO(Valor1,Valor2);
+  
+  Respuesta1 = VB.SUMAR(Valor1,Valor2);
+  Respuesta2 = VB.RESTAR(Valor1,Valor2);
+  Respuesta3 = VB.MULTIPLICAR(Valor1,Valor2);
+  
+  Resultado_1 = PY.DIVIDIR(Valor1,Valor2);
+  
+  printf("%d + %d es igual a %d",Valor1,Valor2, Respuesta1);
+  printf("%d - %d es igual a %d",Valor1,Valor2, Respuesta2);
+  printf("%d * %d es igual a %d",Valor1,Valor2, Respuesta3);
+  printf("%d / %d es igual a %d",Valor1,Valor2, Respuesta4);
+  printf("%d mod %d es igual a %d",Valor1,Valor2, Resultado_1);
+
+  Arreglo1[0][0] = Respuesta1;
+  Arreglo1[0][1] = Respuesta2;
+  Arreglo1[1][0] = Respuesta3;
+  Arreglo1[1][1] = Respuesta4;
+  
+  
+  a = Arreglo1[0][0];
+  b = Arreglo1[0][1];
+  c = Arreglo1[1][0];
+  d = Arreglo1[1][1];
+  
+  
+  For(Contador=0; Contador<2; Contador = Contador + 1)
+  {
+    if(Contador == 0)
+		{
+		printf("Arreglo [ %d ] [ 0 ] su contenido es %d", Contador,a);
+		printf("Arreglo [ %d ] [ 1 ] su contenido es %d", Contador, b);
+		}
+	else
+		{
+		printf("Arreglo [ %d ] [ 0 ] su contenido es %d", Contador, c);
+		printf("Arreglo [ %d ] [ 1 ] su contenido es %d", Contador,d);
+		}
+  }
+  getch();
+}
+
+
+
