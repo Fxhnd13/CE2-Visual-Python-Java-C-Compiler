@@ -751,7 +751,7 @@ public class Lexer implements java_cup.runtime.Scanner {
 
     public boolean isAnalizando(){ return analizando; }
 
-    private void escribirSimbolo(Symbol simbolo){
+    public void escribirSimbolo(Symbol simbolo){
         System.out.println("Simbolo{\n    cadena:"+simbolo.value+"\n    tipo:"+sym.terminalNames[simbolo.sym]+"\n    linea:"+simbolo.left+"\n    columna:"+simbolo.right+"\n}\n");
     }
 

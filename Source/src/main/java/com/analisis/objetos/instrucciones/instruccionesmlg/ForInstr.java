@@ -158,7 +158,7 @@ public class ForInstr implements Instruccion{
             coleccion.getErrores().agregarError("Semantico",variableFor.getLugar().getId(),"Al final del ciclo no se modifica la variable utilizada.",sentenciaFinal.getPosicion());
         }else{
             AsignacionInstr sentencia = (AsignacionInstr) sentenciaFinal;
-            if(variableFor.getLugar().getId().equals(sentencia.getLugar().getId())) coleccion.getErrores().agregarError("Semantico", sentencia.getLugar().getId(), "En el modificador del ciclo no se utiliza la misma variable que se declaro al inicio.", sentencia.getPosicion());
+            if(!valorInicial.getLugar().getId().equals(sentencia.getLugar().getId())) coleccion.getErrores().agregarError("Semantico", sentencia.getLugar().getId(), "En el modificador del ciclo no se utiliza la misma variable que se declaro al inicio.", sentencia.getPosicion());
             ((AccionExpresion)sentencia.getAccion()).getExpresion().analizarSemanticamente(coleccion);
         }
         coleccion.getSimbolos().eliminarAmbitoTemporal();

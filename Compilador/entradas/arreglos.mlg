@@ -1,4 +1,5 @@
 %%VB
+
 Public Function Incremento(Valor as Integer) as integer
   Valor = Valor + 1
   Return Valor
@@ -7,6 +8,7 @@ End Function
 %%JAVA
 
 %%PY
+
 def Mensaje(tipo):
     if tipo = 1:
         print("Arreglo antes de ordenarse\n")

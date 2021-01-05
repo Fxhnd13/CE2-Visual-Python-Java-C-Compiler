@@ -322,6 +322,18 @@ sentenciaForVb::=                       FOR:pos ID:id tipoForVb:tipo IGUAL expre
                                                 );
                                             }
                                         :}
+                                        |FOR:pos ID:id IGUAL expresionArVb:expInicial TO expresionArVb:expFinal aumentoForVb:expAumento espaciosVb bloqueVb:instrucciones NEXT idNextVb:id2 {:
+                                            if(pos!=null&&id!=null&&expInicial!=null&&expFinal!=null&&instrucciones!=null){
+                                                RESULT = new ForInstr(
+                                                    null,
+                                                    new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(expInicial, new Pos(expInicialleft,expInicialright)), new Pos(idleft,idright)),
+                                                    new MenorIgual(new Hoja(new Dato(CONST.ID, id), new Pos(idleft, idright)), expFinal, new Pos(idleft,idright)),
+                                                    new AsignacionInstr(new LugarVariable(id, new Pos(idleft,idright)), new AccionExpresion(new Mas(new Hoja(new Dato(), new Pos()), (expAumento!=null)?expAumento:new Hoja(new Dato(), new Pos()),new Pos()),new Pos()),new Pos()),
+                                                    new Pos(posleft,posright),
+                                                    instrucciones
+                                                );
+                                            }
+                                        :}
                                         |FOR error:e tipoForVb IGUAL expresionArVb TO expresionArVb aumentoForVb espaciosVb bloqueVb NEXT idNextVb {: agregarError("Sintactico",(String) e,"Se esperaba un identificador.", eleft, eright); :}
                                         |FOR ID tipoForVb error:e TO expresionArVb aumentoForVb espaciosVb bloqueVb NEXT idNextVb {: agregarError("Sintactico",(String) e,"No se declaro un valor de inicio.", eleft, eright); :}//error no hay valor de inicio
                                         |FOR ID tipoForVb IGUAL expresionArVb error:e aumentoForVb espaciosVb bloqueVb NEXT idNextVb {: agregarError("Sintactico",(String) e,"No se declaro un valor de finalizacion.", eleft, eright); :} //error no hay valor de fin
@@ -965,6 +977,8 @@ sentenciaForJv::=                       FOR:pos PAR_A tiposDeDato:tipo ID:id IGU
                                                     }else{
                                                         accionAsignacion = new AccionExpresion(instruccionFor, new Pos(instruccionForleft,instruccionForright));
                                                     }
+                                                }else{
+                                                    accionAsignacion = new AccionExpresion(instruccionFor, new Pos(instruccionForleft,instruccionForright));
                                                 }
                                                 if(pos!=null && id!=null && expresion!=null && condicion!=null && instruccionFor!=null && instrucciones!=null){
                                                     RESULT = new ForInstr(
@@ -974,6 +988,56 @@ sentenciaForJv::=                       FOR:pos PAR_A tiposDeDato:tipo ID:id IGU
                                                             new Pos(posleft,posright),
                                                             false
                                                         ),
+                                                        new AsignacionInstr(
+                                                            new LugarVariable(id, new Pos(idleft,idright)),
+                                                            new AccionExpresion(expresion, new Pos(expresionleft,expresionright)),
+                                                            new Pos(posleft,posright)
+                                                        ),
+                                                        condicion,
+                                                        new AsignacionInstr(
+                                                            new LugarVariable(id, new Pos(idleft,idright)),
+                                                            accionAsignacion,
+                                                            new Pos(posleft,posright)
+                                                        ),
+                                                        new Pos(posleft,posright),
+                                                        instrucciones
+                                                    );
+                                                }    
+                                            }else{
+                                                errores.agregarError("Semantico",id2,"No se ha utilizado la misma variable para la ejecución del for.", new Pos(id2left, id2right));
+                                            }
+                                        :}
+                                        |FOR:pos PAR_A ID:id IGUAL expresionArJv:expresion FIN_LINEA expresionBoolJv:condicion FIN_LINEA ID:id2 modificadorForJv:instruccionFor PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C {:
+                                            Accion accionAsignacion = null;
+                                            if((id).equals(id2)){
+                                                if(instruccionFor instanceof Hoja){
+                                                    if(((Hoja)instruccionFor).getValor().getTipo().equals("AUMENTO")){
+                                                        accionAsignacion = new AccionExpresion(
+                                                            new Mas(
+                                                                new Hoja(new Dato(CONST.ID,id2), new Pos(id2left,id2right)),
+                                                                new Hoja(new Dato(CONST.ENTERO,1), new Pos(instruccionForleft,instruccionForright)),
+                                                                new Pos(id2left,id2right)
+                                                            ),
+                                                            new Pos(id2left,id2right)
+                                                        );
+                                                    }else if(((Hoja)instruccionFor).getValor().getTipo().equals("DISMINUCION")){
+                                                        accionAsignacion = new AccionExpresion(
+                                                            new Menos(
+                                                                new Hoja(new Dato(CONST.ID,id2), new Pos(idleft,idright)),
+                                                                new Hoja(new Dato(CONST.ENTERO,-1), new Pos(id2left,id2right)),
+                                                                new Pos(id2left,id2right)
+                                                            ),
+                                                            new Pos(id2left,id2right)
+                                                        );
+                                                    }else{
+                                                        accionAsignacion = new AccionExpresion(instruccionFor, new Pos(instruccionForleft,instruccionForright));
+                                                    }
+                                                }else{
+                                                    accionAsignacion = new AccionExpresion(instruccionFor, new Pos(instruccionForleft,instruccionForright));
+                                                }
+                                                if(pos!=null && id!=null && expresion!=null && condicion!=null && instruccionFor!=null && instrucciones!=null){
+                                                    RESULT = new ForInstr(
+                                                        null,
                                                         new AsignacionInstr(
                                                             new LugarVariable(id, new Pos(idleft,idright)),
                                                             new AccionExpresion(expresion, new Pos(expresionleft,expresionright)),
@@ -1309,7 +1373,8 @@ listadoParametrosEnviadosJv::=          listadoParametrosEnviadosJv:expresiones 
 
 
 //producciones de python
-python::=                               SEPARADOR_PY NEWLINE metodosPy;
+python::=                               SEPARADOR_PY NEWLINE metodosPy
+                                        |SEPARADOR_PY metodosPy;
 
 metodosPy::=                            dclMetodosPy
                                         |
@@ -1322,11 +1387,10 @@ dclMetodosPy::=                         dclMetodosPy dclMetodoPy
 dclMetodoPy::=                          DEF:pos ID:id PAR_A dclParametrosPy:parametros PAR_C DOS_PUNTOS bloquePy:instrucciones {:
                                             coleccionInstr.getInstruccionesPy().add(new MetodoInstr(CONST.INDEFINIDO,id,parametros,instrucciones, new Pos(posleft,posright)));
                                         :}
-                                        |DEF error:e {: agregarError("Sintactico",(String) e,"Se esperaba un identificador para la declaracion del metodo.", eleft, eright); :}
-                                        |DEF ID error:e  {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
-                                        |DEF ID PAR_A dclParametrosPy error:e  {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
+                                        |DEF error:e DOS_PUNTOS bloquePy {: agregarError("Sintactico",(String) e,"Se esperaba un identificador para la declaracion del metodo.", eleft, eright); :}
+                                        |DEF ID error:e  DOS_PUNTOS bloquePy {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
+                                        |DEF ID PAR_A dclParametrosPy error:e DOS_PUNTOS bloquePy {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis cerrado.", eleft, eright); :}
                                         |DEF ID PAR_A dclParametrosPy PAR_C error:e {: agregarError("Sintactico",(String) e,"Se esperaba el token dos puntos.", eleft, eright); :}            
-                                        |DEF ID PAR_A dclParametrosPy PAR_C DOS_PUNTOS error:e {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
                                         ;
 
 dclParametrosPy::=                      listadoId:parametros {: 
@@ -1370,17 +1434,17 @@ sentenciasPy::=                         sentenciasPy:instruccionesRetorno senten
                                         :}
                                         ;
 
-sentenciaPy::=                          sentenciaIfPy:instruccion NEWLINE {:
+sentenciaPy::=                          sentenciaIfPy:instruccion {:
                                             List<Instruccion> instrucciones = new ArrayList();
                                             if(instruccion !=null) instrucciones.add(instruccion);
                                             RESULT = instrucciones;
                                         :}
-                                        |sentenciaForPy:instruccion NEWLINE {:
+                                        |sentenciaForPy:instruccion {:
                                             List<Instruccion> instrucciones = new ArrayList();
                                             if(instruccion !=null) instrucciones.add(instruccion);
                                             RESULT = instrucciones;
                                         :}
-                                        |sentenciaWhilePy:instruccion NEWLINE {:
+                                        |sentenciaWhilePy:instruccion {:
                                             List<Instruccion> instrucciones = new ArrayList();
                                             if(instruccion !=null) instrucciones.add(instruccion);
                                             RESULT = instrucciones;
@@ -1392,7 +1456,6 @@ sentenciaPy::=                          sentenciaIfPy:instruccion NEWLINE {:
                                             }
                                             RESULT = instruccionesRetorno;
                                         :}
-                                        |error
                                         ;
 
 bloquePy::=                             NEWLINE IDENT sentenciasPy:instrucciones DEDENT {:
@@ -1466,13 +1529,11 @@ listadoExpresionesArPy::=               listadoExpresionesArPy:expresiones COMA 
                                             if(expresion!=null) expresiones.add(expresion);
                                             RESULT = expresiones;
                                         :}
-                                        |listadoExpresionesArPy COMA error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
                                         |expresionArPy:expresion {:
                                             List<NodoAritmetico> expresiones = new ArrayList();
                                             if(expresion!=null) expresiones.add(expresion);
                                             RESULT = expresiones;
                                         :}
-                                        |error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
                                         ;
 
 sentenciaIfPy::=                        IF:pos condicionPy:condicion DOS_PUNTOS bloquePy:instrucciones elseIfPy:instruccionSino {:
@@ -1481,20 +1542,17 @@ sentenciaIfPy::=                        IF:pos condicionPy:condicion DOS_PUNTOS 
                                                 RESULT = new SiInstr(condicion, instrucciones, instruccionSino, new Pos(posleft,posright));
                                             }
                                         :}
-                                        |IF condicionPy DOS_PUNTOS error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
                                         |IF condicionPy error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba el token dos puntos.", eleft, eright); :}
                                         |IF error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
                                         ;
 
-elseIfPy::=                             ELSEIF:pos condicionPy:condicion DOS_PUNTOS bloquePy:instrucciones elseIfPy:instruccion {:
+elseIfPy::=                             ELIF:pos condicionPy:condicion DOS_PUNTOS bloquePy:instrucciones elseIfPy:instruccion {:
                                             if(pos!=null&&condicion!=null){
                                                 if(instrucciones==null)instrucciones = new ArrayList();
                                                 RESULT = new SiInstr(condicion, instrucciones, instruccion, new Pos(posleft,posright));
                                             }
                                         :}
-                                        |ELSEIF condicionPy DOS_PUNTOS error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
-                                        |ELSEIF condicionPy error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba un token dos puntos.", eleft, eright); :}
-                                        |ELSEIF error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
+                                        |ELIF error:e elseIfPy {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana.", eleft, eright); :}
                                         |elsePy:instruccion {: RESULT = instruccion; :}
                                         |
                                         ;
@@ -1505,8 +1563,6 @@ elsePy::=                               ELSE:pos DOS_PUNTOS bloquePy:instruccion
                                                 RESULT = new SinoInstr(instrucciones, new Pos(posleft,posright));
                                             }
                                         :}
-                                        |ELSE DOS_PUNTOS error:e {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
-                                        |ELSE error:e {: agregarError("Sintactico",(String) e,"Se esperaba un token dos puntos.", eleft, eright); :}
                                         ;
 
 sentenciaWhilePy::=                     WHILE:pos condicionPy:condicion bloquePy:instrucciones {:
@@ -1515,7 +1571,6 @@ sentenciaWhilePy::=                     WHILE:pos condicionPy:condicion bloquePy
                                                 RESULT = new WhileInstr(condicion,instrucciones, new Pos(posleft,posright));
                                             }
                                         :}
-                                        |WHILE condicionPy error:e {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
                                         ;
 
 sentenciaForPy::=                       FOR:pos ID:id IN rangePy:rango DOS_PUNTOS bloquePy:instrucciones {:
@@ -1524,8 +1579,6 @@ sentenciaForPy::=                       FOR:pos ID:id IN rangePy:rango DOS_PUNTO
                                                 RESULT = new ForInstr(id,idleft,idright,rango,instrucciones, new Pos(posleft,posright));
                                             }
                                         :}
-                                        |FOR ID IN rangePy DOS_PUNTOS error:e {: agregarError("Sintactico",(String) e,"Se esperaba un bloque de codigo.", eleft, eright); :}
-                                        |FOR ID IN rangePy error:e {: agregarError("Sintactico",(String) e,"Se esperaba un token dos puntos.", eleft, eright); :}
                                         |FOR ID IN error:e {: agregarError("Sintactico",(String) e,"Se esperaba la funcion range.", eleft, eright); :}
                                         |FOR ID error:e {: agregarError("Sintactico",(String) e,"Se esperaba el token 'in'.", eleft, eright); :}
                                         |FOR error:e {: agregarError("Sintactico",(String) e,"Se esperaba un identificador para el ciclo for.", eleft, eright); :}
@@ -1553,7 +1606,6 @@ condicionPy::=                          PAR_A expresionBoolPy:condicion PAR_C {:
                                         |PAR_A expresionBoolPy error:e {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
                                         |PAR_A error:e {: agregarError("Sintactico",(String) e,"Se espraba una expresion booleana.", eleft, eright); :}
                                         |expresionBoolPy:condicion {: RESULT = condicion; :}
-                                        |error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion boolana.", eleft, eright); :}
                                         ;
 
 expresionArPy::=                        expresionArPy:expresionI MAS:pos expresionArPy:expresionD {:
@@ -1654,7 +1706,7 @@ expresionBoolPy::=                      expresionArPy:expresionI DISTINTO:pos ex
                                                 RESULT = new Distinto(expresionI, expresionD, new Pos(posleft,posright));
                                             }
                                         :}
-                                        |expresionArPy:expresionI COMPARADOR:pos expresionArPy:expresionD {:
+                                        |expresionArPy:expresionI IGUAL:pos expresionArPy:expresionD {:
                                             if(expresionI!=null&&pos!=null&&expresionD!=null){
                                                 RESULT = new Igual(expresionI, expresionD, new Pos(posleft, posright));
                                             }
@@ -2208,6 +2260,8 @@ sentenciaFor::=                         FOR:pos PAR_A tiposDeDato:tipo ID:id IGU
                                                     }else{
                                                         accionAsignacion = new AccionExpresion(instruccionFor, new Pos(instruccionForleft,instruccionForright));
                                                     }
+                                                }else{
+                                                    accionAsignacion = new AccionExpresion(instruccionFor, new Pos(instruccionForleft,instruccionForright));
                                                 }
                                                 if(pos!=null && id!=null && expresion!=null && condicion!=null && instruccionFor!=null && instrucciones!=null){
                                                     RESULT = new ForInstr(
@@ -2236,10 +2290,59 @@ sentenciaFor::=                         FOR:pos PAR_A tiposDeDato:tipo ID:id IGU
                                                 errores.agregarError("Semantico",id2,"No se ha utilizado la misma variable para la ejecución del for.", new Pos(id2left, id2right));
                                             }
                                         :}
+                                        |FOR:pos PAR_A ID:id IGUAL expresionAr:expresion FIN_LINEA expresionBool:condicion FIN_LINEA ID:id2 modificadorFor:instruccionFor PAR_C LLAVE_A bloque:instrucciones LLAVE_C {:
+                                            Accion accionAsignacion = null;
+                                            if((id).equals(id2)){
+                                                if(instruccionFor instanceof Hoja){
+                                                    if(((Hoja)instruccionFor).getValor().getTipo().equals("AUMENTO")){
+                                                        accionAsignacion = new AccionExpresion(
+                                                            new Mas(
+                                                                new Hoja(new Dato(CONST.ID,id2), new Pos(id2left,id2right)),
+                                                                new Hoja(new Dato(CONST.ENTERO,1), new Pos(instruccionForleft,instruccionForright)),
+                                                                new Pos(id2left,id2right)
+                                                            ),
+                                                            new Pos(id2left,id2right)
+                                                        );
+                                                    }else if(((Hoja)instruccionFor).getValor().getTipo().equals("DISMINUCION")){
+                                                        accionAsignacion = new AccionExpresion(
+                                                            new Menos(
+                                                                new Hoja(new Dato(CONST.ID,id2), new Pos(idleft,idright)),
+                                                                new Hoja(new Dato(CONST.ENTERO,-1), new Pos(id2left,id2right)),
+                                                                new Pos(id2left,id2right)
+                                                            ),
+                                                            new Pos(id2left,id2right)
+                                                        );
+                                                    }else{
+                                                        accionAsignacion = new AccionExpresion(instruccionFor, new Pos(instruccionForleft,instruccionForright));
+                                                    }
+                                                }else{
+                                                    accionAsignacion = new AccionExpresion(instruccionFor, new Pos(instruccionForleft,instruccionForright));
+                                                }
+                                                if(pos!=null && id!=null && expresion!=null && condicion!=null && instruccionFor!=null && instrucciones!=null){
+                                                    RESULT = new ForInstr(
+                                                        null,
+                                                        new AsignacionInstr(
+                                                            new LugarVariable(id, new Pos(idleft,idright)),
+                                                            new AccionExpresion(expresion, new Pos(expresionleft,expresionright)),
+                                                            new Pos(posleft,posright)
+                                                        ),
+                                                        condicion,
+                                                        new AsignacionInstr(
+                                                            new LugarVariable(id, new Pos(idleft,idright)),
+                                                            accionAsignacion,
+                                                            new Pos(posleft,posright)
+                                                        ),
+                                                        new Pos(posleft,posright),
+                                                        instrucciones
+                                                    );
+                                                }    
+                                            }else{
+                                                errores.agregarError("Semantico",id2,"No se ha utilizado la misma variable para la ejecución del for.", new Pos(id2left, id2right));
+                                            }
+                                        :}
                                         |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esparaba una llave cerrada.",eleft,eright); :}
                                         |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
                                         |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID modificadorFor error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
-                                        |FOR PAR_A tiposDeDato ID expresionAr FIN_LINEA expresionBool FIN_LINEA ID error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"",eleft,eright); :}
                                         ; 
 
 modificadorFor::=                       IGUAL expresionAr:expresion {:
@@ -2368,6 +2471,11 @@ expresionAr::=                          expresionAr:expresionI MAS:pos expresion
                                         |llamadaMetodo:llamada {:
                                             if(llamada!=null){
                                                 RESULT = new Hoja(new Dato(CONST.LLAMADA, llamada), new Pos(llamadaleft, llamadaright));
+                                            }
+                                        :}
+                                        |arreglo:arreglo {:
+                                            if(arreglo!=null){
+                                                RESULT = new Hoja(new Dato(CONST.ARREGLO, arreglo), new Pos(arregloleft,arregloright));
                                             }
                                         :}
                                         |valorAtomico:dato {:

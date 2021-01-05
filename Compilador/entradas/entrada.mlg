@@ -2,7 +2,7 @@
 
 Public Sub Saludo()
 
-    Console.write("Segundo Proyecto de Compiladores 2")
+    Console.write("Segundo Proyecto de Compiladores 2\n")
 
 End Sub 
 
@@ -28,12 +28,12 @@ End Function
 public class Algo{
 
 	public void saludar(){
-		System.out.print("hola mundo");
+		System.out.print("hola mundo\n");
 	}
 	
 	public void hacerSuma(int a, int b){
 		int resultado = suma(a,b);
-		System.out.print("El resultado es:"+resultado);
+		System.out.println("El resultado es:"+resultado);
 	}
 
 	public int suma(int a, int b){
@@ -43,9 +43,9 @@ public class Algo{
 %%PY
 
 def edadmeses(edad, meses):
-	edad = intinput("Ingrese su edad:")
+	edad = intinput("Ingrese su edad:\n")
 	meses = edad * 12
-	print("meses = ",meses)
+	print("meses = ",meses,"\n")
 
 %%PROGRAMA
 
@@ -72,17 +72,17 @@ void main()
 
   VB.Saludo();
 
-  printf("Ingrese el primer valor entero");
+  printf("Ingrese el primer valor entero\n");
   scanf("%d",&base);
-  printf("Ingrese el segudo valor entero");
+  printf("Ingrese el segudo valor entero\n");
   scanf("%d",&exp);
 
   // Factorial
   resultado = VB.Factorial(i);
  
-  printf("El factorial de es %d",&resultado);
+  printf("El factorial de es %d\n",&resultado);
     
-  printf("Conversion de años a meses");
+  printf("Conversion de años a meses\n");
 
   PY.edadmeses(base, exp);
 

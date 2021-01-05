@@ -191,13 +191,26 @@ public class Hoja implements NodoAritmetico{
         return this.posicion;
     }
 
-    private void generarCuartetosDeLlamadaGlobal(List<Cuarteto> cuartetosRetorno, Coleccion coleccion) {
-        Simbolo simbolo = coleccion.getClasesJv().getSimbolo(coleccion.getClase());
-        Clase clase = (Clase) simbolo.getValor();
+//    private void generarCuartetosDeLlamadaGlobal(List<Cuarteto> cuartetosRetorno, Coleccion coleccion) {
+//        Simbolo simbolo = coleccion.getClasesJv().getSimbolo(coleccion.getClase());
+//        Clase clase = (Clase) simbolo.getValor();
+//        cuartetosRetorno.add(new Cuarteto("+",CONST.P,"0",Temporal.siguienteTemporal(CONST.ENTERO)));
+//        String direccionRelativaHeap = clase.getSimbolos().getSimbolo((String)valor.getValor()).getDireccion();
+//        cuartetosRetorno.add(new Cuarteto("+",Temporal.actualTemporal(),direccionRelativaHeap,Temporal.siguienteTemporal(CONST.ENTERO)));
+//        cuartetosRetorno.add(new Cuarteto("arreglo",CONST.HEAP,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.FLOTANTE)));
+//    }
+    
+    private void generarCuartetosDeLlamadaGlobal(List<Cuarteto> cuartetosRetorno, Coleccion coleccion){
+        Clase clase = (Clase) coleccion.getClasesJv().getSimbolo(coleccion.getClase()).getValor();
+        Simbolo simbolo = clase.getSimbolos().getSimbolo((String)valor.getValor());
+        //t1 = p + <direccion del simbolo> obtenemos la direccion del objeto de la tabla de simbolos
         cuartetosRetorno.add(new Cuarteto("+",CONST.P,"0",Temporal.siguienteTemporal(CONST.ENTERO)));
-        String direccionRelativaHeap = clase.getSimbolos().getSimbolo((String)valor.getValor()).getDireccion();
-        cuartetosRetorno.add(new Cuarteto("+",Temporal.actualTemporal(),direccionRelativaHeap,Temporal.siguienteTemporal(CONST.ENTERO)));
-        cuartetosRetorno.add(new Cuarteto("arreglo",CONST.HEAP,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.FLOTANTE)));
+        //t2 = stack[t1] obtenemos la direccion en el heap del objeto
+        cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.ENTERO)));
+        //t3 = t2 + <direccion del simbolo en relacion a la clase>
+        cuartetosRetorno.add(new Cuarteto("+",Temporal.actualTemporal(), simbolo.getDireccion(), Temporal.siguienteTemporal(CONST.ENTERO)));
+        //t4 = heap[t3]
+        cuartetosRetorno.add(new Cuarteto("arreglo",CONST.HEAP,Temporal.actualTemporal(),Temporal.siguienteTemporal(simbolo.getTipo())));
     }
     
 }

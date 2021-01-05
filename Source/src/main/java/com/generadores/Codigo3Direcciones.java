@@ -55,8 +55,12 @@ public class Codigo3Direcciones {
                     cuartetosRetorno.add(new Cuarteto(":=a",valorThis,Temporal.actualTemporal(),CONST.STACK));
 
 
-                    for (int i = 2; i < temporalesDeParametros.size(); i++) {
-                        cuartetosRetorno.add(new Cuarteto("+",CONST.P,posiciones.get(i),Temporal.siguienteTemporal(CONST.ENTERO)));
+                    for (int i = 0; i < temporalesDeParametros.size(); i++) {
+                        if(conReturn){
+                            cuartetosRetorno.add(new Cuarteto("+",CONST.P,posiciones.get(i+2),Temporal.siguienteTemporal(CONST.ENTERO)));
+                        }else{
+                            cuartetosRetorno.add(new Cuarteto("+",CONST.P,posiciones.get(i+1),Temporal.siguienteTemporal(CONST.ENTERO)));
+                        }
                         cuartetosRetorno.add(new Cuarteto(":=a",temporalesDeParametros.get(i),Temporal.actualTemporal(),CONST.STACK));
                     }
 
@@ -78,7 +82,7 @@ public class Codigo3Direcciones {
     private List<Cuarteto> generarCuartetosLlamadaJava(LlamadaJava llamada, Coleccion coleccion, boolean conReturn){
         List<Cuarteto> cuartetosRetorno = new ArrayList();
         List<String> temporalesDeParametros = obtenerTemporalesDeParametros(cuartetosRetorno, llamada, coleccion);
-        List<String> posiciones = obtenerPosiciones(llamada, coleccion, 2);
+        List<String> posiciones = (conReturn)? obtenerPosiciones(llamada,coleccion,2) : obtenerPosiciones(llamada, coleccion, 1);
         Simbolo simbolo = coleccion.getSimbolos().getSimbolo(llamada.getIdVariable());
         
         cuartetosRetorno.add(new Cuarteto("+",CONST.P,simbolo.getDireccion(),Temporal.siguienteTemporal(CONST.ENTERO)));
@@ -89,14 +93,18 @@ public class Codigo3Direcciones {
         cuartetosRetorno.add(new Cuarteto(":=a",valorThis,Temporal.actualTemporal(),CONST.STACK));
                 
                 
-        for (int i = 2; i < temporalesDeParametros.size(); i++) {
-            cuartetosRetorno.add(new Cuarteto("+",CONST.P,posiciones.get(i),Temporal.siguienteTemporal(CONST.ENTERO)));
+        for (int i = 0; i < temporalesDeParametros.size(); i++) {
+            if(conReturn){
+                cuartetosRetorno.add(new Cuarteto("+",CONST.P,posiciones.get(i+2),Temporal.siguienteTemporal(CONST.ENTERO)));
+            }else{
+                cuartetosRetorno.add(new Cuarteto("+",CONST.P,posiciones.get(i+1),Temporal.siguienteTemporal(CONST.ENTERO)));
+            }
             cuartetosRetorno.add(new Cuarteto(":=a",temporalesDeParametros.get(i),Temporal.actualTemporal(),CONST.STACK));
         }
         
         cuartetosRetorno.add(new Cuarteto("call",Utilidades.nombreMetodo(CONST.SEC_JV, simbolo.getTipo(), llamada),String.valueOf(temporalesDeParametros.size()),null));
         if(conReturn){
-            cuartetosRetorno.add(new Cuarteto("+","0",CONST.P,Temporal.siguienteTemporal(CONST.ENTERO)));
+            cuartetosRetorno.add(new Cuarteto("+","1",CONST.P,Temporal.siguienteTemporal(CONST.ENTERO)));
             cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.FLOTANTE)));
             coleccion.setUltimoReturn(Temporal.actualTemporal());
         }
@@ -111,9 +119,14 @@ public class Codigo3Direcciones {
         List<String> posiciones = obtenerPosiciones(llamada, coleccion, 1);
         
         cuartetosRetorno.add(new Cuarteto("+",CONST.P,coleccion.getSimbolos().getUltimaPosicionLibre(cuartetosRetorno),CONST.P));
-        for (int i = 1; i < temporalesDeParametros.size(); i++) {
-            cuartetosRetorno.add(new Cuarteto("+",CONST.P,posiciones.get(i),Temporal.siguienteTemporal(CONST.ENTERO)));
+        for (int i = 0; i < temporalesDeParametros.size(); i++) {
+            cuartetosRetorno.add(new Cuarteto("+",CONST.P,posiciones.get(i+1),Temporal.siguienteTemporal(CONST.ENTERO)));
             cuartetosRetorno.add(new Cuarteto(":=a",temporalesDeParametros.get(i),Temporal.actualTemporal(),CONST.STACK));
+        }
+        if(conReturn){
+            cuartetosRetorno.add(new Cuarteto("+","0",CONST.P,Temporal.siguienteTemporal(CONST.ENTERO)));
+            cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.FLOTANTE)));
+            coleccion.setUltimoReturn(Temporal.actualTemporal());
         }
         
         agregarCuartetosDeLlamada(cuartetosRetorno, llamada, CONST.SEC_PY, temporalesDeParametros.size(), coleccion, conReturn);
@@ -124,12 +137,21 @@ public class Codigo3Direcciones {
     private List<Cuarteto> generarCuartetosLlamadaVisual(LlamadaVisual llamada, Coleccion coleccion, boolean conReturn){
         List<Cuarteto> cuartetosRetorno = new ArrayList();
         List<String> temporalesDeParametros = obtenerTemporalesDeParametros(cuartetosRetorno, llamada, coleccion);
-        List<String> posiciones = obtenerPosiciones(llamada, coleccion, 1);
+        List<String> posiciones = (conReturn)? obtenerPosiciones(llamada, coleccion, 2) : obtenerPosiciones(llamada, coleccion, 0);
         
         cuartetosRetorno.add(new Cuarteto("+",CONST.P,coleccion.getSimbolos().getUltimaPosicionLibre(cuartetosRetorno),CONST.P));
-        for (int i = 1; i < temporalesDeParametros.size(); i++) {
-            cuartetosRetorno.add(new Cuarteto("+",CONST.P,posiciones.get(i),Temporal.siguienteTemporal(CONST.ENTERO)));
+        for (int i = 0; i < temporalesDeParametros.size(); i++) {
+            if(conReturn){
+                cuartetosRetorno.add(new Cuarteto("+",CONST.P,posiciones.get(i+2),Temporal.siguienteTemporal(CONST.ENTERO)));
+            }else{
+                cuartetosRetorno.add(new Cuarteto("+",CONST.P,posiciones.get(i),Temporal.siguienteTemporal(CONST.ENTERO)));
+            }
             cuartetosRetorno.add(new Cuarteto(":=a",temporalesDeParametros.get(i),Temporal.actualTemporal(),CONST.STACK));
+        }
+        if(conReturn){
+            cuartetosRetorno.add(new Cuarteto("+","0",CONST.P,Temporal.siguienteTemporal(CONST.ENTERO)));
+            cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.FLOTANTE)));
+            coleccion.setUltimoReturn(Temporal.actualTemporal());
         }
         
         agregarCuartetosDeLlamada(cuartetosRetorno, llamada, CONST.SEC_VB, temporalesDeParametros.size(), coleccion, conReturn);
