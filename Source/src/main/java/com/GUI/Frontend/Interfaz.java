@@ -27,6 +27,7 @@ public class Interfaz extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
         
+        abrir.setSelected(true);
         manager.habilitarFuncionalidades(codigoFuente);
         NumeroLinea numero = new NumeroLinea(codigoFuente);
         scrollCodigoFuente.setRowHeaderView(numero);
@@ -75,6 +76,9 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        abrir = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 500));
@@ -309,6 +313,22 @@ public class Interfaz extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu5.setText("Opciones");
+
+        jMenuItem11.setText("Acerca de...");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem11);
+
+        abrir.setSelected(true);
+        abrir.setText("Abrir carpeta al generar");
+        jMenu5.add(abrir);
+
+        jMenuBar1.add(jMenu5);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -395,15 +415,15 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        manager.ejecutarCodigo3D(codigoFuente, erroresTextArea, codigo3D);
+        manager.ejecutarCodigo3D(codigoFuente, erroresTextArea, codigo3D, abrir.isSelected());
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        mensajes.error("Aun sin implementar.");
+        manager.generarAssembler3D(codigoFuente, erroresTextArea, codigo3D, codigoAssembler, abrir.isSelected());
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        mensajes.error("Aun sin implementar.");
+        manager.ejecutarAssembler3D(codigoFuente, erroresTextArea, codigo3D, codigoAssembler, abrir.isSelected());
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -421,6 +441,10 @@ public class Interfaz extends javax.swing.JFrame {
         }
         posicionEditor.setText("Línea: " + row + "  |  Columna: " + col);
     }//GEN-LAST:event_codigoFuenteCaretUpdate
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        this.mensajes.informacion("Desarrollado por: José Carlos Soberanis Ramírez\n Carnet: 201730246");
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -458,6 +482,7 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButtonMenuItem abrir;
     private javax.swing.JTextArea codigo3D;
     private javax.swing.JTextArea codigoAssembler;
     private javax.swing.JTextArea codigoFuente;
@@ -467,8 +492,10 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

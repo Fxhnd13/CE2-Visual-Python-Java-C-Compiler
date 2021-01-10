@@ -343,22 +343,28 @@ public class Cuartetos {
                 + (!(temporal.getTipo().equals(CONST.CARACTER))?"\t.align 4\n":"")
                 + "\t.type  "+temporal.getTemporal()+", @object\n"
                 + "\t.size  "+temporal.getTemporal()+", "+((temporal.getTipo().equals(CONST.CARACTER))? "1" : "4")+"\n"
-                + "t00:\n"
+                + ""+temporal.getTemporal()+":\n"
                 + "\t.zero  "+((temporal.getTipo().equals(CONST.CARACTER))? "1" : "4")+"\n";
         }
+        
         declaracionDeMetodos : {
             List<Cuarteto> cuartetosDeMetodo = new ArrayList();
             int noMetodo = 0;
-            boolean dentroDeMetodo = true;
-            for (int i = 0; i < cuartetos.size(); i++) {
-                if(!cuartetos.get(i).getOp().equals("finMetodo")){
-                    cuartetosDeMetodo.add(cuartetos.get(i));
-                }else{
-                    dentroDeMetodo = false;
-                }
-                if(!dentroDeMetodo){
-                    codigo+=codigoDeMetodo(cuartetosDeMetodo, cuartetosDeMetodo.get(0).getRes(), noMetodo++);
+            boolean dentroDeMetodo = false;
+            for (Cuarteto cuarteto : cuartetos) {
+                if(cuarteto.getOp().equals("main")||cuarteto.getOp().equals("metodo")){
                     dentroDeMetodo = true;
+                    if(cuarteto.getOp().equals("main")) cuarteto.setRes("main");
+                    cuartetosDeMetodo.add(cuarteto);
+                    continue;
+                }
+                if(dentroDeMetodo){
+                    if(!cuarteto.getOp().equals("finMetodo")){
+                        cuartetosDeMetodo.add(cuarteto);
+                    }else{
+                        codigo+=codigoDeMetodo(cuartetosDeMetodo, cuartetosDeMetodo.get(0).getRes(), noMetodo++);
+                        cuartetosDeMetodo.clear();
+                    }
                 }
             }
         }
@@ -539,18 +545,18 @@ public class Cuartetos {
                     }
                     case "read":{
                         String tipo = Temporal.getTipoTemporal(cuarteto.getRes());
-                        String ubicacion = ((cuarteto.getRes()!=null)?cuarteto.getRes():null);
-                        if(ubicacion==null){
-                            codigo+="getchar();\n";
+                        if(cuarteto.getRes()==null){
+                            codigo+="//getchar();\n";
+                            codigo+="call\ngetchar@PLT\n";
                         }else{
                             switch(tipo){
-                                case CONST.ENTERO:{ codigo+="//scanf(\"%d\",&"+ubicacion+");\n"; break; }
-                                case CONST.FLOTANTE:{ codigo+="//scanf(\"%f\",&"+ubicacion+");\n"; break; }
-                                case CONST.CARACTER:{ codigo+="//scanf(\" %c\",&"+ubicacion+");\n"; break; }
+                                case CONST.ENTERO:{ cuarteto.setIz("%d"); codigo+="//scanf(\"%d\",&"+cuarteto.getRes()+");\n"; break; }
+                                case CONST.FLOTANTE:{ cuarteto.setIz("%f"); codigo+="//scanf(\"%f\",&"+cuarteto.getRes()+");\n"; break; }
+                                case CONST.CARACTER:{ cuarteto.setIz(" %c"); codigo+="//scanf(\" %c\",&"+cuarteto.getRes()+");\n"; break; }
                             }
+                            CodigoAssembler generador = new CodigoAssembler();
+                            codigo += generador.generarCodigoDeScanf(cuarteto);
                         }
-                        CodigoAssembler generador = new CodigoAssembler();
-                        codigo+= generador.generarCodigoDeScanf(cuarteto);
                         break;
                     }
                     case "printCadena":{

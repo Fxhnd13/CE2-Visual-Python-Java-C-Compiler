@@ -2,9 +2,9 @@
 
 echo "Compilando y enlazando..."
 
-gcc codigoC.s -lm -o codigoAsm
+gcc "../Source/Generados/codigoC.s" -lm -o "../Source/Generados/codigoAsm"
 
 echo "Ejecutando..."
 echo "-----------------------------------------"
 
-./codigoAsm
+./../Source/Generados/codigoAsm

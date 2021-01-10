@@ -173,33 +173,17 @@ public class GuiManager {
      * Metodo para guardar el codigo generado para el ejecutable de C
      * @param Codigo es el codigo que se escribirá en el archivo, que posteriormente se compilara y ejecutará
      */
-    public void guardarYEjecutar(String codigo) {
+    public void guardarYEjecutar(String codigo, boolean abrir) {
         File tmp = new File("Generados");
         if(!tmp.isDirectory()) tmp.mkdirs();
         File file = new File("Generados/codigoC.c");
         manager.guardarArchivo(new Documento(file,false,codigo));
         try{
-            Runtime.getRuntime().exec(new String[]{"xdg-open","Generados/"});
+            if(abrir)Runtime.getRuntime().exec(new String[]{"xdg-open","../Ejecutables"});
             //Runtime.getRuntime().exec(new String[]{"./Generados/generarC.sh" , "Generados/codigoC"});
         }catch(Exception ex){
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al guardar el ejecutable del codigo 3 direcciones generado", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    /**
-     * Metodo para ejecutar el codigo generado 
-     */
-    public void ejecutarCodigo3Direcciones(){
-        File file = new File("Generados/ejecutableC");
-        if(file.exists()){
-            try {
-                Runtime.getRuntime().exec(new String[]{"xdg-open","Generados/ejecutableC"});
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Error al ejecutar el codigo 3 direcciones generado", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }else{
-            JOptionPane.showMessageDialog(null, "No se encontró un archivo ejecutable compile e intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -209,7 +193,7 @@ public class GuiManager {
      * @param erroresTextArea es el area en el que se desplegarán los errores (si hay)
      * @param codigoGenerado es el area en el que se desplegará el codigo generado
      */
-    public List<Cuarteto> generarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea, JTextArea codigoGenerado) {
+    public List<Cuarteto> generarCuartetos(JTextArea codigoFuente, JTextArea erroresTextArea) {
         reiniciar(); //conteo en 0 de temporales y etiquetas
         GeneradorAst generadorAst = new GeneradorAst(codigoFuente.getText()); //generamos el ast a partir del archivo de entrada
         General analizadorSemantico = new General();
@@ -220,8 +204,6 @@ public class GuiManager {
             Codigo3Direcciones generador = new Codigo3Direcciones();
             List<Cuarteto> cuartetos = generador.generarCodigo(generadorAst.getInstrucciones(), analizadorSemantico.getColeccion());
             Cuartetos.eliminarRedundanciaEtiquetas(cuartetos);
-            codigoGenerado.setText(Cuartetos.escribirCodigo3DireccionesNormal(cuartetos));
-            mensajes.informacion("Se ha generado el codigo 3 direcciones exitosamente.");
             return cuartetos;
             
         }else{
@@ -237,17 +219,62 @@ public class GuiManager {
         return new ArrayList();
     }
     
+    public void generarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea, JTextArea codigoGenerado){
+        List<Cuarteto> cuartetos = generarCuartetos(codigoFuente, erroresTextArea);
+        if(!cuartetos.isEmpty()){
+            codigoGenerado.setText(Cuartetos.escribirCodigo3DireccionesNormal(cuartetos));
+            mensajes.informacion("Se ha generado el codigo 3 direcciones exitosamente.");
+        }
+    }
+
+    public void generarAssembler3D(JTextArea codigoFuente, JTextArea erroresTextArea, JTextArea codigo3D, JTextArea codigoAssembler, boolean selected) {
+        List<Cuarteto> cuartetos = generarCuartetos(codigoFuente, erroresTextArea);
+        if(!cuartetos.isEmpty()){
+            codigo3D.setText(Cuartetos.escribirCodigo3DireccionesNormal(cuartetos));
+            mensajes.informacion("Se ha generado el codigo 3 direcciones exitosamente.");
+            codigoAssembler.setText(Cuartetos.escribirCodigoAssembler(cuartetos));
+            mensajes.informacion("Se ha generado el codigo GNU Assembler exitosamente.");
+        }
+    }
+    
     public void reiniciar(){
         Temporal.reiniciar();
         Etiqueta.reiniciar();
     }
 
-    public void ejecutarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea, JTextArea codigo3D) {
-        List<Cuarteto> cuartetos = generarCodigo3D(codigoFuente, erroresTextArea, codigo3D);
+    public void ejecutarCodigo3D(JTextArea codigoFuente, JTextArea erroresTextArea, JTextArea codigo3D, boolean abrir) {
+        List<Cuarteto> cuartetos = generarCuartetos(codigoFuente, erroresTextArea);
         if(!cuartetos.isEmpty()){
-            String codigo = Cuartetos.escribirCodigo3DireccionesEjecutable(cuartetos);
+            codigo3D.setText(Cuartetos.escribirCodigo3DireccionesNormal(cuartetos));
+            guardarYEjecutar(Cuartetos.escribirCodigo3DireccionesEjecutable(cuartetos), abrir);
             mensajes.informacion("Se ha generado el codigo 3 direcciones ejecutable exitosamente.");
-            guardarYEjecutar(codigo);
+        }
+    }
+
+    public void ejecutarAssembler3D(JTextArea codigoFuente, JTextArea erroresTextArea, JTextArea codigo3D, JTextArea codigoAssembler, boolean abrir) {
+        List<Cuarteto> cuartetos = generarCuartetos(codigoFuente, erroresTextArea);
+        if(!cuartetos.isEmpty()){
+            String codigo = Cuartetos.escribirCodigoAssembler(cuartetos);
+            
+            codigo3D.setText(Cuartetos.escribirCodigo3DireccionesNormal(cuartetos));
+            mensajes.informacion("Se ha generado el codigo 3 direcciones exitosamente.");
+            codigoAssembler.setText(codigo);
+            mensajes.informacion("Se ha generado el codigo GNU Assembler exitosamente.");
+            guardarYEjecutarAssembler(codigo, abrir);
+        }
+    }
+
+    private void guardarYEjecutarAssembler(String codigo, boolean abrir) {
+        File tmp = new File("Generados");
+        if(!tmp.isDirectory()) tmp.mkdirs();
+        File file = new File("Generados/codigoC.s");
+        manager.guardarArchivo(new Documento(file,false,codigo));
+        try{
+            if(abrir) Runtime.getRuntime().exec(new String[]{"xdg-open","../Ejecutables"});
+            //Runtime.getRuntime().exec(new String[]{"./Generados/generarC.sh" , "Generados/codigoC"});
+        }catch(Exception ex){
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al guardar el codigo assembler generado", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

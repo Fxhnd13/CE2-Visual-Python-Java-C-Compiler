@@ -1053,6 +1053,7 @@ public class CodigoAssembler {
         String codigo = "";
         String etiqueta = "";
         switch(cuarteto.getIz()){
+            case " %c": etiqueta = "LC1"; break;
             case "%c": etiqueta = "LC2"; break;
             case "%d": etiqueta = "LC3"; break;
             case "%f": etiqueta = "LC4"; break;
