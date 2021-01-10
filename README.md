@@ -13,8 +13,7 @@ Mira **Deployment** para conocer como desplegar el proyecto.
 _JDK 13 (https://www.oracle.com/java/technologies/javase-jdk13-downloads.html)_
 _Maven (hará falta construir el proyecto para solucionar las posibles dependencias)_
 _Netbenas IDE 12.1 (Utilizada para el desarrollo y para resolver posibles conflictos)_
-_NASM (Compilador de codigo assembler)_
-_gcc (Compilador de codigo C)_
+_gcc (Compilador de codigo C y de GNU Assembler)_
 
 ### Instalación 🔧
 
@@ -25,8 +24,6 @@ Ejecutando los siguientes comandos en consola
 ```
 java -version (JDK 13)
 gcc -v (10.2.0)
-nasm -version (2.15.05)
-
 ```
 Cada uno de estos comandos nos retornará la version que tenemos instalada, si alguno genera error, será necesario hacer una instalación previa de los recursos antes.
 
