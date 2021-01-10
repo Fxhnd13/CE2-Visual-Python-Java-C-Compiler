@@ -144,14 +144,18 @@ public class TablaDeTipos {
             }else if(izquierdo.getTipo().equals(CONST.CLASE)){
                 coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para un valor/variable tipo Objeto",posicion);
             }else{
-                if(coleccion.getTipadoActual() == 0 || coleccion.getTipadoActual() == 2){
-                    if(izquierdo.getTipo().equals(CONST.CARACTER)){
-                        coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para un valor/variable tipo caracter.", posicion);
-                    }else{
-                        izquierdoOperable = true;
-                    }
+                if(izquierdo.getTipo().equals(CONST.FLOTANTE)){
+                    coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para un valor/variable tipo flotante.", posicion);
                 }else{
-                    izquierdoOperable=true;
+                    if(coleccion.getTipadoActual() == 0 || coleccion.getTipadoActual() == 2){
+                        if(izquierdo.getTipo().equals(CONST.CARACTER)){
+                            coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para un valor/variable tipo caracter.", posicion);
+                        }else{
+                            izquierdoOperable = true;
+                        }
+                    }else{
+                        izquierdoOperable=true;
+                    }
                 }
             }
         }
@@ -161,14 +165,18 @@ public class TablaDeTipos {
             }else if(derecho.getTipo().equals(CONST.CLASE)){
                 coleccion.getErrores().agregarError("Semantico",(String) derecho.getValor(),"Operador residuo no valido para un valor/variable tipo Objeto", posicion);
             }else{
-                if(coleccion.getTipadoActual() == 0 || coleccion.getTipadoActual() == 2){
-                    if(derecho.getTipo().equals(CONST.CARACTER)){
-                        coleccion.getErrores().agregarError("Semantico",(String) derecho.getValor(),"Operador residuo no valido para un valor/variable tipo caracter.", posicion);
-                    }else{
-                        derechoOperable = true;
-                    }
+                if(derecho.getTipo().equals(CONST.FLOTANTE)){
+                    coleccion.getErrores().agregarError("Semantico",(String) derecho.getValor(),"Operador residuo no valido para un valor/variable tipo flotante.", posicion);
                 }else{
-                    derechoOperable=true;
+                    if(coleccion.getTipadoActual() == 0 || coleccion.getTipadoActual() == 2){
+                        if(derecho.getTipo().equals(CONST.CARACTER)){
+                            coleccion.getErrores().agregarError("Semantico",(String) derecho.getValor(),"Operador residuo no valido para un valor/variable tipo caracter.", posicion);
+                        }else{
+                            derechoOperable = true;
+                        }
+                    }else{
+                        derechoOperable=true;
+                    }
                 }
             }
         }
@@ -239,7 +247,7 @@ public class TablaDeTipos {
     }
 
     public void evaluarAsignacion(Simbolo simbolo, String tipoParaAsignar, Coleccion coleccion) {
-        if(simbolo.getRol().equals(CONST.VAR)){
+        if(simbolo.getRol().equals(CONST.VAR)||simbolo.getRol().equals(CONST.ARREGLO)){
             switch(simbolo.getTipo()){
                 case CONST.FLOTANTE: break;
                 case CONST.ENTERO:{

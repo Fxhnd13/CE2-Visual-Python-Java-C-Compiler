@@ -1,0 +1,17 @@
+com.analisis
+com.analisis.objetos.analisis
+com.analisis.objetos.basicos
+com.analisis.objetos.basicos.accionesAsignacion
+com.analisis.objetos.basicos.Llamadas
+com.analisis.objetos.basicos.lugaresAsignacion
+com.analisis.objetos.estructuras
+com.analisis.objetos.instrucciones.instruccionesmlg
+com.analisis.objetos.nodos
+com.analisis.semantico
+com.analisis.sintactico
+com.compilador
+com.generadores
+com.generadores.objetos
+com.GUI
+com.GUI.Backend
+com.GUI.Frontend

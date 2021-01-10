@@ -5,6 +5,7 @@
  */
 package com.analisis.objetos.nodos;
 
+import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Dato;
 import com.analisis.objetos.estructuras.Coleccion;
@@ -39,7 +40,9 @@ public class Mas implements NodoAritmetico {
         Dato izquierdo = this.izquierdo.analizarSemanticamente(coleccion);
         Dato derecho = this.derecho.analizarSemanticamente(coleccion);
         TablaDeTipos tablaDeTipos = new TablaDeTipos(this.posicion);
-        return tablaDeTipos.verificarTiposDeOperacionAritmetica(3, izquierdo, derecho, coleccion);
+        Dato dato = tablaDeTipos.verificarTiposDeOperacionAritmetica(3, izquierdo, derecho, coleccion);
+        this.tipoRetorno = (dato!=null)? dato.getTipo() : CONST.INDEFINIDO;
+        return dato;
     }
 
     @Override

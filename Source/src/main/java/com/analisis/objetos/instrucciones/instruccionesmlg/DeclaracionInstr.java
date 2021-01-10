@@ -82,7 +82,7 @@ public class DeclaracionInstr implements Instruccion{
         if(lugar instanceof LugarVariable){
             
             String direccion = coleccion.getSimbolos().getUltimaPosicionLibre(cuartetosRetorno);
-            coleccion.getSimbolos().agregarSimbolo(new Simbolo(lugar.getId(),tipo,CONST.VAR,"1",direccion,null,null));
+            coleccion.getSimbolos().agregarSimbolo(new Simbolo(lugar.getId(),CONST.VAR,tipo,"1",direccion,null,null));
             
         }else if(lugar instanceof LugarArreglo){
 
@@ -108,8 +108,8 @@ public class DeclaracionInstr implements Instruccion{
             
             coleccion.getSimbolos().agregarSimbolo(new Simbolo(
                     lugar.getId(),
-                    tipo,
                     CONST.ARREGLO,
+                    tipo,
                     temporalSize,
                     temporalDireccion,
                     null,

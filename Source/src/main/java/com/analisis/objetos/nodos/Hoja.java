@@ -122,7 +122,7 @@ public class Hoja implements NodoAritmetico{
                     Simbolo simbolo = coleccion.getSimbolos().getSimbolo((String)valor.getValor());
                     if(simbolo!=null){
                         cuartetosRetorno.add(new Cuarteto("+",CONST.P,simbolo.getDireccion(),Temporal.siguienteTemporal(CONST.ENTERO)));
-                        cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.FLOTANTE)));
+                        cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,Temporal.actualTemporal(),Temporal.siguienteTemporal(simbolo.getTipo())));
                     }else{
                         generarCuartetosDeLlamadaGlobal(cuartetosRetorno, coleccion);
                     }

@@ -1,0 +1,546 @@
+inicio::=                                   SEPARADOR_VB saltosVb codigoVbJv
+                                            ;
+
+codigoVbJv::=                               codigoVb SEPARADOR_JAVA codigoJvPy
+                                            |SEPARADOR_JAVA codigoJvPy
+                                            |error SEPARADOR_JAVA codigoJvPy
+                                            ;
+
+codigoVb::=                                 codigoVb dclMetodoVb
+                                            |dclMetodoVb
+                                            ;
+
+publicp::=                                  PR_PUBLIC
+                                            | 
+                                            ;
+
+dclMetodoVb::=                              publicp PR_FUNCTION ID dclListaParametrosVb PR_AS tipoDatoVb saltosVb bloqueVb PR_END PR_FUNCTION saltosVb 
+                                            |publicp PR_SUB ID dclListaParametrosVb saltosVb bloqueVb PR_END PR_SUB saltosVb
+                                            |error PR_END PR_SUB saltosVb
+                                            ;
+
+bloqueVb::=                                 bloqueVb sentenciaVb 
+                                            |sentenciaVb
+                                            ;
+
+sentenciaVb::=                              PR_FOR ID dclTipoForVb IGUAL expresionAritmetica PR_TO expresionAritmetica aumentoForVb saltosVb bloqueVb PR_NEXT idNext saltosVb
+                                            |PR_WHILE expresionBooleanaVb saltosVb bloqueVb PR_END PR_WHILE saltosVb 
+                                            |PR_DO saltosVb bloqueVb PR_LOOP PR_WHILE expresionBooleanaVb saltosVb 
+                                            |PR_SELECT caseVb ID saltosVb contenidoSwitchVb PR_END PR_SELECT saltosVb
+                                            |PR_IF expresionBooleanaVb PR_THEN sentenciaSimpleVb saltosVb 
+                                            |PR_IF expresionBooleanaVb PR_THEN sentenciaSimpleVb PR_ELSE sentenciaSimpleVb saltosVb 
+                                            |PR_IF expresionBooleanaVb saltosVb bloqueVb sinoVb PR_END PR_IF saltosVb
+                                            |PR_IF expresionBooleanaVb PR_THEN saltosVb bloqueVb sinoVb PR_END PR_IF saltosVb
+                                            |sentenciaSimpleVb
+                                            |error saltosVb
+                                            ;
+
+idNext::=                                   ID
+                                            | 
+                                            ;
+
+sentenciaSimpleVb::=                        ID IGUAL asignacionValorVb saltosVb 
+                                            |MENSAJE PAR_A expresionCadenaVb PAR_C saltosVb 
+                                            |MENSAJELN PAR_A expresionCadenaVb PAR_C saltosVb
+                                            |PR_RETURN expresionAritmetica saltosVb
+                                            |dclVariableVb masDclVariableVb saltosVb
+                                            |funcionVb saltosVb 
+                                            ;
+
+dclVariableVb::=                            PR_DIM idListVb PR_AS tipoDatoVb IGUAL expresionAritmetica
+                                            |PR_DIM idListVb PR_AS tipoDatoVb
+                                            ;
+
+idListVb::=                                 idListVb COMA ID
+                                            |ID
+                                            ;
+
+asignacionValorVb::=                        expresionAritmetica
+                                            |funcionVb
+                                            ;
+
+funcionVb::=                                INTINPUT PAR_A expresionCadenaVb PAR_C
+                                            |CHARINPUT PAR_A expresionCadenaVb PAR_C
+                                            |FLOATINPUT PAR_A expresionCadenaVb PAR_C
+                                            ;
+
+sinoVb::=                                   PR_ELSEIF expresionBooleanaVb PR_THEN saltosVb bloqueVb sinoVb                                            
+			                                |PR_ELSEIF expresionBooleanaVb saltosVb bloqueVb sinoVb
+                                            |PR_ELSE saltosVb bloqueVb
+                                            |
+                                            ;
+
+expresionBooleanaVb::=                      expresionAritmetica MENOR expresionAritmetica
+                                            |expresionAritmetica MAYOR expresionAritmetica 
+                                            |expresionAritmeticaI MENOR_IGUAL expresionAritmeticaD
+                                            |expresionAritmeticaI MAYOR_IGUAL expresionAritmeticaD
+                                            |expresionAritmeticaI IGUAL expresionAritmeticaD 
+                                            |expresionAritmeticaI DISTINTO expresionAritmeticaD                                        
+                                            |expresionBooleanaVbI AND expresionBooleanaVbD
+                                            |expresionBooleanaVbI OR expresionBooleanaVbD
+                                            |NOT expresionBooleanaVb
+                                            |PAR_A expresionBooleanaVb PAR_C                                            ;
+
+contenidoSwitchVb::=                        contenidoSwitchVb PR_CASE valorCase saltosVb bloqueVb:instrucciones
+                                            |PR_CASE valorCase saltosVb bloqueVb:instrucciones 
+                                            ;
+
+valorCase::=                                PR_ELSE
+                                            |valoresSimplesVb
+                                            ;
+
+listaParametrosVb::=                        listaParametrosVb COMA ID PR_AS tipoDatoVb 
+                                            |ID PR_AS tipoDatoVb 
+                                            ;
+
+tipoDatoVb::=                               PR_ENTERO
+                                            |PR_CARACTER 
+                                            |PR_FLOTANTE
+                                            ;
+                                            
+valoresSimplesVb::=                          ENTERO
+                                            |FLOTANTE
+                                            |CARACTER
+                                            |MENOS ENTERO
+                                            ;
+
+saltosVb::=                                 saltosVb FIN_LINEA
+                                            |FIN_LINEA
+                                            ;
+
+expresionCadenaVb::=                        expresionCadenaVbI AMPERSON expresionCadenaVbD
+                                            |expresionAritmetica 
+                                            |CADENA
+                                            ;
+
+aumentoForVb::=                             PR_STEP expresionAritmetica
+                                            | 
+                                            ;
+
+masDclVariableVb::=                         COMA idListVbIds PR_AS tipoDatoVb IGUAL expresionAritmetica masDclVariableVbVariables
+                                            |COMA idListVbIds PR_AS tipoDatoVb masDclVariableVbVariables
+                                            | 
+                                            ;
+
+dclListaParametrosVb::=                     PAR_A listaParametrosVb PAR_C 
+                                            |PAR_A PAR_C 
+                                            | 
+                                            ;
+
+caseVb::=                                   PR_CASE
+                                            |
+                                            ;
+
+dclTipoForVb::=                             PR_AS PR_ENTERO
+                                            |PR_AS PR_FLOTANTE 
+                                            |   
+                                            ; 
+
+// *****************************************************PRODUCCIONES PARA JAVA*********************************************************
+
+codigoJvPy::=                               clasesJv SEPARADOR_PY codigoPyPr
+                                            |SEPARADOR_PY codigoPyPr
+                                            |error SEPARADOR_PY codigoPyPr
+                                            ;
+
+clasesJv::=                                 clasesJv dclClase
+                                            |dclClase
+                                            ;
+
+dclClase::=                                 publicp PR_CLASS ID LLAVE_A contenidoClaseJv:instrucciones LLAVE_C
+                                            ;
+
+contenidoClaseJv::=                         contenidoClaseJvRetorno codigoJv:instrucciones
+                                            |codigoJv:instrucciones
+                                            ;
+
+codigoJv::=                                 tipoDatoVariableJv idListJv:instrucciones FIN_LINEA
+                                            |publicp tipoDatoMetodoJv ID PAR_A parametrosJv PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C
+                                            |publicp ID PAR_A listaParametrosJv PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C                                             ;
+
+parametrosJv::=                             listaParametrosJv 
+                                            | 
+                                            ;
+
+idListJv::=                                 idListJvInstrucciones COMA ID asignacionValor:accionAsignacion
+                                            |ID asignacionValor:accionAsignacion 
+                                            ;
+
+listaParametrosJv::=                        listaParametrosJv COMA tipoDatoVariableJv ID 
+                                            |tipoDatoVariableJv ID 
+                                            ;
+
+bloqueJv::=                                 bloqueJv:instruccionesRetorno sentenciaJv:instrucciones 
+                                            |sentenciaJv:instrucciones 
+                                            ;
+
+sentenciaJv::=                              PR_FOR PAR_A tipoFor ID IGUAL expresionAritmetica FIN_LINEA expresionBooleana:condicion FIN_LINEA ID2 modificadorFor:instruccionFor PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C                                             
+			|PR_WHILE PAR_A expresionBooleana PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C 
+                                            |PR_SWITCH PAR_A ID PAR_C LLAVE_A contenidoSwitchJv LLAVE_C 
+                                            |PR_DO LLAVE_A bloqueJv:instrucciones LLAVE_C PR_WHILE PAR_A expresionBooleana PAR_C 
+                                            |PR_IF PAR_A expresionBooleana PAR_C sentenciaSimpleJv:instrucciones
+                                            |PR_IF PAR_A expresionBooleana PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C sinoJv:instruccionSino
+                                            |sentenciaSimpleJv:instrucciones 
+                                            |error LLAVE_C
+                                            |error FIN_LINEA
+                                            ;
+
+contenidoSwitchJv::=                        contenidoSwitchJv valorSwitch DOS_PUNTOS bloqueJv:instrucciones
+                                            |valorSwitch DOS_PUNTOS bloqueJv:instrucciones
+                                            ;
+
+valorSwitch::=                              PR_CASE ENTERO 
+                                            |PR_CASE FLOTANTE 
+                                            |PR_CASE CARACTER 
+                                            |PR_DEFAULT 
+                                            ;
+
+sinoJv::=                                   PR_ELSE PR_IF PAR_A expresionBooleana PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C sinoJv:instruccionSino
+                                            |PR_ELSE LLAVE_A bloqueJv:instrucciones LLAVE_C
+                                            |
+                                            ;
+
+modificadorFor::=                           IGUAL expresionAritmetica
+                                            |AUMENTO
+                                            |DISMINUCION
+                                            ;
+
+sentenciaSimpleJv::=                        ID IGUAL asignacionValorJv:accionAsignacion FIN_LINEA
+                                            |PR_THIS ID IGUAL asignacionValorJv:accionAsignacion FIN_LINEA
+                                            |MENSAJE PAR_A expresionCadena PAR_C FIN_LINEA
+                                            |MENSAJELN PAR_A expresionCadena PAR_C FIN_LINEA
+                                            |PR_BREAK FIN_LINEA 
+                                            |PR_RETURN expresionAritmetica FIN_LINEA
+                                            |tipoDatoVariableJv idListJv:instrucciones FIN_LINEA 
+                                            |funcionJv:accionAsignacion FIN_LINEA 
+                                            ;
+
+asignacionValorJv::=                        expresionAritmetica
+                                            |funcionJv:accionAsignacion
+                                            ;
+
+funcionJv::=                                INTINPUT PAR_A expresionCadena PAR_C 
+                                            |CHARINPUT PAR_A expresionCadena PAR_C 
+                                            |FLOATINPUT PAR_A expresionCadena PAR_C
+                                            ;
+
+tipoDatoMetodoJv::=                         tipoDatoVariableJv
+                                            |PR_VOID
+                                            ;
+
+tipoDatoVariableJv::=                       PR_ENTERO 
+                                            |PR_FLOTANTE 
+                                            |PR_CARACTER
+                                            ;
+
+asignacionValor::=                          IGUAL expresionAritmetica
+                                            |
+                                            ;
+
+tipoFor::=                                  tipoDatoVariableJv
+                                            |
+                                            ;
+
+//********************************************************ESTRUCTURA PYTHON*************************************************************
+
+codigoPyPr::=                               saltosPy dclFuncionesPy SEPARADOR_PROGRAMA codigoPrograma
+                                            |saltosPy SEPARADOR_PROGRAMA codigoPrograma
+                                            |error SEPARADOR_PROGRAMA codigoPrograma
+                                            ;
+
+dclFuncionesPy::=                           dclFuncionesPy identadoentado PR_DEF IDId dclListParametrosPyParametros DOS_PUNTOS FIN_LINEA bloquePy saltosPy 
+                                            |dclFuncionesPy PR_DEF IDId dclListParametrosPyParametros DOS_PUNTOS FIN_LINEA bloquePy saltosPy
+                                            |identadoentado PR_DEF IDId dclListParametrosPy: listadoParametros DOS_PUNTOS FIN_LINEA bloquePy saltosPy
+                                            |PR_DEF IDId dclListParametrosPyParametros DOS_PUNTOS FIN_LINEA bloquePy saltosPy
+                                            ;
+
+dclListParametrosPy::=                      PAR_A listParametrosPyParametros PAR_C
+                                            |PAR_A PAR_C
+                                            ;
+
+listParametrosPy::=                         listParametrosPyParametros COMA IDId
+                                            |IDId
+                                            ;
+
+bloquePy::=                                 bloquePy:instrucciones sentenciaPy:instruccion 
+                                            |sentenciaPy:instruccion 
+                                            ;
+
+sentenciaPy::=                              identadoentado PR_FOR IDId PR_IN PR_RANGE PAR_A expresionAritmeticaListes PAR_C DOS_PUNTOS FIN_LINEA
+                                            |identadoentado PR_WHILE expresionBooleana DOS_PUNTOS FIN_LINEA
+                                            |identadoentado PR_IF expresionBooleana DOS_PUNTOS FIN_LINEA 
+                                            |identadoentado PR_ELIF expresionBooleana DOS_PUNTOS FIN_LINEA
+                                            |identadoentado PR_ELSE DOS_PUNTOS FIN_LINEA
+                                            |sentenciaSimplePy
+                                            |error FIN_LINEA
+                                            ;                                    
+
+sentenciaSimplePy::=                        identadoentado IDId IGUAL asignacionValorPy:accionAsignacion FIN_LINEA
+                                            |identadoentado MENSAJE PAR_A expresionCadenaPy PAR_C FIN_LINEA
+                                            |identadoentado MENSAJELN PAR_A expresionCadenaPy PAR_C FIN_LINEA
+                                            |identadoentado idListPyIds IGUAL expresionAritmeticaListExpresiones FIN_LINEA
+                                            |identadoentado PR_RETURN expresionAritmetica FIN_LINEA
+                                            |identadoentado funcionPy:instruccion FIN_LINEA
+                                            ;
+
+asignacionValorPy::=                        expresionAritmetica 
+                                            |funcionPy:instruccion 
+                                            ;
+
+funcionPy::=                                INTINPUT PAR_A expresionCadenaPy PAR_C
+                                            |CHARINPUT PAR_A expresionCadenaPy PAR_C
+                                            |FLOATINPUT PAR_A expresionCadenaPy PAR_C
+                                            ;
+
+idListPy::=                                 idListPyId COMA IDId
+                                            |IDId
+                                            ;
+
+expresionCadenaPy::=                        expresionCadenaPyI COMA expresionCadenaPyD
+                                            |expresionAritmetica
+                                            |CADENA
+                                            |
+                                            ;
+
+expresionAritmeticaList::=                  expresionAritmeticaList COMA expresionAritmetica
+                                            |expresionAritmetica
+                                            ;
+
+saltosPy::=                                 saltosPy FIN_LINEA
+                                            |FIN_LINEA
+                                            ;                                        
+
+identado::=                                 identado i
+                                            |valorIdentado
+                                            ;
+
+i::=                                        ESPACIO
+                                            |TABULACION
+                                            ;
+
+//********************************************************ESTRUCTURA PRINCIPAL**********************************************************
+
+codigoPrograma::=                           seccionLibrerias:instrucciones seccionConstantes:instruccionesConstantes 
+                                                seccionVariablesGlobales:instruccionesVariables seccionCodigo:instruccionMain                                            ;
+
+seccionLibrerias::=                         seccionLibrerias:librerias HASHTAG dclLibreria:libreria
+                                            |HASHTAG dclLibreria:libreria
+                                            |error HASHTAG dclLibreria:libreria
+                                            ;
+
+dclLibreria::=                              PR_INCLUDE libreria:instruccion
+                                            ;
+
+libreria::=                                 PR_JAVA valorTexto
+                                            |PR_PY
+                                            |PR_VB
+                                            |MENOR libreriaCIds MAYOR
+                                            ;
+
+libreriaC::=                                libreriaC PUNTO ID
+                                            |ID
+                                            ;
+
+seccionConstantes::=                        dclConstantesPr:instrucciones 
+                                            | 
+                                            ;
+
+dclConstantesPr::=                          dclConstantesPr:instruccionesRetorno dclConstantePr:instrucciones
+                                            |dclConstantePr:instrucciones
+                                            ;
+
+dclConstantePr::=                           PR_CONST tipoDatoPr ID IGUAL valor FIN_LINEA
+                                            ;
+
+seccionVariablesGlobales::=                 dclVariablesPr:instrucciones 
+                                            | 
+                                            ;
+
+dclVariablesPr::=                           dclVariablesPr:instruccionesRetorno dclVariablePr:instrucciones 
+                                            |dclVariablePr:instrucciones 
+                                            ;
+
+seccionCodigo::=                            PR_VOID PR_MAIN PAR_A PAR_C LLAVE_A bloquePr:instrucciones LLAVE_C
+                                            ;
+
+dclVariablePr::=                            tipoDatoPr idListPr:instrucciones FIN_LINEA
+                                            |PR_JAVA PUNTO IDClase idListClasesPr:instrucciones FIN_LINEA 
+                                            |tipoDatoPr arreglo:arreglo FIN_LINEA
+                                            ;
+
+idListPr::=                                 idListPr:instruccionesRetorno COMA ID asignacionValorPr:accionAsignacion
+                                            |ID asignacionValorPr:accionAsignacion
+                                            ;
+
+idListClasesPr::=                           idListClasesPr:instruccionesRetorno COMA ID constructor:accionConstructor
+                                            |ID constructor:accionConstructor
+                                            ;
+
+constructor::=                              PAR_A listParametrosPr PAR_C
+                                            |PAR_A PAR_C
+                                            |   
+                                            ;
+
+asignacionValorPr::=                        IGUAL expresionAritmeticaPr
+                                            |
+                                            ;
+                                            
+bloquePr::=                                 bloquePr:instruccionesRetorno sentenciaPr:instrucciones
+                                            |sentenciaPr:instrucciones
+                                            ;
+
+sentenciaPr::=                              PR_FOR PAR_A tipoForPr ID IGUAL expresionAritmeticaPr FIN_LINEA expresionBooleana:condicion FIN_LINEA ID2 modificadorForPr:instruccionFor PAR_C LLAVE_A bloquePr:instrucciones LLAVE_C 
+                                            |PR_WHILE PAR_A expresionBooleana PAR_C LLAVE_A bloquePr:instrucciones LLAVE_C
+                                            |PR_SWITCH PAR_A ID PAR_C LLAVE_A contenidoSwitchPr LLAVE_C
+                                            |PR_DO LLAVE_A bloquePr:instrucciones LLAVE_C PR_WHILE PAR_A expresionBooleana PAR_C FIN_LINEA
+                                            |PR_IF PAR_A expresionBooleana PAR_C LLAVE_A bloquePr:instrucciones LLAVE_C sinoPr:instruccionSino
+                                            |sentenciaSimplePr:instrucciones
+                                            |error LLAVE_C
+                                            ;
+
+contenidoSwitchPr::=                        contenidoSwitchPr valorSwitch DOS_PUNTOS bloquePr:instrucciones
+                                            |valorSwitch DOS_PUNTOS bloquePr:instrucciones
+                                            ;
+
+sinoPr::=                                   PR_ELSE PR_IF PAR_A expresionBooleana PAR_C LLAVE_A bloquePr:instrucciones LLAVE_C sinoPr:instruccionSino
+                                            |PR_ELSE LLAVE_A bloquePr:instrucciones LLAVE_C
+                                            |
+                                            ;
+
+tipoForPr::=                                tipoDatoPr
+                                            |
+                                            ;
+
+modificadorForPr::=                         IGUAL expresionAritmeticaPr
+                                            |AUMENTO
+                                            |DISMINUCION
+                                            ;
+
+sentenciaSimplePr::=                        ID IGUAL expresionAritmeticaPr FIN_LINEA
+                                            |tipoDatoPr ID IGUAL PR_ESPERAR_TECLA PAR_A PAR_C FIN_LINEA
+                                            |ID IGUAL PR_ESPERAR_TECLA PAR_A PAR_C FIN_LINEA
+                                            |arreglo:lugarArreglo IGUAL expresionAritmeticaPr FIN_LINEA
+                                            |PR_PRINTF PAR_A expresionCadenaPrs COMA idListMensajees PAR_C FIN_LINEA
+                                            |PR_PRINTF PAR_A expresionCadenaPrs PAR_C FIN_LINEA
+                                            |PR_SCANF PAR_A expresionCadenaDeEntradaPr:accionIngreso COMA AMPERSON lugarAsignacionPr:lugarAsignacion PAR_C FIN_LINEA
+                                            |PR_LIMPIAR_PANTALLA PAR_A PAR_C FIN_LINEA
+                                            |PR_ESPERAR_TECLA PAR_A PAR_C FIN_LINEA
+                                            |PR_BREAK FIN_LINEA 
+                                            |funcionPr:llamadaProcedimiento FIN_LINEA
+                                            |dclVariablePr:instrucciones
+                                            |error FIN_LINEA
+                                            ;
+
+lugarAsignacionPr::=                        ID:lugarId
+                                            |arreglo:lugarArreglo
+                                            ;
+
+idListMensaje::=                            idListMensajees COMA expresionAritmeticaPrMensaje
+                                            |expresionAritmeticaPrMensaje
+                                            ;
+
+expresionAritmeticaPrMensaje::=             expresionAritmeticaPr
+                                            |AMPERSON expresionAritmeticaPr
+                                            ;
+
+arreglo::=                                  ID listDimensiones
+                                            ;
+
+listDimensiones::=                          listDimensiones:enteros COR_A expresionAritmeticaPr COR_C
+                                            |COR_A expresionAritmeticaPr COR_C
+                                            ;
+
+tipoDatoPr::=                               PR_ENTERO 
+                                            |PR_FLOTANTE
+                                            |PR_CARACTER
+                                            ;
+
+funcionPr::=                                PR_JAVA PUNTO ID PUNTO IDAux PAR_A parametrosPr PAR_C
+                                            |PR_PY PUNTO ID PAR_A parametrosPr PAR_C
+                                            |PR_VB PUNTO ID PAR_A parametrosPr PAR_C
+                                            ;
+
+expresionCadenaDeEntradaPr::=               valorTexto:mensaje comodin:comodin
+                                            |valorTexto:mensajeI comodin:comodin valorTexto:mensajeD
+                                            |comodin:comodin valorTexto:mensaje
+                                            |comodin:comodin
+                                            ;
+
+expresionCadenaPr::=                        expresionCadenaPr:datos valorCadena:dato
+                                            |valorCadena:dato
+                                            ;
+
+valorCadena::=                              valorTexto
+                                            |comodin
+                                            ;
+
+valorTexto::=                               CADENA
+                                            |CARACTER
+                                            ;
+
+comodin::=                                  COMODIN_CARACTER
+                                            |COMODIN_ENTERO
+                                            |COMODIN_FLOTANTE
+                                            ;
+
+parametrosPr::=                             listParametrosPr
+                                            | 
+                                            ;
+
+listParametrosPr::=                         listParametrosPres COMA expresionAritmeticaPr
+                                            |expresionAritmeticaPr
+                                            ;
+
+expresionAritmeticaPr::=                    expresionAritmeticaPrI MAS expresionAritmeticaPrD
+                                            |expresionAritmeticaPrI MENOS expresionAritmeticaPrD
+                                            |expresionAritmeticaPrI POR expresionAritmeticaPrD
+                                            |expresionAritmeticaPrI DIVISION expresionAritmeticaPrD
+                                            |expresionAritmeticaPrI MOD expresionAritmeticaPrD
+                                            |PAR_A expresionAritmeticaPr PAR_C
+                                            |valorPr
+                                            ;
+
+valorPr::=                                  ID
+                                            |CARACTER
+                                            |ENTERO
+                                            |MENOS ENTERO
+                                            |FLOTANTE
+                                            |arreglo
+                                            |funcionPr
+                                            ;
+
+//********************************************************ESTRUCTURAS GENERALES*********************************************************
+
+expresionCadena::=                          expresionCadenaI MAS expresionCadenaD
+                                            |expresionAritmetica
+                                            |CADENA
+                                            |
+                                            ;
+
+expresionAritmetica::=                      expresionAritmeticaI MAS expresionAritmeticaD
+                                            |expresionAritmeticaI MENOS expresionAritmeticaD
+                                            |expresionAritmeticaI POR expresionAritmeticaD
+                                            |expresionAritmeticaI DIVISION expresionAritmeticaD
+                                            |expresionAritmeticaI MOD expresionAritmeticaD
+                                            |PAR_A expresionAritmetica PAR_C
+                                            |valor:dato
+                                            ;
+
+expresionBooleana::=                        expresionAritmeticaI MENOR expresionAritmeticaD
+                                            |expresionAritmeticaI MAYOR expresionAritmeticaD
+                                            |expresionAritmeticaI MENOR_IGUAL expresionAritmeticaD
+                                            |expresionAritmeticaI MAYOR_IGUAL expresionAritmeticaD
+                                            |expresionAritmeticaI COMPARADOR expresionAritmeticaD
+                                            |expresionAritmeticaI DISTINTO expresionAritmeticaD
+                                            |expresionBooleanaI AND expresionBooleanaD
+                                            |expresionBooleanaI OR expresionBooleanaD
+                                            |NOT expresionBooleana
+                                            |PAR_A expresionBooleana PAR_C
+                                            ;
+
+valor::=                                    ENTERO 
+                                            |MENOS ENTERO 
+                                            |FLOTANTE 
+                                            |CARACTER 
+                                            |ID 
+                                            ;

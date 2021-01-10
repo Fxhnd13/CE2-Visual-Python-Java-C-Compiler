@@ -2206,6 +2206,12 @@ sentenciaIf::=                          IF:pos PAR_A expresionBool:condicion PAR
                                                 RESULT = new SiInstr(condicion, instrucciones, instruccionSino, new Pos(posleft,posright));
                                             }
                                         :}
+                                        |IF:pos PAR_A expresionBool:condicion PAR_C sentenciaSimple:instrucciones {:
+                                            if(pos!=null&&condicion!=null){
+                                                if(instrucciones==null) instrucciones = new ArrayList();
+                                                RESULT = new SiInstr(condicion, instrucciones, null, new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |IF PAR_A expresionBool PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
                                         |IF PAR_A expresionBool PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
                                         |IF PAR_A expresionBool error:e LLAVE_A bloque LLAVE_C{: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}

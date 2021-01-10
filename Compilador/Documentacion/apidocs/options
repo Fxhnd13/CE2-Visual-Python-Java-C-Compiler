@@ -1,0 +1,24 @@
+-classpath
+'/home/fxhnd/.m2/repository/de/jflex/cup_runtime/11b-20160615/cup_runtime-11b-20160615.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/home/fxhnd/NetBeansProjects/Compilador/Source/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2021. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/fxhnd/NetBeansProjects/Compilador/Source/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Compilador 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/13/docs/api' '/home/fxhnd/NetBeansProjects/Compilador/Source/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'Compilador 1.0-SNAPSHOT API'

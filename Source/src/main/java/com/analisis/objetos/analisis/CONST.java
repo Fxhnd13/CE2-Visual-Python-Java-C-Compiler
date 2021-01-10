@@ -42,4 +42,5 @@ public class CONST {
     public static final String STACK = "stack";
     public static final String HEAP = "heap";
     public static final String VAR = "VAR";
+    public static final String CTE = "CTE";
 }

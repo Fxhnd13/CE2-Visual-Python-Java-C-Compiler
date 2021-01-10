@@ -47,4 +47,11 @@ public class Temporal {
         }
         return null;
     }
+
+    public static VarT getTemporal(String resultado) {
+        for (VarT temporal : temporales) {
+            if(temporal.getTemporal().equals(resultado)) return temporal;
+        }
+        return null;
+    }
 }
