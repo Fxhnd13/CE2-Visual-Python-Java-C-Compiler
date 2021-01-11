@@ -17,6 +17,7 @@ import com.generadores.objetos.Cuarteto;
 import com.generadores.objetos.Cuartetos;
 import com.generadores.objetos.Etiqueta;
 import com.generadores.objetos.Temporal;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -204,6 +205,7 @@ public class GuiManager {
             Codigo3Direcciones generador = new Codigo3Direcciones();
             List<Cuarteto> cuartetos = generador.generarCodigo(generadorAst.getInstrucciones(), analizadorSemantico.getColeccion());
             Cuartetos.eliminarRedundanciaEtiquetas(cuartetos);
+            Temporal.eliminarTemporalesIndefinidos(cuartetos);
             return cuartetos;
             
         }else{
@@ -267,7 +269,7 @@ public class GuiManager {
     private void guardarYEjecutarAssembler(String codigo, boolean abrir) {
         File tmp = new File("Generados");
         if(!tmp.isDirectory()) tmp.mkdirs();
-        File file = new File("Generados/codigoC.s");
+        File file = new File("Generados/codigoAsm.s");
         manager.guardarArchivo(new Documento(file,false,codigo));
         try{
             if(abrir) Runtime.getRuntime().exec(new String[]{"xdg-open","../Ejecutables"});
@@ -275,6 +277,15 @@ public class GuiManager {
         }catch(Exception ex){
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al guardar el codigo assembler generado", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void abrirManual(String archivo) {
+        try {
+               File objetofile = new File (archivo);
+               Desktop.getDesktop().open(objetofile);
+        }catch (IOException ex) {
+            mensajes.error("No se ha podido abrir el manual seleccionado, verifique que se encuentren en las direcciones correspondientes.");
         }
     }
 }

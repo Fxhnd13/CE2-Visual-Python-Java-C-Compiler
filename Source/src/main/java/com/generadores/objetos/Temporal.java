@@ -5,6 +5,7 @@
  */
 package com.generadores.objetos;
 
+import com.analisis.objetos.analisis.CONST;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,5 +54,11 @@ public class Temporal {
             if(temporal.getTemporal().equals(resultado)) return temporal;
         }
         return null;
+    }
+
+    public static void eliminarTemporalesIndefinidos(List<Cuarteto> cuartetos) {
+        for (VarT temporal : temporales) {
+            if(temporal.getTipo().equals(CONST.INDEFINIDO)) temporal.setTipo(CONST.FLOTANTE);
+        }
     }
 }

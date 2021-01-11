@@ -23,9 +23,9 @@ public class CodigoAssembler {
      */
     public String generarCodigoDeSuma(Cuarteto cuarteto){
         String codigo = "";
-        VarT varI = Temporal.getTemporal(cuarteto.getIz()), 
-                varD = Temporal.getTemporal(cuarteto.getDer()),
-                resul = Temporal.getTemporal(cuarteto.getRes());
+        VarT varI = (cuarteto.getIz().equals(CONST.P)||cuarteto.getIz().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getIz()), 
+                varD = (cuarteto.getDer().equals(CONST.P)||cuarteto.getDer().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getDer()),
+                resul = (cuarteto.getRes().equals(CONST.P)||cuarteto.getRes().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getRes());
         switch(resul.getTipo()){
             case CONST.FLOTANTE:{
                 switch(varI.getTipo()){
@@ -58,7 +58,7 @@ public class CodigoAssembler {
                                     "\tcvtsi2ssl\t%eax, %xmm1\n" +
                                     "\tmovss\t"+cuarteto.getIz()+"(%rip), %xmm0\n" +
                                     "\taddss\t%xmm1, %xmm0\n" +
-                                    "\tmovss\t%xmm0, r"+cuarteto.getRes()+"(%rip)\n";
+                                    "\tmovss\t%xmm0, "+cuarteto.getRes()+"(%rip)\n";
                                 break;
                             }
                             case CONST.CARACTER:{
@@ -85,10 +85,61 @@ public class CodigoAssembler {
                     }
                     case CONST.ENTERO:{
                         //flotante = entero + flotante
+                        switch(varD.getTipo()){
+                            case CONST.ENTERO:{
+                                break;
+                            }
+                            case CONST.CARACTER:{
+                                break;
+                            }
+                            case CONST.FLOTANTE:{
+                                /*
+                                    movl	enteroUno(%rip), %eax
+                                    pxor	%xmm1, %xmm1
+                                    cvtsi2ssl	%eax, %xmm1
+                                    movss	flotanteUno(%rip), %xmm0
+                                    addss	%xmm1, %xmm0
+                                    movss	%xmm0, flotanteTres(%rip)
+                                */
+                                codigo+="\tmovl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                                    "\tpxor\t%xmm1, %xmm1\n" +
+                                    "\tcvtsi2ssl\t%eax, %xmm1\n" +
+                                    "\tmovss\t"+cuarteto.getDer()+"(%rip), %xmm0\n" +
+                                    "\taddss\t%xmm1, %xmm0\n" +
+                                    "\tmovss\t%xmm0, "+cuarteto.getRes()+"(%rip)\n";
+                                break;
+                            }
+                        }
                         break;
                     }
                     case CONST.CARACTER:{
-                        //flotante = caracter + flotante
+                        switch(varD.getTipo()){
+                            case CONST.FLOTANTE:{
+                                /*
+                                    movzbl	caracterUno(%rip), %eax
+                                    movsbl	%al, %eax
+                                    pxor	%xmm1, %xmm1
+                                    cvtsi2ssl	%eax, %xmm1
+                                    movss	flotanteUno(%rip), %xmm0
+                                    addss	%xmm1, %xmm0
+                                    movss	%xmm0, flotanteTres(%rip)
+                                */
+                                codigo+="\tmovzbl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                                    "\tmovsbl\t%al, %eax\n" +
+                                    "\tpxor\t%xmm1, %xmm1\n" +
+                                    "\tcvtsi2ssl\t%eax, %xmm1\n" +
+                                    "\tmovss\t"+cuarteto.getDer()+"(%rip), %xmm0\n" +
+                                    "\taddss\t%xmm1, %xmm0\n" +
+                                    "\tmovss\t%xmm0, "+cuarteto.getRes()+"(%rip)\n";
+                                break;
+                            }
+                            case CONST.ENTERO:{
+                                break;
+                            }
+                            case CONST.CARACTER:{
+                                break;
+                            }
+                        }
                         break;
                     }
                 }
@@ -193,9 +244,9 @@ public class CodigoAssembler {
      */
     public String generarCodigoDeResta(Cuarteto cuarteto){
         String codigo = "";
-        VarT varI = Temporal.getTemporal(cuarteto.getIz()), 
-                varD = Temporal.getTemporal(cuarteto.getDer()),
-                resul = Temporal.getTemporal(cuarteto.getRes());
+        VarT varI = (cuarteto.getIz().equals(CONST.P)||cuarteto.getIz().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getIz()), 
+                varD = (cuarteto.getDer().equals(CONST.P)||cuarteto.getDer().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getDer()),
+                resul = (cuarteto.getRes().equals(CONST.P)||cuarteto.getRes().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getRes());
         switch(resul.getTipo()){
             case CONST.FLOTANTE:{
                 switch(varI.getTipo()){
@@ -228,7 +279,7 @@ public class CodigoAssembler {
                                     "\tpxor\t%xmm1, %xmm1\n" +
                                     "\tcvtsi2ssl\t%eax, %xmm1\n" +
                                     "\tsubss\t%xmm1, %xmm0\n" +
-                                    "\tmovss\t%xmm0, resultado(%rip)\n";
+                                    "\tmovss\t%xmm0, "+cuarteto.getRes()+"(%rip)\n";
                                 break;
                             }
                             case CONST.CARACTER:{
@@ -254,11 +305,61 @@ public class CodigoAssembler {
                         break;
                     }
                     case CONST.ENTERO:{
-                        //flotante = entero + flotante
+                        switch(varD.getTipo()){
+                            case CONST.FLOTANTE:{
+                                /*
+                                    movl	entero(%rip), %eax
+                                    pxor	%xmm0, %xmm0
+                                    cvtsi2ssl	%eax, %xmm0
+                                    movss	flotante(%rip), %xmm1
+                                    subss	%xmm1, %xmm0
+                                    movss	%xmm0, flotante(%rip)
+                                */
+                                codigo+="\tmovl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                                    "\tpxor\t%xmm0, %xmm0\n" +
+                                    "\tcvtsi2ssl\t%eax, %xmm0\n" +
+                                    "\tmovss\t"+cuarteto.getDer()+"(%rip), %xmm1\n" +
+                                    "\tsubss\t%xmm1, %xmm0\n" +
+                                    "\tmovss\t%xmm0, "+cuarteto.getRes()+"(%rip)\n";
+                                break;
+                            }
+                            case CONST.ENTERO:{
+                                break;
+                            }
+                            case CONST.CARACTER:{
+                                break;
+                            }
+                        }
                         break;
                     }
                     case CONST.CARACTER:{
-                        //flotante = caracter + flotante
+                        switch(varD.getTipo()){
+                            case CONST.FLOTANTE:{
+                                /*
+                                    movzbl	caracter(%rip), %eax
+                                    movsbl	%al, %eax
+                                    pxor	%xmm0, %xmm0
+                                    cvtsi2ssl	%eax, %xmm0
+                                    movss	flotante(%rip), %xmm1
+                                    subss	%xmm1, %xmm0
+                                    movss	%xmm0, flotante(%rip)
+                                */
+                                codigo+="\tmovzbl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                                    "\tmovsbl\t%al, %eax\n" +
+                                    "\tpxor\t%xmm0, %xmm0\n" +
+                                    "\tcvtsi2ssl\t%eax, %xmm0\n" +
+                                    "\tmovss\t"+cuarteto.getDer()+"(%rip), %xmm1\n" +
+                                    "\tsubss\t%xmm1, %xmm0\n" +
+                                    "\tmovss\t%xmm0, "+cuarteto.getRes()+"(%rip)\n";
+                                break;
+                            }
+                            case CONST.ENTERO:{
+                                break;
+                            }
+                            case CONST.CARACTER:{
+                                break;
+                            }
+                        }
                         break;
                     }
                 }
@@ -285,11 +386,11 @@ public class CodigoAssembler {
                             }
                             case CONST.CARACTER:{
                                 /*entero = entero + caracter
-                                    movl	izquierdo(%rip), %eax
-                                    movzbl	derecho(%rip), %edx
+                                    movl	entero(%rip), %eax
+                                    movzbl	caracter(%rip), %edx
                                     movsbl	%dl, %edx
                                     subl	%edx, %eax
-                                    movl	%eax, resultado(%rip)
+                                    movl	%eax, entero(%rip)
                                 */
                                 codigo+="\tmovl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
                                     "\tmovzbl\t"+cuarteto.getDer()+"(%rip), %edx\n" +
@@ -299,18 +400,36 @@ public class CodigoAssembler {
                                 break;
                             }
                             case CONST.CTE:{
-                                //entero = entero + cte
+                                /*
+                                    movl	entero(%rip), %eax
+                                    subl	$5, %eax
+                                    movl	%eax, entero(%rip)
+                                */
+                                codigo+="\tmovl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                                    "\tsubl\t$"+cuarteto.getDer()+", %eax\n" +
+                                    "\tmovl\t%eax, "+cuarteto.getRes()+"(%rip)\n";
                                 break;
                             }
                         }
                         break;
                     }
                     case CONST.CARACTER:{
-                        //entero = caracter + entero
+                        switch(varD.getTipo()){
+                            case CONST.ENTERO:{
+                                break;
+                            }
+                            case CONST.CARACTER:{
+                                break;
+                            }
+                        }
                         break;
                     }
                     case CONST.CTE:{
                         //entero = cte + entero
+                        codigo+="\tmovl\t"+cuarteto.getDer()+"(%rip), %edx\n" +
+                            "\tmovl\t$"+cuarteto.getIz()+", %eax\n" +
+                            "\tsubl\t%edx, %eax\n" +
+                            "\tmovl\t%eax, "+cuarteto.getRes()+"(%rip)\n";
                         break;
                     }
                 }
@@ -346,9 +465,9 @@ public class CodigoAssembler {
      */
     public String generarCodigoDeMultiplicacion(Cuarteto cuarteto){
         String codigo = "";
-        VarT varI = Temporal.getTemporal(cuarteto.getIz()), 
-                varD = Temporal.getTemporal(cuarteto.getDer()),
-                resul = Temporal.getTemporal(cuarteto.getRes());
+        VarT varI = (cuarteto.getIz().equals(CONST.P)||cuarteto.getIz().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getIz()), 
+                varD = (cuarteto.getDer().equals(CONST.P)||cuarteto.getDer().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getDer()),
+                resul = (cuarteto.getRes().equals(CONST.P)||cuarteto.getRes().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getRes());
         switch(resul.getTipo()){
             case CONST.FLOTANTE:{
                 switch(varI.getTipo()){
@@ -369,12 +488,12 @@ public class CodigoAssembler {
                             }
                             case CONST.ENTERO:{
                                 /*flotante = flotante + entero
-                                    movl	derecho(%rip), %eax
+                                    movl	entero(%rip), %eax
                                     pxor	%xmm1, %xmm1
                                     cvtsi2ssl	%eax, %xmm1
-                                    movss	izquierdo(%rip), %xmm0
+                                    movss	flotante(%rip), %xmm0
                                     mulss	%xmm1, %xmm0
-                                    movss	%xmm0, resultado(%rip)
+                                    movss	%xmm0, flotante(%rip)
                                 */
                                 codigo+="\tmovl\t"+cuarteto.getDer()+"(%rip), %eax\n" +
                                     "\tpxor\t%xmm1, %xmm1\n" +
@@ -386,13 +505,13 @@ public class CodigoAssembler {
                             }
                             case CONST.CARACTER:{
                                 /*flotante = flotante + caracter
-                                    movzbl	derecho(%rip), %eax
+                                    movzbl	caracter(%rip), %eax
                                     movsbl	%al, %eax
                                     pxor	%xmm1, %xmm1
                                     cvtsi2ssl	%eax, %xmm1
-                                    movss	izquierdo(%rip), %xmm0
+                                    movss	flotante(%rip), %xmm0
                                     mulss	%xmm1, %xmm0
-                                    movss	%xmm0, resultado(%rip)
+                                    movss	%xmm0, flotante(%rip)
                                 */
                                 codigo+="\tmovzbl\t"+cuarteto.getDer()+"(%rip), %eax\n" +
                                     "\tmovsbl\t%al, %eax\n" +
@@ -408,10 +527,55 @@ public class CodigoAssembler {
                     }
                     case CONST.ENTERO:{
                         //flotante = entero + flotante
+                        switch(varD.getTipo()){
+                            case CONST.FLOTANTE:{
+                                /*
+                                    movl	entero(%rip), %eax
+                                    pxor	%xmm1, %xmm1
+                                    cvtsi2ssl	%eax, %xmm1
+                                    movss	flotante(%rip), %xmm0
+                                    mulss	%xmm1, %xmm0
+                                    movss	%xmm0, flotante(%rip)
+                                */
+                                codigo+="\tmovl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                                    "\tpxor\t%xmm1, %xmm1\n" +
+                                    "\tcvtsi2ssl\t%eax, %xmm1\n" +
+                                    "\tmovss\t"+cuarteto.getDer()+"(%rip), %xmm0\n" +
+                                    "\tmulss\t%xmm1, %xmm0\n" +
+                                    "\tmovss\t%xmm0, "+cuarteto.getRes()+"(%rip)\n";
+                                break;
+                            }
+                            case CONST.ENTERO:{
+                                break;
+                            }
+                            case CONST.CARACTER:{
+                                break;
+                            }
+                        }
                         break;
                     }
                     case CONST.CARACTER:{
-                        //flotante = caracter + flotante
+                        switch(varD.getTipo()){
+                            case CONST.FLOTANTE:{
+                                /*
+                                    movzbl	caracter(%rip), %eax
+                                    movsbl	%al, %eax
+                                    pxor	%xmm1, %xmm1
+                                    cvtsi2ssl	%eax, %xmm1
+                                    movss	flotante(%rip), %xmm0
+                                    mulss	%xmm1, %xmm0
+                                    movss	%xmm0, flotante(%rip)
+                                */
+                                codigo+="\tmovzbl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                                    "\tmovsbl\t%al, %eax\n" +
+                                    "\tpxor\t%xmm1, %xmm1\n" +
+                                    "\tcvtsi2ssl\t%eax, %xmm1\n" +
+                                    "\tmovss\t"+cuarteto.getDer()+"(%rip), %xmm0\n" +
+                                    "\tmulss\t%xmm1, %xmm0\n" +
+                                    "\tmovss\t%xmm0, "+cuarteto.getRes()+"(%rip)\n";
+                                break;
+                            }
+                        }
                         break;
                     }
                 }
@@ -453,6 +617,10 @@ public class CodigoAssembler {
                             }
                             case CONST.CTE:{
                                 //entero = entero + cte
+                                codigo+="\tmovl\t"+cuarteto.getIz()+"(%rip), %edx\n" +
+                                    "\tmovl\t$"+cuarteto.getDer()+", %eax\n" +
+                                    "\timull\t%edx, %eax\n" +
+                                    "\tmovl\t%eax, "+cuarteto.getRes()+"(%rip)\n";
                                 break;
                             }
                         }
@@ -460,10 +628,26 @@ public class CodigoAssembler {
                     }
                     case CONST.CARACTER:{
                         //entero = caracter + entero
+                        /*
+                            movzbl	caracter(%rip), %eax
+                            movsbl	%al, %edx
+                            movl	entero(%rip), %eax
+                            imull	%edx, %eax
+                            movl	%eax, entero(%rip)
+                        */
+                        codigo+="\tmovzbl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                            "\tmovsbl\t%al, %edx\n" +
+                            "\tmovl\t"+cuarteto.getDer()+"(%rip), %eax\n" +
+                            "\timull\t%edx, %eax\n" +
+                            "\tmovl\t%eax, "+cuarteto.getRes()+"(%rip)\n";
                         break;
                     }
                     case CONST.CTE:{
                         //entero = cte + entero
+                        codigo+="\tmovl\t"+cuarteto.getDer()+"(%rip), %edx\n" +
+                            "\tmovl\t$"+cuarteto.getIz()+", %eax\n" +
+                            "\timull\t%edx, %eax\n" +
+                            "\tmovl\t%eax, "+cuarteto.getRes()+"(%rip)\n";
                         break;
                     }
                 }
@@ -499,9 +683,9 @@ public class CodigoAssembler {
      */
     public String generarCodigoDeDivision(Cuarteto cuarteto){
         String codigo = "";
-        VarT varI = Temporal.getTemporal(cuarteto.getIz()), 
-                varD = Temporal.getTemporal(cuarteto.getDer()),
-                resul = Temporal.getTemporal(cuarteto.getRes());
+        VarT varI = (cuarteto.getIz().equals(CONST.P)||cuarteto.getIz().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getIz()), 
+                varD = (cuarteto.getDer().equals(CONST.P)||cuarteto.getDer().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getDer()),
+                resul = (cuarteto.getRes().equals(CONST.P)||cuarteto.getRes().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getRes());
         switch(resul.getTipo()){
             case CONST.FLOTANTE:{
                 switch(varI.getTipo()){
@@ -561,6 +745,23 @@ public class CodigoAssembler {
                     }
                     case CONST.ENTERO:{
                         switch(varD.getTipo()){
+                            case CONST.FLOTANTE:{
+                                /*
+                                    movl	entero(%rip), %eax
+                                    pxor	%xmm0, %xmm0
+                                    cvtsi2ssl	%eax, %xmm0
+                                    movss	flotante(%rip), %xmm1
+                                    divss	%xmm1, %xmm0
+                                    movss	%xmm0, flotante(%rip)
+                                */
+                                codigo+="\tmovl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                                    "\tpxor\t%xmm0, %xmm0\n" +
+                                    "\tcvtsi2ssl\t%eax, %xmm0\n" +
+                                    "\tmovss\t"+cuarteto.getDer()+"(%rip), %xmm1\n" +
+                                    "\tdivss\t%xmm1, %xmm0\n" +
+                                    "\tmovss\t%xmm0, "+cuarteto.getRes()+"(%rip)\n";
+                                break;
+                            }
                             case CONST.ENTERO:{
                                 /*flotante = entero / entero
                                     movl	izquierdo(%rip), %eax
@@ -608,6 +809,25 @@ public class CodigoAssembler {
                         switch(varD.getTipo()){
                             //flotante = caracter + flotante
                             case CONST.FLOTANTE:{
+                                /*
+                                    movzbl	caracter(%rip), %eax
+                                    movsbl	%al, %eax
+                                    pxor	%xmm0, %xmm0
+                                    cvtsi2ssl	%eax, %xmm0
+                                    movss	flotante(%rip), %xmm1
+                                    divss	%xmm1, %xmm0
+                                    movss	%xmm0, flotante(%rip)
+                                */
+                                codigo+="movzbl\t"+cuarteto.getDer()+"(%rip), %eax\n" +
+                                    "\tmovsbl\t%al, %eax\n" +
+                                    "\tpxor\t%xmm0, %xmm0\n" +
+                                    "\tcvtsi2ssl\t%eax, %xmm0\n" +
+                                    "\tmovss\t"+cuarteto.getIz()+"(%rip), %xmm1\n" +
+                                    "\tdivss\t%xmm1, %xmm0\n" +
+                                    "\tmovss\t%xmm0, "+cuarteto.getRes()+"(%rip)\n";
+                                break;
+                            }
+                            case CONST.ENTERO:{
                                 break;
                             }
                             //flotante = caracter  caracter
@@ -628,10 +848,36 @@ public class CodigoAssembler {
                         switch(varD.getTipo()){
                             case CONST.ENTERO:{
                                 //entero = entero + entero
+                                /*
+                                    movl	entero(%rip), %eax
+                                    movl	enteroDos(%rip), %ecx
+                                    cltd
+                                    idivl	%ecx
+                                    movl	%eax, entero(%rip)
+                                */
+                                codigo+="\tmovl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                                    "\tmovl\t"+cuarteto.getDer()+"(%rip), %ecx\n" +
+                                    "\tcltd\n" +
+                                    "\tidivl\t%ecx\n" +
+                                    "\tmovl\t%eax, entero(%rip)\n";
                                 break;
                             }
                             case CONST.CARACTER:{
                                 //entero = entero + caracter
+                                /*
+                                    movl	entero(%rip), %eax
+                                    movzbl	caracter(%rip), %edx
+                                    movsbl	%dl, %esi
+                                    cltd
+                                    idivl	%esi
+                                    movl	%eax, entero(%rip)
+                                */
+                                codigo+="\tmovl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                                    "\tmovzbl\t"+cuarteto.getDer()+"(%rip), %edx\n" +
+                                    "\tmovsbl\t%dl, %esi\n" +
+                                    "\tcltd\n" +
+                                    "\tidivl\t%esi\n" +
+                                    "\tmovl\t%eax, "+cuarteto.getRes()+"(%rip)\n";
                                 break;
                             }
                             case CONST.CTE:{
@@ -643,6 +889,20 @@ public class CodigoAssembler {
                     }
                     case CONST.CARACTER:{
                         //entero = caracter + entero
+                        /*
+                            movzbl	caracter(%rip), %eax
+                            movsbl	%al, %eax
+                            movl	entero(%rip), %edi
+                            cltd
+                            idivl	%edi
+                            movl	%eax, entero(%rip)
+                        */
+                        codigo+="\tmovzbl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                            "\tmovsbl\t%al, %eax\n" +
+                            "\tmovl\t"+cuarteto.getDer()+"(%rip), %edi\n" +
+                            "\tcltd\n" +
+                            "\tidivl\t%edi\n" +
+                            "\tmovl\t%eax, "+cuarteto.getRes()+"(%rip)\n";
                         break;
                     }
                     case CONST.CTE:{
@@ -654,6 +914,22 @@ public class CodigoAssembler {
             }
             case CONST.CARACTER:{
                 //caracter = caracter + caracter
+                /*
+                    movzbl	caracter(%rip), %eax
+                    movsbl	%al, %eax
+                    movzbl	caracterDos(%rip), %edx
+                    movsbl	%dl, %ecx
+                    cltd
+                    idivl	%ecx
+                    movb	%al, caracter(%rip)
+                */
+                codigo+="\tmovzbl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                    "\tmovsbl\t%al, %eax\n" +
+                    "\tmovzbl\t"+cuarteto.getDer()+"(%rip), %edx\n" +
+                    "\tmovsbl\t%dl, %ecx\n" +
+                    "\tcltd\n" +
+                    "\tidivl\t%ecx\n" +
+                    "\tmovb\t%al, "+cuarteto.getRes()+"(%rip)\n";
                 break;
             }
         }
@@ -667,9 +943,9 @@ public class CodigoAssembler {
      */
     public String generarCodigoDeModulo(Cuarteto cuarteto){
         String codigo = "";
-        VarT varI = Temporal.getTemporal(cuarteto.getIz()), 
-                varD = Temporal.getTemporal(cuarteto.getDer()),
-                resul = Temporal.getTemporal(cuarteto.getRes());
+        VarT varI = (cuarteto.getIz().equals(CONST.P)||cuarteto.getIz().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getIz()), 
+                varD = (cuarteto.getDer().equals(CONST.P)||cuarteto.getDer().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getDer()),
+                resul = (cuarteto.getRes().equals(CONST.P)||cuarteto.getRes().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getRes());
         switch(resul.getTipo()){
             case CONST.FLOTANTE:{
                 switch(varI.getTipo()){
@@ -754,14 +1030,42 @@ public class CodigoAssembler {
                         switch(varD.getTipo()){
                             case CONST.ENTERO:{
                                 /*entero = caracter % entero
-                                
+                                    movzbl	caracter(%rip), %eax
+                                    movsbl	%al, %eax
+                                    movl	entero(%rip), %ecx
+                                    cltd
+                                    idivl	%ecx
+                                    movl	%edx, %eax
+                                    movl	%eax, entero(%rip)
                                 */
+                                codigo+="\tmovzbl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                                    "\tmovsbl\t%al, %eax\n" +
+                                    "\tmovl\t"+cuarteto.getDer()+"(%rip), %ecx\n" +
+                                    "\tcltd\n" +
+                                    "\tidivl\t%ecx\n" +
+                                    "\tmovl\t%edx, %eax\n" +
+                                    "\tmovl\t%eax, "+cuarteto.getRes()+"(%rip)\n";
                                 break;
                             }
                             case CONST.CARACTER:{
-                                /*entero = entero % caracter
-                                
+                                /*entero = caracter % caracter
+                                    movzbl	caracter(%rip), %eax
+                                    movsbl	%al, %eax
+                                    movzbl	caracterDos(%rip), %edx
+                                    movsbl	%dl, %ecx
+                                    cltd
+                                    idivl	%ecx
+                                    movl	%edx, %eax
+                                    movl	%eax, entero(%rip)
                                 */
+                                codigo+="\tmovzbl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
+                                    "\tmovsbl\t%al, %eax\n" +
+                                    "\tmovzbl\t"+cuarteto.getDer()+"(%rip), %edx\n" +
+                                    "\tmovsbl\t%dl, %ecx\n" +
+                                    "\tcltd\n" +
+                                    "\tidivl\t%ecx\n" +
+                                    "\tmovl\t%edx, %eax\n" +
+                                    "\tmovl\t%eax, "+cuarteto.getRes()+"(%rip)\n";
                                 break;
                             }
                         }
@@ -789,14 +1093,15 @@ public class CodigoAssembler {
      */
     public String generarCodigoDeCondicional(Cuarteto cuarteto){
         String codigo = "";
-        VarT varI = Temporal.getTemporal(cuarteto.getIz()), varD = Temporal.getTemporal(cuarteto.getDer());
+        VarT varI = (cuarteto.getIz().equals(CONST.P)||cuarteto.getIz().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getIz()), 
+                varD = (cuarteto.getDer().equals(CONST.P)||cuarteto.getDer().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getDer());
         switch(varI.getTipo()){
             case CONST.FLOTANTE:{
                 switch(varD.getTipo()){
                     case CONST.FLOTANTE:{
-                        /* flotante op flotante
-                            movss	izquierdo(%rip), %xmm1
-                            movss	derecho(%rip), %xmm0
+                        /* flotante < flotante
+                            movss	flotante(%rip), %xmm1
+                            movss	flotanteDos(%rip), %xmm0
                             comiss	%xmm1, %xmm0
                         */
                         codigo+="\tmovss\t"+cuarteto.getIz()+"(%rip), %xmm1\n" +
@@ -805,11 +1110,11 @@ public class CodigoAssembler {
                         break;
                     }
                     case CONST.ENTERO:{
-                        /*flotante op entero
-                            movl	derecho(%rip), %eax
+                        /*flotante < entero
+                            movl	entero(%rip), %eax
                             pxor	%xmm0, %xmm0
                             cvtsi2ssl	%eax, %xmm0
-                            movss	izquierdo(%rip), %xmm1
+                            movss	flotante(%rip), %xmm1
                             comiss	%xmm1, %xmm0
                         */
                         codigo+="\tmovl\t"+cuarteto.getDer()+"(%rip), %eax\n" +
@@ -826,23 +1131,23 @@ public class CodigoAssembler {
                 switch(varD.getTipo()){
                     case CONST.FLOTANTE:{
                         /* entero op flotante
-                            movl	derecho(%rip), %eax
-                            pxor	%xmm0, %xmm0
-                            cvtsi2ssl	%eax, %xmm0
-                            movss	izquierdo(%rip), %xmm1
+                            movl	entero(%rip), %eax
+                            pxor	%xmm1, %xmm1
+                            cvtsi2ssl	%eax, %xmm1
+                            movss	flotante(%rip), %xmm0
                             comiss	%xmm1, %xmm0
                         */
-                        codigo+="\tmovl\t"+cuarteto.getDer()+"(%rip), %eax\n" +
+                        codigo+="\tmovl\t"+cuarteto.getIz()+"(%rip), %eax\n" +
                             "\tpxor\t%xmm1, %xmm1\n" +
                             "\tcvtsi2ssl\t%eax, %xmm1\n" +
-                            "\tmovss\t"+cuarteto.getIz()+"(%rip), %xmm0\n" +
+                            "\tmovss\t"+cuarteto.getDer()+"(%rip), %xmm0\n" +
                             "\tcomiss\t%xmm1, %xmm0\n";
                         break;
                     }
                     case CONST.ENTERO:{
                         /*Entero op entero
-                            movl	izquierdo(%rip), %edx
-                            movl	derecho(%rip), %eax
+                            movl	entero(%rip), %edx
+                            movl	enteroDos(%rip), %eax
                             cmpl	%eax, %edx
                         */
                         codigo+="\tmovl\t"+cuarteto.getIz()+"(%rip), %edx\n" +
@@ -855,8 +1160,8 @@ public class CodigoAssembler {
             }
             case CONST.CARACTER:{
                 /* caracter op caracter
-                    movzbl	izquierdo(%rip), %edx
-                    movzbl	derecho(%rip), %eax
+                    movzbl	caracter(%rip), %edx
+                    movzbl	caracterDos(%rip), %eax
                     cmpb	%al, %dl
                 */
                 codigo+="\tmovzbl\t"+cuarteto.getIz()+"(%rip), %edx\n" +
@@ -898,7 +1203,7 @@ public class CodigoAssembler {
         switch(cuarteto.getOp()){
             case ":=":{
                 VarT valorAsignar = Temporal.getTemporal(cuarteto.getIz());
-                if(valorAsignar==null){
+                if(valorAsignar==null){//si es una cte
                     valorAsignar = Temporal.getTemporal(cuarteto.getRes());
                     switch(valorAsignar.getTipo()){
                         case CONST.FLOTANTE:{
@@ -968,7 +1273,7 @@ public class CodigoAssembler {
                 break;
             }
             case ":=a":{
-                VarT varI = Temporal.getTemporal(cuarteto.getIz());
+                VarT varI = (cuarteto.getIz().equals(CONST.P)||cuarteto.getIz().equals(CONST.H))? new VarT(CONST.ENTERO,null):Temporal.getTemporal(cuarteto.getIz());
                 switch(varI.getTipo()){
                     case CONST.FLOTANTE:{
                         codigo+="\tmovl\t"+cuarteto.getDer()+"(%rip), %eax\n" +
@@ -1024,7 +1329,7 @@ public class CodigoAssembler {
                             "\tleaq\t"+cuarteto.getIz()+"(%rip), %rax\n" +
                             "\tmovss\t(%rdx,%rax), %xmm0\n" +
                             "\tcvttss2sil\t%xmm0, %eax\n" +
-                            "\tmovl\t%eax, "+cuarteto.getRes()+"%rip)\n";
+                            "\tmovl\t%eax, "+cuarteto.getRes()+"(%rip)\n";
                             break;
                         }
                         case CONST.CARACTER:{

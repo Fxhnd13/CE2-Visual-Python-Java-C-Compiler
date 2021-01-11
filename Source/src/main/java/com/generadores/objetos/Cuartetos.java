@@ -17,6 +17,7 @@ import java.util.List;
 public class Cuartetos {
     
     public static int noActual = 5;
+    public static boolean enSeccionTexto = false;
     
     public static void cambiarEtiqueta(List<Cuarteto> cuartetos, String etiquetaAnterior, String nuevaEtiqueta){
         for (Cuarteto cuarteto : cuartetos) {
@@ -305,6 +306,7 @@ public class Cuartetos {
     
     public static String escribirCodigoAssembler(List<Cuarteto> cuartetos){
         noActual = 5;
+        Temporal.temporales.add(new VarT(CONST.ENTERO,"t00"));
         String codigo = "\t.file \"codigoC.c\"\n"
                 + "\t.text\n"
                 + "\t.globl stack\n"
@@ -331,12 +333,6 @@ public class Cuartetos {
                 + "\t.type  h, @object\n"
                 + "\t.size  h, 4\n"
                 + "h:\n"
-                + "\t.zero  4\n"
-                + "\t.globl t00\n"
-                + "\t.align 4\n"
-                + "\t.type  t00, @object\n"
-                + "\t.size  t00, 4\n"
-                + "t00:\n"
                 + "\t.zero  4\n";
         for (VarT temporal : Temporal.temporales) {
             codigo+="\t.globl "+temporal.getTemporal()+"\n"
@@ -364,10 +360,14 @@ public class Cuartetos {
                     }else{
                         codigo+=codigoDeMetodo(cuartetosDeMetodo, cuartetosDeMetodo.get(0).getRes(), noMetodo++);
                         cuartetosDeMetodo.clear();
+                        dentroDeMetodo=false;
                     }
                 }
             }
         }
+        
+        codigo+="\t.ident\t\"GCC: (GNU) 10.2.0\t\n"
+            + "\t.section\t.note.GNU-stack,\"\",@progbits";;
         
         return codigo;
     }
@@ -378,7 +378,12 @@ public class Cuartetos {
         
         generacionDeCadenas :{
            
-            if(id.equals("main"))codigo+=".LC1:\n"
+            if(id.equals("main")){
+                if(enSeccionTexto){
+                    codigo+="\t.section\t.rodata\n"; 
+                    enSeccionTexto = false;
+                }
+                codigo+=".LC1:\n"
                     + "\t.string\t\" %c\"\n"
                     + ".LC2:\n"
                     + "\t.string\t\"%c\"\n"
@@ -386,10 +391,15 @@ public class Cuartetos {
                     + "\t.string\t\"%d\"\n"
                     + ".LC4:\n"
                     + "\t.string\t\"%f\"\n";
+            }
             for (int i = 0; i < cuartetos.size(); i++) {
                 Cuarteto cuarteto = cuartetos.get(i);
                 switch(cuarteto.getOp()){
                     case "printCadena":{
+                        if(enSeccionTexto){
+                            codigo+="\t.section\t.rodata\n"; 
+                            enSeccionTexto = false;
+                        }
                         codigo+=".LC"+noActual+":\n\t.string \""+cuarteto.getRes()+"\"\n";
                         cuarteto.setRes("LC"+(noActual++));
                         break;
@@ -405,15 +415,19 @@ public class Cuartetos {
                             declaracionFlotantes+="\t.align 4\n"
                                     + ".LC"+noActual+":\n"
                                     + "\t.long\t"+Float.floatToRawIntBits(Float.parseFloat(cuarteto.getIz()))+"\n";
+                            cuarteto.setIz("LC"+(noActual++));
                         }
-                        cuarteto.setIz("LC"+(noActual++));
+                        break;
                     }
                 }
             }
 
         }
-        codigo = ((!id.equals("main"))?"\t.text\n":"")
-                + "\t.globl   "+id+"\n"
+        if(!enSeccionTexto){
+            codigo+="\t.text\n";
+            enSeccionTexto = true;
+        }
+        codigo+= "\t.globl   "+id+"\n"
                 + "\t.type    "+id+", @function\n"
                 + id+":\n"
                 + ".LFB"+noMetodo+":\n"
@@ -547,7 +561,7 @@ public class Cuartetos {
                         String tipo = Temporal.getTipoTemporal(cuarteto.getRes());
                         if(cuarteto.getRes()==null){
                             codigo+="//getchar();\n";
-                            codigo+="call\ngetchar@PLT\n";
+                            codigo+="\tcall\tgetchar@PLT\n";
                         }else{
                             switch(tipo){
                                 case CONST.ENTERO:{ cuarteto.setIz("%d"); codigo+="//scanf(\"%d\",&"+cuarteto.getRes()+");\n"; break; }
@@ -605,10 +619,20 @@ public class Cuartetos {
             }
             
         }
-        
-        codigo+=declaracionFlotantes+"\t.ident \"GCC: (GNU) 10.2.0\n"
-                                    + "\t.section\t.note.GNU-stack,\"\",@progbits";;
-        
+        if(id.equals("main"))codigo+="\tmovl\t$0, %eax\n";
+        codigo+="\tpopq\t%rbp\n" +
+            "\t.cfi_def_cfa 7, 8\n" +
+            "\tret\n" +
+            "\t.cfi_endproc\n" +
+            ".LFE"+noMetodo+":\n" +
+            "\t.size\t"+id+", .-"+id+"\n";
+        if(!declaracionFlotantes.isBlank()){
+            if(enSeccionTexto){
+                codigo+="\t.section\t.rodata\n";
+                codigo+=declaracionFlotantes;
+                enSeccionTexto = false;
+            }
+        }
         
         return codigo;
     }

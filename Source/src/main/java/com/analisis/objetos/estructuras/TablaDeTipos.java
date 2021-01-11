@@ -141,53 +141,47 @@ public class TablaDeTipos {
         if(izquierdo != null){
             if(izquierdo.getTipo().equals(CONST.VOID)){
                 coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para un valor vacio/nulo", posicion);
+            }else if(izquierdo.getTipo().equals(CONST.INDEFINIDO)){
+                coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para una expresion con tipo 'dinamico' (error producido por una llamada una funcion de python) tipo Objeto", posicion);
             }else if(izquierdo.getTipo().equals(CONST.CLASE)){
                 coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para un valor/variable tipo Objeto",posicion);
+            }else if(izquierdo.getTipo().equals(CONST.FLOTANTE)){
+                coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para un valor/variable tipo flotante.", posicion);
             }else{
-                if(izquierdo.getTipo().equals(CONST.FLOTANTE)){
-                    coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para un valor/variable tipo flotante.", posicion);
-                }else{
-                    if(coleccion.getTipadoActual() == 0 || coleccion.getTipadoActual() == 2){
-                        if(izquierdo.getTipo().equals(CONST.CARACTER)){
-                            coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para un valor/variable tipo caracter.", posicion);
-                        }else{
-                            izquierdoOperable = true;
-                        }
+                if(coleccion.getTipadoActual() == 0 || coleccion.getTipadoActual() == 2){
+                    if(izquierdo.getTipo().equals(CONST.CARACTER)){
+                        coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para un valor/variable tipo caracter.", posicion);
                     }else{
-                        izquierdoOperable=true;
+                        izquierdoOperable = true;
                     }
+                }else{
+                    izquierdoOperable=true;
                 }
             }
         }
         if(derecho != null){
             if(derecho.getTipo().equals(CONST.VOID)){
                 coleccion.getErrores().agregarError("Semantico",(String) derecho.getValor(),"Operador residuo no valido para un valor vacio/nulo", posicion);
+            }else if(derecho.getTipo().equals(CONST.INDEFINIDO)){
+                coleccion.getErrores().agregarError("Semantico",(String) derecho.getValor(),"Operador residuo no valido para una expresion con tipo 'dinamico' (error producido por una llamada una funcion de python) tipo Objeto", posicion);
             }else if(derecho.getTipo().equals(CONST.CLASE)){
                 coleccion.getErrores().agregarError("Semantico",(String) derecho.getValor(),"Operador residuo no valido para un valor/variable tipo Objeto", posicion);
-            }else{
-                if(derecho.getTipo().equals(CONST.FLOTANTE)){
+            }else if(derecho.getTipo().equals(CONST.FLOTANTE)){
                     coleccion.getErrores().agregarError("Semantico",(String) derecho.getValor(),"Operador residuo no valido para un valor/variable tipo flotante.", posicion);
-                }else{
-                    if(coleccion.getTipadoActual() == 0 || coleccion.getTipadoActual() == 2){
-                        if(derecho.getTipo().equals(CONST.CARACTER)){
-                            coleccion.getErrores().agregarError("Semantico",(String) derecho.getValor(),"Operador residuo no valido para un valor/variable tipo caracter.", posicion);
-                        }else{
-                            derechoOperable = true;
-                        }
+            }else{
+                if(coleccion.getTipadoActual() == 0 || coleccion.getTipadoActual() == 2){
+                    if(derecho.getTipo().equals(CONST.CARACTER)){
+                        coleccion.getErrores().agregarError("Semantico",(String) derecho.getValor(),"Operador residuo no valido para un valor/variable tipo caracter.", posicion);
                     }else{
-                        derechoOperable=true;
+                        derechoOperable = true;
                     }
+                }else{
+                    derechoOperable=true;
                 }
             }
         }
         if(izquierdoOperable && derechoOperable){
-            if(izquierdo.getTipo().equals(CONST.INDEFINIDO) || derecho.getTipo().equals(CONST.INDEFINIDO)){
-                return new Dato(CONST.INDEFINIDO, null);
-            }else if(izquierdo.getTipo().equals(CONST.FLOTANTE) || derecho.getTipo().equals(CONST.FLOTANTE)){
-                return new Dato(CONST.FLOTANTE, null);
-            }else{
-                return new Dato(CONST.ENTERO, null);
-            }
+            return new Dato(CONST.ENTERO, null);
         }
         return null;
     }
