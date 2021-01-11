@@ -152,10 +152,11 @@ public class SwitchInstr implements Instruccion{
                 for (int i = 0; i < caso.getInstrucciones().size(); i++) {
                     Instruccion instruccion = caso.getInstrucciones().get(i);
                     if(instruccion instanceof BreakInstr) { tieneBreak = true; break; }
+                    if(instruccion instanceof ReturnInstr) { tieneBreak = true; break; }
                 }
                 if(!tieneBreak){
                     //error no tiene break xd
-                    coleccion.getErrores().agregarError("Semantico","break","La seccion del case no posee una instruccion break.", caso.getPosicion());
+                    coleccion.getErrores().agregarError("Semantico","break/return","La seccion del case no posee una instruccion break/return.", caso.getPosicion());
                 }
             }
             AnalizadorBloque analizador = new AnalizadorBloque();

@@ -8,8 +8,10 @@ package com.analisis.objetos.instrucciones.instruccionesmlg;
 import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Dato;
+import com.analisis.objetos.basicos.Simbolo;
 import com.analisis.objetos.basicos.accionesAsignacion.AccionExpresion;
 import com.analisis.objetos.basicos.lugaresAsignacion.LugarVariable;
+import com.analisis.objetos.estructuras.Clase;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.nodos.Hoja;
 import com.analisis.objetos.nodos.Mas;
@@ -150,7 +152,18 @@ public class ForInstr implements Instruccion{
             }
         }
         valorInicial.analizarSemanticamente(coleccion);
-        if(!coleccion.getSimbolos().getSimbolo(valorInicial.getLugar().getId()).getTipo().equals(CONST.ENTERO)) coleccion.getErrores().agregarError("Semantico",variableFor.getLugar().getId(),"La variable utilizada para el ciclo no es entera.",variableFor.getPosicion());
+        Simbolo simbolo = coleccion.getSimbolos().getSimbolo(valorInicial.getLugar().getId());
+        if(simbolo == null){
+            if(coleccion.getTipadoActual()==1){
+                Clase clase = (Clase) coleccion.getClasesJv().getSimbolo(coleccion.getClase()).getValor();
+                simbolo = clase.getSimbolos().getSimbolo(valorInicial.getLugar().getId());
+                if(simbolo == null){
+                    coleccion.getErrores().agregarError("Semantico", valorInicial.getLugar().getId(), "No existe una variable con el id utilizado.", posicion);
+                }else{
+                    if(!simbolo.getTipo().equals(CONST.ENTERO)) coleccion.getErrores().agregarError("Semantico",variableFor.getLugar().getId(),"La variable utilizada para el ciclo no es entera.",variableFor.getPosicion());
+                }
+            }
+        }
         condicion.analizarSemanticamente(coleccion);
         AnalizadorBloque analizador = new AnalizadorBloque();
         analizador.analizarBloque(instrucciones, coleccion);

@@ -256,10 +256,10 @@ public class GuiManager {
     public void ejecutarAssembler3D(JTextArea codigoFuente, JTextArea erroresTextArea, JTextArea codigo3D, JTextArea codigoAssembler, boolean abrir) {
         List<Cuarteto> cuartetos = generarCuartetos(codigoFuente, erroresTextArea);
         if(!cuartetos.isEmpty()){
-            String codigo = Cuartetos.escribirCodigoAssembler(cuartetos);
-            
             codigo3D.setText(Cuartetos.escribirCodigo3DireccionesNormal(cuartetos));
             mensajes.informacion("Se ha generado el codigo 3 direcciones exitosamente.");
+            
+            String codigo = Cuartetos.escribirCodigoAssembler(cuartetos);
             codigoAssembler.setText(codigo);
             mensajes.informacion("Se ha generado el codigo GNU Assembler exitosamente.");
             guardarYEjecutarAssembler(codigo, abrir);

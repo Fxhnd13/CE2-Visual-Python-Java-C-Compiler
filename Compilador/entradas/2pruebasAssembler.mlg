@@ -1,0 +1,22 @@
+%%VB
+%%JAVA
+%%PY
+%%PROGRAMA
+
+#include <studio.h>
+
+int enteroUno=5, enteroDos=5, enteroTres;
+char caracterUno='s', caracterDos='a', caracterTres;
+float flotanteUno=2.5, flotanteDos = 2.5, flotanteTres;
+
+void main(){
+	
+	enteroTres = enteroUno + enteroDos;
+	printf("(suma) EnteroTres es = %d\n",enteroTres);
+	enteroTres = enteroUno * enteroDos;
+	printf("(por) EnteroTres es = %d\n", enteroTres);
+	enteroTres = enteroUno / enteroDos;
+	printf("(div) enteroTres = %d", enteroTres);
+	
+	getch();
+}

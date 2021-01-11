@@ -778,7 +778,7 @@ sentenciasDeClaseJv::=                  sentenciasDeClaseJv:instruccionesRetorno
                                         :}
                                         ;
 
-sentenciaDeClaseJv::=                   sentenciaDeclaracionJv:instrucciones FIN_LINEA {:
+sentenciaDeClaseJv::=                   publicOpcional sentenciaDeclaracionJv:instrucciones FIN_LINEA {:
                                             if(instrucciones!=null){
                                                 for(Instruccion instruccion : instrucciones){
                                                     if(instruccion instanceof AsignacionInstr){

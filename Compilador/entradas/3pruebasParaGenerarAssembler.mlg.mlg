@@ -1,0 +1,104 @@
+%%VB
+%%JAVA
+%%PY
+%%PROGRAMA
+
+#include <studio.h>
+
+int enteroUno=5, enteroDos=5, enteroTres;
+char caracterUno='s', caracterDos='a', caracterTres;
+float flotanteUno=2.5, flotanteDos = 2.5, flotanteTres;
+
+void main(){
+	scanf("%f",&flotanteTres);
+	scanf("%c",&caracterTres);
+	scanf("%d",&enteroTres);
+
+	printf("%d", enteroTres);
+	printf("%c", caracterTres);
+	printf("%f", flotanteTres);
+
+	if(enteroUno <   enteroDos){ printf("menor"); }
+	if(enteroUno == enteroDos){printf("igual"); }
+	if(enteroUno <= enteroDos){ printf("menor o igual"); }
+	if(enteroUno >   enteroDos){ printf("mayor"); }
+	if(enteroUno !=  enteroDos){ printf("distinto"); }
+	if(enteroUno >= enteroDos){ printf("mayor o igual"); }
+
+	if(flotanteUno <   flotanteDos){ printf("menor"); }
+	if(flotanteUno == flotanteDos){printf("igual"); }
+	if(flotanteUno <= flotanteDos){ printf("menor o igual"); }
+	if(flotanteUno >   flotanteDos){ printf("mayor"); }
+	if(flotanteUno !=  flotanteDos){ printf("distinto"); }
+	if(flotanteUno >= flotanteDos){ printf("mayor o igual"); }
+
+	if(caracterUno <   caracterDos){ printf("menor"); }
+	if(caracterUno == caracterDos){printf("igual"); }
+	if(caracterUno <= caracterDos){ printf("menor o igual"); }
+	if(caracterUno >   caracterDos){ printf("mayor"); }
+	if(caracterUno !=  caracterDos){ printf("distinto"); }
+	if(caracterUno >= caracterDos){ printf("mayor o igual"); }
+
+	if(flotanteUno <   enteroDos){ printf("menor"); }
+	if(flotanteUno == enteroDos){printf("igual"); }
+	if(flotanteUno <= enteroDos){ printf("menor o igual"); }
+	if(flotanteUno >   enteroDos){ printf("mayor"); }
+	if(flotanteUno !=  enteroDos){ printf("distinto"); }
+	if(flotanteUno >= enteroDos){ printf("mayor o igual"); }
+
+	if(flotanteUno <   enteroDos){ printf("menor"); }
+	if(flotanteUno == enteroDos){printf("igual"); }
+	if(flotanteUno <= enteroDos){ printf("menor o igual"); }
+	if(flotanteUno >   enteroDos){ printf("mayor"); }
+	if(flotanteUno !=  enteroDos){ printf("distinto"); }
+	if(flotanteUno >= enteroDos){ printf("mayor o igual"); }
+
+	enteroTres = enteroUno + enteroDos;
+	enteroTres = enteroUno + caracterUno;
+	enteroTres = enteroUno + 5;
+	enteroTres = 5 + enteroUno;
+
+	enteroTres = enteroUno - enteroDos;
+	enteroTres = enteroUno - caracterUno;
+	enteroTres = enteroUno - 5;
+	enteroTres = 5 - enteroUno;
+
+	enteroTres = enteroUno * enteroDos;
+	enteroTres = enteroUno * caracterUno;
+	enteroTres = enteroUno * 5;
+	enteroTres = 5 * enteroUno;
+
+	enteroTres = enteroUno / enteroDos;
+	enteroTres = enteroUno / caracterUno;
+	enteroTres = enteroUno / 5;
+	enteroTres = 5 / enteroUno;
+
+	enteroTres = enteroUno % enteroDos;
+	enteroTres = enteroUno % caracterUno;
+	enteroTres = enteroUno % 5;
+	enteroTres = 5 % enteroUno;
+
+	flotanteTres = flotanteUno + flotanteDos;
+	flotanteTres = flotanteUno + enteroUno;
+	flotanteTres = flotanteUno + caracterUno;
+
+	flotanteTres = flotanteUno - flotanteDos;
+	flotanteTres = flotanteUno - enteroUno;
+	flotanteTres = flotanteUno - caracterUno;
+
+	flotanteTres = flotanteUno * flotanteDos;
+	flotanteTres = flotanteUno * enteroUno;
+	flotanteTres = flotanteUno * caracterUno;
+
+	flotanteTres = flotanteUno / flotanteDos;
+	flotanteTres = flotanteUno / enteroUno;
+	flotanteTres = flotanteUno / caracterUno;
+
+	caracterTres = caracterUno + caracterDos;
+	caracterTres = caracterUno - caracterDos;
+	caracterTres = caracterUno * caracterDos;
+	caracterTres = caracterUno / caracterDos;
+	caracterTres = caracterUno % caracterDos;
+
+	getch();
+}
