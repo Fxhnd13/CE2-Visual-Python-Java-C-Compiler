@@ -131,7 +131,11 @@ precedence left POR, DIV, MOD;
 //Reglas gramaticales para el parser de python, las demás no cambiaran tanto
 start with codigo;
 
-codigo::=                               visual java python principal;
+codigo::=                               visual java python principal
+                                        |error java python principal
+                                        |visual error python principal
+                                        |visual java python error
+                                        ;
 
 //producciones de visual vasic
 visual::=                               SEPARADOR_VB espaciosVb metodosVb;
@@ -1491,6 +1495,9 @@ sentenciaSimplePy::=                    asignacionVarPy:instrucciones {:
                                             if(instruccion!=null) instrucciones.add(instruccion);
                                             RESULT = instrucciones;
                                         :}
+                                        |PASS {:
+                                            RESULT = new ArrayList();
+                                        :}
                                         ;
 
 sentenciaReturnPy::=                    RETURN:pos expresionArPy:expresion {:
@@ -2159,9 +2166,7 @@ expresionCadenaEntrada::=               valorTexto:cadena comodin:tipo {:
                                             RESULT = new AccionIngreso(null, tipo.getTipo(), new Pos(tipoleft,tiporight));
                                         :}
                                         |valorTexto error:e {: agregarError("Sintactico",(String)e,"Se esperaba un comodin.",eleft,eright); :}
-                                        |error:e valorTexto {: agregarError("Sintactico",(String)e,"Se esperaba un comodin",eleft,eright); :}
                                         |valorTexto error:e valorTexto {: agregarError("Sintactico",(String)e,"Se esperaba un comodin",eleft,eright); :}
-                                        |error:e {: agregarError("Sintactico",(String)e,"Se esperaba un comodin.",eleft,eright); :}
                                         ;
 
 valorCadena::=                          valorTexto:valor {: RESULT = new Dato(CONST.CADENA, valor); :}

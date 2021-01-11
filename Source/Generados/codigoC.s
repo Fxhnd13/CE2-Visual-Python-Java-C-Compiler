@@ -1338,7 +1338,7 @@ PY_Mostrar_INDEFINIDO_INDEFINIDO:
 	leaq	.LC3(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
-	movl	p(%rip), %eax
+	movl	p(%rip), %t146
 	addl	$1, %eax
 	movl	%eax, t14(%rip)
 	movl	t14(%rip), %eax

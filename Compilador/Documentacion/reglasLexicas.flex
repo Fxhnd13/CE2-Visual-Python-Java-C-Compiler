@@ -1,86 +1,23 @@
-package analizadores.estructuraGramatica;
+MACROS
 
-import analizadores.objetos.ErrorAnalisis;
-import java.util.LinkedList;
-import java.util.List;
-import java_cup.runtime.Symbol;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+	/* special chars */
+	LineTerminator = \r|\n|\r\n
+	InputCharacter = [^\r\n]
+	WhiteSpace = [ \t\f]+
 
-%%
+	/* identifiers */
+	L = [a-zA-Z]
 
-%class LexerGramatica
-%public
-%cup
-%line
-%column
-%states JAVA, PYTHON, PRINCIPAL, CADENA_PRINCIPAL, CADENA_JV, CADENA_PY, CADENA_VB, PYTHON2
+	/* integer literals */
+	Digito = [0-9]
+	IntegerLiteral = 0 | [1-9]{Digito}*
 
-/* special chars */
-LineTerminator = \r|\n|\r\n
-InputCharacter = [^\r\n]
-WhiteSpace = [ \t\f]+
+	/* comments */
+	TraditionalComment   = "/*" [^*] ~"*/"
+	EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
+	Comment = {TraditionalComment} | {EndOfLineComment}
 
-/* identifiers */
-L = [a-zA-Z]
-
-/* integer literals */
-Digito = [0-9]
-IntegerLiteral = 0 | [1-9]{Digito}*
-
-/* comments */
-TraditionalComment   = "/*" [^*] ~"*/"
-EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
-Comment = {TraditionalComment} | {EndOfLineComment}
-
-%{
-    
-    private List<ErrorAnalisis> errores;
-    private DefaultTableModel tablaTokens;
-    private boolean analizando;
-    private StringBuffer cadena = new StringBuffer();
-
-    private Symbol symbol(int linea, int columna, String lexema, int type){
-        Symbol simbolo = new Symbol(type, linea, columna, lexema);
-        tablaTokens.addRow(new String[] {sym.terminalNames[type], lexema, String.valueOf(linea), String.valueOf(columna)});
-        return simbolo;
-    }
-
-    private Symbol symbol(int linea, int columna, int type){
-        Symbol simbolo = new Symbol(type,linea,columna);
-        tablaTokens.addRow(new String[] {sym.terminalNames[type],"Sin definir", String.valueOf(linea), String.valueOf(columna)});
-        return simbolo;
-    }
-
-    public List<ErrorAnalisis> getErrores(){
-        return errores;
-    }
-    
-    public void setTablaTokens(JTable tablaTokens){
-        this.tablaTokens = (DefaultTableModel) tablaTokens.getModel();
-    }
-    
-    public JTable getTablaTokens(){ return new JTable(tablaTokens); }
-
-    public boolean isAnalizando(){ return analizando; }
-
-%}
-
-%init{
-    errores = new LinkedList<ErrorAnalisis>();
-    tablaTokens = new DefaultTableModel();
-    analizando = true;
-    yybegin(YYINITIAL);
-%init}
-
-%eof{
-    analizando = false;
-%eof}
-
-%%
-
-/* reglas lexicas */
-<YYINITIAL> {
+EXPRESIONES_REGULARES
 
     /* Reserved words */
     "%%"{WhiteSpace}*"JAVA"                                                     { yybegin(JAVA); return symbol(yyline+1, yycolumn+1, "%%JAVA", sym.SEPARADOR_JAVA); }
