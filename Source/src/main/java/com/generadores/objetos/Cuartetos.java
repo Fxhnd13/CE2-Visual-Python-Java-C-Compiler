@@ -16,8 +16,8 @@ import java.util.List;
  */
 public class Cuartetos {
     
-    public static int noActual = 5;
-    public static boolean enSeccionTexto = false;
+    public static int noActual = 0;
+    public static boolean enSeccionTexto = true;
     
     public static void cambiarEtiqueta(List<Cuarteto> cuartetos, String etiquetaAnterior, String nuevaEtiqueta){
         for (Cuarteto cuarteto : cuartetos) {
@@ -305,7 +305,7 @@ public class Cuartetos {
     }
     
     public static String escribirCodigoAssembler(List<Cuarteto> cuartetos){
-        noActual = 5;
+        noActual = 0;
         Temporal.temporales.add(new VarT(CONST.ENTERO,"t00"));
         String codigo = "\t.file \"codigoC.c\"\n"
                 + "\t.text\n"
@@ -366,8 +366,8 @@ public class Cuartetos {
             }
         }
         
-        codigo+="\t.ident\t\"GCC: (GNU) 10.2.0\t\n"
-            + "\t.section\t.note.GNU-stack,\"\",@progbits";;
+        codigo+="\t.ident\t\"GCC: (GNU) 10.2.0\"\n"
+            + "\t.section\t.note.GNU-stack,\"\",@progbits\n";
         
         return codigo;
     }
@@ -375,23 +375,23 @@ public class Cuartetos {
     private static String codigoDeMetodo(List<Cuarteto> cuartetos, String id, int noMetodo){
         String codigo = "";
         String declaracionFlotantes = "";
+        String dclComodinScanChar = "LC"+(noActual++), dclComodinChar="LC"+(noActual++), dclComodinEntero="LC"+(noActual++), dclComodinFlotante="LC"+(noActual++);
         
         generacionDeCadenas :{
            
-            if(id.equals("main")){
-                if(enSeccionTexto){
-                    codigo+="\t.section\t.rodata\n"; 
-                    enSeccionTexto = false;
-                }
-                codigo+=".LC1:\n"
-                    + "\t.string\t\" %c\"\n"
-                    + ".LC2:\n"
-                    + "\t.string\t\"%c\"\n"
-                    + ".LC3:\n"
-                    + "\t.string\t\"%d\"\n"
-                    + ".LC4:\n"
-                    + "\t.string\t\"%f\"\n";
+            if(enSeccionTexto){
+                codigo+="\t.section\t.rodata\n"; 
+                enSeccionTexto = false;
             }
+            codigo+="."+dclComodinScanChar+":\n"
+                + "\t.string\t\" %c\"\n"
+                + "."+dclComodinChar+":\n"
+                + "\t.string\t\"%c\"\n"
+                + "."+dclComodinEntero+":\n"
+                + "\t.string\t\"%d\"\n"
+                + "."+dclComodinFlotante+":\n"
+                + "\t.string\t\"%f\"\n";
+            
             for (int i = 0; i < cuartetos.size(); i++) {
                 Cuarteto cuarteto = cuartetos.get(i);
                 switch(cuarteto.getOp()){
@@ -407,6 +407,15 @@ public class Cuartetos {
                     case "printDato":{
                         String tipo = tipoDeC(Temporal.getTipoTemporal(cuarteto.getRes()));
                         cuarteto.setDer(tipo);
+                        switch(Temporal.getTipoTemporal(cuarteto.getRes())){
+                            case CONST.FLOTANTE: cuarteto.setIz(dclComodinFlotante); break;
+                            case CONST.ENTERO: cuarteto.setIz(dclComodinEntero); break;
+                            case CONST.CARACTER: cuarteto.setIz(dclComodinChar); break;
+                        }
+                        break;
+                    }
+                    case "read":{
+                        
                         break;
                     }
                     case ":=":{
@@ -550,7 +559,7 @@ public class Cuartetos {
                     }
                     case "goto":{
                         codigo+="//goto "+cuarteto.getRes()+";\n";
-                        codigo+="\tjmp\t"+cuarteto.getRes()+"\n";
+                        codigo+="\tjmp\t."+cuarteto.getRes()+"\n";
                         break;
                     }
                     case "vacio":{
@@ -564,9 +573,9 @@ public class Cuartetos {
                             codigo+="\tcall\tgetchar@PLT\n";
                         }else{
                             switch(tipo){
-                                case CONST.ENTERO:{ cuarteto.setIz("%d"); codigo+="//scanf(\"%d\",&"+cuarteto.getRes()+");\n"; break; }
-                                case CONST.FLOTANTE:{ cuarteto.setIz("%f"); codigo+="//scanf(\"%f\",&"+cuarteto.getRes()+");\n"; break; }
-                                case CONST.CARACTER:{ cuarteto.setIz(" %c"); codigo+="//scanf(\" %c\",&"+cuarteto.getRes()+");\n"; break; }
+                                case CONST.ENTERO:{ cuarteto.setIz(dclComodinEntero); codigo+="//scanf(\"%d\",&"+cuarteto.getRes()+");\n"; break; }
+                                case CONST.FLOTANTE:{ cuarteto.setIz(dclComodinFlotante); codigo+="//scanf(\"%f\",&"+cuarteto.getRes()+");\n"; break; }
+                                case CONST.CARACTER:{ cuarteto.setIz(dclComodinScanChar); codigo+="//scanf(\" %c\",&"+cuarteto.getRes()+");\n"; break; }
                             }
                             CodigoAssembler generador = new CodigoAssembler();
                             codigo += generador.generarCodigoDeScanf(cuarteto);
@@ -575,9 +584,11 @@ public class Cuartetos {
                     }
                     case "printCadena":{
                         codigo+="//printf(\""+cuarteto.getRes()+"\");\n";
-                        codigo+="\tleaq\t."+cuarteto.getRes()+"(%rip), %rdi\n"
-                                + "\tmovl\t$0, %eax\n"
-                                + "\tcall\tprint@PLT\n";
+                        codigo+="\tleaq\t."+cuarteto.getRes()+"(%rip), %rdi\n" +
+                            "\tmovl\t$0, %eax\n" +
+                            "\tcall\tprintf@PLT\n";
+//                        codigo+="\tleaq\t."+cuarteto.getRes()+"(%rip), %rdi\n" +
+//                            "\tcall\tputs@PLT\n";
                         break;
                     }
                     case "printDato":{
@@ -588,7 +599,7 @@ public class Cuartetos {
                                 codigo+="\tmovzbl\t"+cuarteto.getRes()+"(%rip), %eax\n"
                                     +"\tmovsbl\t%al, %eax\n"
                                     +"\tmovl\t%eax, %esi\n"
-                                    +"\tleaq\t.LC1(%rip), %rdi\n"
+                                    +"\tleaq\t."+cuarteto.getIz()+"(%rip), %rdi\n"
                                     +"\tmovl\t$0, %eax\n"
                                     +"\tcall\tprintf@PLT\n";
                                 break;
@@ -596,7 +607,7 @@ public class Cuartetos {
                             case "%d":{
                                 codigo+="\tmovl\t"+cuarteto.getRes()+"(%rip), %eax\n"
                                     +"\tmovl\t%eax, %esi\n"
-                                    +"\tleaq\t.LC3(%rip), %rdi\n"
+                                    +"\tleaq\t."+cuarteto.getIz()+"(%rip), %rdi\n"
                                     +"\tmovl\t$0, %eax\n"
                                     +"\tcall\tprintf@PLT\n";
                                 break;
@@ -607,7 +618,7 @@ public class Cuartetos {
                                     +"\tcvtss2sd\t%xmm0, %xmm2\n"
                                     +"\tmovq\t%xmm2, %rax\n"
                                     +"\tmovq\t%rax, %xmm0\n"
-                                    +"\tleaq\t.LC4(%rip), %rdi\n"
+                                    +"\tleaq\t."+cuarteto.getIz()+"(%rip), %rdi\n"
                                     +"\tmovl\t$1, %eax\n"
                                     +"\tcall\tprintf@PLT\n";
                                 break;

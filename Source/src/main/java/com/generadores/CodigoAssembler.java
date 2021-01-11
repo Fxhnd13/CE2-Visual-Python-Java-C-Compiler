@@ -1356,15 +1356,8 @@ public class CodigoAssembler {
      */
     public String generarCodigoDeScanf(Cuarteto cuarteto){
         String codigo = "";
-        String etiqueta = "";
-        switch(cuarteto.getIz()){
-            case " %c": etiqueta = "LC1"; break;
-            case "%c": etiqueta = "LC2"; break;
-            case "%d": etiqueta = "LC3"; break;
-            case "%f": etiqueta = "LC4"; break;
-        }
         codigo+="\tleaq\t"+cuarteto.getRes()+"(%rip), %rsi\n"
-                + "\tleaq\t."+etiqueta+"(%rip), %rdi\n"
+                + "\tleaq\t."+cuarteto.getIz()+"(%rip), %rdi\n"
                 + "\tmovl\t$0, %eax\n"
                 + "\tcall\t__isoc99_scanf@PLT\n";
         return codigo;
