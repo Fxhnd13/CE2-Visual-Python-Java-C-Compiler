@@ -54,6 +54,40 @@ public class General {
     private void analizarSeccionPrincipal(List<Instruccion> instruccionesPr) {
         coleccion.setSimbolos(new TablaDeSimbolos());
         AnalizadorBloque analizador = new AnalizadorBloque();
+        TablaDeSimbolos metodosVb = new TablaDeSimbolos(), metodosPy = new TablaDeSimbolos(), clasesJv = new TablaDeSimbolos();
+        for (Instruccion instruccion : instruccionesPr) {
+            if(instruccion instanceof LibreriaInstr){
+                LibreriaInstr instr = (LibreriaInstr) instruccion;
+                switch(instr.getTipo()){
+                    case CONST.SEC_VB:{
+                        metodosVb = coleccion.getMetodosVb();
+                        break;
+                    }
+                    case CONST.SEC_JV:{
+                        if(instr.getDatos().get(0).equals("*")){
+                            clasesJv = coleccion.getClasesJv();
+                        }else{
+                            Simbolo simbolo = coleccion.getClasesJv().getSimbolo(instr.getDatos().get(0));
+                            if(simbolo!=null){
+                                if(!clasesJv.agregarSimboloSiNoExiste(simbolo)){
+                                    coleccion.getErrores().agregarError("Semantico", instr.getDatos().get(0), "Ya se importo una vez la clase especificada.", instr.getPosicion());
+                                }
+                            }else{
+                                coleccion.getErrores().agregarError("Semantico", instr.getDatos().get(0), "No existe una clase java declara con el identificador especificado.", instr.getPosicion());
+                            }
+                        }
+                        break;
+                    }
+                    case CONST.SEC_PY:{
+                        metodosPy = coleccion.getMetodosPy();
+                        break;
+                    }
+                }
+            }
+        }
+        coleccion.setMetodosPy(metodosPy);
+        coleccion.setMetodosVb(metodosVb);
+        coleccion.setClasesJv(clasesJv);
         analizador.analizarBloque(instruccionesPr, coleccion);
     }
 

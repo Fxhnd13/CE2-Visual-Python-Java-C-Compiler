@@ -87,6 +87,7 @@ non terminal NodoAritmetico             aumentoForVb, mensajeVb, expresionArVb, 
 non terminal NodoAritmetico             mensajePy, expresionArPy, modificadorFor, expresionAr;
 non terminal NodoBooleano               condicionVb, expresionBoolVb, expresionBoolJv, condicionPy, expresionBoolPy, expresionBool;
 non terminal String                     tipoForVb, idNextVb, valorTextoLibreriaJv, valorTexto, ingreso, tiposDeDato, tiposDeMetodo;
+non terminal String                     cadenita, cadenitas;
 non terminal Dato                       valorCaseVb, parametroVb, valorSwitchJv, valorCadena, comodin, valorSwitch, valorAtomico;
 non terminal Accion                     accionAsignacionVb, accionAsignacionJv;
 non terminal AccionExpresion            asignacionValor;
@@ -119,7 +120,7 @@ non terminal List<String>               listadoId, libreriaC;
 non terminal Object                     codigo, visual, metodosVb, dclMetodosVb, dclMetodoVb, caseVb, espaciosVb, java, clasesJv, dclClasesJv, dclClaseJv, python, metodosPy, dclMetodosPy, dclMetodoPy, principal, publicOpcional;
 
 //declaracion de precedencia
-precedence left PR_ENTERO, PR_FLOTANTE, PR_CARACTER, COMA, ID;
+precedence left PR_ENTERO, PR_FLOTANTE, PR_CARACTER, COMA, ID, CADENA, PUNTO;
 precedence left OR;
 precedence left AND;
 precedence left NOT;
@@ -1760,6 +1761,10 @@ expresionBoolPy::=                      expresionArPy:expresionI DISTINTO:pos ex
                                         ;
 //producciones principal
 principal::=                            SEPARADOR_PROGRAMA secLibrerias:instrLibrerias secConstantes:instrConstantes secVariables:instrVariables codigoMain:instrMain {:
+                                            if(instrLibrerias==null) instrLibrerias = new ArrayList();
+                                            if(instrConstantes==null) instrConstantes = new ArrayList();
+                                            if(instrVariables==null) instrVariables = new ArrayList();
+                                            if(instrMain==null) instrMain = new ArrayList();
                                             for(Instruccion instruccion : instrLibrerias) coleccionInstr.getInstruccionesPr().add(instruccion);
                                             for(Instruccion instruccion : instrConstantes) coleccionInstr.getInstruccionesPr().add(instruccion);
                                             for(Instruccion instruccion : instrVariables) coleccionInstr.getInstruccionesPr().add(instruccion);
@@ -1869,7 +1874,6 @@ dclVariables::=                         dclVariables:instruccionesRetorno senten
 sentenciaDeclaracionInicial::=          sentenciaDeclaracion:instrucciones FIN_LINEA {:
                                             RESULT = instrucciones; 
                                         :}
-                                        |sentenciaDeclaracion error:e {: agregarError("Sintactico",(String)e,"Se esperaba un token fin de linea ';'.",eleft,eright); :}
                                         ;
 
 sentenciaDeclaracion::=                 tiposDeDato:tipo listadoDeclaraciones:instrucciones {:
@@ -2102,9 +2106,9 @@ sentenciaEscribir::=                    PRINTF:pos PAR_A expresionCadena:datos P
                                         |PRINTF:pos PAR_A expresionCadena:datos COMA listadoExpresiones:expresiones PAR_C {:
                                             RESULT = new MensajeInstr(new Scanf(datos, expresiones, new Pos(datosleft,datosright)), new Pos(posleft,posright));
                                         :}
-                                        |PRINTF PAR_A expresionCadena error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
-                                        |PRINTF PAR_A error:e {: agregarError("Sintactico",(String)e,"Se esperaba contenido para mostrar en pantalla.",eleft,eright); :}
+                                        |PRINTF:e PAR_A PAR_C {: agregarError("Sintactico",(String)e,"Se esperaba como minimo una cadena.",eleft,eright); :}
                                         |PRINTF error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
+                                        |PRINTF PAR_A expresionCadena error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
                                         |PRINTF PAR_A expresionCadena COMA listadoExpresiones error:e {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
                                         |PRINTF PAR_A expresionCadena COMA error:e {: agregarError("Sintactico",(String)e,"Se esperaba un listado de expresiones.",eleft,eright); :}
                                         ;
@@ -2173,8 +2177,20 @@ valorCadena::=                          valorTexto:valor {: RESULT = new Dato(CO
                                         |comodin:comodin {: RESULT = comodin; :}
                                         ;
 
-valorTexto::=                           CADENA:valor {: RESULT = valor; :}
+valorTexto::=                           cadenitas:valor {: RESULT = valor; :}
                                         |CARACTER:valor {: RESULT = valor; :}
+                                        ;
+
+cadenitas::=                            cadenitas:valores cadenita:valor {:
+                                            RESULT = valores + valor;
+                                        :}
+                                        |cadenita:valor {:
+                                            RESULT = valor;
+                                        :}
+                                        ;
+
+cadenita::=                             CADENA:valor  {: RESULT = valor; :}
+                                        |PUNTO:valor {: RESULT = valor; :}
                                         ;
 
 comodin::=                              COMODIN_CARACTER:valor {: RESULT = new Dato(CONST.COMODIN_CARACTER,null); :}

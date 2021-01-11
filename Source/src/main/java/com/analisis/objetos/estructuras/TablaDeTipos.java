@@ -142,7 +142,7 @@ public class TablaDeTipos {
             if(izquierdo.getTipo().equals(CONST.VOID)){
                 coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para un valor vacio/nulo", posicion);
             }else if(izquierdo.getTipo().equals(CONST.INDEFINIDO)){
-                coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para una expresion con tipo 'dinamico' (error producido por una llamada una funcion de python) tipo Objeto", posicion);
+                coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para una expresion con tipo 'dinamico' (error producido por una llamada una funcion de python)", posicion);
             }else if(izquierdo.getTipo().equals(CONST.CLASE)){
                 coleccion.getErrores().agregarError("Semantico",(String) izquierdo.getValor(),"Operador residuo no valido para un valor/variable tipo Objeto",posicion);
             }else if(izquierdo.getTipo().equals(CONST.FLOTANTE)){

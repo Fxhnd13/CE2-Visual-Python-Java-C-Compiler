@@ -69,7 +69,9 @@ public class AnalizadorBloque {
                 
             }else if(instruccion instanceof ReturnInstr){
                 //no se hace nada, tecnicamente ya se evaluo
-                
+                if(coleccion.getTipadoActual()==2){
+                    ((ReturnInstr)instruccion).getExpresion().analizarSemanticamente(coleccion);
+                }
             }else if(instruccion instanceof BreakInstr){
                 if(!coleccion.isEnCaso()){
                     coleccion.getErrores().agregarError("Semantico","break","Solo se admite uso de la palabra reservada break, dentro de un caso de un switch BREAK",instruccion.getPosicion());
@@ -77,8 +79,6 @@ public class AnalizadorBloque {
                     if((i+1) < instrucciones.size())
                         coleccion.getErrores().agregarError("Semantico","break","Existen instrucciones inalcanzables limitados por la sentencia BREAK",instruccion.getPosicion());
                 }
-            }else if(instruccion instanceof LibreriaInstr){
-                //se agrega para un posterior uso(?)
             }
         }
     }

@@ -306,6 +306,7 @@ public class Cuartetos {
     
     public static String escribirCodigoAssembler(List<Cuarteto> cuartetos){
         noActual = 0;
+        enSeccionTexto = true;
         Temporal.temporales.add(new VarT(CONST.ENTERO,"t00"));
         String codigo = "\t.file \"codigoC.c\"\n"
                 + "\t.text\n"

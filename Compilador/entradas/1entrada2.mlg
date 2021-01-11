@@ -19,17 +19,17 @@ public class OperacionAlgebraica{
   
   public void Suma(){
 	  System.out.println("\n Ingrese el primer numero  : ");
-	  num1 = floatinput("aaa");
+	  num1 = floatinput();
 	  System.out.println("\n Ingrese el segundo numero : ");
-	  num2 = floatinput("bbb");
+	  num2 = floatinput();
 	  resultado = num1 + num2;
   }
   
   public void Contador()  {
 	    System.out.println("\n Ingrese el numero hasta donde quiera contar");
-	    hasta = intinput("cccc");
+	    hasta = intinput();
 	    do{
-	    	System.out.println("");
+	    	System.out.println("espacio"+contador);
 		contador = contador + 1;
 	    }while (contador <= hasta);
   }
@@ -41,10 +41,18 @@ public class OperacionAlgebraica{
   
   public void ElevarCuadrado()  {
 	System.out.println("\n Ingrese x para elevarlo al cuadrado :");
-	x = intinput("dddd");
-	System.out.println("\n Antes de Elevarse es : " );
+	x = intinput();
+	System.out.println("\n Antes de Elevarse es : " +x);
+	x = x * x;
+	System.out.println("\n x despus de Elevarse es : "+x);
+  }
 
-	System.out.println("\n x despus de Elevarse es : ");
+  public void escribirValores(){
+	System.out.println("resultado = "+resultado);
+	System.out.println("x = "+ x);
+	System.out.println("contador = "+contador);
+	System.out.println("num1 = "+num1);
+	System.out.println("num2 = "+num2);
   }
 
 }
@@ -54,7 +62,7 @@ public class OperacionAlgebraica{
 
 def Continuar(a):
     print("Desea Repetir el Proceso [s]i o [n]o")
-    a = floatinput("eee")
+    a = floatinput()
     return a
 
 %%PROGRAMA
@@ -80,7 +88,7 @@ JAVA.OperacionAlgebraica ObjX();
 		getch();
 		clrscr();
 		JAVA.ObjX.ElevarCuadrado();
-		Op = PY.Continuar(Op);
+		JAVA.ObjX.escribirValores();
 
 	  getch();
   }
