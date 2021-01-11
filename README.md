@@ -29,6 +29,24 @@ Cada uno de estos comandos nos retornará la version que tenemos instalada, si a
 
 Para la construccion del proyecto, es decir, resolver dependencias propias para la ejecución del proyecto vamos a proceder a usar maven
 
+Dados posibles conflictos durante el desarrollo, al ejecutar el codigo 3 direcciones y el codigo assembler generado se abrirá una carpeta en la que se encuentran dos archivos bash, estos compilan y ejecutan los codigos generados, abriendo la consola ejecutamos:
+
+Para compilar y ejecutar el codigo Assembler generado
+```
+./generarAsm.sh
+```
+Para compilar y ejecutar el codigo 3 direcciones generado
+```
+./generarC.sh
+```
+
+Cabe resaltar que es necesario que previamente se haya seleccionado la opcion de Generar del codigo que se desea ejecutar correspondientemente, ejecutar estos archivos puede requerir permisos especiales por lo tanto ejecutaremos los siguientes comandos para otorgar los permisos de compilación y ejecución
+
+```
+sudo chmod +x ejecutarC.sh
+sudo chmod +x ejecutarAsm.sh
+```
+
 ## Ejecutando las pruebas ⚙️
 
 _El proyecto trae consigo varios archivos de entrada para hacer pruebas, estos se encuentran dentro de la carpeta "Compilador/entradas", estos son archivos libres de errores para poder generar el código 3 direcciones._
