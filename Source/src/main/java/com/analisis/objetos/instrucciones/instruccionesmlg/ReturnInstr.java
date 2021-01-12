@@ -58,8 +58,9 @@ public class ReturnInstr implements Instruccion{
     public List<Cuarteto> generarCuartetos(Coleccion coleccion) {
         List<Cuarteto> cuartetosRetorno = new ArrayList();
         Cuartetos.unirCuartetos(cuartetosRetorno, expresion.generarCuartetos(coleccion));
-        String temporalRetorno = Temporal.actualTemporal();
-        cuartetosRetorno.add(new Cuarteto("+",CONST.P,"0",Temporal.siguienteTemporal(CONST.ENTERO)));
+        String temporalRetorno = (coleccion.getUltimoReturn()==null)?Temporal.actualTemporal(): coleccion.getUltimoReturn();
+        coleccion.setUltimoReturn(null);
+        cuartetosRetorno.add(new Cuarteto("+",CONST.P,((coleccion.getTipadoActual()==1)?"1":"0"),Temporal.siguienteTemporal(CONST.ENTERO)));
         cuartetosRetorno.add(new Cuarteto(":=a",temporalRetorno,Temporal.actualTemporal(),CONST.STACK));
         cuartetosRetorno.add(new Cuarteto("goto",null,null,coleccion.getEtiquetaReturn()));
         return cuartetosRetorno;

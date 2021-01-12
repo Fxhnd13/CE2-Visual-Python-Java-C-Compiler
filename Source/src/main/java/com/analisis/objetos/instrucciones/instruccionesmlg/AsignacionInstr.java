@@ -251,11 +251,23 @@ public class AsignacionInstr implements Instruccion{
             if(((AccionIngreso)accion).getMensaje()!=null){
                 Cuartetos.unirCuartetos(cuartetosRetorno, ((AccionIngreso)accion).getMensaje().generarCuartetos(coleccion));
             }
-            String posicion = coleccion.getSimbolos().getSimbolo(lugar.getId()).getDireccion();
-            cuartetosRetorno.add(new Cuarteto("read",null,null,Temporal.siguienteTemporal(getTipoDeComodin(((AccionIngreso)accion).getTipoRetorno()))));
-            String valor = Temporal.actualTemporal();
-            cuartetosRetorno.add(new Cuarteto("+",CONST.P,posicion,Temporal.siguienteTemporal(CONST.ENTERO)));
-            cuartetosRetorno.add(new Cuarteto(":=a",valor,Temporal.actualTemporal(),CONST.STACK));
+            Simbolo simbolo = coleccion.getSimbolos().getSimbolo(lugar.getId());
+            if(coleccion.getTipadoActual()!=2){
+                String posicion = simbolo.getDireccion();
+                cuartetosRetorno.add(new Cuarteto("read",null,null,Temporal.siguienteTemporal(getTipoDeComodin(((AccionIngreso)accion).getTipoRetorno()))));
+                String valor = Temporal.actualTemporal();
+                cuartetosRetorno.add(new Cuarteto("+",CONST.P,posicion,Temporal.siguienteTemporal(CONST.ENTERO)));
+                cuartetosRetorno.add(new Cuarteto(":=a",valor,Temporal.actualTemporal(),CONST.STACK));
+            }else{
+                if(simbolo==null) simbolo = new Simbolo(lugar.getId(), CONST.VAR, ((AccionIngreso)accion).getTipoRetorno(), "1", coleccion.getSimbolos().getUltimaPosicionLibre(cuartetosRetorno), null, null);
+                if(simbolo.getTipo().equals(CONST.INDEFINIDO)) simbolo.setTipo(((AccionIngreso)accion).getTipoRetorno());
+                coleccion.getSimbolos().agregarSimbolo(simbolo);
+                String posicion = simbolo.getDireccion();
+                cuartetosRetorno.add(new Cuarteto("read",null,null,Temporal.siguienteTemporal(getTipoDeComodin(((AccionIngreso)accion).getTipoRetorno()))));
+                String valor = Temporal.actualTemporal();
+                cuartetosRetorno.add(new Cuarteto("+",CONST.P,posicion,Temporal.siguienteTemporal(CONST.ENTERO)));
+                cuartetosRetorno.add(new Cuarteto(":=a",valor,Temporal.actualTemporal(),CONST.STACK));
+            }
 
         }else if(accion instanceof AccionExpresion){
 
@@ -269,20 +281,30 @@ public class AsignacionInstr implements Instruccion{
             if(lugar instanceof LugarVariable){
 
                 String posicion = null;
-                if(coleccion.getSimbolos().getSimbolo(lugar.getId()) != null){
-                    posicion = coleccion.getSimbolos().getSimbolo(lugar.getId()).getDireccion();
+                Simbolo simbolo = coleccion.getSimbolos().getSimbolo(lugar.getId());
+                if(coleccion.getTipadoActual()!=2){
+                    if(simbolo != null){
+                        posicion = simbolo.getDireccion();
+                        cuartetosRetorno.add(new Cuarteto("+",CONST.P,posicion,Temporal.siguienteTemporal(CONST.ENTERO)));
+                        cuartetosRetorno.add(new Cuarteto(":=a",(coleccion.getUltimoReturn()==null)?temporalExp:coleccion.getUltimoReturn(),Temporal.actualTemporal(),CONST.STACK));
+                        coleccion.setUltimoReturn(null);
+                    }else{
+                        posicion = ((Clase)coleccion.getClasesJv().getSimbolo(coleccion.getClase()).getValor()).getSimbolos().getSimbolo(lugar.getId()).getDireccion();
+                        cuartetosRetorno.add(new Cuarteto("+",CONST.P,"0",Temporal.siguienteTemporal(CONST.ENTERO)));
+                        cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.ENTERO)));
+                        cuartetosRetorno.add(new Cuarteto("+",Temporal.actualTemporal(), posicion, Temporal.siguienteTemporal(CONST.ENTERO)));
+                        cuartetosRetorno.add(new Cuarteto(":=a",(coleccion.getUltimoReturn()==null)?temporalExp:coleccion.getUltimoReturn(),Temporal.actualTemporal(),CONST.HEAP));
+                        coleccion.setUltimoReturn(null);
+                    }
+                }else{
+                    if(simbolo==null)simbolo = new Simbolo(lugar.getId(), CONST.VAR, exp.getTipoRetorno(), "1", coleccion.getSimbolos().getUltimaPosicionLibre(cuartetosRetorno), null, null);
+                    if(simbolo.getTipo().equals(CONST.INDEFINIDO)) simbolo.setTipo(exp.getTipoRetorno());
+                    coleccion.getSimbolos().agregarSimbolo(simbolo);
+                    posicion = simbolo.getDireccion();
                     cuartetosRetorno.add(new Cuarteto("+",CONST.P,posicion,Temporal.siguienteTemporal(CONST.ENTERO)));
                     cuartetosRetorno.add(new Cuarteto(":=a",(coleccion.getUltimoReturn()==null)?temporalExp:coleccion.getUltimoReturn(),Temporal.actualTemporal(),CONST.STACK));
                     coleccion.setUltimoReturn(null);
-                }else{
-                    posicion = ((Clase)coleccion.getClasesJv().getSimbolo(coleccion.getClase()).getValor()).getSimbolos().getSimbolo(lugar.getId()).getDireccion();
-                    cuartetosRetorno.add(new Cuarteto("+",CONST.P,"0",Temporal.siguienteTemporal(CONST.ENTERO)));
-                    cuartetosRetorno.add(new Cuarteto("arreglo",CONST.STACK,Temporal.actualTemporal(),Temporal.siguienteTemporal(CONST.ENTERO)));
-                    cuartetosRetorno.add(new Cuarteto("+",Temporal.actualTemporal(), posicion, Temporal.siguienteTemporal(CONST.ENTERO)));
-                    cuartetosRetorno.add(new Cuarteto(":=a",(coleccion.getUltimoReturn()==null)?temporalExp:coleccion.getUltimoReturn(),Temporal.actualTemporal(),CONST.HEAP));
-                    coleccion.setUltimoReturn(null);
                 }
-
             }
         }
     }

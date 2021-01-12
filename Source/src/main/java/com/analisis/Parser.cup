@@ -120,7 +120,7 @@ non terminal List<String>               listadoId, libreriaC;
 non terminal Object                     codigo, visual, metodosVb, dclMetodosVb, dclMetodoVb, caseVb, espaciosVb, java, clasesJv, dclClasesJv, dclClaseJv, python, metodosPy, dclMetodosPy, dclMetodoPy, principal, publicOpcional;
 
 //declaracion de precedencia
-precedence left PR_ENTERO, PR_FLOTANTE, PR_CARACTER, COMA, ID, CADENA, PUNTO;
+precedence left PR_ENTERO, PR_FLOTANTE, PR_CARACTER, COMA, ID, CADENA, PUNTO, PUBLIC, VOID;
 precedence left OR;
 precedence left AND;
 precedence left NOT;
@@ -384,12 +384,14 @@ sentenciaDoWhileVb::=                   DO:pos espaciosVb bloqueVb:instrucciones
 sentenciaSwitchVb::=                    SELECT:pos caseVb expresionArVb:expresion espaciosVb contenidoSwitchVb:casos END SELECT {:
                                             if(pos!=null&&expresion!=null&&casos!=null){
                                                 CaseInstr porDefecto = null;
-                                                for(CaseInstr caso : casos){
+                                                for(int i = 0; i < casos.size(); i++){
+                                                    CaseInstr caso = casos.get(i);
                                                     if(caso.getValor().getTipo().equals(CONST.VOID)){
                                                         if(porDefecto!=null){
                                                             errores.agregarError("Sintactico","Sin cadena","Ya existe un caso por defecto, solo puede haber uno.", caso.getPosicion());
                                                         }else{
                                                             porDefecto = caso;
+                                                            casos.remove(i--);
                                                         }
                                                     }
                                                 }
@@ -731,7 +733,6 @@ listadoParametrosEnviadosVb::=          listadoParametrosEnviadosVb:expresiones 
                                             if(expresion!=null) expresiones.add(expresion);
                                             RESULT = expresiones;
                                         :}
-                                        |error:e {: agregarError("Sintactico",(String) e,"Se esperaba una expresion.", eleft, eright); :}
                                         ;
 
 espaciosVb::=                            espaciosVb FIN_LINEA
@@ -762,14 +763,14 @@ contenidoClaseJv::=                     sentenciasDeClaseJv:instrucciones {: RES
                                         | {: RESULT = new ArrayList(); :}
                                         ;
 
-sentenciasDeClaseJv::=                  sentenciasDeClaseJv:instruccionesRetorno sentenciaDeClaseJv:instrucciones {:
+sentenciasDeClaseJv::=                  sentenciasDeClaseJv:instruccionesRetorno publicOpcional sentenciaDeClaseJv:instrucciones {:
                                             if(instruccionesRetorno==null) instruccionesRetorno = new ArrayList();
                                             if(instrucciones!=null){
                                                 for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
                                             }
                                             RESULT = instruccionesRetorno;
                                         :}
-                                        |sentenciaDeClaseJv:instrucciones {:
+                                        |publicOpcional sentenciaDeClaseJv:instrucciones {:
                                             List<Instruccion> instruccionesRetorno = new ArrayList();
                                             if(instrucciones!=null){
                                                 for(Instruccion instruccion : instrucciones) instruccionesRetorno.add(instruccion);
@@ -778,37 +779,38 @@ sentenciasDeClaseJv::=                  sentenciasDeClaseJv:instruccionesRetorno
                                         :}
                                         ;
 
-sentenciaDeClaseJv::=                   publicOpcional sentenciaDeclaracionJv:instrucciones FIN_LINEA {:
-                                            if(instrucciones!=null){
-                                                for(Instruccion instruccion : instrucciones){
-                                                    if(instruccion instanceof AsignacionInstr){
+sentenciaDeClaseJv::=                   tiposDeMetodo:tipo listadoAsignacionesJv:instrucciones FIN_LINEA{:
+                                            if(instrucciones == null) instrucciones = new ArrayList();
+                                            for(Instruccion instruccion : instrucciones){
+                                                if(!tipo.equals(CONST.VOID)){
+                                                    if(instruccion instanceof DeclaracionInstr){
+                                                        ((DeclaracionInstr)instruccion).setTipo(tipo);
+                                                        ((DeclaracionInstr)instruccion).setPosicion(new Pos(tipoleft,tiporight));
+                                                    }else if(instruccion instanceof AsignacionInstr){
                                                         AsignacionInstr instr = (AsignacionInstr) instruccion;
                                                         instr.setLugar(new LugarVariableGlobal(instr.getLugar().getId(), instr.getLugar().getPosicion()));
                                                     }
+                                                }else{
+                                                    errores.agregarError("Sintactico","void","Se esperaba un tipo (caracter,int,float) para la declaracion de variables.", new Pos(tipoleft,tiporight));
                                                 }
-                                            }else{
-                                                instrucciones = new ArrayList();
                                             }
                                             RESULT = instrucciones;
                                         :}
-                                        |dclMetodoJv:instruccion {:
-                                            List<Instruccion> instrucciones = new ArrayList();
-                                            if(instruccion!=null)instrucciones.add(instruccion);
-                                            RESULT = instrucciones;
-                                        :}
-                                        ;
-
-dclMetodoJv::=                          publicOpcional tiposDeMetodo:tipo ID:id PAR_A dclParametrosJv:parametros PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C {:
+                                        |tiposDeMetodo:tipo ID:id PAR_A dclParametrosJv:parametros PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C {:
+                                            List<Instruccion> instruccionesRetorno = new ArrayList();
                                             if(tipo!=null&&id!=null&&instrucciones!=null){
                                                 if(parametros==null)parametros = new ArrayList();
-                                                RESULT = new MetodoInstr(tipo,id,parametros,instrucciones, new Pos(idleft,idright));
+                                                instruccionesRetorno.add(new MetodoInstr(tipo,id,parametros,instrucciones, new Pos(idleft,idright)));
                                             }
+                                            RESULT = instruccionesRetorno;
                                         :}
-                                        |publicOpcional ID:id PAR_A dclParametrosJv:parametros PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C {:
+                                        |ID:id PAR_A dclParametrosJv:parametros PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C {:
+                                            List<Instruccion> instruccionesRetorno = new ArrayList();
                                             if(id!=null&&instrucciones!=null){
                                                 if(parametros==null)parametros = new ArrayList();
-                                                RESULT = new MetodoInstr(CONST.CONSTRUCTOR,id,parametros,instrucciones, new Pos(idleft,idright));
+                                                instruccionesRetorno.add(new MetodoInstr(CONST.CONSTRUCTOR,id,parametros,instrucciones, new Pos(idleft,idright)));
                                             }
+                                            RESULT = instruccionesRetorno;
                                         :}
                                         |publicOpcional tiposDeMetodo error:e PAR_A dclParametrosJv PAR_C LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"No se especifico un identificador para el metodo, se esperaba un identificador", eleft, eright); :}
                                         |publicOpcional tiposDeMetodo ID error:e LLAVE_A bloqueJv LLAVE_C {: agregarError("Sintactico",(String) e,"Se esperaba un listado de parametros (lleno o vacio) dentro de parentesis.", eleft, eright); :}
@@ -935,7 +937,6 @@ sentenciaIfJv::=                        IF:pos PAR_A expresionBoolJv:condicion P
                                         :}
                                         |IF PAR_A error:e PAR_C LLAVE_A bloqueJv LLAVE_C sinoJv {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana", eleft, eright); :}
                                         |IF error:e LLAVE_A bloqueJv LLAVE_C sinoJv {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto.", eleft, eright); :}
-                                        |IF PAR_A expresionBoolJv PAR_C error:e sinoJv {: agregarError("Sintactico",(String) e,"Se esperaba una llave con bloque de codigo o una sentencia simple", eleft, eright); :}
                                         ;
 
 sinoJv::=                               ELSE:pos IF PAR_A expresionBoolJv:condicion PAR_C LLAVE_A bloqueJv:instrucciones LLAVE_C sinoJv:instruccionSino {:
@@ -950,10 +951,20 @@ sinoJv::=                               ELSE:pos IF PAR_A expresionBoolJv:condic
                                                 RESULT = new SinoInstr(instrucciones, new Pos(posleft,posright));
                                             }
                                         :}
+                                        |ELSE:pos IF PAR_A expresionBoolJv:condicion PAR_C sentenciaSimpleJv:instrucciones FIN_LINEA {:
+                                            if(pos!=null&&condicion!=null){
+                                                if(instrucciones==null) instrucciones = new ArrayList();
+                                                RESULT = new SiInstr(condicion,instrucciones,null, new Pos(posleft,posright));
+                                            }
+                                        :}
+                                        |ELSE:pos sentenciaSimpleJv:instrucciones FIN_LINEA {:
+                                            if(pos!=null){
+                                                if(instrucciones==null) instrucciones = new ArrayList();
+                                                RESULT = new SinoInstr(instrucciones, new Pos(posleft,posright));
+                                            }
+                                        :}
                                         |ELSE IF PAR_A error:e PAR_C LLAVE_A bloqueJv LLAVE_C sinoJv {: agregarError("Sintactico",(String) e,"Se esperaba una expresion booleana", eleft, eright); :}
                                         |ELSE IF error:e LLAVE_A bloqueJv LLAVE_C sinoJv {: agregarError("Sintactico",(String) e,"Se esperaba un parentesis abierto", eleft, eright); :}
-                                        |ELSE IF PAR_A expresionBoolJv PAR_C error:e {: agregarError("Sintactico",(String) e,"Se esperaba una llave con bloque de codigo.", eleft, eright); :}
-                                        |ELSE error:e {: agregarError("Sintactico",(String) e,"Se esperaba una llave con bloque de codigo.", eleft, eright); :}
                                         |
                                         ;
 
@@ -1098,12 +1109,14 @@ sentenciaWhileJv::=                     WHILE:pos PAR_A expresionBoolJv:expresio
 sentenciaSwitchJv::=                    SWITCH:pos PAR_A expresionArJv:expresion PAR_C LLAVE_A contenidoSwitchJv:casos LLAVE_C {:
                                             if(pos!=null&&expresion!=null&&casos!=null){
                                                 CaseInstr porDefecto = null;
-                                                for(CaseInstr caso : casos){
+                                                for(int i = 0; i < casos.size(); i++){
+                                                    CaseInstr caso = casos.get(i);
                                                     if(caso.getValor().getTipo().equals(CONST.VOID)){
                                                         if(porDefecto!=null){
                                                             errores.agregarError("Sintactico","Sin cadena","Ya existe un caso por defecto, solo puede haber uno.", caso.getPosicion());
                                                         }else{
                                                             porDefecto = caso;
+                                                            casos.remove(i--);
                                                         }
                                                     }
                                                 }
@@ -2246,7 +2259,19 @@ sino::=                                 ELSE:pos IF PAR_A expresionBool:condicio
                                                 RESULT = new SiInstr(condicion, instrucciones, instruccionSino, new Pos(posleft,posright));
                                             }
                                         :}
+                                        |ELSE:pos IF PAR_A expresionBool:condicion PAR_C sentenciaSimple:instrucciones FIN_LINEA {:
+                                            if(pos!=null&&condicion!=null){
+                                                if(instrucciones==null) instrucciones = new ArrayList();
+                                                RESULT = new SiInstr(condicion, instrucciones, null, new Pos(posleft,posright));
+                                            }
+                                        :}  
                                         |ELSE:pos LLAVE_A bloque:instrucciones LLAVE_C {:
+                                            if(pos!=null){
+                                                if(instrucciones == null) instrucciones = new ArrayList();
+                                                RESULT = new SinoInstr(instrucciones, new Pos(posleft,posright));
+                                            }
+                                        :}
+                                        |ELSE:pos sentenciaSimple:instrucciones FIN_LINEA {:
                                             if(pos!=null){
                                                 if(instrucciones == null) instrucciones = new ArrayList();
                                                 RESULT = new SinoInstr(instrucciones, new Pos(posleft,posright));
@@ -2254,12 +2279,9 @@ sino::=                                 ELSE:pos IF PAR_A expresionBool:condicio
                                         :}
                                         |
                                         |ELSE IF PAR_A expresionBool PAR_C LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
-                                        |ELSE IF PAR_A expresionBool PAR_C error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
                                         |ELSE IF PAR_A expresionBool error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis cerrado.",eleft,eright); :}
                                         |ELSE IF PAR_A error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba una expresion booleana.",eleft,eright); :}
-                                        |ELSE IF error:e LLAVE_A bloque LLAVE_C {: agregarError("Sintactico",(String)e,"Se esperaba un parentesis abierto.",eleft,eright); :}
                                         |ELSE LLAVE_A bloque error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave cerrada.",eleft,eright); :}
-                                        |ELSE error:e {: agregarError("Sintactico",(String)e,"Se esperaba una llave abierta.",eleft,eright); :}
                                         ;
 
 sentenciaFor::=                         FOR:pos PAR_A tiposDeDato:tipo ID:id IGUAL expresionAr:expresion FIN_LINEA expresionBool:condicion FIN_LINEA ID:id2 modificadorFor:instruccionFor PAR_C LLAVE_A bloque:instrucciones LLAVE_C {:
@@ -2415,12 +2437,14 @@ sentenciaDoWhile::=                     DO:pos LLAVE_A bloque:instrucciones LLAV
 sentenciaSwitch::=                      SWITCH:pos PAR_A expresionAr:expresion PAR_C LLAVE_A contenidoSwitch:casos LLAVE_C {:
                                             if(pos!=null&&expresion!=null&&casos!=null){
                                                 CaseInstr porDefecto = null;
-                                                for(CaseInstr caso : casos){
+                                                for(int i = 0; i < casos.size(); i++){
+                                                    CaseInstr caso = casos.get(i);
                                                     if(caso.getValor().getTipo().equals(CONST.VOID)){
                                                         if(porDefecto!=null){
                                                             errores.agregarError("Sintactico","Sin cadena","Ya existe un caso por defecto, solo puede haber uno.", caso.getPosicion());
                                                         }else{
                                                             porDefecto = caso;
+                                                            casos.remove(i--);
                                                         }
                                                     }
                                                 }
@@ -2618,7 +2642,7 @@ tiposDeDato::=                          PR_ENTERO:valor {: RESULT = CONST.ENTERO
 valorAtomico::=                         ENTERO:valor {: RESULT = new Dato(CONST.ENTERO,valor); :}
                                         |FLOTANTE:valor {: RESULT = new Dato(CONST.FLOTANTE,valor); :}
                                         |CARACTER:valor {: RESULT = new Dato(CONST.CARACTER,valor); :}
-                                        |MENOS ENTERO:valor {: RESULT = new Dato(CONST.ENTERO,valor); :}
+                                        |MENOS ENTERO:valor {: RESULT = new Dato(CONST.ENTERO,"-"+valor); :}
                                         |ID:valor {: RESULT = new Dato(CONST.ID,valor); :}
                                         ;
 

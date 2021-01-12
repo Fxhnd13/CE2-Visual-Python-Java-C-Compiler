@@ -8,10 +8,6 @@ package com.analisis.objetos.instrucciones.instruccionesmlg;
 import com.analisis.objetos.analisis.CONST;
 import com.analisis.objetos.analisis.Pos;
 import com.analisis.objetos.basicos.Dato;
-import com.analisis.objetos.basicos.Simbolo;
-import com.analisis.objetos.basicos.lugaresAsignacion.Lugar;
-import com.analisis.objetos.basicos.lugaresAsignacion.LugarArreglo;
-import com.analisis.objetos.basicos.lugaresAsignacion.LugarVariable;
 import com.analisis.objetos.estructuras.Coleccion;
 import com.analisis.objetos.nodos.NodoAritmetico;
 import com.analisis.semantico.AnalizadorBloque;
@@ -99,19 +95,19 @@ public class SwitchInstr implements Instruccion{
             String derecha = null;
             switch(casos.get(i).getValor().getTipo()){
                 case CONST.CARACTER:{
-                    derecha = "\""+(String)casos.get(i).getValor().getValor()+"\"";
+                    cuartetosRetorno.add(new Cuarteto(":=","'"+(String)casos.get(i).getValor().getValor()+"'",null,Temporal.siguienteTemporal(CONST.CARACTER)));
                     break;
                 }
                 case CONST.ENTERO:{
-                    derecha = (String)casos.get(i).getValor().getValor();
+                    cuartetosRetorno.add(new Cuarteto(":=",(String)casos.get(i).getValor().getValor(),null,Temporal.siguienteTemporal(CONST.ENTERO)));
                     break;
                 }
                 case CONST.FLOTANTE:{
-                    derecha = (String)casos.get(i).getValor().getValor();
+                    cuartetosRetorno.add(new Cuarteto(":=",(String)casos.get(i).getValor().getValor(),null,Temporal.siguienteTemporal(CONST.FLOTANTE)));
                     break;
                 }
             }
-            
+            derecha = Temporal.actualTemporal();
             String etiquetaDentro = Etiqueta.siguienteEtiqueta();
             cuartetosRetorno.add(new Cuarteto("==",izquierda, derecha, etiquetaDentro));
             cuartetosRetorno.add(((i+1)<casos.size())? 
