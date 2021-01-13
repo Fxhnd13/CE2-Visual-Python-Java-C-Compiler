@@ -35,7 +35,7 @@ public class GeneradorAst {
         Lexer lexer = new Lexer(new StringReader(codigo));
         Parser parser = new Parser(lexer);
         try {
-            parser.debug_parse();
+            parser.parse();
             Mensajes mensajes = new Mensajes();
             mensajes.informacion("Se ha finalizado el analisis sintactico sin errores graves.");
             instrucciones = parser.getColeccionInstr();

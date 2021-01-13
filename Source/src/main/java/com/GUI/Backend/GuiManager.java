@@ -248,8 +248,8 @@ public class GuiManager {
         List<Cuarteto> cuartetos = generarCuartetos(codigoFuente, erroresTextArea);
         if(!cuartetos.isEmpty()){
             codigo3D.setText(Cuartetos.escribirCodigo3DireccionesNormal(cuartetos));
-            guardarYEjecutar(Cuartetos.escribirCodigo3DireccionesEjecutable(cuartetos), abrir);
             mensajes.informacion("Se ha generado el codigo 3 direcciones ejecutable exitosamente.");
+            guardarYEjecutar(Cuartetos.escribirCodigo3DireccionesEjecutable(cuartetos), abrir);
         }
     }
 

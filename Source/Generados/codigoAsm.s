@@ -1099,6 +1099,708 @@ t177:
 	.size  t178, 4
 t178:
 	.zero  4
+	.globl t179
+	.align 4
+	.type  t179, @object
+	.size  t179, 4
+t179:
+	.zero  4
+	.globl t180
+	.align 4
+	.type  t180, @object
+	.size  t180, 4
+t180:
+	.zero  4
+	.globl t181
+	.align 4
+	.type  t181, @object
+	.size  t181, 4
+t181:
+	.zero  4
+	.globl t182
+	.align 4
+	.type  t182, @object
+	.size  t182, 4
+t182:
+	.zero  4
+	.globl t183
+	.align 4
+	.type  t183, @object
+	.size  t183, 4
+t183:
+	.zero  4
+	.globl t184
+	.align 4
+	.type  t184, @object
+	.size  t184, 4
+t184:
+	.zero  4
+	.globl t185
+	.align 4
+	.type  t185, @object
+	.size  t185, 4
+t185:
+	.zero  4
+	.globl t186
+	.align 4
+	.type  t186, @object
+	.size  t186, 4
+t186:
+	.zero  4
+	.globl t187
+	.align 4
+	.type  t187, @object
+	.size  t187, 4
+t187:
+	.zero  4
+	.globl t188
+	.align 4
+	.type  t188, @object
+	.size  t188, 4
+t188:
+	.zero  4
+	.globl t189
+	.align 4
+	.type  t189, @object
+	.size  t189, 4
+t189:
+	.zero  4
+	.globl t190
+	.align 4
+	.type  t190, @object
+	.size  t190, 4
+t190:
+	.zero  4
+	.globl t191
+	.align 4
+	.type  t191, @object
+	.size  t191, 4
+t191:
+	.zero  4
+	.globl t192
+	.align 4
+	.type  t192, @object
+	.size  t192, 4
+t192:
+	.zero  4
+	.globl t193
+	.align 4
+	.type  t193, @object
+	.size  t193, 4
+t193:
+	.zero  4
+	.globl t194
+	.align 4
+	.type  t194, @object
+	.size  t194, 4
+t194:
+	.zero  4
+	.globl t195
+	.align 4
+	.type  t195, @object
+	.size  t195, 4
+t195:
+	.zero  4
+	.globl t196
+	.align 4
+	.type  t196, @object
+	.size  t196, 4
+t196:
+	.zero  4
+	.globl t197
+	.align 4
+	.type  t197, @object
+	.size  t197, 4
+t197:
+	.zero  4
+	.globl t198
+	.align 4
+	.type  t198, @object
+	.size  t198, 4
+t198:
+	.zero  4
+	.globl t199
+	.align 4
+	.type  t199, @object
+	.size  t199, 4
+t199:
+	.zero  4
+	.globl t200
+	.align 4
+	.type  t200, @object
+	.size  t200, 4
+t200:
+	.zero  4
+	.globl t201
+	.align 4
+	.type  t201, @object
+	.size  t201, 4
+t201:
+	.zero  4
+	.globl t202
+	.align 4
+	.type  t202, @object
+	.size  t202, 4
+t202:
+	.zero  4
+	.globl t203
+	.align 4
+	.type  t203, @object
+	.size  t203, 4
+t203:
+	.zero  4
+	.globl t204
+	.align 4
+	.type  t204, @object
+	.size  t204, 4
+t204:
+	.zero  4
+	.globl t205
+	.align 4
+	.type  t205, @object
+	.size  t205, 4
+t205:
+	.zero  4
+	.globl t206
+	.align 4
+	.type  t206, @object
+	.size  t206, 4
+t206:
+	.zero  4
+	.globl t207
+	.align 4
+	.type  t207, @object
+	.size  t207, 4
+t207:
+	.zero  4
+	.globl t208
+	.align 4
+	.type  t208, @object
+	.size  t208, 4
+t208:
+	.zero  4
+	.globl t209
+	.align 4
+	.type  t209, @object
+	.size  t209, 4
+t209:
+	.zero  4
+	.globl t210
+	.align 4
+	.type  t210, @object
+	.size  t210, 4
+t210:
+	.zero  4
+	.globl t211
+	.align 4
+	.type  t211, @object
+	.size  t211, 4
+t211:
+	.zero  4
+	.globl t212
+	.align 4
+	.type  t212, @object
+	.size  t212, 4
+t212:
+	.zero  4
+	.globl t213
+	.align 4
+	.type  t213, @object
+	.size  t213, 4
+t213:
+	.zero  4
+	.globl t214
+	.align 4
+	.type  t214, @object
+	.size  t214, 4
+t214:
+	.zero  4
+	.globl t215
+	.align 4
+	.type  t215, @object
+	.size  t215, 4
+t215:
+	.zero  4
+	.globl t216
+	.align 4
+	.type  t216, @object
+	.size  t216, 4
+t216:
+	.zero  4
+	.globl t217
+	.align 4
+	.type  t217, @object
+	.size  t217, 4
+t217:
+	.zero  4
+	.globl t218
+	.align 4
+	.type  t218, @object
+	.size  t218, 4
+t218:
+	.zero  4
+	.globl t219
+	.align 4
+	.type  t219, @object
+	.size  t219, 4
+t219:
+	.zero  4
+	.globl t220
+	.align 4
+	.type  t220, @object
+	.size  t220, 4
+t220:
+	.zero  4
+	.globl t221
+	.align 4
+	.type  t221, @object
+	.size  t221, 4
+t221:
+	.zero  4
+	.globl t222
+	.align 4
+	.type  t222, @object
+	.size  t222, 4
+t222:
+	.zero  4
+	.globl t223
+	.align 4
+	.type  t223, @object
+	.size  t223, 4
+t223:
+	.zero  4
+	.globl t224
+	.align 4
+	.type  t224, @object
+	.size  t224, 4
+t224:
+	.zero  4
+	.globl t225
+	.align 4
+	.type  t225, @object
+	.size  t225, 4
+t225:
+	.zero  4
+	.globl t226
+	.align 4
+	.type  t226, @object
+	.size  t226, 4
+t226:
+	.zero  4
+	.globl t227
+	.align 4
+	.type  t227, @object
+	.size  t227, 4
+t227:
+	.zero  4
+	.globl t228
+	.align 4
+	.type  t228, @object
+	.size  t228, 4
+t228:
+	.zero  4
+	.globl t229
+	.align 4
+	.type  t229, @object
+	.size  t229, 4
+t229:
+	.zero  4
+	.globl t230
+	.align 4
+	.type  t230, @object
+	.size  t230, 4
+t230:
+	.zero  4
+	.globl t231
+	.align 4
+	.type  t231, @object
+	.size  t231, 4
+t231:
+	.zero  4
+	.globl t232
+	.align 4
+	.type  t232, @object
+	.size  t232, 4
+t232:
+	.zero  4
+	.globl t233
+	.align 4
+	.type  t233, @object
+	.size  t233, 4
+t233:
+	.zero  4
+	.globl t234
+	.align 4
+	.type  t234, @object
+	.size  t234, 4
+t234:
+	.zero  4
+	.globl t235
+	.align 4
+	.type  t235, @object
+	.size  t235, 4
+t235:
+	.zero  4
+	.globl t236
+	.align 4
+	.type  t236, @object
+	.size  t236, 4
+t236:
+	.zero  4
+	.globl t237
+	.align 4
+	.type  t237, @object
+	.size  t237, 4
+t237:
+	.zero  4
+	.globl t238
+	.align 4
+	.type  t238, @object
+	.size  t238, 4
+t238:
+	.zero  4
+	.globl t239
+	.align 4
+	.type  t239, @object
+	.size  t239, 4
+t239:
+	.zero  4
+	.globl t240
+	.align 4
+	.type  t240, @object
+	.size  t240, 4
+t240:
+	.zero  4
+	.globl t241
+	.align 4
+	.type  t241, @object
+	.size  t241, 4
+t241:
+	.zero  4
+	.globl t242
+	.align 4
+	.type  t242, @object
+	.size  t242, 4
+t242:
+	.zero  4
+	.globl t243
+	.align 4
+	.type  t243, @object
+	.size  t243, 4
+t243:
+	.zero  4
+	.globl t244
+	.align 4
+	.type  t244, @object
+	.size  t244, 4
+t244:
+	.zero  4
+	.globl t245
+	.align 4
+	.type  t245, @object
+	.size  t245, 4
+t245:
+	.zero  4
+	.globl t246
+	.align 4
+	.type  t246, @object
+	.size  t246, 4
+t246:
+	.zero  4
+	.globl t247
+	.align 4
+	.type  t247, @object
+	.size  t247, 4
+t247:
+	.zero  4
+	.globl t248
+	.align 4
+	.type  t248, @object
+	.size  t248, 4
+t248:
+	.zero  4
+	.globl t249
+	.align 4
+	.type  t249, @object
+	.size  t249, 4
+t249:
+	.zero  4
+	.globl t250
+	.align 4
+	.type  t250, @object
+	.size  t250, 4
+t250:
+	.zero  4
+	.globl t251
+	.align 4
+	.type  t251, @object
+	.size  t251, 4
+t251:
+	.zero  4
+	.globl t252
+	.align 4
+	.type  t252, @object
+	.size  t252, 4
+t252:
+	.zero  4
+	.globl t253
+	.align 4
+	.type  t253, @object
+	.size  t253, 4
+t253:
+	.zero  4
+	.globl t254
+	.align 4
+	.type  t254, @object
+	.size  t254, 4
+t254:
+	.zero  4
+	.globl t255
+	.align 4
+	.type  t255, @object
+	.size  t255, 4
+t255:
+	.zero  4
+	.globl t256
+	.align 4
+	.type  t256, @object
+	.size  t256, 4
+t256:
+	.zero  4
+	.globl t257
+	.align 4
+	.type  t257, @object
+	.size  t257, 4
+t257:
+	.zero  4
+	.globl t258
+	.align 4
+	.type  t258, @object
+	.size  t258, 4
+t258:
+	.zero  4
+	.globl t259
+	.align 4
+	.type  t259, @object
+	.size  t259, 4
+t259:
+	.zero  4
+	.globl t260
+	.align 4
+	.type  t260, @object
+	.size  t260, 4
+t260:
+	.zero  4
+	.globl t261
+	.align 4
+	.type  t261, @object
+	.size  t261, 4
+t261:
+	.zero  4
+	.globl t262
+	.align 4
+	.type  t262, @object
+	.size  t262, 4
+t262:
+	.zero  4
+	.globl t263
+	.align 4
+	.type  t263, @object
+	.size  t263, 4
+t263:
+	.zero  4
+	.globl t264
+	.align 4
+	.type  t264, @object
+	.size  t264, 4
+t264:
+	.zero  4
+	.globl t265
+	.align 4
+	.type  t265, @object
+	.size  t265, 4
+t265:
+	.zero  4
+	.globl t266
+	.align 4
+	.type  t266, @object
+	.size  t266, 4
+t266:
+	.zero  4
+	.globl t267
+	.align 4
+	.type  t267, @object
+	.size  t267, 4
+t267:
+	.zero  4
+	.globl t268
+	.align 4
+	.type  t268, @object
+	.size  t268, 4
+t268:
+	.zero  4
+	.globl t269
+	.align 4
+	.type  t269, @object
+	.size  t269, 4
+t269:
+	.zero  4
+	.globl t270
+	.align 4
+	.type  t270, @object
+	.size  t270, 4
+t270:
+	.zero  4
+	.globl t271
+	.align 4
+	.type  t271, @object
+	.size  t271, 4
+t271:
+	.zero  4
+	.globl t272
+	.align 4
+	.type  t272, @object
+	.size  t272, 4
+t272:
+	.zero  4
+	.globl t273
+	.align 4
+	.type  t273, @object
+	.size  t273, 4
+t273:
+	.zero  4
+	.globl t274
+	.align 4
+	.type  t274, @object
+	.size  t274, 4
+t274:
+	.zero  4
+	.globl t275
+	.align 4
+	.type  t275, @object
+	.size  t275, 4
+t275:
+	.zero  4
+	.globl t276
+	.align 4
+	.type  t276, @object
+	.size  t276, 4
+t276:
+	.zero  4
+	.globl t277
+	.align 4
+	.type  t277, @object
+	.size  t277, 4
+t277:
+	.zero  4
+	.globl t278
+	.align 4
+	.type  t278, @object
+	.size  t278, 4
+t278:
+	.zero  4
+	.globl t279
+	.align 4
+	.type  t279, @object
+	.size  t279, 4
+t279:
+	.zero  4
+	.globl t280
+	.align 4
+	.type  t280, @object
+	.size  t280, 4
+t280:
+	.zero  4
+	.globl t281
+	.align 4
+	.type  t281, @object
+	.size  t281, 4
+t281:
+	.zero  4
+	.globl t282
+	.align 4
+	.type  t282, @object
+	.size  t282, 4
+t282:
+	.zero  4
+	.globl t283
+	.align 4
+	.type  t283, @object
+	.size  t283, 4
+t283:
+	.zero  4
+	.globl t284
+	.align 4
+	.type  t284, @object
+	.size  t284, 4
+t284:
+	.zero  4
+	.globl t285
+	.align 4
+	.type  t285, @object
+	.size  t285, 4
+t285:
+	.zero  4
+	.globl t286
+	.align 4
+	.type  t286, @object
+	.size  t286, 4
+t286:
+	.zero  4
+	.globl t287
+	.align 4
+	.type  t287, @object
+	.size  t287, 4
+t287:
+	.zero  4
+	.globl t288
+	.align 4
+	.type  t288, @object
+	.size  t288, 4
+t288:
+	.zero  4
+	.globl t289
+	.align 4
+	.type  t289, @object
+	.size  t289, 4
+t289:
+	.zero  4
+	.globl t290
+	.align 4
+	.type  t290, @object
+	.size  t290, 4
+t290:
+	.zero  4
+	.globl t291
+	.align 4
+	.type  t291, @object
+	.size  t291, 4
+t291:
+	.zero  4
+	.globl t292
+	.align 4
+	.type  t292, @object
+	.size  t292, 4
+t292:
+	.zero  4
+	.globl t293
+	.align 4
+	.type  t293, @object
+	.size  t293, 4
+t293:
+	.zero  4
+	.globl t294
+	.align 4
+	.type  t294, @object
+	.size  t294, 4
+t294:
+	.zero  4
+	.globl t295
+	.align 4
+	.type  t295, @object
+	.size  t295, 4
+t295:
+	.zero  4
 	.globl t00
 	.align 4
 	.type  t00, @object
@@ -1115,9 +1817,9 @@ t00:
 .LC3:
 	.string	"%f"
 	.text
-	.globl   JAVA_Calculadora_Calculadora
-	.type    JAVA_Calculadora_Calculadora, @function
-JAVA_Calculadora_Calculadora:
+	.globl   VB_SUMAR_ENTERO_ENTERO
+	.type    VB_SUMAR_ENTERO_ENTERO, @function
+VB_SUMAR_ENTERO_ENTERO:
 .LFB0:
 	.cfi_startproc
 	pushq	%rbp
@@ -1125,97 +1827,100 @@ JAVA_Calculadora_Calculadora:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-//h = 5 + h;
-	movl	h(%rip), %eax
-	addl	$5, %eax
-	movl	%eax, h(%rip)
-//t0 = 1;
-	movl	$1, t0(%rip)
-//t1 = 0 + p;
+//t0 = 0;
+	movl	$0, t0(%rip)
+//t1 = p + 4;
 	movl	p(%rip), %eax
-	addl	$0, %eax
+	addl	$4, %eax
 	movl	%eax, t1(%rip)
-//t2 = (int)stack[t1];
-	movl	t1(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t2(%rip)
-//t3 = t2 + 0;
-	movl	t2(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t3(%rip)
-//heap[t3] = (float) t0;
+//stack[t1] = (float) t0;
 	movl	t0(%rip), %edx
-	movl	t3(%rip), %eax
+	movl	t1(%rip), %eax
 	pxor	%xmm0, %xmm0
 	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
+	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-//t4 = 1;
-	movl	$1, t4(%rip)
-//t5 = 0 + p;
+//t2 = p + 2;
 	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t5(%rip)
-//t6 = (int)stack[t5];
-	movl	t5(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t2(%rip)
+//t3 = (int)stack[t2];
+	movl	t2(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
+	movl	%eax, t3(%rip)
+//t4 = p + 3;
+	movl	p(%rip), %eax
+	addl	$3, %eax
+	movl	%eax, t4(%rip)
+//t5 = (int)stack[t4];
+	movl	t4(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t5(%rip)
+//t6 = t3 + t5;
+	movl	t3(%rip), %edx
+	movl	t5(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t6(%rip)
-//t7 = t6 + 1;
-	movl	t6(%rip), %eax
-	addl	$1, %eax
+//t7 = p + 4;
+	movl	p(%rip), %eax
+	addl	$4, %eax
 	movl	%eax, t7(%rip)
-//heap[t7] = (float) t4;
-	movl	t4(%rip), %edx
+//stack[t7] = (float) t6;
+	movl	t6(%rip), %edx
 	movl	t7(%rip), %eax
 	pxor	%xmm0, %xmm0
 	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
+	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-//t8 = 3;
-	movl	$3, t8(%rip)
-//t9 = 0 + p;
+//t8 = p + 4;
 	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t9(%rip)
-//t10 = (int)stack[t9];
-	movl	t9(%rip), %eax
+	addl	$4, %eax
+	movl	%eax, t8(%rip)
+//t9 = (int)stack[t8];
+	movl	t8(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
+	movl	%eax, t9(%rip)
+//t10 = p + 0;
+	movl	p(%rip), %eax
+	addl	$0, %eax
 	movl	%eax, t10(%rip)
-//t11 = t10 + 2;
+//stack[t10] = (float) t9;
+	movl	t9(%rip), %edx
 	movl	t10(%rip), %eax
-	addl	$2, %eax
-	movl	%eax, t11(%rip)
-//heap[t11] = (float) t8;
-	movl	t8(%rip), %edx
-	movl	t11(%rip), %eax
 	pxor	%xmm0, %xmm0
 	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
+	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
+//goto et0;
+	jmp	.et0
+//et0:
+.et0:
+//t00 = 0;
+	movl	$0, t00(%rip)
 	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE0:
-	.size	JAVA_Calculadora_Calculadora, .-JAVA_Calculadora_Calculadora
+	.size	VB_SUMAR_ENTERO_ENTERO, .-VB_SUMAR_ENTERO_ENTERO
 	.section	.rodata
 .LC4:
 	.string	" %c"
@@ -1225,14 +1930,10 @@ JAVA_Calculadora_Calculadora:
 	.string	"%d"
 .LC7:
 	.string	"%f"
-.LC8:
-	.string "Ingrese el primer numero  : "
-.LC9:
-	.string "Ingrese el segundo numero  : "
 	.text
-	.globl   JAVA_Calculadora_pedirOperador_ENTERO
-	.type    JAVA_Calculadora_pedirOperador_ENTERO, @function
-JAVA_Calculadora_pedirOperador_ENTERO:
+	.globl   VB_RESTAR_ENTERO_ENTERO
+	.type    VB_RESTAR_ENTERO_ENTERO, @function
+VB_RESTAR_ENTERO_ENTERO:
 .LFB1:
 	.cfi_startproc
 	pushq	%rbp
@@ -1240,99 +1941,92 @@ JAVA_Calculadora_pedirOperador_ENTERO:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-//t12 = p + 1;
+//t11 = 0;
+	movl	$0, t11(%rip)
+//t12 = p + 4;
 	movl	p(%rip), %eax
-	addl	$1, %eax
+	addl	$4, %eax
 	movl	%eax, t12(%rip)
-//t13 = (int)stack[t12];
+//stack[t12] = (float) t11;
+	movl	t11(%rip), %edx
 	movl	t12(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t13 = p + 2;
+	movl	p(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t13(%rip)
+//t14 = (int)stack[t13];
+	movl	t13(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
-	movl	%eax, t13(%rip)
-//t14 = 1;
-	movl	$1, t14(%rip)
-//if (t13 == t14) goto et1;
-	movl	t13(%rip), %edx
+	movl	%eax, t14(%rip)
+//t15 = p + 3;
+	movl	p(%rip), %eax
+	addl	$3, %eax
+	movl	%eax, t15(%rip)
+//t16 = (int)stack[t15];
+	movl	t15(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t16(%rip)
+//t17 = t14 - t16;
 	movl	t14(%rip), %eax
-	cmpl	%eax, %edx
-	je	.et1
-//goto et2;
-	jmp	.et2
+	movl	t16(%rip), %edx
+	subl	%edx, %eax
+	movl	%eax, t17(%rip)
+//t18 = p + 4;
+	movl	p(%rip), %eax
+	addl	$4, %eax
+	movl	%eax, t18(%rip)
+//stack[t18] = (float) t17;
+	movl	t17(%rip), %edx
+	movl	t18(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t19 = p + 4;
+	movl	p(%rip), %eax
+	addl	$4, %eax
+	movl	%eax, t19(%rip)
+//t20 = (int)stack[t19];
+	movl	t19(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t20(%rip)
+//t21 = p + 0;
+	movl	p(%rip), %eax
+	addl	$0, %eax
+	movl	%eax, t21(%rip)
+//stack[t21] = (float) t20;
+	movl	t20(%rip), %edx
+	movl	t21(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//goto et1;
+	jmp	.et1
 //et1:
 .et1:
-//printf("LC8");
-	leaq	.LC8(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//scanf("%f",&t15);
-	leaq	t15(%rip), %rsi
-	leaq	.LC7(%rip), %rdi
-	movl	$0, %eax
-	call	__isoc99_scanf@PLT
-//t16 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t16(%rip)
-//t17 = (int)stack[t16];
-	movl	t16(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t17(%rip)
-//t18 = t17 + 0;
-	movl	t17(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t18(%rip)
-//heap[t18] = (float) t15;
-	movl	t18(%rip), %eax
-	movss	t15(%rip), %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-//goto et0;
-	jmp	.et0
-//et2:
-.et2:
-//printf("LC9");
-	leaq	.LC9(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//scanf("%f",&t19);
-	leaq	t19(%rip), %rsi
-	leaq	.LC7(%rip), %rdi
-	movl	$0, %eax
-	call	__isoc99_scanf@PLT
-//t20 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t20(%rip)
-//t21 = (int)stack[t20];
-	movl	t20(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t21(%rip)
-//t22 = t21 + 1;
-	movl	t21(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t22(%rip)
-//heap[t22] = (float) t19;
-	movl	t22(%rip), %eax
-	movss	t19(%rip), %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-//et0:
-.et0:
 //t00 = 0;
 	movl	$0, t00(%rip)
 	popq	%rbp
@@ -1340,22 +2034,20 @@ JAVA_Calculadora_pedirOperador_ENTERO:
 	ret
 	.cfi_endproc
 .LFE1:
-	.size	JAVA_Calculadora_pedirOperador_ENTERO, .-JAVA_Calculadora_pedirOperador_ENTERO
+	.size	VB_RESTAR_ENTERO_ENTERO, .-VB_RESTAR_ENTERO_ENTERO
 	.section	.rodata
-.LC10:
+.LC8:
 	.string	" %c"
-.LC11:
+.LC9:
 	.string	"%c"
-.LC12:
+.LC10:
 	.string	"%d"
-.LC13:
+.LC11:
 	.string	"%f"
-.LC14:
-	.string "Ingrese operacion  :  "
 	.text
-	.globl   JAVA_Calculadora_pedirOperacion
-	.type    JAVA_Calculadora_pedirOperacion, @function
-JAVA_Calculadora_pedirOperacion:
+	.globl   VB_MULTIPLICAR_ENTERO_ENTERO
+	.type    VB_MULTIPLICAR_ENTERO_ENTERO, @function
+VB_MULTIPLICAR_ENTERO_ENTERO:
 .LFB2:
 	.cfi_startproc
 	pushq	%rbp
@@ -1363,18 +2055,24 @@ JAVA_Calculadora_pedirOperacion:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-//printf("LC14");
-	leaq	.LC14(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//scanf("%f",&t23);
-	leaq	t23(%rip), %rsi
-	leaq	.LC13(%rip), %rdi
-	movl	$0, %eax
-	call	__isoc99_scanf@PLT
-//t24 = 0 + p;
+//t22 = 0;
+	movl	$0, t22(%rip)
+//t23 = p + 4;
 	movl	p(%rip), %eax
-	addl	$0, %eax
+	addl	$4, %eax
+	movl	%eax, t23(%rip)
+//stack[t23] = (float) t22;
+	movl	t22(%rip), %edx
+	movl	t23(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t24 = p + 2;
+	movl	p(%rip), %eax
+	addl	$2, %eax
 	movl	%eax, t24(%rip)
 //t25 = (int)stack[t24];
 	movl	t24(%rip), %eax
@@ -1384,40 +2082,86 @@ JAVA_Calculadora_pedirOperacion:
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
 	movl	%eax, t25(%rip)
-//t26 = t25 + 2;
-	movl	t25(%rip), %eax
-	addl	$2, %eax
+//t26 = p + 3;
+	movl	p(%rip), %eax
+	addl	$3, %eax
 	movl	%eax, t26(%rip)
-//heap[t26] = (float) t23;
+//t27 = (int)stack[t26];
 	movl	t26(%rip), %eax
-	movss	t23(%rip), %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t27(%rip)
+//t28 = t25 * t27;
+	movl	t25(%rip), %edx
+	movl	t27(%rip), %eax
+	imull	%edx, %eax
+	movl	%eax, t28(%rip)
+//t29 = p + 4;
+	movl	p(%rip), %eax
+	addl	$4, %eax
+	movl	%eax, t29(%rip)
+//stack[t29] = (float) t28;
+	movl	t28(%rip), %edx
+	movl	t29(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
+//t30 = p + 4;
+	movl	p(%rip), %eax
+	addl	$4, %eax
+	movl	%eax, t30(%rip)
+//t31 = (int)stack[t30];
+	movl	t30(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t31(%rip)
+//t32 = p + 0;
+	movl	p(%rip), %eax
+	addl	$0, %eax
+	movl	%eax, t32(%rip)
+//stack[t32] = (float) t31;
+	movl	t31(%rip), %edx
+	movl	t32(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//goto et2;
+	jmp	.et2
+//et2:
+.et2:
+//t00 = 0;
+	movl	$0, t00(%rip)
 	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE2:
-	.size	JAVA_Calculadora_pedirOperacion, .-JAVA_Calculadora_pedirOperacion
+	.size	VB_MULTIPLICAR_ENTERO_ENTERO, .-VB_MULTIPLICAR_ENTERO_ENTERO
 	.section	.rodata
-.LC15:
+.LC12:
 	.string	" %c"
-.LC16:
+.LC13:
 	.string	"%c"
-.LC17:
+.LC14:
 	.string	"%d"
-.LC18:
+.LC15:
 	.string	"%f"
-.LC19:
-	.string "OPeracion incorrecta! "
-.LC20:
-	.string "\n"
 	.text
-	.globl   JAVA_Calculadora_operar
-	.type    JAVA_Calculadora_operar, @function
-JAVA_Calculadora_operar:
+	.globl   VB_MODULO_ENTERO_ENTERO
+	.type    VB_MODULO_ENTERO_ENTERO, @function
+VB_MODULO_ENTERO_ENTERO:
 .LFB3:
 	.cfi_startproc
 	pushq	%rbp
@@ -1425,71 +2169,24 @@ JAVA_Calculadora_operar:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-//t27 = p + 0;
+//t33 = 0;
+	movl	$0, t33(%rip)
+//t34 = p + 4;
 	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t27(%rip)
-//t28 = (int)stack[t27];
-	movl	t27(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t28(%rip)
-//t29 = t28 + 2;
-	movl	t28(%rip), %eax
-	addl	$2, %eax
-	movl	%eax, t29(%rip)
-//t30 = (int)heap[t29];
-	movl	t29(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t30(%rip)
-//t31 = 1;
-	movl	$1, t31(%rip)
-//if (t30 == t31) goto et9;
-	movl	t30(%rip), %edx
-	movl	t31(%rip), %eax
-	cmpl	%eax, %edx
-	je	.et9
-//goto et7;
-	jmp	.et7
-//et9:
-.et9:
-//t32 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t32(%rip)
-//t33 = (float)stack[t32];
-	movl	t32(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	movss	%xmm0, t33(%rip)
-//p = p + 2;
-	movl	p(%rip), %eax
-	addl	$2, %eax
-	movl	%eax, p(%rip)
-//t34 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
+	addl	$4, %eax
 	movl	%eax, t34(%rip)
 //stack[t34] = (float) t33;
+	movl	t33(%rip), %edx
 	movl	t34(%rip), %eax
-	movss	t33(%rip), %xmm0
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_sumar
-//t35 = 1 + p;
+//t35 = p + 2;
 	movl	p(%rip), %eax
-	addl	$1, %eax
+	addl	$2, %eax
 	movl	%eax, t35(%rip)
 //t36 = (int)stack[t35];
 	movl	t35(%rip), %eax
@@ -1499,116 +2196,109 @@ JAVA_Calculadora_operar:
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
 	movl	%eax, t36(%rip)
-//p = p - 2;
+//t37 = p + 3;
 	movl	p(%rip), %eax
-	subl	$2, %eax
-	movl	%eax, p(%rip)
-//t37 = p + 1;
-	movl	p(%rip), %eax
-	addl	$1, %eax
+	addl	$3, %eax
 	movl	%eax, t37(%rip)
-//stack[t37] = (float) t36;
-	movl	t36(%rip), %edx
+//t38 = (int)stack[t37];
 	movl	t37(%rip), %eax
-	pxor	%xmm0, %xmm0
-	cvtsi2ssl	%edx, %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-//goto et5;
-	jmp	.et5
-//goto et5;
-	jmp	.et5
-//et7:
-.et7:
-//t38 = 2;
-	movl	$2, t38(%rip)
-//if (t30 == t38) goto et10;
-	movl	t30(%rip), %edx
-	movl	t38(%rip), %eax
-	cmpl	%eax, %edx
-	je	.et10
-//goto et8;
-	jmp	.et8
-//et10:
-.et10:
-//t39 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t39(%rip)
-//t40 = (float)stack[t39];
-	movl	t39(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	movss	%xmm0, t40(%rip)
-//p = p + 2;
-	movl	p(%rip), %eax
-	addl	$2, %eax
-	movl	%eax, p(%rip)
-//t41 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t41(%rip)
-//stack[t41] = (float) t40;
-	movl	t41(%rip), %eax
-	movss	t40(%rip), %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_restar
-//t42 = 1 + p;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t42(%rip)
-//t43 = (int)stack[t42];
-	movl	t42(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
-	movl	%eax, t43(%rip)
-//p = p - 2;
+	movl	%eax, t38(%rip)
+//t39 = t36 % t38;
+	movl	t36(%rip), %eax
+	movl	t38(%rip), %ecx
+	cltd
+	idivl	%ecx
+	movl	%edx, %eax
+	movl	%eax, t39(%rip)
+//t40 = p + 4;
 	movl	p(%rip), %eax
-	subl	$2, %eax
-	movl	%eax, p(%rip)
-//t44 = p + 1;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t44(%rip)
-//stack[t44] = (float) t43;
-	movl	t43(%rip), %edx
-	movl	t44(%rip), %eax
+	addl	$4, %eax
+	movl	%eax, t40(%rip)
+//stack[t40] = (float) t39;
+	movl	t39(%rip), %edx
+	movl	t40(%rip), %eax
 	pxor	%xmm0, %xmm0
 	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-//goto et5;
-	jmp	.et5
-//goto et5;
-	jmp	.et5
-//et8:
-.et8:
-//t45 = 3;
-	movl	$3, t45(%rip)
-//if (t30 == t45) goto et11;
-	movl	t30(%rip), %edx
-	movl	t45(%rip), %eax
-	cmpl	%eax, %edx
-	je	.et11
-//goto et4;
-	jmp	.et4
-//et11:
-.et11:
-//t46 = 0 + p;
+//t41 = p + 4;
+	movl	p(%rip), %eax
+	addl	$4, %eax
+	movl	%eax, t41(%rip)
+//t42 = (int)stack[t41];
+	movl	t41(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t42(%rip)
+//t43 = p + 0;
 	movl	p(%rip), %eax
 	addl	$0, %eax
+	movl	%eax, t43(%rip)
+//stack[t43] = (float) t42;
+	movl	t42(%rip), %edx
+	movl	t43(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//goto et3;
+	jmp	.et3
+//et3:
+.et3:
+//t00 = 0;
+	movl	$0, t00(%rip)
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE3:
+	.size	VB_MODULO_ENTERO_ENTERO, .-VB_MODULO_ENTERO_ENTERO
+	.section	.rodata
+.LC16:
+	.string	" %c"
+.LC17:
+	.string	"%c"
+.LC18:
+	.string	"%d"
+.LC19:
+	.string	"%f"
+	.text
+	.globl   PY_DIVIDIR_INDEFINIDO_INDEFINIDO
+	.type    PY_DIVIDIR_INDEFINIDO_INDEFINIDO, @function
+PY_DIVIDIR_INDEFINIDO_INDEFINIDO:
+.LFB4:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+//t44 = p + 1;
+	movl	p(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t44(%rip)
+//t45 = (float)stack[t44];
+	movl	t44(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	movss	%xmm0, t45(%rip)
+//t46 = p + 2;
+	movl	p(%rip), %eax
+	addl	$2, %eax
 	movl	%eax, t46(%rip)
 //t47 = (float)stack[t46];
 	movl	t46(%rip), %eax
@@ -1617,38 +2307,56 @@ JAVA_Calculadora_operar:
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	movss	%xmm0, t47(%rip)
-//p = p + 2;
-	movl	p(%rip), %eax
-	addl	$2, %eax
-	movl	%eax, p(%rip)
-//t48 = 0 + p;
+//t48 = t45 / t47;
+	movss	t45(%rip), %xmm0
+	movss	t47(%rip), %xmm1
+	divss	%xmm1, %xmm0
+	movss	%xmm0, t48(%rip)
+//t49 = p + 0;
 	movl	p(%rip), %eax
 	addl	$0, %eax
-	movl	%eax, t48(%rip)
-//stack[t48] = (float) t47;
-	movl	t48(%rip), %eax
-	movss	t47(%rip), %xmm0
+	movl	%eax, t49(%rip)
+//stack[t49] = (float) t48;
+	movl	t49(%rip), %eax
+	movss	t48(%rip), %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_potencia
-//t49 = 1 + p;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t49(%rip)
-//t50 = (int)stack[t49];
-	movl	t49(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t50(%rip)
-//p = p - 2;
-	movl	p(%rip), %eax
-	subl	$2, %eax
-	movl	%eax, p(%rip)
+//goto et4;
+	jmp	.et4
+//et4:
+.et4:
+//t00 = 0;
+	movl	$0, t00(%rip)
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE4:
+	.size	PY_DIVIDIR_INDEFINIDO_INDEFINIDO, .-PY_DIVIDIR_INDEFINIDO_INDEFINIDO
+	.section	.rodata
+.LC20:
+	.string	" %c"
+.LC21:
+	.string	"%c"
+.LC22:
+	.string	"%d"
+.LC23:
+	.string	"%f"
+	.text
+	.globl   PY_MODULO_INDEFINIDO_INDEFINIDO
+	.type    PY_MODULO_INDEFINIDO_INDEFINIDO, @function
+PY_MODULO_INDEFINIDO_INDEFINIDO:
+.LFB5:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+//t50 = 5;
+	movl	$5, t50(%rip)
 //t51 = p + 1;
 	movl	p(%rip), %eax
 	addl	$1, %eax
@@ -1662,29 +2370,84 @@ JAVA_Calculadora_operar:
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-//goto et5;
-	jmp	.et5
-//goto et5;
-	jmp	.et5
-//et4:
-.et4:
-//printf("LC19");
-	leaq	.LC19(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//printf("LC20");
-	leaq	.LC20(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//t52 = -1;
-	movl	$-1, t52(%rip)
-//t53 = p + 1;
+//t52 = 2;
+	movl	$2, t52(%rip)
+//t53 = p + 2;
 	movl	p(%rip), %eax
-	addl	$1, %eax
+	addl	$2, %eax
 	movl	%eax, t53(%rip)
 //stack[t53] = (float) t52;
 	movl	t52(%rip), %edx
 	movl	t53(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t54 = p + 1;
+	movl	p(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t54(%rip)
+//t55 = (int)stack[t54];
+	movl	t54(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t55(%rip)
+//t56 = p + 2;
+	movl	p(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t56(%rip)
+//t57 = (int)stack[t56];
+	movl	t56(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t57(%rip)
+//t58 = t55 % t57;
+	movl	t55(%rip), %eax
+	movl	t57(%rip), %ecx
+	cltd
+	idivl	%ecx
+	movl	%edx, %eax
+	movl	%eax, t58(%rip)
+//t59 = p + 3;
+	movl	p(%rip), %eax
+	addl	$3, %eax
+	movl	%eax, t59(%rip)
+//stack[t59] = (float) t58;
+	movl	t58(%rip), %edx
+	movl	t59(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t60 = p + 3;
+	movl	p(%rip), %eax
+	addl	$3, %eax
+	movl	%eax, t60(%rip)
+//t61 = (int)stack[t60];
+	movl	t60(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t61(%rip)
+//t62 = p + 0;
+	movl	p(%rip), %eax
+	addl	$0, %eax
+	movl	%eax, t62(%rip)
+//stack[t62] = (float) t61;
+	movl	t61(%rip), %edx
+	movl	t62(%rip), %eax
 	pxor	%xmm0, %xmm0
 	cvtsi2ssl	%edx, %xmm0
 	cltq
@@ -1701,315 +2464,83 @@ JAVA_Calculadora_operar:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE3:
-	.size	JAVA_Calculadora_operar, .-JAVA_Calculadora_operar
-	.section	.rodata
-.LC21:
-	.string	" %c"
-.LC22:
-	.string	"%c"
-.LC23:
-	.string	"%d"
-.LC24:
-	.string	"%f"
-	.text
-	.globl   JAVA_Calculadora_sumar
-	.type    JAVA_Calculadora_sumar, @function
-JAVA_Calculadora_sumar:
-.LFB4:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-//t54 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t54(%rip)
-//t55 = (int)stack[t54];
-	movl	t54(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t55(%rip)
-//t56 = t55 + 0;
-	movl	t55(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t56(%rip)
-//t57 = (int)heap[t56];
-	movl	t56(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t57(%rip)
-//t58 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t58(%rip)
-//t59 = (int)stack[t58];
-	movl	t58(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t59(%rip)
-//t60 = t59 + 1;
-	movl	t59(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t60(%rip)
-//t61 = (int)heap[t60];
-	movl	t60(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t61(%rip)
-//t62 = t57 + t61;
-	movl	t57(%rip), %edx
-	movl	t61(%rip), %eax
-	addl	%edx, %eax
-	movl	%eax, t62(%rip)
-//t63 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t63(%rip)
-//t64 = (int)stack[t63];
-	movl	t63(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t64(%rip)
-//t65 = t64 + 4;
-	movl	t64(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, t65(%rip)
-//heap[t65] = (float) t62;
-	movl	t62(%rip), %edx
-	movl	t65(%rip), %eax
-	pxor	%xmm0, %xmm0
-	cvtsi2ssl	%edx, %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-//t66 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t66(%rip)
-//t67 = (int)stack[t66];
-	movl	t66(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t67(%rip)
-//t68 = t67 + 4;
-	movl	t67(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, t68(%rip)
-//t69 = (int)heap[t68];
-	movl	t68(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t69(%rip)
-//t70 = p + 1;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t70(%rip)
-//stack[t70] = (float) t69;
-	movl	t69(%rip), %edx
-	movl	t70(%rip), %eax
-	pxor	%xmm0, %xmm0
-	cvtsi2ssl	%edx, %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-//goto et12;
-	jmp	.et12
-//et12:
-.et12:
-//t00 = 0;
-	movl	$0, t00(%rip)
-	popq	%rbp
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE4:
-	.size	JAVA_Calculadora_sumar, .-JAVA_Calculadora_sumar
-	.section	.rodata
-.LC25:
-	.string	" %c"
-.LC26:
-	.string	"%c"
-.LC27:
-	.string	"%d"
-.LC28:
-	.string	"%f"
-	.text
-	.globl   JAVA_Calculadora_restar
-	.type    JAVA_Calculadora_restar, @function
-JAVA_Calculadora_restar:
-.LFB5:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-//t71 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t71(%rip)
-//t72 = (int)stack[t71];
-	movl	t71(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t72(%rip)
-//t73 = t72 + 0;
-	movl	t72(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t73(%rip)
-//t74 = (int)heap[t73];
-	movl	t73(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t74(%rip)
-//t75 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t75(%rip)
-//t76 = (int)stack[t75];
-	movl	t75(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t76(%rip)
-//t77 = t76 + 1;
-	movl	t76(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t77(%rip)
-//t78 = (int)heap[t77];
-	movl	t77(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t78(%rip)
-//t79 = t74 - t78;
-	movl	t74(%rip), %eax
-	movl	t78(%rip), %edx
-	subl	%edx, %eax
-	movl	%eax, t79(%rip)
-//t80 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t80(%rip)
-//t81 = (int)stack[t80];
-	movl	t80(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t81(%rip)
-//t82 = t81 + 4;
-	movl	t81(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, t82(%rip)
-//heap[t82] = (float) t79;
-	movl	t79(%rip), %edx
-	movl	t82(%rip), %eax
-	pxor	%xmm0, %xmm0
-	cvtsi2ssl	%edx, %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-//t83 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t83(%rip)
-//t84 = (int)stack[t83];
-	movl	t83(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t84(%rip)
-//t85 = t84 + 4;
-	movl	t84(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, t85(%rip)
-//t86 = (int)heap[t85];
-	movl	t85(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t86(%rip)
-//t87 = p + 1;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t87(%rip)
-//stack[t87] = (float) t86;
-	movl	t86(%rip), %edx
-	movl	t87(%rip), %eax
-	pxor	%xmm0, %xmm0
-	cvtsi2ssl	%edx, %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-//goto et13;
-	jmp	.et13
-//et13:
-.et13:
-//t00 = 0;
-	movl	$0, t00(%rip)
-	popq	%rbp
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
 .LFE5:
-	.size	JAVA_Calculadora_restar, .-JAVA_Calculadora_restar
+	.size	PY_MODULO_INDEFINIDO_INDEFINIDO, .-PY_MODULO_INDEFINIDO_INDEFINIDO
 	.section	.rodata
-.LC29:
+.LC24:
 	.string	" %c"
-.LC30:
+.LC25:
 	.string	"%c"
-.LC31:
+.LC26:
 	.string	"%d"
-.LC32:
+.LC27:
 	.string	"%f"
+.LC28:
+	.string "Bienvenido\n"
+.LC29:
+	.string "Archivo de prueba...\n"
+.LC30:
+	.string "Ingrese el primer valor entero\n"
+.LC31:
+	.string "Ingrese el segudo valor entero "
+.LC32:
+	.string " + "
+.LC33:
+	.string " es igual a "
+.LC34:
+	.string "\n"
+.LC35:
+	.string " - "
+.LC36:
+	.string " es igual a "
+.LC37:
+	.string "\n"
+.LC38:
+	.string " * "
+.LC39:
+	.string " es igual a "
+.LC40:
+	.string "\n"
+.LC41:
+	.string " mod "
+.LC42:
+	.string " es igual a "
+.LC43:
+	.string "\n"
+.LC44:
+	.string " / "
+.LC45:
+	.string " es igual a "
+.LC46:
+	.string "\n"
+.LC47:
+	.string "Arreglo [ "
+.LC48:
+	.string " ] [ 0 ] su contenido es "
+.LC49:
+	.string "\n"
+.LC50:
+	.string "Arreglo [ "
+.LC51:
+	.string " ] [ 1 ] su contenido es "
+.LC52:
+	.string "\n"
+.LC53:
+	.string "Arreglo [ "
+.LC54:
+	.string " ] [ 0 ] su contenido es "
+.LC55:
+	.string "\n"
+.LC56:
+	.string "Arreglo [ "
+.LC57:
+	.string " ] [ 1 ] su contenido es "
+.LC58:
+	.string "\n"
 	.text
-	.globl   JAVA_Calculadora_potencia
-	.type    JAVA_Calculadora_potencia, @function
-JAVA_Calculadora_potencia:
+	.globl   main
+	.type    main, @function
+main:
 .LFB6:
 	.cfi_startproc
 	pushq	%rbp
@@ -2017,146 +2548,329 @@ JAVA_Calculadora_potencia:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-//t88 = 1;
-	movl	$1, t88(%rip)
-//t89 = 0 + p;
+//t63 = 2;
+	movl	$2, t63(%rip)
+//t64 = p + 0;
 	movl	p(%rip), %eax
 	addl	$0, %eax
-	movl	%eax, t89(%rip)
-//t90 = (int)stack[t89];
-	movl	t89(%rip), %eax
+	movl	%eax, t64(%rip)
+//stack[t64] = (float) t63;
+	movl	t63(%rip), %edx
+	movl	t64(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t65 = 2;
+	movl	$2, t65(%rip)
+//t66 = p + 1;
+	movl	p(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t66(%rip)
+//stack[t66] = (float) t65;
+	movl	t65(%rip), %edx
+	movl	t66(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t67 = p + 0;
+	movl	p(%rip), %eax
+	addl	$0, %eax
+	movl	%eax, t67(%rip)
+//t68 = (int)stack[t67];
+	movl	t67(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
-	movl	%eax, t90(%rip)
-//t91 = t90 + 4;
-	movl	t90(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, t91(%rip)
-//heap[t91] = (float) t88;
-	movl	t88(%rip), %edx
-	movl	t91(%rip), %eax
+	movl	%eax, t68(%rip)
+//t69 = p + 1;
+	movl	p(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t69(%rip)
+//t70 = (int)stack[t69];
+	movl	t69(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t70(%rip)
+//t71 = 0;
+	movl	$0, t71(%rip)
+//t71 = t68 * t71;
+	movl	t68(%rip), %edx
+	movl	t71(%rip), %eax
+	imull	%edx, %eax
+	movl	%eax, t71(%rip)
+//t71 = t70 * t71;
+	movl	t70(%rip), %edx
+	movl	t71(%rip), %eax
+	imull	%edx, %eax
+	movl	%eax, t71(%rip)
+//t72 = t71 + 2;
+	movl	t71(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t72(%rip)
+//t73 = 0;
+	movl	$0, t73(%rip)
+//t74 = p + t72;
+	movl	p(%rip), %edx
+	movl	t72(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t74(%rip)
+//stack[t74] = (float) t73;
+	movl	t73(%rip), %edx
+	movl	t74(%rip), %eax
 	pxor	%xmm0, %xmm0
 	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
+	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
+//t75 = 1 + t72;
+	movl	t72(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t75(%rip)
+//t76 = 1;
+	movl	$1, t76(%rip)
+//t77 = p + t75;
+	movl	p(%rip), %edx
+	movl	t75(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t77(%rip)
+//stack[t77] = (float) t76;
+	movl	t76(%rip), %edx
+	movl	t77(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t78 = 1 + t75;
+	movl	t75(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t78(%rip)
+//t79 = 3;
+	movl	$3, t79(%rip)
+//t80 = p + t78;
+	movl	p(%rip), %edx
+	movl	t78(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t80(%rip)
+//stack[t80] = (float) t79;
+	movl	t79(%rip), %edx
+	movl	t80(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t81 = 1 + t78;
+	movl	t78(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t81(%rip)
+//t82 = 4;
+	movl	$4, t82(%rip)
+//t83 = p + t81;
+	movl	p(%rip), %edx
+	movl	t81(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t83(%rip)
+//stack[t83] = (float) t82;
+	movl	t82(%rip), %edx
+	movl	t83(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t84 = 1 + t81;
+	movl	t81(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t84(%rip)
+//t85 = 1 + t84;
+	movl	t84(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t85(%rip)
+//t86 = 1 + t85;
+	movl	t85(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t86(%rip)
+//t87 = 1 + t86;
+	movl	t86(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t87(%rip)
+//t88 = 1 + t87;
+	movl	t87(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t88(%rip)
+//t89 = 1 + t88;
+	movl	t88(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t89(%rip)
+//t90 = 1 + t89;
+	movl	t89(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t90(%rip)
+//t91 = 1 + t90;
+	movl	t90(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t91(%rip)
 //t92 = 0;
 	movl	$0, t92(%rip)
-//t93 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
+//t93 = p + t91;
+	movl	p(%rip), %edx
+	movl	t91(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t93(%rip)
-//t94 = (int)stack[t93];
-	movl	t93(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t94(%rip)
-//t95 = t94 + 3;
-	movl	t94(%rip), %eax
-	addl	$3, %eax
-	movl	%eax, t95(%rip)
-//heap[t95] = (float) t92;
+//stack[t93] = (float) t92;
 	movl	t92(%rip), %edx
-	movl	t95(%rip), %eax
+	movl	t93(%rip), %eax
 	pxor	%xmm0, %xmm0
 	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
+	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-//et17:
-.et17:
-//t96 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
+//t94 = 1;
+	movl	$1, t94(%rip)
+//t95 = 2;
+	movl	$2, t95(%rip)
+//t96 = t94 + t95;
+	movl	t94(%rip), %edx
+	movl	t95(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t96(%rip)
-//t97 = (int)stack[t96];
-	movl	t96(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
+//t97 = p + t87;
+	movl	p(%rip), %edx
+	movl	t87(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t97(%rip)
-//t98 = t97 + 3;
+//stack[t97] = (float) t96;
+	movl	t96(%rip), %edx
 	movl	t97(%rip), %eax
-	addl	$3, %eax
-	movl	%eax, t98(%rip)
-//t99 = (int)heap[t98];
-	movl	t98(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t98 = 0;
+	movl	$0, t98(%rip)
+//t99 = p + t88;
+	movl	p(%rip), %edx
+	movl	t88(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t99(%rip)
-//t100 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t100(%rip)
-//t101 = (int)stack[t100];
-	movl	t100(%rip), %eax
+//stack[t99] = (float) t98;
+	movl	t98(%rip), %edx
+	movl	t99(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
+	movss	%xmm0, (%rdx,%rax)
+//t100 = 86;
+	movl	$86, t100(%rip)
+//t101 = p + t89;
+	movl	p(%rip), %edx
+	movl	t89(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t101(%rip)
-//t102 = t101 + 1;
+//stack[t101] = (float) t100;
+	movl	t100(%rip), %edx
 	movl	t101(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t102(%rip)
-//t103 = (int)heap[t102];
-	movl	t102(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t103(%rip)
-//if (t99 < t103) goto et15;
-	movl	t99(%rip), %edx
-	movl	t103(%rip), %eax
-	cmpl	%eax, %edx
-	jl	.et15
-//goto et16;
-	jmp	.et16
-//et15:
-.et15:
-//t104 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t104(%rip)
-//t105 = (int)stack[t104];
-	movl	t104(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t105(%rip)
-//t106 = t105 + 4;
-	movl	t105(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, t106(%rip)
-//t107 = (int)heap[t106];
-	movl	t106(%rip), %eax
+	movss	%xmm0, (%rdx,%rax)
+//t102 = 100;
+	movl	$100, t102(%rip)
+//t103 = p + t90;
+	movl	p(%rip), %edx
+	movl	t90(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t103(%rip)
+//stack[t103] = (float) t102;
+	movl	t102(%rip), %edx
+	movl	t103(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//printf("LC28");
+	leaq	.LC28(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC29");
+	leaq	.LC29(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC30");
+	leaq	.LC30(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//scanf("%d",&t104);
+	leaq	t104(%rip), %rsi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	__isoc99_scanf@PLT
+//t105 = p + t84;
+	movl	p(%rip), %edx
+	movl	t84(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t105(%rip)
+//stack[t105] = (float) t104;
+	movl	t104(%rip), %edx
+	movl	t105(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//printf("LC31");
+	leaq	.LC31(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//scanf("%d",&t106);
+	leaq	t106(%rip), %rsi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	__isoc99_scanf@PLT
+//t107 = p + t85;
+	movl	p(%rip), %edx
+	movl	t85(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t107(%rip)
-//t108 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
+//stack[t107] = (float) t106;
+	movl	t106(%rip), %edx
+	movl	t107(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t108 = p + t84;
+	movl	p(%rip), %edx
+	movl	t84(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t108(%rip)
 //t109 = (int)stack[t108];
 	movl	t108(%rip), %eax
@@ -2166,362 +2880,280 @@ JAVA_Calculadora_potencia:
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
 	movl	%eax, t109(%rip)
-//t110 = t109 + 0;
-	movl	t109(%rip), %eax
-	addl	$0, %eax
+//t110 = p + t85;
+	movl	p(%rip), %edx
+	movl	t85(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t110(%rip)
-//t111 = (int)heap[t110];
+//t111 = (int)stack[t110];
 	movl	t110(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
+	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
 	movl	%eax, t111(%rip)
-//t112 = t107 * t111;
-	movl	t107(%rip), %edx
-	movl	t111(%rip), %eax
-	imull	%edx, %eax
+//t112 = 1 + t91;
+	movl	t91(%rip), %eax
+	addl	$1, %eax
 	movl	%eax, t112(%rip)
-//t113 = 0 + p;
+//p = p + t112;
+	movl	p(%rip), %edx
+	movl	t112(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, p(%rip)
+//t113 = p + 2;
 	movl	p(%rip), %eax
-	addl	$0, %eax
+	addl	$2, %eax
 	movl	%eax, t113(%rip)
-//t114 = (int)stack[t113];
+//stack[t113] = (float) t109;
+	movl	t109(%rip), %edx
 	movl	t113(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t114(%rip)
-//t115 = t114 + 4;
-	movl	t114(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, t115(%rip)
-//heap[t115] = (float) t112;
-	movl	t112(%rip), %edx
-	movl	t115(%rip), %eax
 	pxor	%xmm0, %xmm0
 	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
+	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-//t116 = p + 0;
+//t114 = p + 3;
+	movl	p(%rip), %eax
+	addl	$3, %eax
+	movl	%eax, t114(%rip)
+//stack[t114] = (float) t111;
+	movl	t111(%rip), %edx
+	movl	t114(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t115 = 0 + p;
 	movl	p(%rip), %eax
 	addl	$0, %eax
-	movl	%eax, t116(%rip)
-//t117 = (int)stack[t116];
-	movl	t116(%rip), %eax
+	movl	%eax, t115(%rip)
+//t116 = (int)stack[t115];
+	movl	t115(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
+	movl	%eax, t116(%rip)
+	call	VB_MODULO_ENTERO_ENTERO
+//t117 = 0 + p;
+	movl	p(%rip), %eax
+	addl	$0, %eax
 	movl	%eax, t117(%rip)
-//t118 = t117 + 3;
+//t118 = (float)stack[t117];
 	movl	t117(%rip), %eax
-	addl	$3, %eax
-	movl	%eax, t118(%rip)
-//t119 = (int)heap[t118];
-	movl	t118(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
+	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
+	movss	%xmm0, t118(%rip)
+//t119 = 1 + t91;
+	movl	t91(%rip), %eax
+	addl	$1, %eax
 	movl	%eax, t119(%rip)
-//t120 = 1;
-	movl	$1, t120(%rip)
-//t121 = t119 + t120;
+//p = p - t119;
+	movl	p(%rip), %eax
 	movl	t119(%rip), %edx
+	subl	%edx, %eax
+	movl	%eax, p(%rip)
+//t120 = p + t90;
+	movl	p(%rip), %edx
+	movl	t90(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t120(%rip)
+//stack[t120] = (float) t118;
 	movl	t120(%rip), %eax
+	movss	t118(%rip), %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t121 = p + t84;
+	movl	p(%rip), %edx
+	movl	t84(%rip), %eax
 	addl	%edx, %eax
 	movl	%eax, t121(%rip)
-//t122 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
+//t122 = (int)stack[t121];
+	movl	t121(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
 	movl	%eax, t122(%rip)
-//t123 = (int)stack[t122];
-	movl	t122(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
+//t123 = p + t85;
+	movl	p(%rip), %edx
+	movl	t85(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t123(%rip)
-//t124 = t123 + 3;
+//t124 = (int)stack[t123];
 	movl	t123(%rip), %eax
-	addl	$3, %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
 	movl	%eax, t124(%rip)
-//heap[t124] = (float) t121;
-	movl	t121(%rip), %edx
-	movl	t124(%rip), %eax
-	pxor	%xmm0, %xmm0
-	cvtsi2ssl	%edx, %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-//goto et17;
-	jmp	.et17
-//et16:
-.et16:
-//t125 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t125(%rip)
-//t126 = (int)stack[t125];
-	movl	t125(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t126(%rip)
-//t127 = t126 + 4;
-	movl	t126(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, t127(%rip)
-//t128 = (int)heap[t127];
-	movl	t127(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	heap(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	cvttss2sil	%xmm0, %eax
-	movl	%eax, t128(%rip)
-//t129 = p + 1;
-	movl	p(%rip), %eax
+//t125 = 1 + t91;
+	movl	t91(%rip), %eax
 	addl	$1, %eax
-	movl	%eax, t129(%rip)
-//stack[t129] = (float) t128;
-	movl	t128(%rip), %edx
-	movl	t129(%rip), %eax
+	movl	%eax, t125(%rip)
+//p = p + t125;
+	movl	p(%rip), %edx
+	movl	t125(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, p(%rip)
+//t126 = p + 2;
+	movl	p(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t126(%rip)
+//stack[t126] = (float) t122;
+	movl	t122(%rip), %edx
+	movl	t126(%rip), %eax
 	pxor	%xmm0, %xmm0
 	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-//goto et14;
-	jmp	.et14
-//et14:
-.et14:
-//t00 = 0;
-	movl	$0, t00(%rip)
-	popq	%rbp
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE6:
-	.size	JAVA_Calculadora_potencia, .-JAVA_Calculadora_potencia
-	.section	.rodata
-.LC33:
-	.string	" %c"
-.LC34:
-	.string	"%c"
-.LC35:
-	.string	"%d"
-.LC36:
-	.string	"%f"
-.LC37:
-	.string "****primera operacion****"
-.LC38:
-	.string "el total es\n"
-.LC39:
-	.string "\n"
-.LC40:
-	.string "****seegunda operacion****"
-.LC41:
-	.string "el total es\n"
-.LC42:
-	.string "\n"
-.LC43:
-	.string "****Tercera operacion****"
-.LC44:
-	.string "el total es\n"
-.LC45:
-	.string "\n"
-.LC46:
-	.string "Desea continuar? (si=1, no = otro num)"
-	.text
-	.globl   main
-	.type    main, @function
-main:
-.LFB7:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-//p = p + 0;
+//t127 = p + 3;
+	movl	p(%rip), %eax
+	addl	$3, %eax
+	movl	%eax, t127(%rip)
+//stack[t127] = (float) t124;
+	movl	t124(%rip), %edx
+	movl	t127(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t128 = 0 + p;
 	movl	p(%rip), %eax
 	addl	$0, %eax
-	movl	%eax, p(%rip)
+	movl	%eax, t128(%rip)
+//t129 = (int)stack[t128];
+	movl	t128(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t129(%rip)
+	call	VB_SUMAR_ENTERO_ENTERO
 //t130 = 0 + p;
 	movl	p(%rip), %eax
 	addl	$0, %eax
 	movl	%eax, t130(%rip)
-//stack[t130] = (float) h;
-	movl	h(%rip), %edx
+//t131 = (float)stack[t130];
 	movl	t130(%rip), %eax
-	pxor	%xmm0, %xmm0
-	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_Calculadora
-//p = p - 0;
-	movl	p(%rip), %eax
-	subl	$0, %eax
-	movl	%eax, p(%rip)
-//p = p + 1;
-	movl	p(%rip), %eax
+	movss	(%rdx,%rax), %xmm0
+	movss	%xmm0, t131(%rip)
+//t132 = 1 + t91;
+	movl	t91(%rip), %eax
 	addl	$1, %eax
-	movl	%eax, p(%rip)
-//t131 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t131(%rip)
-//stack[t131] = (float) h;
-	movl	h(%rip), %edx
-	movl	t131(%rip), %eax
-	pxor	%xmm0, %xmm0
-	cvtsi2ssl	%edx, %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_Calculadora
-//p = p - 1;
-	movl	p(%rip), %eax
-	subl	$1, %eax
-	movl	%eax, p(%rip)
-//p = p + 2;
-	movl	p(%rip), %eax
-	addl	$2, %eax
-	movl	%eax, p(%rip)
-//t132 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
 	movl	%eax, t132(%rip)
-//stack[t132] = (float) h;
-	movl	h(%rip), %edx
-	movl	t132(%rip), %eax
-	pxor	%xmm0, %xmm0
-	cvtsi2ssl	%edx, %xmm0
+//p = p - t132;
+	movl	p(%rip), %eax
+	movl	t132(%rip), %edx
+	subl	%edx, %eax
+	movl	%eax, p(%rip)
+//t133 = p + t87;
+	movl	p(%rip), %edx
+	movl	t87(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t133(%rip)
+//stack[t133] = (float) t131;
+	movl	t133(%rip), %eax
+	movss	t131(%rip), %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_Calculadora
-//p = p - 2;
-	movl	p(%rip), %eax
-	subl	$2, %eax
-	movl	%eax, p(%rip)
-//et18:
-.et18:
-//printf("LC37");
-	leaq	.LC37(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//t133 = 1;
-	movl	$1, t133(%rip)
-//t134 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
+//t134 = p + t84;
+	movl	p(%rip), %edx
+	movl	t84(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t134(%rip)
-//t135 = (float)stack[t134];
+//t135 = (int)stack[t134];
 	movl	t134(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
-	movss	%xmm0, t135(%rip)
-//p = p + 4;
-	movl	p(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, p(%rip)
-//t136 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t135(%rip)
+//t136 = p + t85;
+	movl	p(%rip), %edx
+	movl	t85(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t136(%rip)
-//stack[t136] = (float) t135;
+//t137 = (int)stack[t136];
 	movl	t136(%rip), %eax
-	movss	t135(%rip), %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-//t137 = p + 1;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t137(%rip)
-//stack[t137] = (float) t133;
-	movl	t133(%rip), %edx
-	movl	t137(%rip), %eax
-	pxor	%xmm0, %xmm0
-	cvtsi2ssl	%edx, %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_pedirOperador_ENTERO
-//p = p - 4;
-	movl	p(%rip), %eax
-	subl	$4, %eax
-	movl	%eax, p(%rip)
-//t138 = 2;
-	movl	$2, t138(%rip)
-//t139 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t139(%rip)
-//t140 = (float)stack[t139];
-	movl	t139(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
-	movss	%xmm0, t140(%rip)
-//p = p + 4;
-	movl	p(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, p(%rip)
-//t141 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t141(%rip)
-//stack[t141] = (float) t140;
-	movl	t141(%rip), %eax
-	movss	t140(%rip), %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-//t142 = p + 1;
-	movl	p(%rip), %eax
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t137(%rip)
+//t138 = 1 + t91;
+	movl	t91(%rip), %eax
 	addl	$1, %eax
-	movl	%eax, t142(%rip)
-//stack[t142] = (float) t138;
-	movl	t138(%rip), %edx
-	movl	t142(%rip), %eax
+	movl	%eax, t138(%rip)
+//p = p + t138;
+	movl	p(%rip), %edx
+	movl	t138(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, p(%rip)
+//t139 = p + 2;
+	movl	p(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t139(%rip)
+//stack[t139] = (float) t135;
+	movl	t135(%rip), %edx
+	movl	t139(%rip), %eax
 	pxor	%xmm0, %xmm0
 	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_pedirOperador_ENTERO
-//p = p - 4;
+//t140 = p + 3;
 	movl	p(%rip), %eax
-	subl	$4, %eax
-	movl	%eax, p(%rip)
-//t143 = p + 0;
+	addl	$3, %eax
+	movl	%eax, t140(%rip)
+//stack[t140] = (float) t137;
+	movl	t137(%rip), %edx
+	movl	t140(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t141 = 0 + p;
+	movl	p(%rip), %eax
+	addl	$0, %eax
+	movl	%eax, t141(%rip)
+//t142 = (int)stack[t141];
+	movl	t141(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t142(%rip)
+	call	VB_RESTAR_ENTERO_ENTERO
+//t143 = 0 + p;
 	movl	p(%rip), %eax
 	addl	$0, %eax
 	movl	%eax, t143(%rip)
@@ -2532,60 +3164,44 @@ main:
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	movss	%xmm0, t144(%rip)
-//p = p + 4;
-	movl	p(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, p(%rip)
-//t145 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
+//t145 = 1 + t91;
+	movl	t91(%rip), %eax
+	addl	$1, %eax
 	movl	%eax, t145(%rip)
-//stack[t145] = (float) t144;
-	movl	t145(%rip), %eax
+//p = p - t145;
+	movl	p(%rip), %eax
+	movl	t145(%rip), %edx
+	subl	%edx, %eax
+	movl	%eax, p(%rip)
+//t146 = p + t88;
+	movl	p(%rip), %edx
+	movl	t88(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t146(%rip)
+//stack[t146] = (float) t144;
+	movl	t146(%rip), %eax
 	movss	t144(%rip), %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_pedirOperacion
-//p = p - 4;
-	movl	p(%rip), %eax
-	subl	$4, %eax
-	movl	%eax, p(%rip)
-//printf("LC38");
-	leaq	.LC38(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//t146 = p + 0;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t146(%rip)
-//t147 = (float)stack[t146];
-	movl	t146(%rip), %eax
+//t147 = p + t84;
+	movl	p(%rip), %edx
+	movl	t84(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t147(%rip)
+//t148 = (int)stack[t147];
+	movl	t147(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
-	movss	%xmm0, t147(%rip)
-//p = p + 4;
-	movl	p(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, p(%rip)
-//t148 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
+	cvttss2sil	%xmm0, %eax
 	movl	%eax, t148(%rip)
-//stack[t148] = (float) t147;
-	movl	t148(%rip), %eax
-	movss	t147(%rip), %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_operar
-//t149 = 1 + p;
-	movl	p(%rip), %eax
-	addl	$1, %eax
+//t149 = p + t85;
+	movl	p(%rip), %edx
+	movl	t85(%rip), %eax
+	addl	%edx, %eax
 	movl	%eax, t149(%rip)
 //t150 = (int)stack[t149];
 	movl	t149(%rip), %eax
@@ -2595,219 +3211,162 @@ main:
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
 	movl	%eax, t150(%rip)
-//p = p - 4;
-	movl	p(%rip), %eax
-	subl	$4, %eax
-	movl	%eax, p(%rip)
-//printf("%d",(int)t150);
-	movl	t150(%rip), %eax
-	movl	%eax, %esi
-	leaq	.LC35(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//printf("LC39");
-	leaq	.LC39(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//getchar();
-	call	getchar@PLT
-//printf("LC40");
-	leaq	.LC40(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//t151 = 1;
-	movl	$1, t151(%rip)
-//t152 = p + 1;
-	movl	p(%rip), %eax
+//t151 = 1 + t91;
+	movl	t91(%rip), %eax
 	addl	$1, %eax
+	movl	%eax, t151(%rip)
+//p = p + t151;
+	movl	p(%rip), %edx
+	movl	t151(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, p(%rip)
+//t152 = p + 2;
+	movl	p(%rip), %eax
+	addl	$2, %eax
 	movl	%eax, t152(%rip)
-//t153 = (float)stack[t152];
+//stack[t152] = (float) t148;
+	movl	t148(%rip), %edx
 	movl	t152(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	movss	%xmm0, t153(%rip)
-//p = p + 4;
+	movss	%xmm0, (%rdx,%rax)
+//t153 = p + 3;
 	movl	p(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, p(%rip)
+	addl	$3, %eax
+	movl	%eax, t153(%rip)
+//stack[t153] = (float) t150;
+	movl	t150(%rip), %edx
+	movl	t153(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
 //t154 = 0 + p;
 	movl	p(%rip), %eax
 	addl	$0, %eax
 	movl	%eax, t154(%rip)
-//stack[t154] = (float) t153;
+//t155 = (int)stack[t154];
 	movl	t154(%rip), %eax
-	movss	t153(%rip), %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-//t155 = p + 1;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t155(%rip)
-//stack[t155] = (float) t151;
-	movl	t151(%rip), %edx
-	movl	t155(%rip), %eax
-	pxor	%xmm0, %xmm0
-	cvtsi2ssl	%edx, %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_pedirOperador_ENTERO
-//p = p - 4;
-	movl	p(%rip), %eax
-	subl	$4, %eax
-	movl	%eax, p(%rip)
-//t156 = 2;
-	movl	$2, t156(%rip)
-//t157 = p + 1;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t157(%rip)
-//t158 = (float)stack[t157];
-	movl	t157(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	movss	%xmm0, t158(%rip)
-//p = p + 4;
-	movl	p(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, p(%rip)
-//t159 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t159(%rip)
-//stack[t159] = (float) t158;
-	movl	t159(%rip), %eax
-	movss	t158(%rip), %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-//t160 = p + 1;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t160(%rip)
-//stack[t160] = (float) t156;
-	movl	t156(%rip), %edx
-	movl	t160(%rip), %eax
-	pxor	%xmm0, %xmm0
-	cvtsi2ssl	%edx, %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_pedirOperador_ENTERO
-//p = p - 4;
-	movl	p(%rip), %eax
-	subl	$4, %eax
-	movl	%eax, p(%rip)
-//t161 = p + 1;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t161(%rip)
-//t162 = (float)stack[t161];
-	movl	t161(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	movss	%xmm0, t162(%rip)
-//p = p + 4;
-	movl	p(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, p(%rip)
-//t163 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t163(%rip)
-//stack[t163] = (float) t162;
-	movl	t163(%rip), %eax
-	movss	t162(%rip), %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_pedirOperacion
-//p = p - 4;
-	movl	p(%rip), %eax
-	subl	$4, %eax
-	movl	%eax, p(%rip)
-//printf("LC41");
-	leaq	.LC41(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//t164 = p + 1;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t164(%rip)
-//t165 = (float)stack[t164];
-	movl	t164(%rip), %eax
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	(%rdx,%rax), %xmm0
-	movss	%xmm0, t165(%rip)
-//p = p + 4;
-	movl	p(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, p(%rip)
-//t166 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
-	movl	%eax, t166(%rip)
-//stack[t166] = (float) t165;
-	movl	t166(%rip), %eax
-	movss	t165(%rip), %xmm0
-	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	stack(%rip), %rax
-	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_operar
-//t167 = 1 + p;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t167(%rip)
-//t168 = (int)stack[t167];
-	movl	t167(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
-	movl	%eax, t168(%rip)
-//p = p - 4;
+	movl	%eax, t155(%rip)
+	call	VB_MULTIPLICAR_ENTERO_ENTERO
+//t156 = 0 + p;
 	movl	p(%rip), %eax
-	subl	$4, %eax
+	addl	$0, %eax
+	movl	%eax, t156(%rip)
+//t157 = (float)stack[t156];
+	movl	t156(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	movss	%xmm0, t157(%rip)
+//t158 = 1 + t91;
+	movl	t91(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t158(%rip)
+//p = p - t158;
+	movl	p(%rip), %eax
+	movl	t158(%rip), %edx
+	subl	%edx, %eax
 	movl	%eax, p(%rip)
-//printf("%d",(int)t168);
-	movl	t168(%rip), %eax
-	movl	%eax, %esi
-	leaq	.LC35(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//printf("LC42");
-	leaq	.LC42(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//getchar();
-	call	getchar@PLT
-//printf("LC43");
-	leaq	.LC43(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//printf("LC44");
-	leaq	.LC44(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-//t169 = p + 2;
+//t159 = p + t89;
+	movl	p(%rip), %edx
+	movl	t89(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t159(%rip)
+//stack[t159] = (float) t157;
+	movl	t159(%rip), %eax
+	movss	t157(%rip), %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t160 = p + t84;
+	movl	p(%rip), %edx
+	movl	t84(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t160(%rip)
+//t161 = (int)stack[t160];
+	movl	t160(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t161(%rip)
+//t162 = p + t85;
+	movl	p(%rip), %edx
+	movl	t85(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t162(%rip)
+//t163 = (int)stack[t162];
+	movl	t162(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t163(%rip)
+//t164 = 1 + t91;
+	movl	t91(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t164(%rip)
+//p = p + t164;
+	movl	p(%rip), %edx
+	movl	t164(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, p(%rip)
+//t165 = p + 1;
+	movl	p(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, t165(%rip)
+//stack[t165] = (float) t161;
+	movl	t161(%rip), %edx
+	movl	t165(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t166 = p + 2;
 	movl	p(%rip), %eax
 	addl	$2, %eax
+	movl	%eax, t166(%rip)
+//stack[t166] = (float) t163;
+	movl	t163(%rip), %edx
+	movl	t166(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t167 = 0 + p;
+	movl	p(%rip), %eax
+	addl	$0, %eax
+	movl	%eax, t167(%rip)
+//t168 = (float)stack[t167];
+	movl	t167(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	movss	%xmm0, t168(%rip)
+	call	PY_DIVIDIR_INDEFINIDO_INDEFINIDO
+//t169 = 0 + p;
+	movl	p(%rip), %eax
+	addl	$0, %eax
 	movl	%eax, t169(%rip)
 //t170 = (float)stack[t169];
 	movl	t169(%rip), %eax
@@ -2816,101 +3375,1024 @@ main:
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	movss	%xmm0, t170(%rip)
-//p = p + 4;
-	movl	p(%rip), %eax
-	addl	$4, %eax
-	movl	%eax, p(%rip)
-//t171 = 0 + p;
-	movl	p(%rip), %eax
-	addl	$0, %eax
+//t171 = 1 + t91;
+	movl	t91(%rip), %eax
+	addl	$1, %eax
 	movl	%eax, t171(%rip)
-//stack[t171] = (float) t170;
-	movl	t171(%rip), %eax
+//p = p - t171;
+	movl	p(%rip), %eax
+	movl	t171(%rip), %edx
+	subl	%edx, %eax
+	movl	%eax, p(%rip)
+//t172 = p + t86;
+	movl	p(%rip), %edx
+	movl	t86(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t172(%rip)
+//stack[t172] = (float) t170;
+	movl	t172(%rip), %eax
 	movss	t170(%rip), %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-	call	JAVA_Calculadora_operar
-//t172 = 1 + p;
-	movl	p(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, t172(%rip)
-//t173 = (int)stack[t172];
-	movl	t172(%rip), %eax
+//t173 = p + t84;
+	movl	p(%rip), %edx
+	movl	t84(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t173(%rip)
+//t174 = (int)stack[t173];
+	movl	t173(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
-	movl	%eax, t173(%rip)
-//p = p - 4;
-	movl	p(%rip), %eax
-	subl	$4, %eax
-	movl	%eax, p(%rip)
-//printf("%d",(int)t173);
-	movl	t173(%rip), %eax
+	movl	%eax, t174(%rip)
+//printf("%d",(int)t174);
+	movl	t174(%rip), %eax
 	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC32");
+	leaq	.LC32(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t175 = p + t85;
+	movl	p(%rip), %edx
+	movl	t85(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t175(%rip)
+//t176 = (int)stack[t175];
+	movl	t175(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t176(%rip)
+//printf("%d",(int)t176);
+	movl	t176(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC33");
+	leaq	.LC33(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t177 = p + t87;
+	movl	p(%rip), %edx
+	movl	t87(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t177(%rip)
+//t178 = (int)stack[t177];
+	movl	t177(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t178(%rip)
+//printf("%d",(int)t178);
+	movl	t178(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC34");
+	leaq	.LC34(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t179 = p + t84;
+	movl	p(%rip), %edx
+	movl	t84(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t179(%rip)
+//t180 = (int)stack[t179];
+	movl	t179(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t180(%rip)
+//printf("%d",(int)t180);
+	movl	t180(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC35");
 	leaq	.LC35(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t181 = p + t85;
+	movl	p(%rip), %edx
+	movl	t85(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t181(%rip)
+//t182 = (int)stack[t181];
+	movl	t181(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t182(%rip)
+//printf("%d",(int)t182);
+	movl	t182(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC36");
+	leaq	.LC36(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t183 = p + t88;
+	movl	p(%rip), %edx
+	movl	t88(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t183(%rip)
+//t184 = (int)stack[t183];
+	movl	t183(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t184(%rip)
+//printf("%d",(int)t184);
+	movl	t184(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC37");
+	leaq	.LC37(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t185 = p + t84;
+	movl	p(%rip), %edx
+	movl	t84(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t185(%rip)
+//t186 = (int)stack[t185];
+	movl	t185(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t186(%rip)
+//printf("%d",(int)t186);
+	movl	t186(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC38");
+	leaq	.LC38(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t187 = p + t85;
+	movl	p(%rip), %edx
+	movl	t85(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t187(%rip)
+//t188 = (int)stack[t187];
+	movl	t187(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t188(%rip)
+//printf("%d",(int)t188);
+	movl	t188(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC39");
+	leaq	.LC39(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t189 = p + t89;
+	movl	p(%rip), %edx
+	movl	t89(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t189(%rip)
+//t190 = (int)stack[t189];
+	movl	t189(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t190(%rip)
+//printf("%d",(int)t190);
+	movl	t190(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC40");
+	leaq	.LC40(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t191 = p + t84;
+	movl	p(%rip), %edx
+	movl	t84(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t191(%rip)
+//t192 = (int)stack[t191];
+	movl	t191(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t192(%rip)
+//printf("%d",(int)t192);
+	movl	t192(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC41");
+	leaq	.LC41(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t193 = p + t85;
+	movl	p(%rip), %edx
+	movl	t85(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t193(%rip)
+//t194 = (int)stack[t193];
+	movl	t193(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t194(%rip)
+//printf("%d",(int)t194);
+	movl	t194(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC42");
+	leaq	.LC42(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t195 = p + t90;
+	movl	p(%rip), %edx
+	movl	t90(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t195(%rip)
+//t196 = (int)stack[t195];
+	movl	t195(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t196(%rip)
+//printf("%d",(int)t196);
+	movl	t196(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC43");
+	leaq	.LC43(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t197 = p + t84;
+	movl	p(%rip), %edx
+	movl	t84(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t197(%rip)
+//t198 = (int)stack[t197];
+	movl	t197(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t198(%rip)
+//printf("%d",(int)t198);
+	movl	t198(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC44");
+	leaq	.LC44(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t199 = p + t85;
+	movl	p(%rip), %edx
+	movl	t85(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t199(%rip)
+//t200 = (int)stack[t199];
+	movl	t199(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t200(%rip)
+//printf("%d",(int)t200);
+	movl	t200(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
 //printf("LC45");
 	leaq	.LC45(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
-//getchar();
-	call	getchar@PLT
+//t201 = p + t86;
+	movl	p(%rip), %edx
+	movl	t86(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t201(%rip)
+//t202 = (float)stack[t201];
+	movl	t201(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	movss	%xmm0, t202(%rip)
+//printf("%f",(float)t202);
+	movss	t202(%rip), %xmm0
+	pxor	%xmm2, %xmm2
+	cvtss2sd	%xmm0, %xmm2
+	movq	%xmm2, %rax
+	movq	%rax, %xmm0
+	leaq	.LC27(%rip), %rdi
+	movl	$1, %eax
+	call	printf@PLT
 //printf("LC46");
 	leaq	.LC46(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
-//scanf("%d",&t174);
-	leaq	t174(%rip), %rsi
-	leaq	.LC35(%rip), %rdi
-	movl	$0, %eax
-	call	__isoc99_scanf@PLT
-//t175 = p + 3;
-	movl	p(%rip), %eax
-	addl	$3, %eax
-	movl	%eax, t175(%rip)
-//stack[t175] = (float) t174;
-	movl	t174(%rip), %edx
-	movl	t175(%rip), %eax
+//t203 = 0;
+	movl	$0, t203(%rip)
+//t204 = 0;
+	movl	$0, t204(%rip)
+//t205 = t203;
+	movl	t203(%rip), %eax
+	movl	%eax, t205(%rip)
+//t206 = t205 * t68;
+	movl	t205(%rip), %edx
+	movl	t68(%rip), %eax
+	imull	%edx, %eax
+	movl	%eax, t206(%rip)
+//t207 = t206 + t204;
+	movl	t206(%rip), %edx
+	movl	t204(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t207(%rip)
+//t208 = t207 + 2;
+	movl	t207(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t208(%rip)
+//t209 = p + t87;
+	movl	p(%rip), %edx
+	movl	t87(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t209(%rip)
+//t210 = (int)stack[t209];
+	movl	t209(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t210(%rip)
+//stack[t208] = (float) t210;
+	movl	t210(%rip), %edx
+	movl	t208(%rip), %eax
 	pxor	%xmm0, %xmm0
 	cvtsi2ssl	%edx, %xmm0
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	%xmm0, (%rdx,%rax)
-//t176 = p + 3;
-	movl	p(%rip), %eax
-	addl	$3, %eax
-	movl	%eax, t176(%rip)
-//t177 = (int)stack[t176];
-	movl	t176(%rip), %eax
+//t211 = 0;
+	movl	$0, t211(%rip)
+//t212 = 1;
+	movl	$1, t212(%rip)
+//t213 = t211;
+	movl	t211(%rip), %eax
+	movl	%eax, t213(%rip)
+//t214 = t213 * t68;
+	movl	t213(%rip), %edx
+	movl	t68(%rip), %eax
+	imull	%edx, %eax
+	movl	%eax, t214(%rip)
+//t215 = t214 + t212;
+	movl	t214(%rip), %edx
+	movl	t212(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t215(%rip)
+//t216 = t215 + 2;
+	movl	t215(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t216(%rip)
+//t217 = p + t88;
+	movl	p(%rip), %edx
+	movl	t88(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t217(%rip)
+//t218 = (int)stack[t217];
+	movl	t217(%rip), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	leaq	stack(%rip), %rax
 	movss	(%rdx,%rax), %xmm0
 	cvttss2sil	%xmm0, %eax
-	movl	%eax, t177(%rip)
-//t178 = 1;
-	movl	$1, t178(%rip)
-//if (t177 == t178) goto et18;
-	movl	t177(%rip), %edx
-	movl	t178(%rip), %eax
+	movl	%eax, t218(%rip)
+//stack[t216] = (float) t218;
+	movl	t218(%rip), %edx
+	movl	t216(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t219 = 1;
+	movl	$1, t219(%rip)
+//t220 = 0;
+	movl	$0, t220(%rip)
+//t221 = t219;
+	movl	t219(%rip), %eax
+	movl	%eax, t221(%rip)
+//t222 = t221 * t68;
+	movl	t221(%rip), %edx
+	movl	t68(%rip), %eax
+	imull	%edx, %eax
+	movl	%eax, t222(%rip)
+//t223 = t222 + t220;
+	movl	t222(%rip), %edx
+	movl	t220(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t223(%rip)
+//t224 = t223 + 2;
+	movl	t223(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t224(%rip)
+//t225 = p + t89;
+	movl	p(%rip), %edx
+	movl	t89(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t225(%rip)
+//t226 = (int)stack[t225];
+	movl	t225(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t226(%rip)
+//stack[t224] = (float) t226;
+	movl	t226(%rip), %edx
+	movl	t224(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t227 = 1;
+	movl	$1, t227(%rip)
+//t228 = 1;
+	movl	$1, t228(%rip)
+//t229 = t227;
+	movl	t227(%rip), %eax
+	movl	%eax, t229(%rip)
+//t230 = t229 * t68;
+	movl	t229(%rip), %edx
+	movl	t68(%rip), %eax
+	imull	%edx, %eax
+	movl	%eax, t230(%rip)
+//t231 = t230 + t228;
+	movl	t230(%rip), %edx
+	movl	t228(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t231(%rip)
+//t232 = t231 + 2;
+	movl	t231(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t232(%rip)
+//t233 = p + t90;
+	movl	p(%rip), %edx
+	movl	t90(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t233(%rip)
+//t234 = (int)stack[t233];
+	movl	t233(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t234(%rip)
+//stack[t232] = (float) t234;
+	movl	t234(%rip), %edx
+	movl	t232(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t235 = 0;
+	movl	$0, t235(%rip)
+//t236 = 0;
+	movl	$0, t236(%rip)
+//t237 = t235;
+	movl	t235(%rip), %eax
+	movl	%eax, t237(%rip)
+//t238 = t237 * t68;
+	movl	t237(%rip), %edx
+	movl	t68(%rip), %eax
+	imull	%edx, %eax
+	movl	%eax, t238(%rip)
+//t239 = t238 + t236;
+	movl	t238(%rip), %edx
+	movl	t236(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t239(%rip)
+//t240 = 2 + t239;
+	movl	t239(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t240(%rip)
+//t241 = (float)stack[t240];
+	movl	t240(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	movss	%xmm0, t241(%rip)
+//t242 = p + t72;
+	movl	p(%rip), %edx
+	movl	t72(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t242(%rip)
+//stack[t242] = (float) t241;
+	movl	t242(%rip), %eax
+	movss	t241(%rip), %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t243 = 0;
+	movl	$0, t243(%rip)
+//t244 = 1;
+	movl	$1, t244(%rip)
+//t245 = t243;
+	movl	t243(%rip), %eax
+	movl	%eax, t245(%rip)
+//t246 = t245 * t68;
+	movl	t245(%rip), %edx
+	movl	t68(%rip), %eax
+	imull	%edx, %eax
+	movl	%eax, t246(%rip)
+//t247 = t246 + t244;
+	movl	t246(%rip), %edx
+	movl	t244(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t247(%rip)
+//t248 = 2 + t247;
+	movl	t247(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t248(%rip)
+//t249 = (float)stack[t248];
+	movl	t248(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	movss	%xmm0, t249(%rip)
+//t250 = p + t75;
+	movl	p(%rip), %edx
+	movl	t75(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t250(%rip)
+//stack[t250] = (float) t249;
+	movl	t250(%rip), %eax
+	movss	t249(%rip), %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t251 = 1;
+	movl	$1, t251(%rip)
+//t252 = 0;
+	movl	$0, t252(%rip)
+//t253 = t251;
+	movl	t251(%rip), %eax
+	movl	%eax, t253(%rip)
+//t254 = t253 * t68;
+	movl	t253(%rip), %edx
+	movl	t68(%rip), %eax
+	imull	%edx, %eax
+	movl	%eax, t254(%rip)
+//t255 = t254 + t252;
+	movl	t254(%rip), %edx
+	movl	t252(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t255(%rip)
+//t256 = 2 + t255;
+	movl	t255(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t256(%rip)
+//t257 = (float)stack[t256];
+	movl	t256(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	movss	%xmm0, t257(%rip)
+//t258 = p + t78;
+	movl	p(%rip), %edx
+	movl	t78(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t258(%rip)
+//stack[t258] = (float) t257;
+	movl	t258(%rip), %eax
+	movss	t257(%rip), %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t259 = 1;
+	movl	$1, t259(%rip)
+//t260 = 1;
+	movl	$1, t260(%rip)
+//t261 = t259;
+	movl	t259(%rip), %eax
+	movl	%eax, t261(%rip)
+//t262 = t261 * t68;
+	movl	t261(%rip), %edx
+	movl	t68(%rip), %eax
+	imull	%edx, %eax
+	movl	%eax, t262(%rip)
+//t263 = t262 + t260;
+	movl	t262(%rip), %edx
+	movl	t260(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t263(%rip)
+//t264 = 2 + t263;
+	movl	t263(%rip), %eax
+	addl	$2, %eax
+	movl	%eax, t264(%rip)
+//t265 = (float)stack[t264];
+	movl	t264(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	movss	%xmm0, t265(%rip)
+//t266 = p + t81;
+	movl	p(%rip), %edx
+	movl	t81(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t266(%rip)
+//stack[t266] = (float) t265;
+	movl	t266(%rip), %eax
+	movss	t265(%rip), %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//t267 = 0;
+	movl	$0, t267(%rip)
+//t268 = p + t91;
+	movl	p(%rip), %edx
+	movl	t91(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t268(%rip)
+//stack[t268] = (float) t267;
+	movl	t267(%rip), %edx
+	movl	t268(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//et11:
+.et11:
+//t269 = p + t91;
+	movl	p(%rip), %edx
+	movl	t91(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t269(%rip)
+//t270 = (int)stack[t269];
+	movl	t269(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t270(%rip)
+//t271 = 2;
+	movl	$2, t271(%rip)
+//if (t270 < t271) goto et6;
+	movl	t270(%rip), %edx
+	movl	t271(%rip), %eax
 	cmpl	%eax, %edx
-	je	.et18
-//goto et19;
-	jmp	.et19
-//et19:
-.et19:
+	jl	.et6
+//goto et7;
+	jmp	.et7
+//et6:
+.et6:
+//t272 = p + t91;
+	movl	p(%rip), %edx
+	movl	t91(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t272(%rip)
+//t273 = (int)stack[t272];
+	movl	t272(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t273(%rip)
+//t274 = 0;
+	movl	$0, t274(%rip)
+//if (t273 == t274) goto et9;
+	movl	t273(%rip), %edx
+	movl	t274(%rip), %eax
+	cmpl	%eax, %edx
+	je	.et9
+//goto et10;
+	jmp	.et10
+//et9:
+.et9:
+//printf("LC47");
+	leaq	.LC47(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t275 = p + t91;
+	movl	p(%rip), %edx
+	movl	t91(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t275(%rip)
+//t276 = (int)stack[t275];
+	movl	t275(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t276(%rip)
+//printf("%d",(int)t276);
+	movl	t276(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC48");
+	leaq	.LC48(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t277 = p + t72;
+	movl	p(%rip), %edx
+	movl	t72(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t277(%rip)
+//t278 = (int)stack[t277];
+	movl	t277(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t278(%rip)
+//printf("%d",(int)t278);
+	movl	t278(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC49");
+	leaq	.LC49(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC50");
+	leaq	.LC50(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t279 = p + t91;
+	movl	p(%rip), %edx
+	movl	t91(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t279(%rip)
+//t280 = (int)stack[t279];
+	movl	t279(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t280(%rip)
+//printf("%d",(int)t280);
+	movl	t280(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC51");
+	leaq	.LC51(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t281 = p + t75;
+	movl	p(%rip), %edx
+	movl	t75(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t281(%rip)
+//t282 = (int)stack[t281];
+	movl	t281(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t282(%rip)
+//printf("%d",(int)t282);
+	movl	t282(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC52");
+	leaq	.LC52(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//goto et8;
+	jmp	.et8
+//et10:
+.et10:
+//printf("LC53");
+	leaq	.LC53(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t283 = p + t91;
+	movl	p(%rip), %edx
+	movl	t91(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t283(%rip)
+//t284 = (int)stack[t283];
+	movl	t283(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t284(%rip)
+//printf("%d",(int)t284);
+	movl	t284(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC54");
+	leaq	.LC54(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t285 = p + t78;
+	movl	p(%rip), %edx
+	movl	t78(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t285(%rip)
+//t286 = (int)stack[t285];
+	movl	t285(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t286(%rip)
+//printf("%d",(int)t286);
+	movl	t286(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC55");
+	leaq	.LC55(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC56");
+	leaq	.LC56(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t287 = p + t91;
+	movl	p(%rip), %edx
+	movl	t91(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t287(%rip)
+//t288 = (int)stack[t287];
+	movl	t287(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t288(%rip)
+//printf("%d",(int)t288);
+	movl	t288(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC57");
+	leaq	.LC57(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//t289 = p + t81;
+	movl	p(%rip), %edx
+	movl	t81(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t289(%rip)
+//t290 = (int)stack[t289];
+	movl	t289(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t290(%rip)
+//printf("%d",(int)t290);
+	movl	t290(%rip), %eax
+	movl	%eax, %esi
+	leaq	.LC26(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//printf("LC58");
+	leaq	.LC58(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+//et8:
+.et8:
+//t291 = p + t91;
+	movl	p(%rip), %edx
+	movl	t91(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t291(%rip)
+//t292 = (int)stack[t291];
+	movl	t291(%rip), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	(%rdx,%rax), %xmm0
+	cvttss2sil	%xmm0, %eax
+	movl	%eax, t292(%rip)
+//t293 = 1;
+	movl	$1, t293(%rip)
+//t294 = t292 + t293;
+	movl	t292(%rip), %edx
+	movl	t293(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t294(%rip)
+//t295 = p + t91;
+	movl	p(%rip), %edx
+	movl	t91(%rip), %eax
+	addl	%edx, %eax
+	movl	%eax, t295(%rip)
+//stack[t295] = (float) t294;
+	movl	t294(%rip), %edx
+	movl	t295(%rip), %eax
+	pxor	%xmm0, %xmm0
+	cvtsi2ssl	%edx, %xmm0
+	cltq
+	leaq	0(,%rax,4), %rdx
+	leaq	stack(%rip), %rax
+	movss	%xmm0, (%rdx,%rax)
+//goto et11;
+	jmp	.et11
+//et7:
+.et7:
+//getchar();
+	call	getchar@PLT
 	movl	$0, %eax
 	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE7:
+.LFE6:
 	.size	main, .-main
 	.ident	"GCC: (GNU) 10.2.0"
 	.section	.note.GNU-stack,"",@progbits
